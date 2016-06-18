@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.MenuGameController">
+   <children>
+      <Pane prefHeight="650.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="650.0" fitWidth="1200.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/council.jpg" />
+               </image>
+            </ImageView>
+            <Pane layoutX="491.0" layoutY="179.0" prefHeight="239.0" prefWidth="213.0">
+               <children>
+                  <VBox layoutX="5.0" prefHeight="238.0" prefWidth="204.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="buttonStartGame" mnemonicParsing="false" onAction="#startGameTime" prefHeight="40.0" prefWidth="217.0" text="Start Game" textFill="#d00000">
+                           <font>
+                              <Font name="Berry Rotunda Regular" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="217.0" text="Make a maps" textFill="#d00000">
+                           <font>
+                              <Font name="Berry Rotunda Regular" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="217.0" text="Options" textFill="#d00000">
+                           <font>
+                              <Font name="Berry Rotunda Regular" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="217.0" text="Exit" textFill="#d00000">
+                           <font>
+                              <Font name="Berry Rotunda Regular" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

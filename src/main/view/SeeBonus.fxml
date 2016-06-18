@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.SeeBonusController">
+   <children>
+      <ImageView fitHeight="467.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@image/windowImage.jpg" />
+         </image>
+      </ImageView>
+      <GridPane gridLinesVisible="true" layoutX="199.0" layoutY="97.0" style="-fx-background-color: white; -fx-border-color: brown;">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="41.0" prefWidth="130.0" style="-fx-background-color: brown;" text="Bonus" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Berry Rotunda Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="53.0" prefWidth="187.0" style="-fx-background-color: brown;" text="Number" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Berry Rotunda Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="155.0" text="Helpers" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="129.0" text="Shifts" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font></Label>
+            <Label alignment="CENTER" prefHeight="53.0" prefWidth="184.0" text="Political cards" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font></Label>
+            <Label fx:id="bonusShifts" alignment="CENTER" prefHeight="61.0" prefWidth="195.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="bonusPoliticalCards" alignment="CENTER" prefHeight="78.0" prefWidth="265.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label alignment="CENTER" layoutX="11.0" layoutY="101.0" prefHeight="53.0" prefWidth="184.0" text="Coins" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="11.0" layoutY="131.0" prefHeight="53.0" prefWidth="184.0" text="Points" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="11.0" layoutY="41.0" prefHeight="49.0" prefWidth="155.0" text="New main action" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="bonusHelpers" alignment="CENTER" layoutX="111.0" layoutY="41.0" prefHeight="39.0" prefWidth="128.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="bonusNewMainAction" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="39.0" prefWidth="128.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="bonusPoints" alignment="CENTER" layoutX="121.0" layoutY="51.0" prefHeight="39.0" prefWidth="128.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="bonusReusePermitCard" alignment="CENTER" layoutX="20.0" layoutY="20.0" prefHeight="39.0" prefWidth="128.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="bonusCoins" alignment="CENTER" prefHeight="35.0" prefWidth="177.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label alignment="CENTER" layoutX="11.0" layoutY="191.0" prefHeight="49.0" prefWidth="155.0" text="Reuse Permit card" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="7">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="11.0" layoutY="221.0" prefHeight="49.0" prefWidth="155.0" text="Acquire Permit card" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="8">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="bonusAcquirePermitCard" alignment="CENTER" layoutX="111.0" layoutY="221.0" prefHeight="39.0" prefWidth="128.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label alignment="CENTER" layoutX="11.0" layoutY="251.0" prefHeight="49.0" prefWidth="155.0" text="Acquire Single Village Bonus" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="9">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="bonusAcquireSingleVillageBonus" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="199.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="155.0" text="Acquire Double Village Bonus" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="10">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="bonusAcquireDoubleVillageBonus" alignment="CENTER" prefHeight="93.0" prefWidth="244.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+         </children>
+      </GridPane>
+      <Text fill="#a40404" layoutX="204.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonus Village">
+         <font>
+            <Font name="Berry Rotunda Regular" size="23.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
