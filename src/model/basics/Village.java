@@ -66,6 +66,7 @@ public class Village implements Serializable {
 		for(int i = 0; i < this.shops.length; i++) if(this.shops[i] == VillageConstants.NULL_GAMER) this.shops[i] = gamer.getUsername();
 	}
 	
+	
 	public String getFirstGamer(){ return this.shops[0]; }
 	
 	public String getName() { return this.name; }

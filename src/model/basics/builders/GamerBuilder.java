@@ -34,6 +34,7 @@ public class GamerBuilder {
 		this.helpers = -1;
 		this.coins = -1;
 		this.match = null;
+		this.shops = -1;
 		this.politicalCards = null;
 	}
 	

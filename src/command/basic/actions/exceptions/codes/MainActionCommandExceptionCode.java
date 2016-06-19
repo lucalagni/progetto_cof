@@ -13,7 +13,9 @@ public enum MainActionCommandExceptionCode {
 	INVALID_PERMIT_CARD_NUMBER("MainActionCommandException: invalid permit card number"),
 	INVALID_POLITICAL_CARDS_NUMBER("MainActionCommandException: invalid political cards number"),
 	INCONCISTENCE_BEETWEEN_POLITICAL_CARDS_AND_NOBLES("MainActionCommandException: inconcistence between political cards and nobles"),
-	INVALID_VILLAGE_PATH("MainActionCommandException: invalid village path");
+	INVALID_VILLAGE_PATH("MainActionCommandException: invalid village path"),
+	INVALID_NOBLE_COLOR("MainActionCommandException: invalid noble color"),
+	OPERATION_NOT_VALID("MainActionCommandException: operation not valid");
 	
 	private String exceptionCode;
 	MainActionCommandExceptionCode(String exceptionCode){ this.setExceptionCode(exceptionCode);}

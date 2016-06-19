@@ -11,4 +11,6 @@ public final class PermitCardsDeckConstants {
 	public static final int THREE_CARDS_COINS = 4;
 	public static final int FOUR_CARDS_COINS = 0;
 	public static final int JOLLY_CARDS_COINS = 1;
+	
+	public static final int DOUBLE_ACTION_HELPERS = 1;
 }

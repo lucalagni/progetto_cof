@@ -56,7 +56,7 @@ public class MatchManager {
 		}
 		else{
 			for(int i = 0; i < numMatches; i++){
-				matches.add(new MatchGenerator());
+				//matches.add(new MatchGenerator());
 			}
 		}
 	}

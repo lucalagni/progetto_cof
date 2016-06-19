@@ -9,4 +9,5 @@ public final class HelpersPoolConstants {
 	public static final int MAX_HELPERS_NUMBER_FOR_GAMER = 30;
 	public static final int HELPERS_COINS_PRICE = 3;
 	public static final int HELPERS_FOR_SHOP = 1;
+	public static final int HELPERS_FOR_NEW_MAIN_ACTION = 3;
 }
