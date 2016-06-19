@@ -2,6 +2,7 @@ package main.view;
 
 import main.Client;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class StartGameTimeController {
@@ -9,7 +10,8 @@ public class StartGameTimeController {
 	private Client mainApp;
 	private Stage startGameTimeStage; 
 	
-	
+	@FXML Button buttonExit;
+	@FXML Button buttonStart;
 	
 	@FXML
     private void initialize() {
@@ -19,19 +21,19 @@ public class StartGameTimeController {
 	        this.startGameTimeStage = startGameTimeStage;
 	}
 	
+	@FXML
+	private void goStart(){
+		
+		startGameTimeStage.close();
+		mainApp.showMatchGame();
+	}
 	
 	@FXML
 	private void goMenu(){
 		
 		startGameTimeStage.close();
-		Client.showMenuGame();
+		// da aggiungere: mandare mess al server che il giocatore si è disconnesso
+		Client.showSelectConnection();
 	}
 	
-	@FXML
-	private void matchGame(){
-		
-		startGameTimeStage.close();
-		Client.showMatchGame();
-	
-	}
 }

@@ -15,7 +15,6 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.view.MenuGameController;
 import main.view.SeeBonusController;
 import main.view.SeeShopsController;
 import main.view.StartGameTimeController;
@@ -92,25 +91,7 @@ public class Client extends Application {
             	e.printStackTrace();
                }
     }  
-      
-     public static void showMenuGame(){
-    	 
-             try {
-              
-           	  	 FXMLLoader loader = new FXMLLoader();
-                 loader.setLocation(Client.class.getResource("view/MenuGame.fxml"));
-                 AnchorPane menuGame = (AnchorPane) loader.load();
-                 
-                 
 
-                 // Set person overview into the center of root layout.
-                rootLayout.setCenter(menuGame);
-                
-                 } catch (IOException e) {
-                 	e.printStackTrace();
-                    }
-         }     
-     
      
      public static void showMatchGame(){
     	 
@@ -131,7 +112,7 @@ public class Client extends Application {
                     }
          }
            
-     public static void showMessageStartGame() {
+     public static void showMessageStartGameTime() {
      	
          try {
          	FXMLLoader loader = new FXMLLoader();
@@ -232,23 +213,8 @@ public class Client extends Application {
                     controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
                    
               
-                    	controller.seeBonusVillage(village);
-   
-                    
-                    // controller settaggio bonus
-                    
-                    /*controller.setHelpers("" + be.getGameMap().getVillages()[i].getBonus().getHelpers());
-                    controller.setShifts("" + be.getGameMap().getVillages()[i].getBonus().getShifts());
-                    controller.setPoliticalCards("" + be.getGameMap().getVillages()[i].getBonus().getPoliticalCards());
-                    controller.setBonusCoins("" + be.getGameMap().getVillages()[i].getBonus().getCoins());
-                    controller.setBonusPoints("" + be.getGameMap().getVillages()[i].getBonus().getPoints());
-                    controller.setBonusNewMainAction("" + be.getGameMap().getVillages()[i].getBonus().getNewMainAction());
-                    controller.setBonusReusePermitCard("" + be.getGameMap().getVillages()[i].getBonus().getReusePermitBonus());
-                    controller.setBonusAcquirePermitCard("" + be.getGameMap().getVillages()[i].getBonus().getAcquirePermitCard());
-                    controller.setBonusAcquireSingleVillageBonus("" + be.getGameMap().getVillages()[i].getBonus().getAcquireSingleVillageBonus());
-                    controller.setBonusAcquireDoubleVillageBonus("" + be.getGameMap().getVillages()[i].getBonus().getAcquireDoubleVillageBonus());
-                    
-                    */
+                    controller.seeBonusVillage(village);
+ 
                     seeBonusVillageStage.showAndWait();
                     
                     
@@ -281,23 +247,8 @@ public class Client extends Application {
                     controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
                    
               
-                    	controller.seeBonusPermitCard(region,card);
+                    controller.seeBonusPermitCard(region,card);
    
-                    
-                    // controller settaggio bonus
-                    
-                    /*controller.setHelpers("" + be.getGameMap().getVillages()[i].getBonus().getHelpers());
-                    controller.setShifts("" + be.getGameMap().getVillages()[i].getBonus().getShifts());
-                    controller.setPoliticalCards("" + be.getGameMap().getVillages()[i].getBonus().getPoliticalCards());
-                    controller.setBonusCoins("" + be.getGameMap().getVillages()[i].getBonus().getCoins());
-                    controller.setBonusPoints("" + be.getGameMap().getVillages()[i].getBonus().getPoints());
-                    controller.setBonusNewMainAction("" + be.getGameMap().getVillages()[i].getBonus().getNewMainAction());
-                    controller.setBonusReusePermitCard("" + be.getGameMap().getVillages()[i].getBonus().getReusePermitBonus());
-                    controller.setBonusAcquirePermitCard("" + be.getGameMap().getVillages()[i].getBonus().getAcquirePermitCard());
-                    controller.setBonusAcquireSingleVillageBonus("" + be.getGameMap().getVillages()[i].getBonus().getAcquireSingleVillageBonus());
-                    controller.setBonusAcquireDoubleVillageBonus("" + be.getGameMap().getVillages()[i].getBonus().getAcquireDoubleVillageBonus());
-                    
-                    */
                     seeBonusVillageStage.showAndWait();
                   
                    } catch (IOException e) {
