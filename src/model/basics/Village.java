@@ -61,10 +61,20 @@ public class Village implements Serializable {
 		for(int i = 0; i < this.shops.length; i++) if(this.shops[i].equals(gamer.getUsername()))throw new VillageException(VillageExceptionCode.GAMER_ALREADY_PRESENT.getExceptionCode());
 	}
 	
+	private void checkGamerPresence(String gamer) throws VillageException{
+		for(int i = 0; i < this.shops.length; i++) if(this.shops[i].equals(gamer))throw new VillageException(VillageExceptionCode.GAMER_ALREADY_PRESENT.getExceptionCode());
+	}
+	
 	public void addShop(Gamer gamer)throws VillageException,GamerException{
 		this.checkGamerPresence(gamer);
 		for(int i = 0; i < this.shops.length; i++) if(this.shops[i] == VillageConstants.NULL_GAMER) this.shops[i] = gamer.getUsername();
 	}
+	
+	public void addShop(String gamer)throws VillageException,GamerException{
+		this.checkGamerPresence(gamer);
+		for(int i = 0; i < this.shops.length; i++) if(this.shops[i] == VillageConstants.NULL_GAMER) this.shops[i] = gamer;
+	}
+	
 	
 	public String getFirstGamer(){ return this.shops[0]; }
 	

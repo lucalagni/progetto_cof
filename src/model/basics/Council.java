@@ -3,7 +3,6 @@ package model.basics;
 import java.awt.Color;
 import java.io.Serializable;
 
-import model.basics.constants.CouncilConstants;
 import model.basics.exceptions.CouncilException;
 import model.basics.exceptions.codes.CouncilExceptionCode;
 import model.basics.constants.ColorConstants;
@@ -30,9 +29,11 @@ public class Council implements Serializable {
 		return flag;
 	}
 	
-	public int slideNoble(Color noble) throws CouncilException{
-		Color tmp = noble, app ;
+	public Color slideNoble(Color noble) throws CouncilException{
+		Color tmp = noble, app = null ;
 		Color[] nobles = this.getNobles();
+		Color old = null ;
+		
 		if(checkSingleColorConsistence(noble) == false) throw new CouncilException(CouncilExceptionCode.INCONSISTENCE_BETWEEN_NEW_NOBLE_AND_PALETTE.getExceptionCode());
 		for(int i = 0; i < (nobles.length - 1); i++){
 			if(i == 0){
@@ -45,9 +46,10 @@ public class Council implements Serializable {
 				nobles[i] = tmp;
 				tmp = app;
 			}
+			if(i == nobles.length - 1) old = app;
 		}
 		
-		return CouncilConstants.REWARD_COINS;
+		return old;
 	}
 	
 	public Color[] getNobles(){ return this.nobles; }

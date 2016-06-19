@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import model.basics.PoliticalCard;
 import model.basics.builders.exceptions.BuilderException;
-import model.basics.exceptions.codes.PoliticalCardExceptionCode;
 
 public class PoliticalCardBuilder {
 	public Color color;

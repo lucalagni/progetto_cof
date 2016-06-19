@@ -31,18 +31,32 @@ public class PoliticalCardsDeck implements Serializable{
 	}
 	
 	public PoliticalCard pickupCard() throws PoliticalCardsDeckException {
-		Iterator<PoliticalCard> it = this.getAvailableCardsList().iterator();
 		PoliticalCard card = null;
 		
-		if(it.hasNext() == false) throw new PoliticalCardsDeckException(PoliticalCardsDeckExceptionCode.NO_MORE_AVAILABLE_CARDS.getExceptionCode());
-		card = it.next();
-		it.remove();
+		if(this.availableCardsList.get(0) == null)throw new PoliticalCardsDeckException(PoliticalCardsDeckExceptionCode.NO_MORE_AVAILABLE_CARDS.getExceptionCode());
+		card = this.availableCardsList.get(0);
+		this.availableCardsList.remove(0);
 		return card;
 	}
 	
 	public void addCard(PoliticalCard politicalCard)throws PoliticalCardsDeckException{
 		if(politicalCard == null) throw new PoliticalCardsDeckException(PoliticalCardsDeckExceptionCode.INVALID_INPUT_DATA.getExceptionCode());
 		this.availableCardsList.add(politicalCard);
+	}
+	
+	public void shuffleCards() throws PoliticalCardsDeckException{
+		ArrayList<PoliticalCard> shuffledDeck = new ArrayList<PoliticalCard>();
+		ArrayList<PoliticalCard> tmp = this.getAvailableCardsList();
+
+		
+		while(!tmp.isEmpty()){
+			int randomPosition = (int)(Math.random() * this.availableCardsList.size());
+			shuffledDeck.add(tmp.get(randomPosition));
+			tmp.remove(randomPosition);
+		}
+		
+
+		this.availableCardsList = shuffledDeck;
 	}
 	
 	

@@ -30,7 +30,7 @@ public class Match implements Serializable{
 		this.setMatchStatus(status);
 		this.setPositions(positions);
 		this.setActualGamer(actualGamer);
-		this.setNextGamer();
+		//this.setNextGamer();
 	}
 	
 	public void setMatchStatus(MatchStatus status){this.status = status; }
@@ -73,7 +73,7 @@ public class Match implements Serializable{
 		return null;
 	}
 	
-	public void setNextGamer(){
+	/*public void setNextGamer(){
 		Iterator<Map.Entry<Gamer, Integer>> it = this.getPositions().entrySet().iterator();
 		
 		while(it.hasNext()) {
@@ -84,11 +84,11 @@ public class Match implements Serializable{
 			}
 		}
 		
-	}
+	}*/
 	
 	public void done(){
 		this.setActualGamer(this.nextGamer);
-		this.setNextGamer();
+		//this.setNextGamer();
 	}
 	
 	public String getTitle(){ return this.title; }
@@ -116,6 +116,7 @@ public class Match implements Serializable{
 		while(it.hasNext()) {
 			Map.Entry<Gamer, Integer> entry = it.next();
 			mString += "gamer: " + entry.getKey().getUsername() + " position: " + entry.getValue().intValue()  + "\n";
+			mString += "data: " + entry.getKey().toString();
 		}
 		
 		return mString ;

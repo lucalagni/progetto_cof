@@ -52,7 +52,7 @@ public class Gamer implements Serializable{
 			ArrayList<PoliticalCard> politicalCards,
 			ArrayList<PermitCard> usedPermitCards,
 			ArrayList<PermitCard> unusedPermitCards, GamerStatus status) {
-		this(username, color, helpers, helpers, helpers, helpers, helpers, match, status, politicalCards);
+		this(username, color, coins, points, shifts, shops, helpers, match, status, politicalCards);
 		
 		this.setUnusedPermitCards(unusedPermitCards);
 		this.setUsedPermitCards(usedPermitCards);
