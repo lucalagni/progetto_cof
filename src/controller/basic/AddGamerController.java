@@ -23,11 +23,10 @@ public class AddGamerController {
 	public String done() throws BuilderException, PoliticalCardsDeckException, GameMapException, MatchException{
 		if(mg.getGamersNumber() < MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY) {
 			System.out.println("\nToo feaw gamers to play");
-			return null;
+			return MatchConstants.MATCH_NOT_CREATED;
 		}
 		Match m = mg.createMatch();
 		MatchRepository.getInstance().addMatch(m);
-		System.out.println(m.toString());
 		return m.getMatchCode();
 	}
 }

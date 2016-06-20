@@ -3,7 +3,7 @@ package model.basics.constants;
 public final class VillageConstants {
 	public static final int MIN_VILLAGE_CONNECTION = 1;
 	public static final int MAX_VILLAGE_CONNECTION = 14;
-	public static final String NULL_GAMER = null;
+	public static final String NULL_GAMER = "NULL_GAMER";
 	public static final String[] VILLAGES_NAME = {"Arkon", "Burgen", "Castrum", "Dorful", "Esti", "Framek", "Graden", "Hellar", "Indur", "Juvelar", "Kultos", "Lyram", "Merkatim","Naris", "Osium"};
 	
 	public static final String ARKON = "Arkon";

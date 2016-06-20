@@ -1,9 +1,9 @@
 package view.basic.cli.client;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import model.basics.builders.exceptions.BuilderException;
+import model.basics.constants.MatchConstants;
 import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
@@ -19,63 +19,49 @@ public class AddGamer {
 		} catch (BuilderException | GameMapException e) {
 			System.err.println(e.getMessage());
 		} 
-		
-		this.addGamerMenu();
 	}
 
-	public void addGamerMenu() {
+	public String addGamerMenu() {
 		char choice;
 		String username = null;
+		String matchCode;
 		input = new Scanner(System.in);
 		
 		do{
 			CliUtils.clearConsole();
-			try {
-				Runtime.getRuntime().exec("clear");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+
 			System.out.println("\n=========={ Council Of Four }==========\n");
-			System.out.println("\n-----{ Add Gamer }------");
-			System.out.println("y => yes");
-			System.out.println("n => no");
-			System.out.println("s => start");
+			System.out.println("\n-----{ Local Game Options }------");
+			System.out.println("n => new gamer");
+			System.out.println("s => start match");
 			System.out.println("e => exit");
-			System.out.print("add new gamer (y/n/e)? ");
+			System.out.print("choice (n/s/e)> ");
 			
 			choice = input.nextLine().charAt(0);
 			
 			switch(choice){
-				case 'y':
-				case 'Y':
+				case 'n':
+				case 'N':
 						System.out.print("\nInsert username: ");
 						username = input.nextLine();
+						username = username.toLowerCase();
 						try {
 								this.agc.addGamer(username);
 						} catch (PoliticalCardsDeckException e) {
 							System.out.println(e.getMessage());
 						}
 						break;
-				case 'n':
-				case 'N':
-						try {
-								this.agc.done();
-							} catch (BuilderException | PoliticalCardsDeckException| GameMapException | MatchException e) {
-								System.err.println(e.getMessage());
-							}
-						break;
 				case 's':
 				case 'S':
 						try {
-								this.agc.done();
+								matchCode = this.agc.done();
+								return matchCode;
 							} catch (BuilderException | PoliticalCardsDeckException| GameMapException | MatchException e) {
 								System.err.println(e.getMessage());
 							}
 						break;
 				case 'e':
 				case 'E':
-					System.exit(0);
 					break;
 				default:
 					System.out.println("\nInvalid choice , retry");
@@ -83,6 +69,8 @@ public class AddGamer {
 				
 			}
 			
-		}while((choice != 'n')&&(choice != 'N'));
+		}while((choice != 'e')&&(choice != 'E'));
+		
+		return MatchConstants.MATCH_NOT_CREATED;
 	}
 }

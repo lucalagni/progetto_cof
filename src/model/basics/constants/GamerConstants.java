@@ -12,4 +12,6 @@ public final class GamerConstants {
 	public static final Color[] GAMERS_COLORS = { Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.GRAY, Color.MAGENTA, Color.BLACK, Color.WHITE };
 	public static final String GAMER_ONLINE = "gamer_online";
 	public static final String GAMER_OFFLINE = "gamer_offline";
+	public static final String NULL_GAMER = "NULL_GAMER";
+	public static final String FAKE_GAMER = "FAKE_GAMER";
 }
