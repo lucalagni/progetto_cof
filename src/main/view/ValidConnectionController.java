@@ -25,7 +25,7 @@ public class ValidConnectionController {
 	private void selectOk(){
 	
 		validDialogStage.close();
-		mainApp.showMenuGame();
+		mainApp.showMessageStartGameTime();
 	
 	
 	}

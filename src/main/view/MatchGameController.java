@@ -5,10 +5,15 @@ import main.ClientLogic;
 import model.basics.Board;
 import model.basics.Match;
 import model.basics.PermitCard;
+import model.basics.PoliticalCard;
 import model.basics.Region;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
 import mud.model.basic.interfaces.MatchRequest;
+
+import java.util.Collection;
+import java.util.LinkedList;
+
 import examples.example1.BoardExample;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -16,10 +21,13 @@ import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
@@ -59,10 +67,10 @@ public class MatchGameController {
 	@FXML private Label villagesRegion2Card0;
 	@FXML private Label villagesRegion2Card1;
 	@FXML private ImageView nobil;
-	@FXML private Label colorNobil;
+	@FXML private AnchorPane proprietaGiocatore;
 
 	private Board be;
-	
+	Collection<ImageView> imgsPoliticalCards;
 	
 	@FXML
 	private ImageView emporio;
@@ -70,13 +78,16 @@ public class MatchGameController {
 	@FXML
 	private ImageView maps;
 	
-	//Image image = new Image("view/image/council.jpg");
-	//maps.setImage(image);
-	
-	
+	//private HBox hbPoliticalCard;
+	//private HBox hbPermitCard;
 	
 	@FXML
     private void initialize() {
+		
+//		imgsPoliticalCards = new LinkedList<ImageView>();
+//		
+//		initComponentsView();
+//		
 		
 		try 
 		{
@@ -94,10 +105,7 @@ public class MatchGameController {
 			
 			Region region = be.getRegions()[0];
 			java.awt.Color[] color = region.getCouncil().getNobles();
-			
-			String color1 = ("" + color[2]);
-			colorNobil.setText(color1);
-			
+	
 			Image image = new Image("main/view/image/consBlu.png");
 			nobil.setImage(image);
 		} 
@@ -109,6 +117,23 @@ public class MatchGameController {
 		this.setVillagesCard();
 	}
 	
+//	protected void initComponentsView()
+//	{
+//		// initialize Hbox political card
+//		hbPoliticalCard = new HBox();
+//	    hbPoliticalCard.setPadding(new Insets(0, 10, 10, 10));
+//	    hbPoliticalCard.setSpacing(5);
+	
+		// initialize Hbox permit card
+//		hbPermitCard = new HBox();
+//    	hbPermitCard.setPadding(new Insets(0, 10, 10, 10));
+//   	hbPermitCard.setSpacing(5);
+//	    
+//	    // inizializzo altra roba ...
+//	    
+//	    
+//	    
+//	}
 	
 	public void setTextVillagesCard(String s, int regioncard){
 		
@@ -158,11 +183,71 @@ public class MatchGameController {
 	
 	@FXML
 	private void click(){
-			
+		
+		Image image = new Image("main/view/image/cartapoliticaVerticale.png");
+		Image image2 = new Image("main/view/image/cartapermesso2.png");
+		
+		Label label1 = new Label();
+		
+		
+		ImageView politicalCarde = new ImageView(image);
+		ImageView politicalCard2 = new ImageView(image);
+		ImageView politicalCard3 = new ImageView(image2);
+		ImageView politicalCard4 = new ImageView(image2);
+		
+		HBox hb = new HBox();
+	    hb.setPadding(new Insets(0, 10, 10, 10));
+	    hb.setSpacing(5);
+	    hb.getChildren().addAll(politicalCarde, politicalCard2);
+	    
+	    HBox hb2 = new HBox();
+	    hb2.setPadding(new Insets(0, 10, 10, 10));
+	    hb2.setSpacing(5);
+	    hb2.getChildren().addAll(politicalCard3, politicalCard4);
+	    
+	    proprietaGiocatore.getChildren().addAll(hb,hb2);
+	    AnchorPane.setTopAnchor(hb2, 0.0);
+	    AnchorPane.setLeftAnchor(hb2, 0.0);
+	    
+	    AnchorPane.setBottomAnchor(hb, 0.0);
+	    AnchorPane.setLeftAnchor(hb, 5.0);
+
 		//button.setFill(Color.RED);
 	}
 
 	
+	
+//	public void updatePoliticalCard()
+//	{
+
+//		
+//		// rimuove la lista
+//	    hbPoliticalCard.getChildren().removeAll(imgsPoliticalCards);
+//		
+//		// ricarica la lista
+//		PoliticalCard[] mano = new PoliticalCard[10]; // prelevate dal gamer
+//		imgsPoliticalCards.clear();
+//		for( PoliticalCard c:mano ){
+//			Image image;
+//			if( c.getColor()==java.awt.Color.CYAN ){
+//				image = new Image("main/view/image/cartapoliticaVerticale.png");
+//			}
+//			else if( c.getColor()==java.awt.Color.CYAN ){
+//				image = new Image("main/view/image/cartapoliticaVerticale.png");
+//			}
+//			else {
+//				// caso farlocco
+//				continue;
+//			}
+//			
+//			ImageView politicalCarde = new ImageView(image);
+//			imgsPoliticalCards.add(politicalCarde);
+//		}
+//		
+//		// per il refresh
+//	    hbPoliticalCard.getChildren().addAll(imgsPoliticalCards);
+//		
+//	}
 	
 	/*@FXML
 	
@@ -207,10 +292,11 @@ public class MatchGameController {
 	    ptr.setDelay(Duration.seconds(1));
 	    ptr.setPath(path);
 	    ptr.setNode(buttone);
-	   // ptr.setCycleCount(2);
+	   // ptr.setCycleCount(2)
 	    
 	    ptr.play();
 		
+	    
 		}    
 	
 	@FXML
