@@ -9,7 +9,6 @@ import model.basics.PoliticalCard;
 import model.basics.Region;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
-import mud.model.basic.interfaces.MatchRequest;
 
 import java.util.Collection;
 import java.util.LinkedList;

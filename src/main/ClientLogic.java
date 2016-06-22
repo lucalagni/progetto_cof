@@ -2,15 +2,12 @@ package main;
 
 import model.basics.Board;
 import model.basics.Match;
-import mud.model.basic.interfaces.MatchRequest;
 
 public class ClientLogic {
 	
 	private static ClientLogic instance;
 	private Match match;
     private Board be;
-    
-    MatchRequest req;
 	
 	public ClientLogic()
 	{
@@ -48,9 +45,5 @@ public class ClientLogic {
     	// lookup dell'oggetto remoto
     	//    	req = ...
     }
-    
-    public MatchRequest getMatchRequest()
-    {
-    	return req;
-    }
+   
 }
