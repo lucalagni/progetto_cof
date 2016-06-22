@@ -15,7 +15,7 @@ public class MatchRepository {
 		this.matches = new HashMap<String,Match>();
 	}
 	
-	public Match getMatch(String matchCode){
+	public synchronized Match getMatch(String matchCode){
 		Iterator<Map.Entry<String, Match>> it = this.matches.entrySet().iterator();
 		
 		while(it.hasNext()){
@@ -25,11 +25,11 @@ public class MatchRepository {
 		return null;
 	}
 	
-	public void addMatch(Match match){
+	public synchronized void addMatch(Match match){
 		this.matches.put(match.getMatchCode(), match);
 	}
 	
-	public Match getMatchAssociatedTo(String username){
+	public synchronized Match getMatchAssociatedTo(String username){
 		Iterator<Map.Entry<String, Match>> it = this.matches.entrySet().iterator();
 		
 		while(it.hasNext()){
@@ -42,14 +42,14 @@ public class MatchRepository {
 		return null;
 	}
 	
-	public String getMatchCodeAssociatedTo(String username){
+	public synchronized String getMatchCodeAssociatedTo(String username){
 		Match m = this.getMatchAssociatedTo(username);
 		
 		if(m == null) return null;
 		else return m.getMatchCode(); 
 	}
 	
-	public static MatchRepository getInstance(){
+	public synchronized static MatchRepository getInstance(){
 		if(instance == null) instance = new MatchRepository();
 		return instance ;
 	}

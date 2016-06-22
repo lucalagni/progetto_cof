@@ -17,9 +17,7 @@ public class SocketMultiserver {
             this.server = new ServerSocket(port);
             
             while(true){
-                System.out.println("socket server in attesa");
                 Socket newClient = this.server.accept();
-                System.out.println("nuova connessione");
                 ClientHandlerThread cht = new ClientHandlerThread(newClient);
                 cht.start();
             }

@@ -2,9 +2,7 @@ package model.basics;
 
 import java.io.Serializable;
 
-import mud.model.basic.interfaces.RemoteBonus;
-
-public class Bonus implements RemoteBonus, Serializable {	 
+public class Bonus implements Serializable {	 
 	private static final long serialVersionUID = 1L;
 	
 	private boolean available;

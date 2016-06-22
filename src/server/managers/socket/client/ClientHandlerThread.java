@@ -8,6 +8,7 @@ import java.net.Socket;
 
 @SuppressWarnings("unused")
 public class ClientHandlerThread extends Thread{
+	
     private Socket client = null;
 	private String inputMessage ;
     private String outputMessage ;
@@ -26,9 +27,6 @@ public class ClientHandlerThread extends Thread{
         
         while(true){
             this.inputMessage = this.input.readLine();
-            
-            
-            
            break;
         }
         

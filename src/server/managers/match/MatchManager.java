@@ -20,7 +20,7 @@ public class MatchManager {
 		this.matchRepository = MatchRepository.getInstance();
 	}
 	
-	public void addGamer(String gamer){ 
+	public synchronized void addGamer(String gamer){ 
 		this.gamersQueque.add(gamer); 
 		if(this.gamersQueque.size() >= MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
 			timer = genTimer();
@@ -107,7 +107,7 @@ public class MatchManager {
 		}
 	}
 	
-	public static MatchManager getInstance(){
+	public synchronized static MatchManager getInstance(){
 		if(instance == null) instance = new MatchManager();
 		return instance ;
 	}
