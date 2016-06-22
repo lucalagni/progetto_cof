@@ -19,11 +19,8 @@ public class ViewCLI {
 		if(this.matchCode == MatchConstants.MATCH_NOT_CREATED) System.out.println("\nMatch not created");
 		else {
 			this.sgc = new StartGameController();
-			int gamerID = this.sgc.startGame(matchCode);
 			
-			do{
-				gamerID = 
-			}while
+			int gamerID = this.sgc.startGame(matchCode);
 			
 			
 		}
