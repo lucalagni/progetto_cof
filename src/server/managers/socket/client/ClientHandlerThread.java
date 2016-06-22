@@ -12,9 +12,11 @@ public class ClientHandlerThread extends Thread{
     private String outputMessage ;
     private BufferedReader input ;
     private DataOutputStream output;
+    private ClientGameData clientGameData;
     
     public ClientHandlerThread(Socket client){
         this.client = client;
+        this.clientGameData = null;
     }
     
     public void communication() throws IOException{
@@ -23,6 +25,8 @@ public class ClientHandlerThread extends Thread{
         
         while(true){
             this.inputMessage = this.input.readLine();
+            
+            
             
            break;
         }
@@ -35,7 +39,6 @@ public class ClientHandlerThread extends Thread{
     
     @Override
     public void run(){
-        
     }
 }
 
