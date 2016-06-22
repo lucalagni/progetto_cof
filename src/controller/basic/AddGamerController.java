@@ -1,7 +1,7 @@
 package controller.basic;
 
-import server.manager.MatchGenerator;
-import server.manager.MatchRepository;
+import server.managers.match.MatchGenerator;
+import server.managers.match.MatchRepository;
 import model.basics.Match;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.constants.MatchConstants;
@@ -23,11 +23,10 @@ public class AddGamerController {
 	public String done() throws BuilderException, PoliticalCardsDeckException, GameMapException, MatchException{
 		if(mg.getGamersNumber() < MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY) {
 			System.out.println("\nToo feaw gamers to play");
-			return null;
+			return MatchConstants.MATCH_NOT_CREATED;
 		}
 		Match m = mg.createMatch();
 		MatchRepository.getInstance().addMatch(m);
-		System.out.println(m.toString());
 		return m.getMatchCode();
 	}
 }

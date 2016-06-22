@@ -1,7 +1,6 @@
 package examples.example1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import model.basics.Board;
 import model.basics.Gamer;
@@ -23,7 +22,7 @@ public class MatchExample {
 		Board b = new BoardExample().getBoard();
 		ArrayList<PoliticalCard> pc1 = new ArrayList<PoliticalCard>();
 		ArrayList<PoliticalCard> pc2 = new ArrayList<PoliticalCard>();
-		HashMap<Gamer,Integer> map = new HashMap<Gamer,Integer>();
+		ArrayList<Gamer> gamers = new ArrayList<Gamer>();
 		
 		b.getPoliticalCardsDeck().shuffleCards();
 		for(int i = 0; i <= GamerConstants.INITIAL_NUMBER_OF_CARDS; i++) pc1.add(b.getPoliticalCardsDeck().pickupCard());
@@ -34,15 +33,15 @@ public class MatchExample {
 		Gamer g1 = new Gamer1Example("1", pc1, new ArrayList<PermitCard>(), new ArrayList<PermitCard>()).getGamer1();
 		Gamer g2 = new Gamer2Example("1", pc2, new ArrayList<PermitCard>(), new ArrayList<PermitCard>()).getGamer2();
 		
-		map.put(g1, Integer.valueOf(0));
-		map.put(g2, Integer.valueOf(0));
+		gamers.add(g1);
+		gamers.add(g2);
 		
 		m = new MatchBuilder().setTitle("Classic Match")
 							  .setMatchCode("1")
 							  .setBoard(new BoardExample().getBoard())
 							  .setStatus(MatchStatus.READY)
-							  .setPositions(map)
-							  .setActualGamer(g1.getUsername())
+							  .setGamers(gamers)
+							  .setActualGamer(0)
 							  .build();
 		
 		return m;

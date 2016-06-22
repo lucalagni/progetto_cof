@@ -33,6 +33,7 @@ public class Village implements Serializable {
 		this.setColor(color);
 		this.setBonus(bonus);
 		this.setShops(shops);
+		for(int i = 0; i < this.shops.length; i++) if(this.shops[i] == null)this.shops[i] = VillageConstants.NULL_GAMER;
 	}
 	
 	private void setName(String name) { this.name = name; }
@@ -62,7 +63,9 @@ public class Village implements Serializable {
 	}
 	
 	private void checkGamerPresence(String gamer) throws VillageException{
-		for(int i = 0; i < this.shops.length; i++) if(this.shops[i].equals(gamer))throw new VillageException(VillageExceptionCode.GAMER_ALREADY_PRESENT.getExceptionCode());
+		for(int i = 0; i < this.shops.length; i++){
+			if(this.shops[i].equals(gamer))throw new VillageException(VillageExceptionCode.GAMER_ALREADY_PRESENT.getExceptionCode());
+		}
 	}
 	
 	public void addShop(Gamer gamer)throws VillageException,GamerException{
@@ -71,8 +74,14 @@ public class Village implements Serializable {
 	}
 	
 	public void addShop(String gamer)throws VillageException,GamerException{
+		
 		this.checkGamerPresence(gamer);
-		for(int i = 0; i < this.shops.length; i++) if(this.shops[i] == VillageConstants.NULL_GAMER) this.shops[i] = gamer;
+		for(int i = 0; i < this.shops.length; i++){
+			if(this.shops[i].equals(VillageConstants.NULL_GAMER)){
+				this.shops[i] = gamer;
+				break;
+			}
+		}
 	}
 	
 	

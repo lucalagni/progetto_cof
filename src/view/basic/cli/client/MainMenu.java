@@ -2,11 +2,15 @@ package view.basic.cli.client;
 
 import java.util.Scanner;
 
+import controller.basic.MainMenuController;
+
 public class MainMenu {
 	private String menu;
+	private MainMenuController mmc;
 	
-	public MainMenu(){
+	public MainMenu(String matchCode,int gamerID){
 		this.menu(true);
+		this.mmc = new MainMenuController(matchCode,gamerID);
 	}
 	
 	private void basicMenuString(){
@@ -70,7 +74,6 @@ public class MainMenu {
 		
 		menu +=  "\n\n+++++{ Options }+++++\n";
 		
-		//menu += "\n31)Leave match and join a new one";
 		menu += "\n0)Exit";
 	}
 	
@@ -81,7 +84,7 @@ public class MainMenu {
 		
 		do
 		{
-			clearConsole();
+			CliUtils.clearConsole();
 			this.basicMenuString();
 			if(gameTime == true) this.actionsMenuString();
 			this.optionsMenuString();
@@ -91,29 +94,15 @@ public class MainMenu {
 			System.out.print("\nChoice>> ");
 			choice = Integer.parseInt(input.nextLine());
 			
+			switch(choice){
+				case 1:
+					System.out.println(this.mmc.getConnections());
+					break;
+			}
+			
 		}while(choice != 0);
 		
 		return choice;
 	}
 	
-	public final static void clearConsole()
-	{
-	    try
-	    {
-	        final String os = System.getProperty("os.name");
-
-	        if (os.contains("Windows"))
-	        {
-	            Runtime.getRuntime().exec("cls");
-	        }
-	        else
-	        {
-	            Runtime.getRuntime().exec("clear");
-	        }
-	    }
-	    catch (final Exception e)
-	    {
-	        //  Handle any exceptions.
-	    }
-	}
 }

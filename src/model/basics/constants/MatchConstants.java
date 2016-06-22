@@ -9,4 +9,5 @@ public final class MatchConstants {
 	public static final int MATCH_TIMEOUT = 20;
 	public static final int GAMER_RESPONSE_TIMEOUT = 20;
 	public static final String END_CYCLE_CODE = "_END_CYCLE_CODE_";
+	public static final String MATCH_NOT_CREATED = "MATCH_NOT_CREATED";
 }
