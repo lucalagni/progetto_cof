@@ -24,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -66,9 +67,14 @@ public class MatchGameController {
 	@FXML private Label villagesRegion1Card1;
 	@FXML private Label villagesRegion2Card0;
 	@FXML private Label villagesRegion2Card1;
-	@FXML private ImageView nobil;
+	@FXML private ImageView nobil00;
+	@FXML private ImageView nobil01;
+	@FXML private ImageView nobil02;
+	@FXML private ImageView nobil03;
 	@FXML private AnchorPane proprietaGiocatore;
-
+	@FXML private RadioButton nobilWhite;
+	@FXML private RadioButton nobilBlack;
+	@FXML private RadioButton nobilCyan;
 	private Board be;
 	Collection<ImageView> imgsPoliticalCards;
 	
@@ -78,47 +84,29 @@ public class MatchGameController {
 	@FXML
 	private ImageView maps;
 	
+	String selectColorNobil;
+	int selectCouncil;
+	
 	//private HBox hbPoliticalCard;
 	//private HBox hbPermitCard;
 	
 	@FXML
-    private void initialize() {
+    private void initialize() throws BuilderException, GameMapException {
 		
 //		imgsPoliticalCards = new LinkedList<ImageView>();
 //		
-//		initComponentsView();
+		initComponentsView();
 //		
-		
-		try 
-		{
-			// esempio
-//			MatchRequest req = null;
-//			req.getMatch("pippo");
-			
-			be = new BoardExample().getBoard();
-			ClientLogic.getInstance().setBoard(be);
-			
-//			// poi ...
-//			Match m = null; // prendo il match dal server
-//			Client.getInstance().setMatch(m);
-		
-			
-			Region region = be.getRegions()[0];
-			java.awt.Color[] color = region.getCouncil().getNobles();
-	
-			Image image = new Image("main/view/image/consBlu.png");
-			nobil.setImage(image);
-		} 
-		catch (BuilderException | GameMapException ge) {
-			// TODO Auto-generated catch block
-			ge.printStackTrace();		
-		}
-		
 		this.setVillagesCard();
 	}
 	
-//	protected void initComponentsView()
-//	{
+	protected void initComponentsView() throws BuilderException, GameMapException
+	{
+		be = new BoardExample().getBoard();
+		ClientLogic.getInstance().setBoard(be);
+		
+		initializeCouncilRegion();
+		
 //		// initialize Hbox political card
 //		hbPoliticalCard = new HBox();
 //	    hbPoliticalCard.setPadding(new Insets(0, 10, 10, 10));
@@ -133,7 +121,7 @@ public class MatchGameController {
 //	    
 //	    
 //	    
-//	}
+	}
 	
 	public void setTextVillagesCard(String s, int regioncard){
 		
@@ -185,30 +173,21 @@ public class MatchGameController {
 	private void click(){
 		
 		Image image = new Image("main/view/image/cartapoliticaVerticale.png");
-		Image image2 = new Image("main/view/image/cartapermesso2.png");
-		
-		Label label1 = new Label();
+
 		
 		
 		ImageView politicalCarde = new ImageView(image);
 		ImageView politicalCard2 = new ImageView(image);
-		ImageView politicalCard3 = new ImageView(image2);
-		ImageView politicalCard4 = new ImageView(image2);
-		
+
 		HBox hb = new HBox();
 	    hb.setPadding(new Insets(0, 10, 10, 10));
 	    hb.setSpacing(5);
 	    hb.getChildren().addAll(politicalCarde, politicalCard2);
+	
 	    
-	    HBox hb2 = new HBox();
-	    hb2.setPadding(new Insets(0, 10, 10, 10));
-	    hb2.setSpacing(5);
-	    hb2.getChildren().addAll(politicalCard3, politicalCard4);
-	    
-	    proprietaGiocatore.getChildren().addAll(hb,hb2);
-	    AnchorPane.setTopAnchor(hb2, 0.0);
-	    AnchorPane.setLeftAnchor(hb2, 0.0);
-	    
+	    proprietaGiocatore.getChildren().add(hb);
+	
+	
 	    AnchorPane.setBottomAnchor(hb, 0.0);
 	    AnchorPane.setLeftAnchor(hb, 5.0);
 
@@ -387,5 +366,79 @@ public class MatchGameController {
 			new Client().showBonus(2,1);
 		}	
 	}
+	
+	@FXML
+	public void nobilSelection(ActionEvent e){
+		
+		if(e.getSource() == nobilWhite) {
+		selectColorNobil = "WHITE";
+		}
+	}
+	
+	@FXML
+	public void clickEleggiConsigliere(){
+		
+		
+		
+	}
+	
+	@FXML
+	public void clickSelectCouncil(){
+		
+		selectCouncil = 0;
+		
+	}
+	
+	public void initializeCouncilRegion(){
+		
+		
+		try 
+		{
+			// esempio
+//			MatchRequest req = null;
+//			req.getMatch("pippo");
+			
+		
+			
+//			// poi ...
+//			Match m = null; // prendo il match dal server
+//			Client.getInstance().setMatch(m);
+		
+			
+			Region region = be.getRegions()[0];
+			java.awt.Color[] color = region.getCouncil().getNobles();
+			for(int i = 0; i<3; i++){
+				if(color[i].equals(java.awt.Color.CYAN)){
+					Image image = new Image("main/view/image/consBlu.png");
+					if(i==0){
+						nobil00.setImage(image);}
+					if(i==1){
+						nobil01.setImage(image);}
+					if(i==2){
+						nobil02.setImage(image);}
+					if(i==3){
+						nobil02.setImage(image);}
+					} 
+				if(color[i] == java.awt.Color.BLACK){
+					Image image = new Image("main/view/image/consNero.png");
+					if(i==0){
+						nobil00.setImage(image);}
+					if(i==1){
+						nobil01.setImage(image);}
+					if(i==2){
+						nobil02.setImage(image);}
+					if(i==3){
+						nobil02.setImage(image);}
+				} 
+			}
+		}
+		catch (BuilderException ge) {
+			// TODO Auto-generated catch block
+			ge.printStackTrace();		
+		}
+		
+	}
+		
+		
 	
 }
