@@ -4,6 +4,8 @@ import server.managers.match.MatchManager;
 import model.basics.Gamer;
 import model.basics.Match;
 
+@SuppressWarnings("unused")
+
 public class ClientGameData {
 	private Gamer gamer = null;
 	private Match match = null;

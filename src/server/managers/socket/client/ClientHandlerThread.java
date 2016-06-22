@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+@SuppressWarnings("unused")
 public class ClientHandlerThread extends Thread{
     private Socket client = null;
-    private String inputMessage ;
+	private String inputMessage ;
     private String outputMessage ;
     private BufferedReader input ;
     private DataOutputStream output;

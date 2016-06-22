@@ -1,7 +1,6 @@
 package examples.example1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import model.basics.Board;
 import model.basics.Gamer;
