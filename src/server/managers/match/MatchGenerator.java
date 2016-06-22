@@ -1,10 +1,9 @@
-package server.manager;
+package server.managers.match;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
+import server.managers.board.BoardRetriver;
 
 import model.basics.Board;
 import model.basics.Gamer;
@@ -17,7 +16,6 @@ import model.basics.builders.exceptions.BuilderException;
 import model.basics.constants.CoinsPoolConstants;
 import model.basics.constants.GamerConstants;
 import model.basics.constants.HelpersPoolConstants;
-import model.basics.constants.MatchConstants;
 import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
@@ -37,7 +35,6 @@ public class MatchGenerator {
 	}
 	
 	public String getMatchCode(){ return ""+actualCode; }
-	
 	public int getGamersNumber(){ return this.gamers.size(); }
 	
 	public int addGamer(String username) throws PoliticalCardsDeckException{

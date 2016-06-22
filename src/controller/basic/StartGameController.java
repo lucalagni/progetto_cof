@@ -1,6 +1,6 @@
 package controller.basic;
 
-import server.manager.MatchRepository;
+import server.managers.match.MatchRepository;
 import model.basics.Match;
 import model.basics.Village;
 import model.basics.constants.GamerConstants;

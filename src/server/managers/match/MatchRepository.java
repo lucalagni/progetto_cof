@@ -1,4 +1,4 @@
-package server.manager;
+package server.managers.match;
 
 import java.util.HashMap;
 import java.util.Iterator;

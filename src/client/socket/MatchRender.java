@@ -2,7 +2,7 @@ package client.socket;
 
 import client.exception.MatchRenderException;
 import client.exception.codes.MatchRenderExceptionCode;
-import server.manager.MatchRepository;
+import server.managers.match.MatchRepository;
 import model.basics.Council;
 import model.basics.GameMap;
 import model.basics.Gamer;

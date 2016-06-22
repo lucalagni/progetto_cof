@@ -1,7 +1,7 @@
 package controller.basic;
 
-import server.manager.MatchGenerator;
-import server.manager.MatchRepository;
+import server.managers.match.MatchGenerator;
+import server.managers.match.MatchRepository;
 import model.basics.Match;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.constants.MatchConstants;
