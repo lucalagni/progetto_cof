@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class Bonus implements Serializable {	 
 	private static final long serialVersionUID = 1L;
 	
-	private boolean available;
-	private int coins ;
-	private int helpers; 
-	private int politicalCards ; 
-	private int points;   			  			 
-	private int shifts;  			 			 
-	private boolean newMainAction;	 
-	private boolean reusePermitBonus ;
-	private boolean acquirePermitCard;
-	private boolean acquireSingleVillageBonus;
-	private boolean acquireDoubleVillageBonus;
+	private Boolean available;
+	private Integer coins ;
+	private Integer helpers; 
+	private Integer politicalCards ; 
+	private Integer points;   			  			 
+	private Integer shifts;  			 			 
+	private Boolean newMainAction;	 
+	private Boolean reusePermitBonus ;
+	private Boolean acquirePermitCard;
+	private Boolean acquireSingleVillageBonus;
+	private Boolean acquireDoubleVillageBonus;
 	
 	public Bonus(boolean available, int coins,int helpers, int politicalCards, int points,int shifts,boolean newMainAction,boolean reusePermitBonus,boolean acquireSingleVillageBonus,boolean acquireDoubleVillageBonus,boolean acquirePermitCard) {
 		
@@ -32,17 +32,17 @@ public class Bonus implements Serializable {
 		this.setAvailable(available);
 	}
 	
-	private void setAvailable(boolean available){this.available = available;}
-	private void setAcquirePermitCard(boolean acquirePermitCard){ this.acquirePermitCard = acquirePermitCard; }
-	private void setCoins(int coins) { this.coins = coins; }
-	private void setPoints(int points){ this.points = points; }
-	private void setShifts(int shifts){ this.shifts = shifts; }
-	private void setPoliticalCards(int politicalCards){ this.politicalCards = politicalCards; }
-	private void setHelpers(int helpers){ this.helpers = helpers; }
-	private void setNewMainAction(boolean newMainAction){ this.newMainAction = newMainAction; }
-	private void setReusePermitBonus(boolean reusePermitBonus){ this.reusePermitBonus = reusePermitBonus; }
-	private void setAcquireSingleVillageBonus(boolean acquireSingleVillageBonus){ this.acquireSingleVillageBonus = acquireSingleVillageBonus; }
-	private void setAcquireDoubleVillageBonus(boolean acquireDoubleVillageBonus){ this.acquireDoubleVillageBonus = acquireDoubleVillageBonus; }
+	private void setAvailable(boolean available){this.available = new Boolean(available);}
+	private void setAcquirePermitCard(boolean acquirePermitCard){ this.acquirePermitCard = new Boolean(acquirePermitCard); }
+	private void setCoins(int coins) { this.coins = new Integer(coins); }
+	private void setPoints(int points){ this.points = new Integer(points); }
+	private void setShifts(int shifts){ this.shifts = new Integer(shifts); }
+	private void setPoliticalCards(int politicalCards){ this.politicalCards = new Integer(politicalCards); }
+	private void setHelpers(int helpers){ this.helpers = new Integer(politicalCards); }
+	private void setNewMainAction(boolean newMainAction){ this.newMainAction = new Boolean(newMainAction); }
+	private void setReusePermitBonus(boolean reusePermitBonus){ this.reusePermitBonus = new Boolean(reusePermitBonus); }
+	private void setAcquireSingleVillageBonus(boolean acquireSingleVillageBonus){ this.acquireSingleVillageBonus = new Boolean(acquireSingleVillageBonus); }
+	private void setAcquireDoubleVillageBonus(boolean acquireDoubleVillageBonus){ this.acquireDoubleVillageBonus = new Boolean(acquireDoubleVillageBonus); }
 	
 	public static synchronized void useBonus(Bonus bonus){
 		bonus.setAvailable(false);
@@ -59,16 +59,16 @@ public class Bonus implements Serializable {
 		bonus.setAcquireDoubleVillageBonus(false);
 	}
 	
-	public int getCoins(){ return this.coins; }
-	public int getPoints(){ return this.points; }
-	public int getShifts(){ return this.shifts; }
-	public int getPoliticalCards(){ return this.politicalCards; }
-	public int getHelpers(){ return this.helpers; }
-	public boolean getNewMainAction(){ return this.newMainAction; }
-	public boolean getReusePermitBonus(){ return this.reusePermitBonus; }
-	public boolean getAcquirePermitCard(){ return this.acquirePermitCard; }
-	public boolean getAcquireSingleVillageBonus(){ return this.acquireSingleVillageBonus; }
-	public boolean getAcquireDoubleVillageBonus(){ return this.acquireDoubleVillageBonus; }
+	public int getCoins(){ return this.coins.intValue(); }
+	public int getPoints(){ return this.points.intValue(); }
+	public int getShifts(){ return this.shifts.intValue(); }
+	public int getPoliticalCards(){ return this.politicalCards.intValue(); }
+	public int getHelpers(){ return this.helpers.intValue(); }
+	public boolean getNewMainAction(){ return this.newMainAction.booleanValue(); }
+	public boolean getReusePermitBonus(){ return this.reusePermitBonus.booleanValue(); }
+	public boolean getAcquirePermitCard(){ return this.acquirePermitCard.booleanValue(); }
+	public boolean getAcquireSingleVillageBonus(){ return this.acquireSingleVillageBonus.booleanValue(); }
+	public boolean getAcquireDoubleVillageBonus(){ return this.acquireDoubleVillageBonus.booleanValue(); }
 	public boolean getAvailable(){ return this.available; }
 	
 	@Override

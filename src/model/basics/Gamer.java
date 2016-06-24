@@ -20,11 +20,11 @@ public class Gamer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
 	private Color color;
-	private int helpers;
-	private int coins;
-	private int points;
-	private int shifts;
-	private int shops;
+	private Integer helpers;
+	private Integer coins;
+	private Integer points;
+	private Integer shifts;
+	private Integer shops;
 	private String matchCode;
 	private GamerStatus status;
 	private ArrayList<PoliticalCard> politicalCards;
@@ -60,23 +60,23 @@ public class Gamer implements Serializable{
 	
 	protected void setUsername(String username) { this.username = username; }
 	protected void setColor(Color color) { this.color = color; }
-	protected void setHelpers(int helpers) { this.helpers = helpers; }
-	protected void setCoins(int coins) { this.coins = coins; }
-	protected void setPoints(int points) { this.points = points; }
-	protected void setShifts(int shifts){ this.shifts = shifts; }
-	protected void setShops(int shops) { this.shops = shops; }
+	protected void setHelpers(int helpers) { this.helpers = new Integer(helpers); }
+	protected void setCoins(int coins) { this.coins = new Integer(coins); }
+	protected void setPoints(int points) { this.points = new Integer(points); }
+	protected void setShifts(int shifts){ this.shifts = new Integer(shifts); }
+	protected void setShops(int shops) { this.shops = new Integer(shops); }
 	protected void setMatch(String match) { this.matchCode = match; }
 	protected void setStatus(GamerStatus status) { this.status = status; }
 	
 	public String getUsername() { return this.username; }
 	public Color getColor() { return this.color; }
-	public int getHelpers() { return this.helpers; }
-	public int getCoins() { return this.coins; }
-	public int getPoints() { return this.points; }
-	public int getShops() { return this.shops; }
+	public int getHelpers() { return this.helpers.intValue(); }
+	public int getCoins() { return this.coins.intValue(); }
+	public int getPoints() { return this.points.intValue(); }
+	public int getShops() { return this.shops.intValue(); }
 	public String getMatch() { return this.matchCode; }
 	public GamerStatus getStatus() { return this.status; }
-	public int getShifts(){ return this.shifts; }
+	public int getShifts(){ return this.shifts.intValue(); }
 	
 	private void setPoliticalCards(ArrayList<PoliticalCard> politicalCards){ this.politicalCards = politicalCards; }
 	private void setUnusedPermitCards(ArrayList<PermitCard> unusedPermitCards){ this.unusedPermitCards = unusedPermitCards; }
@@ -165,7 +165,7 @@ public class Gamer implements Serializable{
 		if((this.getShops() - 1) < GamerConstants.MIN_NUMBER_OF_SHOPS){
 			throw new GamerException(GamerExceptionCode.ENDED_GAMER_SHOPS.getExceptionCode());
 		}
-		else this.setShifts(this.getShops() - 1);
+		else this.setShops(this.getShops() - 1);
 	}
 	
 	public void addShifts(int shifts) throws GamerException{

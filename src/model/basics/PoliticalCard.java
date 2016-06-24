@@ -8,7 +8,7 @@ import model.basics.constants.ColorConstants;
 public class PoliticalCard implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Color color;
-	private boolean jolly;
+	private Boolean jolly;
 	
 	public PoliticalCard(Color color,boolean jolly) {
 		this.setJolly(jolly);
@@ -26,9 +26,9 @@ public class PoliticalCard implements Serializable{
 	}
 	
 	private void setColor(Color color) { this.color = color;}
-	private void setJolly(boolean jolly) { this.jolly = jolly;}
+	private void setJolly(boolean jolly) { this.jolly = new Boolean(jolly);}
 	
-	public boolean getJolly() { return this.jolly;}
+	public boolean getJolly() { return this.jolly.booleanValue();}
 	public Color getColor() { return this.color; }
 	
 	@Override

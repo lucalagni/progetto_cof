@@ -18,7 +18,7 @@ public class PermitCard implements Serializable{
 	private void setVillages(HashSet<String> villages){ this.villages = villages; }
 	
 	public boolean verifyVillage(Village village){
-		Iterator<String> it = this.getVillages().iterator();
+		Iterator<String> it = this.getVillagesName().iterator();
 		
 		while(it.hasNext()) if(it.next().equals(village.getName())) return true;
 		
@@ -26,12 +26,19 @@ public class PermitCard implements Serializable{
 	}
 	
 	public Bonus getBonus(){ return this.bonus; }
-	public HashSet<String> getVillages(){ return this.villages; }
+	public HashSet<String> getVillagesName(){ return this.villages; }
+	public HashSet<Character> getVillages(){
+		HashSet<Character> vil = new HashSet<Character>();
+		
+		for(String s: this.getVillagesName()) vil.add(new Character(s.charAt(0)));
+		
+		return vil;
+	}
 	
 	@Override
 	public String toString(){
 		String pcString = "\npermit card\n";
-		Iterator<String> it = this.getVillages().iterator();
+		Iterator<String> it = this.getVillagesName().iterator();
 		
 		pcString += "villages: \n" ;
 		while(it.hasNext()) pcString += it.next().toString() + "\n";
