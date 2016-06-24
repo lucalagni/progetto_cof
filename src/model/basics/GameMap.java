@@ -16,8 +16,7 @@ public class GameMap implements Serializable {
 	
 	public GameMap(Village[] villages,Bonus[] colorBonus)throws GameMapException{
 		this.villages = new Village[VillageConstants.VILLAGES_NAME.length];
-		this.connections = new int[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
-		
+		this.connections = new Integer[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
 		if(villages.length != this.villages.length) throw new GameMapException(GameMapExceptionCode.INVALID_NUMBER_OF_VILLAGES.getExceptionCode());
 		
 		for(int i = 0; i < this.connections.length; i++){

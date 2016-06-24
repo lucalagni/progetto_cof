@@ -94,8 +94,8 @@ public class MainActionCommand {
 				if(flag == false) throw new MainActionCommandException(MainActionCommandExceptionCode.VILLAGE_NOT_FOUND.getExceptionCode());
 				else flag = false;
 		
-		//Verifico la consistenza tra la carta e la lettera
-		for(String s: card.getVillages()){
+		//Verifico la consistenza tra la carta e la lettera	
+		for(String s: card.getVillagesName()){
 			if(s.charAt(0) == villageFirstLetter){
 				flag = true;
 				break;
