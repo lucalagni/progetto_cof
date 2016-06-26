@@ -13,6 +13,20 @@ import java.io.Serializable;
  * CLIENT_REQUEST_MATCH_TIME = Il client richiede se si e' passati alla modalita' match
  * CLIENT_REQUEST_MARKET_SETTER = Il client richiede se si e' passati alla modalita' di creazione del match
  * CLIENT_REQUEST_CAN_I_PLAY = Il client chiede se e' stato creato il match con cui puo' giocare...
+ * ============={ messaggi azioni principali }===============
+ * CLIENT_REQUEST_MOVE_KING_ACTION = Il client richiede di poter spostare il re (azione principale)
+ * CLIENT_REQUEST_CHANGE_NOBLE = Il client richiede di cambiare un nobile (azione principale o secondaria)
+ * CLIENT_REQUEST_BUY_PERMIT_CARD = il client richiede di comprare una carta permesso di costruzione (azione principale) 
+ * CLIENT_REQUEST_TO_PLACE_A_SHOP = il client richiede di piazzare un emporio
+ * ============={ messaggi azioni secondarie }===============
+ * CLIENT_REQUEST_BUY_HELPERS = il client richiede di comprare aiutanti
+ * CLIENT_REQUEST_BUY_NEW_MAIN_ACTION = il client richiede di comprare una nuova azione principale
+ * CLIENT_REQUEST_DOUBLE_ACTION = Il client richiede al server di eseguire la doppia azione
+ * ============={ messaggi per azioni speciali }=============
+ * CLIENT_REQUEST_ACQUIRE_PERMIT_CARD = il client richiede al server l'acquisizione di una carta permesso senza pagare
+ * CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS = il client richiede di poter riutilizzare il bonus di un villagio in cui ha costruito in precedenza
+ * CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS = il client richiede di poter riutilizzare il bonus di un villagio in cui ha costruito in precedenza
+ * CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS = il client richiede di poter riutilizzare il bonus di una carta permesso precedentemente usata
  */
 
 public enum ClientMessageContentType implements Serializable{
@@ -23,7 +37,21 @@ public enum ClientMessageContentType implements Serializable{
 	CLIENT_REQUEST_MATCH_TIME("CLIENT_REQUEST_MATCH_TIME"),
 	CLIENT_REQUEST_MARKET_SETTER(" CLIENT_REQUEST_MARKET_SETTER"),
 	CLIENT_REQUEST_ADD_ME("CLIENT_REQUEST_ADD_ME"),
-	CLIENT_REQUEST_CAN_I_PLAY("CLIENT_REQUEST_CAN_I_PLAY");
+	CLIENT_REQUEST_CAN_I_PLAY("CLIENT_REQUEST_CAN_I_PLAY"),
+	
+	CLIENT_REQUEST_MOVE_KING_ACTION("CLIENT_REQUEST_MOVE_KING_ACTION"),
+	CLIENT_REQUEST_CHANGE_NOBLE("CLIENT_REQUEST_CHANGE_NOBLE"),
+	CLIENT_REQUEST_BUY_PERMIT_CARD("CLIENT_REQUEST_BUY_PERMIT_CARD"),
+	CLIENT_REQUEST_TO_PLACE_A_SHOP("CLIENT_REQUEST_TO_PLACE_A_SHOP"),
+	
+	CLIENT_REQUEST_BUY_HELPERS("CLIENT_REQUEST_BUY_HELPERS"),
+	CLIENT_REQUEST_BUY_NEW_MAIN_ACTION("CLIENT_REQUEST_BUY_NEW_MAIN_ACTION"),
+	CLIENT_REQUEST_DOUBLE_ACTION("CLIENT_REQUEST_DOUBLE_ACTION"),
+	
+	CLIENT_REQUEST_ACQUIRE_PERMIT_CARD("CLIENT_REQUEST_ACQUIRE_PERMIT_CARD"),
+	CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS("CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS"),
+	CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS("CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS"),
+	CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS("CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS");
 	
 	private String clientMessageContentType;
 	ClientMessageContentType(String clientMessageContentType){ this.setClientMessageContentType(clientMessageContentType); }

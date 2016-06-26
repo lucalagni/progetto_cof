@@ -3,6 +3,7 @@ package command.basic.actions;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import command.basic.actions.constants.ActionSynopticConstants;
 import command.basic.actions.exceptions.MainActionCommandException;
 import command.basic.actions.exceptions.codes.MainActionCommandExceptionCode;
 import model.basics.Bonus;
@@ -43,38 +44,28 @@ import model.basics.exceptions.VillageException;
 public class MainActionCommand {
 	private Gamer gamer;
 	private Match match;
+	private ActionSynoptic actionSynoptic;
 	
-	private int reusePermitBonus;
-	private int acquirePermitCard;
-	private int acquireSingleVillageBonus;
-	private int acquireDoubleVillageBonus;
-	
-	private int newMainAction;
 	private int virtualHelpers ;
 	private int virtualCoins ;
 	
 	
-	public MainActionCommand(Match match,Gamer gamer,int virtualHelpers,int virtualCoins){
+	public MainActionCommand(Match match,Gamer gamer,int virtualHelpers,int virtualCoins,ActionSynoptic actionSynoptic) throws MainActionCommandException{
+		if(actionSynoptic.getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
+			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
+		this.setActionSynoptic(actionSynoptic);
 		this.setMatch(match);
 		this.setGamer(gamer);
-		this.setNewMainAction(0);
-		this.setReusePermitBonus(0);
-		this.setAcquirePermitCard(0);
-		this.setAcquireSingleVillageBonus(0);
-		this.setAcquireDoubleVillageBonus(0);
 		this.setVirtualHelpers(virtualHelpers);
 		this.setVirtualCoins(virtualCoins);
 	}
 	
 	private void setMatch(Match match){ this.match = match; }
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
-	private void setNewMainAction(int newMainAction){ this.newMainAction = newMainAction; }
-	private void setReusePermitBonus(int reusePermitBonus){ this.reusePermitBonus = reusePermitBonus; }
-	private void setAcquirePermitCard(int acquirePermitCard){ this.acquirePermitCard = acquirePermitCard; }
-	private void setAcquireSingleVillageBonus(int acquireSingleVillageBonus){ this.acquireSingleVillageBonus = acquireSingleVillageBonus; }
-	private void setAcquireDoubleVillageBonus(int acquireDoubleVillageBonus){ this.acquireDoubleVillageBonus = acquireDoubleVillageBonus; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
+	private void setActionSynoptic(ActionSynoptic actionSynoptic){ this.actionSynoptic = actionSynoptic; }
 	
 	/**
 	 * Metodo per il piazzamento di un emporio da parte del giocatore di turno
@@ -161,14 +152,12 @@ public class MainActionCommand {
 		//Verifico se la partita deve finire
 		this.checkNumberOfShops();
 		
+		//Riduco il numero di azioni principali eseguibili dal giocatore
+		this.actionSynoptic.useMainAction();
+		
 	}
 	
-	public void reusePermitCardBonus(int permitCardPosition) throws MainActionCommandException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
-		if(this.reusePermitBonus <= 0) throw new MainActionCommandException(MainActionCommandExceptionCode.OPERATION_NOT_VALID.getExceptionCode());
-		if((permitCardPosition < 0) || (permitCardPosition >= gamer.getUsedPermitCards().size())) throw new MainActionCommandException(MainActionCommandExceptionCode.OPERATION_NOT_VALID.getExceptionCode());
-		
-		this.manageBonus(gamer.getUsedPermitCards().get(permitCardPosition).getBonus());
-	}
+	
 	
 	/**
 	 * Metodo che permette di gestire la catena di bonus che si viene a creare quando si costruisce un emporio in un villaggio 
@@ -301,10 +290,21 @@ public class MainActionCommand {
 		}
 		
 		//Gestione ddelle azioni speciali
-		if(bonus.getNewMainAction() == true) this.newMainAction++;
-		if(bonus.getReusePermitBonus() == true) this.reusePermitBonus++;
-		if(bonus.getAcquireSingleVillageBonus() == true) this.acquireSingleVillageBonus++;
-		if(bonus.getAcquireDoubleVillageBonus() == true) this.acquireDoubleVillageBonus++;
+		if(bonus.getNewMainAction() == true) {
+			this.actionSynoptic.addMainAction();
+		}
+		if(bonus.getReusePermitBonus() == true){
+			this.actionSynoptic.addReusePermitCardBonus();
+		}
+		if(bonus.getAcquirePermitCard() == true){
+			this.actionSynoptic.addAcquirePermitCard();
+		}
+		if(bonus.getAcquireSingleVillageBonus() == true){
+			this.actionSynoptic.addAcquireSingleVillageBonus();
+		}
+		if(bonus.getAcquireDoubleVillageBonus() == true){
+			this.actionSynoptic.addAcquireDoubleVillageBonus();
+		}
 				
 	}
 	/**
@@ -403,6 +403,9 @@ public class MainActionCommand {
 		//do la carta permesso al giocatore
 		this.manageBonus(pcr.getBonus());
 		this.gamer.addPermitCard(pcr);
+		
+		//Riduco il numero di azioni principali del giocatore
+		this.actionSynoptic.useMainAction();
 	}
 	
 	/**
@@ -548,6 +551,9 @@ public class MainActionCommand {
 				
 				//Gestisco i derivanti bonus
 				this.manageBonusChain(v);
+				
+				//riduco il numero di azioni principali del giocatore
+				this.actionSynoptic.useMainAction();
 	}
 	
 	/**
@@ -597,15 +603,14 @@ public class MainActionCommand {
 			this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER-this.gamer.getCoins());
 		}
 		else this.gamer.addCoins(this.gamer.getCoins() + CouncilConstants.REWARD_COINS);
+		
+		//Riduco il numero di azioni principali del giocatore
+		this.actionSynoptic.useMainAction();
 	}
 	
 	public Match getMatch(){ return this.match; }
 	public Gamer getGamer(){ return this.gamer; }
-	public int getAcquirePermitCard(){ return this.acquirePermitCard; }
-	public int getNewMainAction(){ return this.newMainAction; }
-	public int getReusePermitBonus(){ return this.reusePermitBonus++; }
-	public int getAcquireSingleVillageBonus(){ return this.acquireSingleVillageBonus; }
-	public int getAcquireDoubleVillageBonus(){ return this.acquireDoubleVillageBonus; }
 	public int getVirtualHelpers(){ return this.virtualHelpers ; }
 	public int getVirtualCoins(){ return this.virtualCoins; }
+	public ActionSynoptic getActionSynoptic(){ return this.actionSynoptic; }
 }

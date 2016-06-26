@@ -7,7 +7,9 @@ public class ClientController {
 	private static ClientController instance = null;
 	private Client client;
 	
-	private ClientController(){ }
+	private ClientController(){ 
+		this.client = null;
+	}
 	
 	public void setGameMode(GameMode mode){
 		if(this.client == null) this.client = new Client(mode);

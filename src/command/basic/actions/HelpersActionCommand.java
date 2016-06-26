@@ -2,6 +2,7 @@ package command.basic.actions;
 
 import java.awt.Color;
 
+import command.basic.actions.constants.ActionSynopticConstants;
 import command.basic.actions.exceptions.HelpersActionCommandException;
 import command.basic.actions.exceptions.MainActionCommandException;
 import command.basic.actions.exceptions.codes.HelpersActionCommandExceptionCode;
@@ -20,30 +21,34 @@ import model.basics.exceptions.PermitCardsDeckException;
 /**
  * Classe che implementa le azioni secondarie eseguibili da un'utente nel contesto di match
  * Non serializzata in quanto eseguita completamente lato server
- * @author Luca lagni
+ * @author Luca Lagni
  *
  */
 
 public class HelpersActionCommand {
 	private Gamer gamer;
 	private Match match;
-	private int newMainAction;
+
 	private int virtualHelpers ;
 	private int virtualCoins ;
+	private ActionSynoptic actionSynoptic;
 	
-	public HelpersActionCommand(Gamer gamer,Match match,int virtualHelpers,int virtualCoins){
+	public HelpersActionCommand(Gamer gamer,Match match,int virtualHelpers,int virtualCoins,ActionSynoptic actionSynoptic) throws HelpersActionCommandException{
+		if(this.actionSynoptic.getHelpersActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
+			throw new HelpersActionCommandException(HelpersActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
+		this.setActionSynoptic(actionSynoptic);
 		this.setGamer(gamer);
 		this.setMatch(match);
 		this.setVirtualHelpers(virtualHelpers);
 		this.setVirtualCoins(virtualCoins);
-		this.setNewMainAction(0);
 	}
 	
 	private void setMatch(Match match){ this.match = match; }
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
-	private void setNewMainAction(int newMainAction){ this.newMainAction = newMainAction; }
+	private void setActionSynoptic(ActionSynoptic actionSynoptic){ this.actionSynoptic = actionSynoptic; }
 	
 	/**
 	 * Metodo per l'acquisto di aiutanti
@@ -93,6 +98,9 @@ public class HelpersActionCommand {
 		
 		this.gamer.addHelpers(helpers);
 		this.match.getBoard().getHelpersPool().subHelpers(helpers);
+		
+		//riduco il numero di azioni secondrie che l'utente può svolgere
+		this.actionSynoptic.useHelpersAction();
 		return true;
 	}
 	
@@ -140,6 +148,9 @@ public class HelpersActionCommand {
 		if(old.equals(ColorConstants.POLITICAL_COLORS[3])) this.match.getBoard().getNoblesPool().addMagentaNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[4])) this.match.getBoard().getNoblesPool().addOrangeNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[5])) this.match.getBoard().getNoblesPool().addWhiteNoble();
+		
+		//riduco il numero di azioni secondarie che l'utente può svolgere
+		this.actionSynoptic.useHelpersAction();
 	}
 	
 	/**
@@ -168,6 +179,8 @@ public class HelpersActionCommand {
 		else this.virtualHelpers = this.virtualHelpers - PermitCardsDeckConstants.DOUBLE_ACTION_HELPERS;
 		
 		this.match.getBoard().getRegions()[regionNumber].getPermitCardsDeck().doubleAction();
+		
+		this.actionSynoptic.useHelpersAction();
 	}
 	
 	/**
@@ -193,12 +206,11 @@ public class HelpersActionCommand {
 		
 		this.match.getBoard().getHelpersPool().addHelpers(HelpersPoolConstants.HELPERS_FOR_NEW_MAIN_ACTION);
 		
-		this.newMainAction++;
+		this.actionSynoptic.addMainAction();
 	}
 	
 	public Match getMatch(){ return this.match; }
 	public Gamer getGamer(){ return this.gamer; }
 	public int getVirtualHelpers(){ return this.virtualHelpers ; }
 	public int getVirtualCoins(){ return this.virtualCoins; }
-	public int getNewMainAction(){ return this.newMainAction; }
 }
