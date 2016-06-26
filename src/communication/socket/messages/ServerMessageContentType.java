@@ -3,6 +3,8 @@ package communication.socket.messages;
 import java.io.Serializable;
 
 /**
+ * Enumerazione che definisce i tipi di contenuti che un server message può implementare
+ * 
  * SERVER_RESPONSE_MATCHCODE = Il server ha fornito il matchCode come risposta
  * SERVER_RESPONSE_MATCH = Il server ha fornito il match come risposta
  * SERVER_RESPONSE_GAMER_TURN = il server ha fornito il numero del giocatore come risposta

@@ -3,6 +3,8 @@ package communication.socket.messages;
 import java.io.Serializable;
 
 /**
+ * enumerazione che definisce il tipo di contenuto possibile per  la classe del messaggio spedito dal client
+ * 
  * CLIENT_REQUEST_ADD_ME = il client richiede l'adesione ad un match
  * CLIENT_REQUEST_MATCH = il client richiede l'adesione ad un match
  * CLIENT_REQUEST_GAMER_TURN = Il client richiede di chi e' il turno di gioco
