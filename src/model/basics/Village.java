@@ -64,7 +64,8 @@ public class Village implements Serializable {
 	
 	private void checkGamerPresence(String gamer) throws VillageException{
 		for(int i = 0; i < this.shops.length; i++){
-			if(this.shops[i].equals(gamer))throw new VillageException(VillageExceptionCode.GAMER_ALREADY_PRESENT.getExceptionCode());
+
+
 		}
 	}
 	

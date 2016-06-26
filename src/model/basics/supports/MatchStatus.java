@@ -1,13 +1,20 @@
 package model.basics.supports;
 
-public enum MatchStatus {
+import java.io.Serializable;
+
+/**
+ * Enumerazione che contiene le informazioni sullo stato del match
+ * 
+ * ACTIVE = il match è in corso
+ * FREEZED = il match è sospeso per assenza di giocatori
+ * TERMINATED = il match è finito
+ * @author Luca Lagni
+ *
+ */
+public enum MatchStatus implements Serializable{
 	ACTIVE("MS.ACTIVE"),
-	READY("MS.READY"),
-	IDLE("MS.IDLE"),
 	FREEZED("MS.FREEZED"),
-	TERMINATED("MS.TERMINATED"),
-	FINISCHED("MS.FINISCHED"),
-	ON_WORK("MS.ON_WORK");
+	TERMINATED("MS.TERMINATED");
 	
 	private String statusCode;
 	

@@ -1,6 +1,7 @@
 package server.managers.match;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -10,9 +11,11 @@ import model.basics.Match;
 public class MatchRepository {
 	private static MatchRepository instance = null;
 	private HashMap<String, Match> matches;
+	private HashSet<String> aloneGamers;
 	
 	private MatchRepository(){
 		this.matches = new HashMap<String,Match>();
+		this.aloneGamers = new HashSet<String>();
 	}
 	
 	public synchronized Match getMatch(String matchCode){
@@ -25,8 +28,20 @@ public class MatchRepository {
 		return null;
 	}
 	
+	public synchronized void addAloneGamer(String gamer){
+		this.aloneGamers.add(gamer);
+	}
+	
 	public synchronized void addMatch(Match match){
 		this.matches.put(match.getMatchCode(), match);
+	}
+	
+	public synchronized boolean getAloneGamerAssociatedTo(String username){
+		for(String gamer : this.aloneGamers){
+			if(gamer.equals(username)) return true;
+		}
+		
+		return false;
 	}
 	
 	public synchronized Match getMatchAssociatedTo(String username){

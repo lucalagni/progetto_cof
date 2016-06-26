@@ -13,9 +13,7 @@ public enum GamerStatus implements Serializable{
 	ZOMBIE("GS.ZOMBIE");*/
 	
 	private String gamerStatus;
-	
 	GamerStatus(String gamerStatus){ this.setGamerStatus(gamerStatus); }
-	
 	private void setGamerStatus(String gamerStatus){ this.gamerStatus = gamerStatus; }
 	public String getGamerStatus(){ return this.gamerStatus; }
 }
