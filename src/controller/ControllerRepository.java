@@ -3,6 +3,14 @@ package controller;
 import client.GameMode;
 import controller.client.ClientController;
 
+/**
+ * Classe lato client che contiene tutti i controller utili al giocatore
+ * per l'evoluzione della partita
+ * 
+ * @author Luca Lagni
+ * @pattern Singleton
+ *
+ */
 public class ControllerRepository {
 	private static ControllerRepository instance = null;
 	private ClientController clientController ;
