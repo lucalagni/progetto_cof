@@ -33,6 +33,13 @@ import model.basics.exceptions.PermitCardsDeckException;
 import model.basics.exceptions.PoliticalCardsDeckException;
 import model.basics.exceptions.VillageException;
 
+/**
+ * Classe che implementa i  metodi per l'esecuzione delle azionin pricipali eseguibili dal giocatore interessato
+ * La classe non è serializzata in quanto eseguita unicamente dal server
+ * @author Luca Lagni
+ *
+ */
+
 public class MainActionCommand {
 	private Gamer gamer;
 	private Match match;
@@ -69,6 +76,18 @@ public class MainActionCommand {
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
 	
+	/**
+	 * Metodo per il piazzamento di un emporio da parte del giocatore di turno
+	 * @param permitCardPosition indica la posizione della carta permesso all'interno dell'arraylist di carte permesso del giocatore
+	 * @param villageFirstLetter indica la prima lettera identificante il villaggio in cui costruire
+	 * @throws MainActionCommandException 
+	 * @throws GamerException lanciabile qualora l'utente non abbia più empori a disposizione o la carta permesso non sia valida
+	 * @throws HelpersPoolException lanciabile qualora il giocatore non abbia più aiutanti per costruire in un villaggio in cui qualcuno ha già costruito
+	 * @throws VillageException lanciabile qualora l'utente abbia già costruito in quel villaggio
+	 * @throws GameMapException lanciabile qualora il villaggio sia insesistente
+	 * @throws PoliticalCardsDeckException 
+	 * @throws NobiltyPathException
+	 */
 	@SuppressWarnings("unused")
 	public void placeShop(int permitCardPosition,char villageFirstLetter) throws MainActionCommandException, GamerException, HelpersPoolException, VillageException, GameMapException, PoliticalCardsDeckException, NobiltyPathException{
 		GameMap gp = this.match.getBoard().getGameMap();
@@ -151,6 +170,16 @@ public class MainActionCommand {
 		this.manageBonus(gamer.getUsedPermitCards().get(permitCardPosition).getBonus());
 	}
 	
+	/**
+	 * Metodo che permette di gestire la catena di bonus che si viene a creare quando si costruisce un emporio in un villaggio 
+	 * collegato ad altri in cui si è costruito in precedenza
+	 * @param v indica il villaggio di cui gestire i bonus
+	 * @throws GameMapException
+	 * @throws GamerException
+	 * @throws HelpersPoolException
+	 * @throws PoliticalCardsDeckException
+	 * @throws NobiltyPathException
+	 */
 	private void manageBonusChain(Village v) throws GameMapException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
 		Village[] villages = this.match.getBoard().getGameMap().getVillages();
 		int[][] connections = this.match.getBoard().getGameMap().getConnections();
@@ -206,13 +235,31 @@ public class MainActionCommand {
 		}
 	}
 	
+	/**
+	 * Metodo da chiamare a fine turno per poter mettere in coda il giocatore qualora non abbia ricevuto
+	 * tutti gli aiutanti guadagnati
+	 * @throws HelpersPoolException
+	 */
 	public void packVirtualHelpers() throws HelpersPoolException{
 		this.match.getBoard().getHelpersPool().quequeGamer(this.gamer, this.virtualHelpers);
 		this.setVirtualHelpers(0);
 	}
 	
+	/**
+	 * Metodo per l'utilizzo di un bonus da parte di un giocatore
+	 * @param bonus indica il bonus da cui prendere i valori
+	 * @throws GamerException
+	 * @throws HelpersPoolException
+	 * @throws PoliticalCardsDeckException
+	 * @throws NobiltyPathException
+	 */
 	private void manageBonus(Bonus bonus) throws GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
+		//aggiungo le monete del bonus al giocatore
 		this.gamer.addCoins(bonus.getCoins());
+		/*
+		 * Aggiungo aiutanti al giocatore e, qualora non ve ne siano a sufficienza, incremento il numero 
+		 * di aiutanti virtuali
+		 */
 		if(bonus.getHelpers() > 0){
 			if(this.match.getBoard().getHelpersPool().getActualGamerHelpers() < bonus.getHelpers()){
 				this.virtualHelpers += (bonus.getHelpers() - this.match.getBoard().getHelpersPool().getActualTotal());
@@ -226,8 +273,13 @@ public class MainActionCommand {
 			}
 		}
 		
+		//aggiungo punti al giocatore qualora il bonus li contempli
 		this.gamer.addPoints(bonus.getPoints());
 		
+		/*
+		 * Gestisco l'acquisizione di carte politiche da parte del giocatore,
+		 * qualora non ve ne siano a sufficienza metto il giocatore in coda
+		 */
 		if(bonus.getPoliticalCards() > 0){
 			if(this.match.getBoard().getPoliticalCardsDeck().getAvailableCardsList().size() < bonus.getPoliticalCards()){
 				this.match.getBoard().getPoliticalCardsDeck().quequeGamer(gamer, bonus.getPoliticalCards());
@@ -248,17 +300,33 @@ public class MainActionCommand {
 			this.gamer.addShifts(bonus.getShifts());
 		}
 		
+		//Gestione ddelle azioni speciali
 		if(bonus.getNewMainAction() == true) this.newMainAction++;
 		if(bonus.getReusePermitBonus() == true) this.reusePermitBonus++;
 		if(bonus.getAcquireSingleVillageBonus() == true) this.acquireSingleVillageBonus++;
 		if(bonus.getAcquireDoubleVillageBonus() == true) this.acquireDoubleVillageBonus++;
 				
 	}
-	
+	/**
+	 * Metodo per la verifica del numero di negozi del giocatore rimasti
+	 * @throws MainActionCommandException
+	 */
 	public void checkNumberOfShops() throws MainActionCommandException{
 		if(this.gamer.getShops() == 0) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_HAS_NO_MORE_AVAILABLE_SHOPS.getExceptionCode());
 	}
 	
+	/**
+	 * Metodo per l'acqusizione di una carta permesso afferente ad una determinata regione
+	 * @param regionNumber indica la regione da cui acquisire la carta permesso di costruzione
+	 * @param permitCardNumber indica quale delle carte scoperte prendere
+	 * @param politicalCardsPosition indica la posizione nell'array listi di quali carte politiche utilizzare per acuisire la carta permesso desiderata
+	 * @throws MainActionCommandException
+	 * @throws PermitCardsDeckException
+	 * @throws GamerException
+	 * @throws HelpersPoolException
+	 * @throws PoliticalCardsDeckException
+	 * @throws NobiltyPathException
+	 */
 	public void pickupPermitCard(int regionNumber,int permitCardNumber,int politicalCardsPosition[]) throws MainActionCommandException, PermitCardsDeckException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
 		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 1)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
 		if((permitCardNumber < 0) || (permitCardNumber > (PermitCardsDeckConstants.UNHIDDEN_CARDS_FOR_REGION - 1))) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_PERMIT_CARD_NUMBER.getExceptionCode());
@@ -337,6 +405,19 @@ public class MainActionCommand {
 		this.gamer.addPermitCard(pcr);
 	}
 	
+	/**
+	 * Metodo per lo spostamento del re in un altro villaggio rispetto a quello in cui è presente
+	 * @param politicalCardsPosition indica le carte politiche che il giocatore intende utilizzare
+	 * @param villagePath indica il percorso che l'utente vuole seguire
+	 * @throws MainActionCommandException
+	 * @throws GamerException
+	 * @throws KingException
+	 * @throws GameMapException
+	 * @throws HelpersPoolException
+	 * @throws PoliticalCardsDeckException
+	 * @throws NobiltyPathException
+	 * @throws VillageException
+	 */
 	public void moveKing(int politicalCardsPosition[],char villagePath[]) throws MainActionCommandException, GamerException, KingException, GameMapException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException, VillageException{
 		//Verifico l'effettiva connessione tra il percorso e i villaggi
 		if(villagePath.length < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_VILLAGE_PATH.getExceptionCode());
@@ -469,17 +550,33 @@ public class MainActionCommand {
 				this.manageBonusChain(v);
 	}
 	
+	/**
+	 * Metodo per il cambio di un nobile di una determinata regione (o consiglio del re).
+	 * Essendo azione principale fornisce monete al giocatore
+	 * @param isKing indica se si intende cambiare il nobile nel consiglio del re
+	 * @param regionNumber indica il numero di regione di cui cambiare nobile (ignorato nel caso di consiglio del re)
+	 * @param noble indica il nuovo nopbile da inserire
+	 * @throws MainActionCommandException
+	 * @throws CouncilException
+	 * @throws NoblesPoolException
+	 * @throws GamerException
+	 */
 	public void changeNoble(boolean isKing,int regionNumber,Color noble) throws MainActionCommandException, CouncilException, NoblesPoolException, GamerException{
 		if((regionNumber >= RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 0)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
 		boolean flag = false;
 		Color old = null;
 		
+		//Verfico che il colore sia uno di quelli ammissibili
 		for(Color c: ColorConstants.POLITICAL_COLORS) if(c.equals(noble)) flag = true;
 		if(flag == false) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_NOBLE_COLOR.getExceptionCode());
 		
+		//determino dove cambiare il nobile
 		if(isKing == true) old = this.match.getBoard().getKing().getCouncil().slideNoble(noble);
 		else old = this.match.getBoard().getRegions()[regionNumber].getCouncil().slideNoble(noble);
 		
+		/*
+		 * Bilancio la quota di nobili disponibili
+		 */
 		if(noble.equals(ColorConstants.POLITICAL_COLORS[0])) this.match.getBoard().getNoblesPool().subBlackNoble();
 		if(noble.equals(ColorConstants.POLITICAL_COLORS[1])) this.match.getBoard().getNoblesPool().subCyanNoble();
 		if(noble.equals(ColorConstants.POLITICAL_COLORS[2])) this.match.getBoard().getNoblesPool().subPinkNoble();
@@ -494,6 +591,7 @@ public class MainActionCommand {
 		if(old.equals(ColorConstants.POLITICAL_COLORS[4])) this.match.getBoard().getNoblesPool().addOrangeNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[5])) this.match.getBoard().getNoblesPool().addWhiteNoble();
 		
+		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
 		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
 			this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;
 			this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER-this.gamer.getCoins());

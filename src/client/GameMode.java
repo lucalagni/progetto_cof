@@ -1,5 +1,13 @@
 package client;
 
+/**
+ * enumerazione che contiene le possibili modalità di comunicazione
+ * SOCKET = utilizzando la tecnologia socket
+ * RMI = utilizzando la tecnologia RMI
+ * @author Luca Lagni
+ *
+ */
+
 public enum GameMode {
 	SOCKET("SOCKET"),
 	RMI("RMI");

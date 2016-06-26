@@ -1,6 +1,13 @@
 package command.basic.actions.exceptions;
 
-@SuppressWarnings("serial")
+/**
+ * Classe che gestisce le eccezioni delle azioni principali
+ * @author lucal
+ *
+ */
+
 public class MainActionCommandException extends Exception{
+	private static final long serialVersionUID = 1L;
+
 	public MainActionCommandException(String s){ super(s); }
 }

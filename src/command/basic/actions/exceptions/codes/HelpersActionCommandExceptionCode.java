@@ -1,10 +1,16 @@
 package command.basic.actions.exceptions.codes;
 
+/**
+ * Enumerazione che contiene i codici per le eccezioni generabili dalle azioni secondarie
+ * @author Luca Lagni
+ *
+ */
+
 public enum HelpersActionCommandExceptionCode {
-	TOO_FEAW_HELPERS("HelpersActionCommandException: too feaw helpers"),
-	GAMER_HAS_TOO_FEAW_COINS("HelpersActionCommandException: gamer has too feaw coins"),
-	INVALID_NOBLE_COLOR("HelpersActionCommandException: invalid noble color"),
-	INVALID_REGION_NUMBER("HelpersActionCommandException: invalid region number");
+	TOO_FEAW_HELPERS("TOO_FEAW_HELPERS"),
+	GAMER_HAS_TOO_FEAW_COINS("GAMER_HAS_TOO_FEAW_COINS"),
+	INVALID_NOBLE_COLOR("INVALID_NOBLE_COLOR"),
+	INVALID_REGION_NUMBER("INVALID_REGION_NUMBER");
 	
 	private String exceptionCode;
 	HelpersActionCommandExceptionCode(String exceptionCode){ this.setExceptionCode(exceptionCode);}
