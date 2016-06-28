@@ -12,8 +12,8 @@ import model.basics.supports.QuequedGamer;
 
 public class HelpersPool implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private int actualTotal;
-	private int actualGamerHelpers;
+	private Integer actualTotal;
+	private Integer actualGamerHelpers;
 	private ArrayList<QuequedGamer> queque;
 	
 	public HelpersPool(){
@@ -33,8 +33,8 @@ public class HelpersPool implements Serializable{
 		this.setActualTotal(this.getActualTotal() - helpers);
 	}
 	
-	private void setActualTotal(int total){ this.actualTotal = total; }
-	private void setActualGamerHelpers(int actualGamerHelpers){ this.actualGamerHelpers = actualGamerHelpers; }
+	private void setActualTotal(int total){ this.actualTotal = new Integer(total); }
+	private void setActualGamerHelpers(int actualGamerHelpers){ this.actualGamerHelpers = new Integer(actualGamerHelpers); }
 	private void setQueque(ArrayList<QuequedGamer> queque){ this.queque = queque; }
 	
 	public void addHelpers(int helpers) throws HelpersPoolException { 
@@ -72,8 +72,8 @@ public class HelpersPool implements Serializable{
 		this.queque.add(new QuequedGamer(this.getQueque().size(), gamer.getUsername(), helpers));
 	}
 	
-	public int getActualTotal(){ return this.actualTotal; }
-	public int getActualGamerHelpers(){ return this.actualGamerHelpers; }
+	public int getActualTotal(){ return this.actualTotal.intValue(); }
+	public int getActualGamerHelpers(){ return this.actualGamerHelpers.intValue(); }
 	public ArrayList<QuequedGamer> getQueque(){ return this.queque; }
 	
 	@Override

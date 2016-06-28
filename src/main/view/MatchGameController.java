@@ -12,9 +12,12 @@ import model.basics.Region;
 import model.basics.Village;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
+<<<<<<< HEAD
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
 import mud.model.basic.interfaces.MatchRequest;
+=======
+>>>>>>> 0ecfc63db6e8b0f97160ee713024b7a639e8d4f8
 
 import java.util.ArrayList;
 import java.util.Collection;

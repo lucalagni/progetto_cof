@@ -11,13 +11,12 @@ import model.basics.exceptions.codes.GameMapExceptionCode;
 public class GameMap implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Village[] villages;
-	private int[][] connections ;
+	private Integer[][] connections ;
 	private Bonus[] colorsBonus ;
 	
 	public GameMap(Village[] villages,Bonus[] colorBonus)throws GameMapException{
 		this.villages = new Village[VillageConstants.VILLAGES_NAME.length];
-		this.connections = new int[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
-		
+		this.connections = new Integer[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
 		if(villages.length != this.villages.length) throw new GameMapException(GameMapExceptionCode.INVALID_NUMBER_OF_VILLAGES.getExceptionCode());
 		
 		for(int i = 0; i < this.connections.length; i++){
@@ -38,12 +37,12 @@ public class GameMap implements Serializable {
 	
 	public GameMap(Village[] villages, int connections[][],Bonus[] colorBonus)throws GameMapException{
 		this.villages = new Village[VillageConstants.VILLAGES_NAME.length];
-		this.connections = new int[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
+		this.connections = new Integer[VillageConstants.VILLAGES_NAME.length][VillageConstants.VILLAGES_NAME.length];
 		
 		for(int i = 0; i < this.connections.length; i++){
 			for(int j = 0; j < this.connections[i].length; j++){
-				if(i == j) this.connections[i][j] = GameMapConstants.ITSELF;
-				else this.connections[i][j] = GameMapConstants.NOT_CONNECTED;
+				if(i == j) this.connections[i][j] = new Integer(GameMapConstants.ITSELF);
+				else this.connections[i][j] = new Integer(GameMapConstants.NOT_CONNECTED);
 			}
 		}
 		
@@ -53,7 +52,13 @@ public class GameMap implements Serializable {
 	}
 	
 	private void setVillages(Village[] villages){ this.villages = villages; }
-	private void setConnections(int connections[][]){ this.connections = connections; }
+	private void setConnections(int connections[][]){ 
+		for(int i = 0; i < this.connections.length; i++){
+			for(int j = 0; j < this.connections[i].length; j++){
+				this.connections[i][j] = new Integer(connections[i][j]);
+			}
+		}
+	}
 	private void setColorsBonus(Bonus[] colorsBonus){ 
 		this.colorsBonus = colorsBonus; 
 	}
@@ -78,14 +83,22 @@ public class GameMap implements Serializable {
 		position1 = this.villagePosition(village1);
 		position2 = this.villagePosition(village2);
 		
-		this.connections[position1][position2] = GameMapConstants.CONNECTED;
-		this.connections[position2][position1] = GameMapConstants.CONNECTED;
+		this.connections[position1][position2] = new Integer(GameMapConstants.CONNECTED);
+		this.connections[position2][position1] = new Integer(GameMapConstants.CONNECTED);
 		
 		return true;
 	}
 	
 	public Village[] getVillages(){ return this.villages; }
-	public int[][] getConnections(){ return this.connections; }
+	public int[][] getConnections(){
+		int[][] con = new int[this.connections.length][this.connections.length];
+		
+		for(int i = 0; i < this.connections.length; i++){
+			for(int j = 0; j < this.connections[i].length; j++) con[i][j] = this.connections[i][j].intValue();
+		}
+		
+		return con;
+	}
 	public Bonus[] getColorsBonus(){ return this.colorsBonus; }
 	
 	private String printConnections(String s){
@@ -93,7 +106,6 @@ public class GameMap implements Serializable {
 		
 		for(int i = 0; i < this.villages.length; i++)if(this.villages[i].getName().length() > length) length = this.villages[i].getName().length();
 		s += createSpaceString(this.villages[0].getName().length() + length);
-		//s += addSpaces(this.villages[0].getName(), length, false);
 		for(int i = 0; i < this.villages.length; i++) s += addSpaces(this.villages[i].getName(), length, false);
 		for(int i = 0; i < this.connections.length; i++){
 			s += "\n";
@@ -101,7 +113,7 @@ public class GameMap implements Serializable {
 			s += this.addSpaces(this.villages[i].getName(), length,true);
 			for(int j = 0; j < this.connections[i].length; j++){
 				s += this.createSpaceString(this.villages[j].getName().length() - 1);
-				s += this.addSpaces("" + this.connections[i][j], length ,false);
+				s += this.addSpaces("" + this.connections[i][j].intValue(), length ,false);
 			}
 		}
 		
@@ -136,11 +148,6 @@ public class GameMap implements Serializable {
 		s += "villages: \n";
 		for(int i = 0; i < this.villages.length; i++) s += this.villages[i].toString() + "\n";
 		s += "connections: \n";
-		/*for(int i = 0; i < this.connections.length; i++){
-			for(int j = 0; j < this.connections[i].length; j++) s += this.connections[i][j] + " ";
-			
-			s += "\n";
-		}*/
 		s += this.printConnections(s);
 		s += "colors bonus: \n";
 		for(int i = 0; i < this.colorsBonus.length; i++){

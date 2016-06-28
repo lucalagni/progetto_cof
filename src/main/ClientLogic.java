@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import model.basics.Board;
 import model.basics.Gamer;
 import model.basics.Match;
-import mud.model.basic.interfaces.MatchRequest;
 
 public class ClientLogic {
 	
@@ -13,10 +12,13 @@ public class ClientLogic {
 	private final ObjectProperty<Match> match; //new 23.06
 	//private Match match;
     private Board be;
+<<<<<<< HEAD
     private String username = "Gamer1";
     private Gamer gamer;
     
     MatchRequest req;
+=======
+>>>>>>> 0ecfc63db6e8b0f97160ee713024b7a639e8d4f8
 	
 	public ClientLogic()
 	{
@@ -82,9 +84,5 @@ public class ClientLogic {
     	// lookup dell'oggetto remoto
     	//    	req = ...
     }
-    
-    public MatchRequest getMatchRequest()
-    {
-    	return req;
-    }
+   
 }

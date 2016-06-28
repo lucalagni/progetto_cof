@@ -7,7 +7,7 @@ import model.basics.constants.RegionConstants;
 public class Region implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private int number;
+	private Integer number;
 	private Bonus bonus;
 	private Council council;
 	private String[] villages;
@@ -45,13 +45,13 @@ public class Region implements Serializable{
 		}
 	}
 	
-	private void setNumber(int number) { this.number = number; }
+	private void setNumber(int number) { this.number = new Integer(number); }
 	private void setBonus(Bonus bonus) { this.bonus = bonus; }
 	private void setCouncil(Council council) { this.council = council; }
 	private void setVillages(String[] villages) { this.villages = villages; }
 	private void setPermitCardDeck(PermitCardsDeck permitCardsDeck) { this.permitCardsDeck = permitCardsDeck; }
 	
-	public int getNumber() { return this.number; }
+	public int getNumber() { return this.number.intValue(); }
 	public Bonus getBonus() { return this.bonus; }
 	public Council getCouncil() { return this.council; }
 	public String[] getVillages() { return this.villages; }

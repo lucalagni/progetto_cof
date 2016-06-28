@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import main.Client;
 import main.ClientLogic;
-import mud.model.basic.interfaces.MatchRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 

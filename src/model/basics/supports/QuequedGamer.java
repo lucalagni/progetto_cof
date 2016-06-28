@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class QuequedGamer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
-	private int position;
-	private int value ;
+	private Integer position;
+	private Integer value ;
 	
 	public QuequedGamer(int position,String username,int value){
 		this.setPosition(position);
@@ -15,12 +15,12 @@ public class QuequedGamer implements Serializable{
 	}
 	
 	private void setUsername(String username){ this.username = username; }
-	private void setPosition(int position){ this.position = position; }
-	private void setValue(int value){ this.value = value; }
+	private void setPosition(int position){ this.position = new Integer(position);}
+	private void setValue(int value){ this.value = new Integer(value); }
 	
 	public String getUsername(){ return this.username; }
-	public int getPosition(){ return this.position; }
-	public int getValue(){ return this.value; }
+	public int getPosition(){ return this.position.intValue(); }
+	public int getValue(){ return this.value.intValue(); }
 	
 	@Override
 	public String toString(){

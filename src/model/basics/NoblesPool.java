@@ -6,12 +6,12 @@ import model.basics.exceptions.codes.NoblesPoolExceptionCode;
 
 public class NoblesPool {
 	
-	private int blackNoblesLeft;
-	private int whiteNoblesLeft;
-	private int cyanNoblesLeft;
-	private int pinkNoblesLeft;
-	private int magentaNoblesLeft ;
-	private int orangeNoblesLeft;
+	private Integer blackNoblesLeft;
+	private Integer whiteNoblesLeft;
+	private Integer cyanNoblesLeft;
+	private Integer pinkNoblesLeft;
+	private Integer magentaNoblesLeft ;
+	private Integer orangeNoblesLeft;
 	
 	public NoblesPool(int blackNoblesLeft,int whiteNoblesLeft,int cyanNoblesLeft, int pinkNoblesLeft,int magentaNoblesLeft,int orangeNoblesLeft){
 		
@@ -33,79 +33,79 @@ public class NoblesPool {
 		this.setOrangeNoblesLeft(NoblesPoolConstants.MAX_NOBLES_FOR_COLOR);
 	}
 	
-	private void setBlackNoblesLeft(int blackNoblesLeft){ this.blackNoblesLeft = blackNoblesLeft;}
-	private void setWhiteNoblesLeft(int whiteNoblesLeft){ this.whiteNoblesLeft = whiteNoblesLeft;}
-	private void setCyanNoblesLeft(int cyanNoblesLeft){ this.cyanNoblesLeft = cyanNoblesLeft; }
-	private void setPinkNoblesLeft(int pinkNoblesLeft){ this.pinkNoblesLeft = pinkNoblesLeft; }
-	private void setMagentaNoblesLeft(int magentaNoblesLeft){ this.magentaNoblesLeft = magentaNoblesLeft; }
-	private void setOrangeNoblesLeft(int orangeNoblesLeft){ this.orangeNoblesLeft = orangeNoblesLeft; }
+	private void setBlackNoblesLeft(int blackNoblesLeft){ this.blackNoblesLeft = new Integer(blackNoblesLeft);}
+	private void setWhiteNoblesLeft(int whiteNoblesLeft){ this.whiteNoblesLeft = new Integer(whiteNoblesLeft);}
+	private void setCyanNoblesLeft(int cyanNoblesLeft){ this.cyanNoblesLeft = new Integer(cyanNoblesLeft); }
+	private void setPinkNoblesLeft(int pinkNoblesLeft){ this.pinkNoblesLeft = new Integer(pinkNoblesLeft); }
+	private void setMagentaNoblesLeft(int magentaNoblesLeft){ this.magentaNoblesLeft = new Integer(magentaNoblesLeft); }
+	private void setOrangeNoblesLeft(int orangeNoblesLeft){ this.orangeNoblesLeft = new Integer(orangeNoblesLeft); }
 	
 	public void subBlackNoble() throws NoblesPoolException{
 		if(this.getBlackNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_BLACK_NOBLES_AVAILABLE.getExceptionCode());
-		else this.blackNoblesLeft-- ;
+		else this.setBlackNoblesLeft(this.getBlackNoblesLeft() - 1);
 	}
 	
 	public void subWhiteNoble() throws NoblesPoolException{
 		if(this.getWhiteNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_WHITE_NOBLES_AVAILABLE.getExceptionCode());
-		else this.whiteNoblesLeft-- ;
+		else this.setWhiteNoblesLeft(this.getWhiteNoblesLeft() - 1);
 	}
 	
 	public void subCyanNoble() throws NoblesPoolException{
 		if(this.getCyanNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_CYAN_NOBLES_AVAILABLE.getExceptionCode());
-		else this.cyanNoblesLeft-- ;
+		else this.setCyanNoblesLeft(this.getCyanNoblesLeft() - 1);
 	}
 	
 	public void subPinkNoble() throws NoblesPoolException{
 		if(this.getPinkNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_PINK_NOBLES_AVAILABLE.getExceptionCode());
-		else this.pinkNoblesLeft-- ;
+		else this.setPinkNoblesLeft(this.getPinkNoblesLeft() - 1); ;
 	}
 	
 	public void subMagentaNoble() throws NoblesPoolException{
 		if(this.getMagentaNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_MAGENTA_NOBLES_AVAILABLE.getExceptionCode());
-		else this.magentaNoblesLeft-- ;
+		else this.setMagentaNoblesLeft(this.getMagentaNoblesLeft() - 1); ;
 	}
 	
 	public void subOrangeNoble() throws NoblesPoolException{
 		if(this.getOrangeNoblesLeft() <= NoblesPoolConstants.MIN_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.NO_MORE_ORANGE_NOBLES_AVAILABLE.getExceptionCode());
-		else this.orangeNoblesLeft-- ;
+		else this.setOrangeNoblesLeft(this.getOrangeNoblesLeft() - 1); ;
 	}
 	
 	public void addBlackNoble() throws NoblesPoolException{
 		if(this.getBlackNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_BLACK_NOBLES_BUFFER.getExceptionCode());
-		else this.blackNoblesLeft++ ;
+		else this.setBlackNoblesLeft(this.getBlackNoblesLeft() + 1);
 	}
 	
 	public void addWhiteNoble() throws NoblesPoolException{
 		if(this.getWhiteNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_WHITE_NOBLES_BUFFER.getExceptionCode());
-		else this.whiteNoblesLeft++ ;
+		else this.setWhiteNoblesLeft(this.getWhiteNoblesLeft() + 1);
 	}
 	
 	public void addCyanNoble() throws NoblesPoolException{
 		if(this.getCyanNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_CYAN_NOBLES_BUFFER.getExceptionCode());
-		else this.cyanNoblesLeft++ ;
+		else this.setCyanNoblesLeft(this.getCyanNoblesLeft() + 1);
 	}
 	
 	public void addPinkNoble() throws NoblesPoolException{
 		if(this.getPinkNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_PINK_NOBLES_BUFFER.getExceptionCode());
-		else this.pinkNoblesLeft++ ;
+		else this.setPinkNoblesLeft(this.getPinkNoblesLeft() + 1);
 	}
 	
 	public void addMagentaNoble() throws NoblesPoolException{
 		if(this.getMagentaNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_MAGENTA_NOBLES_BUFFER.getExceptionCode());
-		else this.magentaNoblesLeft++ ;
+		else this.setMagentaNoblesLeft(this.getMagentaNoblesLeft() + 1);
 	}
 	
 	public void addOrangeNoble() throws NoblesPoolException{
 		if(this.getOrangeNoblesLeft() > NoblesPoolConstants.MAX_NOBLES_FOR_COLOR) throw new NoblesPoolException(NoblesPoolExceptionCode.FULL_ORANGE_NOBLES_BUFFER.getExceptionCode());
-		else this.orangeNoblesLeft++ ;
+		else this.setOrangeNoblesLeft(this.getOrangeNoblesLeft() + 1);
 	}
 	
-	public int getBlackNoblesLeft(){ return this.blackNoblesLeft;}
-	public int getWhiteNoblesLeft(){ return this.whiteNoblesLeft;}
-	public int getCyanNoblesLeft(){ return this.cyanNoblesLeft; }
-	public int getPinkNoblesLeft(){ return this.pinkNoblesLeft; }
-	public int getMagentaNoblesLeft(){ return this.magentaNoblesLeft; }
-	public int getOrangeNoblesLeft(){ return this.orangeNoblesLeft; }
+	public int getBlackNoblesLeft(){ return this.blackNoblesLeft.intValue();}
+	public int getWhiteNoblesLeft(){ return this.whiteNoblesLeft.intValue();}
+	public int getCyanNoblesLeft(){ return this.cyanNoblesLeft.intValue(); }
+	public int getPinkNoblesLeft(){ return this.pinkNoblesLeft.intValue(); }
+	public int getMagentaNoblesLeft(){ return this.magentaNoblesLeft.intValue(); }
+	public int getOrangeNoblesLeft(){ return this.orangeNoblesLeft.intValue(); }
 	
 	@Override
 	public String toString(){
