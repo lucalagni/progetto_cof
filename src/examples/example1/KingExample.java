@@ -24,9 +24,14 @@ public class KingExample {
 		Color[] nobles = new Color[CouncilConstants.NOBLES_NUMBER];
 		Bonus[] bonus = new Bonus[KingConstants.KING_BONUS];
 		
-		for(int i = 0; i < nobles.length; i++){
-			nobles[i] = ColorConstants.POLITICAL_COLORS[i];
-		}
+//		for(int i = 0; i <nobles.length; i++){
+//			nobles[i] = ColorConstants.POLITICAL_COLORS[i];
+//		}
+		
+		nobles[0] = ColorConstants.POLITICAL_COLORS[5];
+		nobles[1] = ColorConstants.POLITICAL_COLORS[3];
+		nobles[2] = ColorConstants.POLITICAL_COLORS[2];
+		nobles[3] = ColorConstants.POLITICAL_COLORS[0];
 		
 		bonus[0] = new BonusBuilder().setCoins(0)
 									 .setHelpers(0)

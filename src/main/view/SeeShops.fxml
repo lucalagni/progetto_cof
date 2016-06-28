@@ -9,30 +9,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.SeeShopsController">
+<AnchorPane prefHeight="424.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.SeeShopsController">
    <children>
-      <GridPane layoutX="100.0" layoutY="86.0">
+      <GridPane layoutX="189.0" layoutY="81.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="17.0" prefWidth="86.0" text="Giocatore 1" />
-            <Label text="Si" GridPane.columnIndex="1" />
-            <Label text="Giocatore 2" GridPane.rowIndex="1" />
-            <Label text="No" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="shopsPlayer0" alignment="CENTER" prefHeight="30.0" prefWidth="144.0" text="Giocatore0" />
+            <Label fx:id="shopsPlayer1" alignment="CENTER" prefHeight="51.0" prefWidth="100.0" text="Giocatore1" GridPane.rowIndex="1" />
+            <Label fx:id="shopsPlayer6" alignment="CENTER" layoutX="10.0" layoutY="40.0" prefHeight="142.0" prefWidth="100.0" text="Giocatore1" GridPane.rowIndex="6" />
+            <Label fx:id="shopsPlayer2" alignment="CENTER" layoutX="10.0" layoutY="70.0" prefHeight="142.0" prefWidth="100.0" text="Giocatore2" GridPane.rowIndex="2" />
+            <Label fx:id="shopsPlayer5" alignment="CENTER" layoutX="10.0" layoutY="70.0" prefHeight="142.0" prefWidth="100.0" text="Giocatore1" GridPane.rowIndex="5" />
+            <Label fx:id="shopsPlayer3" alignment="CENTER" layoutX="10.0" layoutY="100.0" prefHeight="142.0" prefWidth="100.0" text="Giocatore1" GridPane.rowIndex="3" />
+            <Label fx:id="shopsPlayer4" alignment="CENTER" layoutX="10.0" layoutY="100.0" prefHeight="142.0" prefWidth="100.0" text="Giocatore1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Text layoutX="89.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shops in village">
+      <Text layoutX="127.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shops in village">
          <font>
             <Font name="BankGothic Md BT Medium" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="buttonClose" layoutX="179.0" layoutY="216.0" mnemonicParsing="false" onAction="#clickToClose" text="close" />
+      <Button fx:id="buttonClose" layoutX="217.0" layoutY="370.0" mnemonicParsing="false" onAction="#clickToClose" text="close" />
    </children>
 </AnchorPane>

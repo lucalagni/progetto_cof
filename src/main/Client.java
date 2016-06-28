@@ -9,10 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.view.SeeBonusController;
@@ -52,6 +48,8 @@ public class Client extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            primaryStage.setHeight(720);
+            primaryStage.setWidth(1255);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,7 +163,7 @@ public class Client extends Application {
                }  
             }     
             
-            public static void showShopPlayers() {
+            public void showShopPlayers(String village) {
             	
                 try {
                 	FXMLLoader loader = new FXMLLoader();
@@ -179,10 +177,11 @@ public class Client extends Application {
                     Scene scene = new Scene(valid);
                     seeShopsStage.setScene(scene);
                   
+                  
+                    SeeShopsController controller = loader.getController();  
+                    controller.setSeeShopsStage(seeShopsStage);					
                     
-                    SeeShopsController controller = loader.getController();  //new
-                    controller.setSeeShopsStage(seeShopsStage);					//new
-                    
+                    controller.setTextShopsPlayer(village);
                     
                     
                     seeShopsStage.showAndWait();
@@ -190,9 +189,10 @@ public class Client extends Application {
                    } catch (IOException e) {
                     e.printStackTrace();
                 }                
-     }
+    	}
             
-            public void showBonus(int village) {
+            public void showBonusVillage(int village) { 	
+            	
              	
                 try {
                 	
@@ -211,10 +211,8 @@ public class Client extends Application {
                     
                     SeeBonusController controller = loader.getController();  //new
                     controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
-                   
-              
+            
                     controller.seeBonusVillage(village);
- 
                     seeBonusVillageStage.showAndWait();
                     
                     
@@ -226,7 +224,7 @@ public class Client extends Application {
                 } 
             }
             
-            public void showBonus(int region,int card) {
+            public void showBonusPermitCard(int region,int card) {
              	
                 try {
                 	
@@ -255,11 +253,102 @@ public class Client extends Application {
                     e.printStackTrace();
                 } 
             }
+            
+            
+            public void showBonusPermitCardGamer(int card) {
+             	
+                try {
+                	
+                	FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(Client.class.getResource("view/SeeBonus.fxml"));
+                    AnchorPane valid = (AnchorPane) loader.load();
+                    
+                    Stage seeBonusVillageStage = new Stage();
+                    seeBonusVillageStage.setTitle("Bonus");
+                    seeBonusVillageStage.initModality(Modality.WINDOW_MODAL);
+                    seeBonusVillageStage.initOwner(primaryStage);
+                    Scene scene = new Scene(valid);
+                    seeBonusVillageStage.setScene(scene);
+                  
+                    // istanzio controller
+                    
+                    SeeBonusController controller = loader.getController();  //new
+                    controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
+                   
+              
+                    controller.seeBonusPermitCardGamer(card);
+   
+                    seeBonusVillageStage.showAndWait();
+                  
+                   } catch (IOException e) {
+                    e.printStackTrace();
+                } 
+            }
+   
+            public void showBonusUsedPermitCardGamer(int card) {             	
+                      try {
+                      	
+                      	FXMLLoader loader = new FXMLLoader();
+                          loader.setLocation(Client.class.getResource("view/SeeBonus.fxml"));
+                          AnchorPane valid = (AnchorPane) loader.load();
+                          
+                          Stage seeBonusVillageStage = new Stage();
+                          seeBonusVillageStage.setTitle("Bonus Village");
+                          seeBonusVillageStage.initModality(Modality.WINDOW_MODAL);
+                          seeBonusVillageStage.initOwner(primaryStage);
+                          Scene scene = new Scene(valid);
+                          seeBonusVillageStage.setScene(scene);
+                        
+                          // istanzio controller
+                          
+                          SeeBonusController controller = loader.getController();  //new
+                          controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
+                  
+                          controller.seeBonusUsedPermitCardGamer(card);
+                          
+                          seeBonusVillageStage.showAndWait();
+                
+                         } catch (IOException e) {
+                          e.printStackTrace();
+                      } 
+                  }
+            
+            
+            
+            public void showBonusNobilityPath(int number) { 	
+            	try {
+                     	
+            		FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(Client.class.getResource("view/SeeBonus.fxml"));
+                    AnchorPane valid = (AnchorPane) loader.load();
+                         
+                    Stage seeBonusVillageStage = new Stage();
+                    seeBonusVillageStage.setTitle("Bonus");
+                    seeBonusVillageStage.initModality(Modality.WINDOW_MODAL);
+                    seeBonusVillageStage.initOwner(primaryStage);
+                    Scene scene = new Scene(valid);
+                    seeBonusVillageStage.setScene(scene);
+                       
+                    // istanzio controller
+                         
+                    SeeBonusController controller = loader.getController();  //new
+                    controller.setSeeBonusVillageStage(seeBonusVillageStage);					//new
+                 
+                    controller.seeBonusNobilityPath(number);
+                    
+                    seeBonusVillageStage.showAndWait();
+               
+                        } catch (IOException e) {
+                         e.printStackTrace();
+                     } 
+                 }
+               
+           
     /**
      * Returns the main stage.
      * @return
      */
-    public Stage getPrimaryStage() {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 

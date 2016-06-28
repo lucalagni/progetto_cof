@@ -29,7 +29,7 @@
             <Insets right="20.0" />
          </padding>
       </ButtonBar>
-      <TextField layoutX="226.0" layoutY="140.0" />
+      <TextField fx:id="username" layoutX="226.0" layoutY="140.0" />
       <Text fill="WHITE" layoutX="233.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserire username">
          <font>
             <Font name="Berry Rotunda Regular" size="12.0" />

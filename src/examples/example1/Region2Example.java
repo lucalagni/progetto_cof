@@ -15,7 +15,7 @@ public class Region2Example {
 	private Region region;
 	
 	public Region2Example(){
-		Color[] nobles = { ColorConstants.POLITICAL_COLORS[0], ColorConstants.POLITICAL_COLORS[1], ColorConstants.POLITICAL_COLORS[2],ColorConstants.POLITICAL_COLORS[3]};
+		Color[] nobles = { ColorConstants.POLITICAL_COLORS[1], ColorConstants.POLITICAL_COLORS[0], ColorConstants.POLITICAL_COLORS[2],ColorConstants.POLITICAL_COLORS[3]};
 		String[] villages = {VillageConstants.FRAMEK, VillageConstants.GRADEN, VillageConstants.HELLAR,VillageConstants.INDUR,VillageConstants.JUVELAR};
 		Bonus b = new BonusBuilder().setCoins(0)
 									.setHelpers(0)
