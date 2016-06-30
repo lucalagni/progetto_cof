@@ -1,13 +1,18 @@
 package server.managers.socket.messages;
 
 import model.basics.Match;
+import model.basics.builders.exceptions.BuilderException;
 import model.basics.constants.MatchConstants;
+import model.basics.exceptions.GameMapException;
+import model.basics.exceptions.MatchException;
+import model.basics.exceptions.PoliticalCardsDeckException;
 import server.managers.match.MatchManager;
 import server.managers.match.MatchRepository;
 import command.basic.actions.ActionSynoptic;
 import communication.socket.messages.ClientMessage;
 import communication.socket.messages.ServerMessage;
 import communication.socket.messages.ServerMessageContentType;
+import examples.example1.MatchExample;
 
 public class ServerMessageHandler {
 	private MatchManager matchManager ;
@@ -26,6 +31,7 @@ public class ServerMessageHandler {
 		switch(msg.getContent()){
 		   case CLIENT_REQUEST_ADD_ME:
 			   response = this.clientRequestToBeAddedToAMatch(username);
+			   System.out.println("YESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
 			   break;
 		   case CLIENT_REQUEST_CAN_I_PLAY:
 			   response = this.clientRequestCanIPlay(username);
@@ -236,11 +242,17 @@ public class ServerMessageHandler {
 	
 	private ServerMessage clientRequestToBeAddedToAMatch(String username){
 		ServerMessage response = null;
-		
-		this.matchManager.addGamer(username);
+		System.out.println("Hello world");
+		//this.matchManager.addGamer(username);
 		response = new ServerMessage(username, null);
 		response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE, null);
-		 
+		try {
+			response.setMatch(new MatchExample().getMatch());
+		} catch (BuilderException | MatchException | GameMapException
+				| PoliticalCardsDeckException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return response;
 	}
 	

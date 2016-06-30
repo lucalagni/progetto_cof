@@ -79,7 +79,7 @@ public class MatchGenerator {
 									.setTitle(actualTitle)
 									.setGamers(this.gamers)
 									.setActualGamer(0)
-									.setStatus(MatchStatus.READY)
+									.setStatus(MatchStatus.ACTIVE)
 									.build();
 		if(m.getGamers().size() == MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY)
 			try {

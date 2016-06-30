@@ -3,9 +3,10 @@ package model.basics;
 import model.basics.constants.NoblesPoolConstants;
 import model.basics.exceptions.NoblesPoolException;
 import model.basics.exceptions.codes.NoblesPoolExceptionCode;
+import java.io.Serializable;
 
-public class NoblesPool {
-	
+public class NoblesPool implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Integer blackNoblesLeft;
 	private Integer whiteNoblesLeft;
 	private Integer cyanNoblesLeft;

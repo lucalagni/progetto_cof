@@ -1,6 +1,7 @@
 package command.client.actions;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import communication.socket.messages.ClientMessage;
 import communication.socket.messages.ClientMessageContentType;
@@ -27,11 +28,11 @@ public class ActionEncoderSocket {
 	 * Metodo che costruisce il messaggio per richiedere al server di poter spostare il re
 	 * @param path
 	 */
-	public void moveKing(char[] path){
+	public void moveKing(ArrayList<String> path){
 		ClientMessage message = new ClientMessage(this.username, this.matchCode);
-		String[] parameters = new String[path.length];
+		String[] parameters = new String[path.size()];
 		
-		for(int i = 0; i < path.length; i++) parameters[i] = new String("" + path[i]);
+		for(int i = 0; i < path.size(); i++) parameters[i] = new String("" + path.get(i));
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_MOVE_KING_ACTION, parameters);
 		

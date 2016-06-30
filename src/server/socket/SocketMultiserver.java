@@ -5,7 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import server.managers.socket.client.ClientHandlerThread;;
+import server.managers.socket.client.ClientHandlerThread;
+import server.managers.socket.messages.ServerMessageHandler;
 
 public class SocketMultiserver implements Runnable {
     private int port ;
@@ -26,6 +27,7 @@ public class SocketMultiserver implements Runnable {
                 Socket newClient = this.server.accept();
                 
                 ClientHandlerThread cht = new ClientHandlerThread(newClient);
+                cht.setHandler(new ServerMessageHandler());
                 this.chts.add(cht);
                 cht.start();
             }

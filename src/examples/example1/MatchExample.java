@@ -39,7 +39,7 @@ public class MatchExample {
 		m = new MatchBuilder().setTitle("Classic Match")
 							  .setMatchCode("1")
 							  .setBoard(new BoardExample().getBoard())
-							  .setStatus(MatchStatus.READY)
+							  .setStatus(MatchStatus.ACTIVE)
 							  .setGamers(gamers)
 							  .setActualGamer(0)
 							  .build();

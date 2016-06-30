@@ -44,9 +44,9 @@ public class Client {
 	public ServerMessage sendMessage(ClientMessage cm){
 		if(this.getGameMode() != GameMode.SOCKET) return null;
 		ServerMessage sm = null;
-		
+
 		sm = this.client.sendMessage(cm);
-		
+		System.out.println(sm.getMatch().toString());
 		return sm;
 	}
 	

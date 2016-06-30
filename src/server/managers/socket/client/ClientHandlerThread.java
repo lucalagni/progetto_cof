@@ -25,7 +25,6 @@ public class ClientHandlerThread extends Thread{
     private Socket client = null;
     private ObjectInputStream input;
     private ObjectOutputStream output;
-    private ClientGameData clientGameData;
     
     private ServerMessageHandler handler;
     
@@ -34,7 +33,6 @@ public class ClientHandlerThread extends Thread{
     
     public ClientHandlerThread(Socket client){
         this.client = client;
-        this.clientGameData = null;
         
         index++;
         localIndex = index;
@@ -53,10 +51,12 @@ public class ClientHandlerThread extends Thread{
         	
             
             ClientMessage request;
-			try {				
+			try {		
+				System.out.println("Messaggio ricevuto");
 				request = (ClientMessage)this.input.readObject(); 
-	            //ServerMessage response = handler.handle(request);
-	            //os.writeObject(response);
+				System.out.println("Messaggio ricevuto");
+	            ServerMessage response = handler.handle(request);
+	            this.output.writeObject(response);
 	            
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block

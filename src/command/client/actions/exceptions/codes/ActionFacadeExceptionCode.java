@@ -8,6 +8,8 @@ package command.client.actions.exceptions.codes;
  * GAMER_HAS_NO_MORE_MAIN_ACTIONS = il giocatore non possiede più azioni pricipali
  * GAMER_HAS_NO_MORE_HELPERS_ACTIONS = Il giocatore non possiede più azioni secondarie
  * GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE = il giocatore non ha più mosse speciali di un determinato tipo
+ * UNSETTED_USER_DATA = Gli UserData non sono stati settati
+ * UNSETTED_GAME_MODE = La modalita' di communicazione non e' stata settata
  * 
  * @author Luca Lagni
  *
@@ -16,7 +18,9 @@ public enum ActionFacadeExceptionCode {
 	GAMER_CANNOT_PLAY_NOW("GAMER_CANNOT_PLAY_NOW"),
 	GAMER_HAS_NO_MORE_MAIN_ACTIONS("GAMER_HAS_NO_MORE_MAIN_ACTIONS"),
 	GAMER_HAS_NO_MORE_HELPERS_ACTIONS("GAMER_HAS_NO_MORE_HELPERS_ACTIONS"),
-	GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE("GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE");
+	UNSETTED_GAME_MODE("UNSETTED_GAME_MODE"),
+	GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE("GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE"),
+	UNSETTED_USER_DATA("UNSETTED_USER_DATA");
 
 	private String exceptionCode ;
 	ActionFacadeExceptionCode(String exceptionCode){ this.setExceptionCode(exceptionCode);}
