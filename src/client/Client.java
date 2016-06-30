@@ -1,8 +1,8 @@
 package client;
 
-import communication.socket.messages.ClientMessage;
-import communication.socket.messages.ServerMessage;
+import commons.messages.*;
 import client.socket.SocketClient;
+import commons.data.GameMode;
 
 /**
  * Classe per la gestione delle connessioni di rete lato client
@@ -44,9 +44,8 @@ public class Client {
 	public ServerMessage sendMessage(ClientMessage cm){
 		if(this.getGameMode() != GameMode.SOCKET) return null;
 		ServerMessage sm = null;
-		
+
 		sm = this.client.sendMessage(cm);
-		
 		return sm;
 	}
 	

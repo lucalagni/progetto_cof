@@ -9,7 +9,6 @@ import model.basics.PoliticalCard;
 import model.basics.Match;
 import model.basics.builders.MatchBuilder;
 import model.basics.builders.exceptions.BuilderException;
-import model.basics.constants.GamerConstants;
 import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PermitCardsDeckException;
@@ -73,7 +72,7 @@ public class MatchExample {
 		m = new MatchBuilder().setTitle("Classic Match")
 							  .setMatchCode("1")
 							  .setBoard(new BoardExample().getBoard())
-							  .setStatus(MatchStatus.READY)
+							  .setStatus(MatchStatus.ACTIVE)
 							  .setGamers(gamers)
 							  .setActualGamer(0)
 							  .build();

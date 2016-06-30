@@ -1,5 +1,7 @@
 package main;
 
+import command.connection.setup.GameConnectionSetupFacade;
+
 import view.View;
 
 public class ClientMain {
@@ -11,7 +13,9 @@ public class ClientMain {
 		setted = view.viewGameModeSetup();
 		if(setted == true){
 			username = view.viewSetupUsername();
+			new GameConnectionSetupFacade().requireMatch();
 		}
+		
 		System.out.println("\nExited");
 	}
 }

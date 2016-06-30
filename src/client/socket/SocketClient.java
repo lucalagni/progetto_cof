@@ -1,12 +1,12 @@
 package client.socket;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import communication.socket.messages.ClientMessage;
-import communication.socket.messages.ServerMessage;
+import commons.messages.*;
 
 /**
  * Classe per la gestione del meccanismo di comunicazione socket lato client
@@ -15,7 +15,7 @@ import communication.socket.messages.ServerMessage;
  *
  */
 
-public class SocketClient implements Runnable{
+public class SocketClient {
 	
 	private int serverPort;
 	private String serverIp;
@@ -37,11 +37,14 @@ public class SocketClient implements Runnable{
 	 * @return
 	 */
 	public ServerMessage sendMessage(ClientMessage cm){
+		this.initCommunication();
+		System.out.println("communicazione stabilita");
 		ServerMessage sm = null;
 		
 		try {
 			this.output.writeObject(cm);
 			sm = (ServerMessage)this.input.readObject();
+			System.out.println(sm.getUsername());
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -57,8 +60,11 @@ public class SocketClient implements Runnable{
 	private void initCommunication(){
 		try {
 			this.client = new Socket(this.serverIp, this.serverPort);
-			this.input = new ObjectInputStream(this.client.getInputStream());
 			this.output = new ObjectOutputStream(this.client.getOutputStream());
+			
+			InputStream is = this.client.getInputStream();
+			this.input = new ObjectInputStream(is);
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,12 +87,12 @@ public class SocketClient implements Runnable{
 	public String getServerIp(){ return this.serverIp ; }
 	public int getServerPort(){ return this.serverPort; }
 
-	@Override
-	public void run() {
+	
+	/*public void run() {
 		try{
 			this.initCommunication();
 			
 		}catch(Exception ex){}
 		
-	}
+	}*/
 }
