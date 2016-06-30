@@ -15,15 +15,15 @@ public interface MatchRequest extends Remote {
 	public Boolean requestMatch(String user) throws RemoteException;
 	
 	/**
-	 * Il client richiede al server se il match è stato creato per l'utente
+	 * Il client richiede al server se il match ï¿½ stato creato per l'utente
 	 * @param user
-	 * @return TRUE se la partita è stata creata, FALSE altrimenti
+	 * @return TRUE se la partita ï¿½ stata creata, FALSE altrimenti
 	 * @throws RemoteException
 	 */
 	public Boolean isMatchReady(String user) throws RemoteException;
 	
 	/**
-	 * Una volta creata la partita nel server, con questo metodo è possibile
+	 * Una volta creata la partita nel server, con questo metodo Ã¨ possibile
 	 * prelevare il Match associato ad un certo User.
 	 * @param user
 	 * @return

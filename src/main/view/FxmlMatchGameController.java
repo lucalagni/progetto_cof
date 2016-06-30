@@ -219,11 +219,11 @@ public class FxmlMatchGameController {
 	
 	
 	
-	// Label per mostrare le città delle carte permesso del giocatore
+	// Label per mostrare le cittï¿½ delle carte permesso del giocatore
 	@FXML  Label villagePermitCardGamerLabel;
 	@FXML  Label villagePermitCardBuildLabel;
 	
-	//Label per mostrare le città delle carte permesso del giocatore per azione speciale
+	//Label per mostrare le cittï¿½ delle carte permesso del giocatore per azione speciale
 	@FXML  Label villageUnusedPermitCardGamerLabel;
 	@FXML  Label villageUsedPermitCardGamerLabel;
 	
@@ -404,10 +404,11 @@ public class FxmlMatchGameController {
 	
 	// Panello dati e azioni
 	
-	@FXML TitledPane datiDiGioco;
-	@FXML TitledPane azioniPrincipali;
-	@FXML TitledPane azioniVeloci;
+	@FXML TitledPane gameDataTitledPane;
+	@FXML TitledPane mainActionTitledPane;
+	@FXML TitledPane fastActionTitledPane;
 	@FXML TitledPane specialActionTitledPane;
+        
 	
 	@FXML Accordion  accordion;
 	@FXML AnchorPane anchorSelectNobil;
@@ -439,6 +440,7 @@ public class FxmlMatchGameController {
 	@FXML Button electFastNobil;
 	@FXML Button clickAcquirePermitCard;
 	@FXML Button clickAcquireBonusPermitCard;
+        @FXML Button buildWithKing;
 	
 	
 	
@@ -467,7 +469,7 @@ public class FxmlMatchGameController {
 	// vedi scelta villaggi bonus doppio (azione speciale)
 	@FXML Label seeVillageBuildShopBuild;
 	
-
+        @FXML Button buttonMarket;
 	 
  }	 
 

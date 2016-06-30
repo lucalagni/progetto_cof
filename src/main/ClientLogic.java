@@ -80,7 +80,7 @@ public class ClientLogic {
     public void initRMIConnection()
     {
     	// lookup dell'oggetto remoto
-    	//    	req = ...
+    	//    	req = ... 
     }
     
     public MatchRequest getMatchRequest()

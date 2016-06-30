@@ -29,11 +29,11 @@
          <children>
             <Accordion fx:id="accordion" layoutX="-4.0" layoutY="1.0" prefHeight="650.0" prefWidth="503.0">
               <panes>
-                <TitledPane fx:id="datiDiGioco" animated="false" prefHeight="230.0" prefWidth="451.0" text="Dati di gioco">
+                <TitledPane fx:id="gameDataTitledPane" animated="false" prefHeight="230.0" prefWidth="451.0" text="Dati di gioco">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                            <AnchorPane layoutX="7.0" minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="451.0">
+                            <AnchorPane layoutX="7.0" minHeight="0.0" minWidth="0.0" prefHeight="238.0" prefWidth="494.0">
                                  <children>
                                     <GridPane gridLinesVisible="true" layoutX="1.0" prefHeight="238.0" prefWidth="428.0" style="-fx-background-color: white;">
                                       <columnConstraints>
@@ -105,11 +105,11 @@
                                     </GridPane>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane layoutX="3.0" layoutY="252.0" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="443.0" style="-fx-background-color: white;">
+                            <AnchorPane layoutX="3.0" layoutY="252.0" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="503.0" style="-fx-background-color: white;">
                                  <children>
-                                    <ScrollPane layoutY="-8.0" prefHeight="128.0" prefWidth="442.0">
+                                    <ScrollPane layoutY="-8.0" prefHeight="128.0" prefWidth="503.0">
                                       <content>
-                                        <AnchorPane fx:id="anchorProprietaGiocatore" minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="755.0" style="-fx-background-color: white;">
+                                        <AnchorPane fx:id="anchorProprietaGiocatore" minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="1095.0" style="-fx-background-color: white;">
                                              <children>
                                                 <Text layoutX="6.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Political card" wrappingWidth="105.00000341422856">
                                                    <font>
@@ -119,35 +119,35 @@
                                              </children></AnchorPane>
                                       </content>
                                     </ScrollPane>
-                                    <SplitPane dividerPositions="0.29797979797979796" layoutX="-3.0" layoutY="121.0" prefHeight="199.0" prefWidth="443.0">
+                                    <SplitPane dividerPositions="0.3912175648702595" layoutX="-3.0" layoutY="121.0" prefHeight="199.0" prefWidth="503.0">
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
                                              <children>
-                                                <ImageView fitHeight="48.0" fitWidth="51.0" layoutX="33.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="48.0" fitWidth="51.0" layoutX="27.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@image/aiutante.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label fx:id="helpersPlayer" layoutX="51.0" layoutY="71.0" prefHeight="19.0" prefWidth="3.0" style="-fx-border-color: black;" text="n">
+                                                <Label fx:id="helpersPlayer" layoutX="45.0" layoutY="71.0" prefHeight="19.0" prefWidth="3.0" style="-fx-border-color: black;" text="n">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></Label>
-                                                <Text layoutX="30.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Helpers" wrappingWidth="67.99999558925629">
+                                                <Text layoutX="17.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Helpers" wrappingWidth="67.99999558925629">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="12.0" />
                                                    </font>
                                                 </Text>
-                                                <Text layoutX="17.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King location">
+                                                <Text layoutX="98.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King location">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="12.0" />
                                                    </font>
                                                 </Text>
-                                                <ImageView fitHeight="58.0" fitWidth="39.0" layoutX="14.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="58.0" fitWidth="39.0" layoutX="125.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@image/king.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label fx:id="kingLocation1" layoutX="68.0" layoutY="135.0" prefHeight="29.0" prefWidth="60.0" style="-fx-border-color: black;" text="n">
+                                                <Label fx:id="kingLocation1" layoutX="115.0" layoutY="71.0" prefHeight="29.0" prefWidth="60.0" style="-fx-border-color: black;" text="n">
                                                    <font>
                                                       <Font size="16.0" />
                                                    </font>
@@ -208,7 +208,7 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane fx:id="azioniPrincipali" animated="false" text="Azioni principali">
+                <TitledPane fx:id="mainActionTitledPane" animated="false" text="Azioni principali">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -315,9 +315,9 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="547.0" prefWidth="451.0">
+                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="547.0" prefWidth="503.0">
                                                   <items>
-                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="270.0" prefWidth="491.0" style="-fx-background-color: white;">
                                                          <children>
                                                             <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="171.0" layoutY="69.0" pickOnBounds="true">
                                                                <image>
@@ -715,7 +715,7 @@
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button layoutX="388.0" layoutY="90.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Fai mossa">
+                                                            <Button fx:id="buildWithKing" layoutX="388.0" layoutY="90.0" mnemonicParsing="false" onAction="#actionBuildWithKing" prefHeight="26.0" prefWidth="95.0" text="Fai mossa">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
@@ -733,7 +733,7 @@
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane fx:id="azioniVeloci" animated="false" text="Azioni con aiutanti">
+                <TitledPane fx:id="fastActionTitledPane" animated="false" text="Azioni con aiutanti">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="449.0">
                            <children>
@@ -1946,7 +1946,7 @@
             </ImageView>
             <HBox fillHeight="false" layoutX="46.0" layoutY="526.0" prefHeight="32.0" prefWidth="513.0">
                <children>
-                  <Button fx:id="pathBonus6" layoutX="134.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
+                  <Button fx:id="pathBonus0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="27.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -1955,7 +1955,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus7" layoutX="157.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                  <Button fx:id="pathBonus1" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -1964,7 +1964,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus8" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                  <Button fx:id="pathBonus2" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -1973,7 +1973,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus9" layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                  <Button fx:id="pathBonus3" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -1982,7 +1982,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus10" layoutX="226.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                  <Button fx:id="pathBonus4" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -1991,7 +1991,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus11" layoutX="249.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="26.0">
+                  <Button fx:id="pathBonus5" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2000,7 +2000,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus12" layoutX="277.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                  <Button fx:id="pathBonus6" layoutX="134.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2009,7 +2009,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus13" layoutX="303.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus7" layoutX="157.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2018,7 +2018,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus14" layoutX="326.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus8" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2027,7 +2027,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus15" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus9" layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2036,7 +2036,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus16" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus10" layoutX="226.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2045,7 +2045,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus17" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus11" layoutX="249.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="26.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2054,7 +2054,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus18" layoutX="422.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus12" layoutX="277.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2063,7 +2063,7 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus19" layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus13" layoutX="303.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2072,7 +2072,61 @@
                         </ImageInput>
                      </effect>
                   </Button>
-                  <Button fx:id="pathBonus20" layoutX="470.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                  <Button fx:id="pathBonus14" layoutX="326.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus15" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus16" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus17" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus18" layoutX="422.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus19" layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus20" layoutX="470.0" layoutY="10.0" mnemonicParsing="false" onAction="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
                      <effect>
                         <ImageInput x="-3.0" y="-3.0">
                            <source>
@@ -2083,60 +2137,7 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="pathBonus0" layoutX="40.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="27.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
-            <Button fx:id="pathBonus2" layoutX="98.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
-            <Button fx:id="pathBonus1" layoutX="68.0" layoutY="481.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
-            <Button fx:id="pathBonus3" layoutX="130.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
-            <Button fx:id="pathBonus4" layoutX="159.0" layoutY="489.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
-            <Button fx:id="pathBonus5" layoutX="202.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
-               <effect>
-                  <ImageInput x="-3.0" y="-3.0">
-                     <source>
-                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
-                     </source>
-                  </ImageInput>
-               </effect>
-            </Button>
+            <Button fx:id="buttonMarket" layoutX="129.0" layoutY="27.0" mnemonicParsing="false" onAction="#showMarketStage" text="Button" />
          </children>
       </Pane>
    </children>

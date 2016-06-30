@@ -38,7 +38,14 @@ public class Agent {
 		return itemPoliticalCardArray;
 	}
 	
-
+        
+        
+        
+        
+        
+        
+        
+        
 	public void selectToSellHelpers(ItemHelpers addItemHelper, int price){
 		
 		addItemHelper.setPrice(price);
@@ -68,13 +75,13 @@ public class Agent {
 		gamer.addCoins(itemHelp.getPrice());
 	}
 	/**
-	 * Quando il giocatore avviene la transizione di compra vendita, la carta permesso deve essere eliminata dalle proprietà del giocatore
+	 * Quando il giocatore avviene la transizione di compra vendita, la carta permesso deve essere eliminata dalle proprietï¿½ del giocatore
 	 * e devono essere aggiunti i coins relativi a  tale vendita.
-	 * @param itemPermitCard è la carta che deve essere sottratta dalle proprietà del giocatore
+	 * @param itemPermitCard ï¿½ la carta che deve essere sottratta dalle proprietï¿½ del giocatore
 	 * @throws GamerException
 	 */
 	public void sellPermitCard(ItemPermitCard itemPermitCard) throws GamerException{
-		// vado a iterare l'array delle carte permesso non usate del giocatore per trovare il riscontro con quella che è stata venduta
+		// vado a iterare l'array delle carte permesso non usate del giocatore per trovare il riscontro con quella che ï¿½ stata venduta
 		for (PermitCard card:gamer.getUnusedPermitCards()){
 			if(card.equals(itemPermitCard.getPermitCard())){
 			gamer.subPermitCard(card);
@@ -84,9 +91,9 @@ public class Agent {
 		
 	}
 	/**
-	 * Quando il giocatore avviene la transizione di compra vendita, la carta politica deve essere eliminata dalle proprietà del giocatore
+	 * Quando il giocatore avviene la transizione di compra vendita, la carta politica deve essere eliminata dalle proprietï¿½ del giocatore
 	 * e devono essere aggiunti i coins relativi a  tale vendita.
-	 * @param itemPoliticalcard è la carta che deve essere sottratta dalle prorpietà del giocatore
+	 * @param itemPoliticalcard ï¿½ la carta che deve essere sottratta dalle prorpietï¿½ del giocatore
 	 * @throws GamerException
 	 */
 	public void sellPoliticalCard(ItemPoliticalCard itemPoliticalCard) throws PoliticalCardsDeckException, GamerException{
