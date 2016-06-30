@@ -17,7 +17,7 @@ public class SelectConnectionController {
 	private void selectSocket() throws IOException{
 		
 		//ATTENZIONE
-//		ClientLogic.getInstance().setUsername(username.getText());
+		ClientLogic.getInstance().setUsername(username.getText());
 		mainApp.showMessageConnection();	
 	}
 	
@@ -41,7 +41,7 @@ public class SelectConnectionController {
 //		}
 //		
 //		Client.getInstance().setMatch(req.getMatch("user"));
-//		ClientLogic.getInstance().setUsername(username.getText());
+		ClientLogic.getInstance().setUsername(username.getText());
 		mainApp.showMessageConnection();	
 	}
 	

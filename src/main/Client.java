@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.view.MarketController;
+import main.view.MarketPlaceController;
 import main.view.SeeBonusController;
 import main.view.SeeShopsController;
 import main.view.StartGameTimeController;
@@ -18,6 +20,8 @@ import main.view.ValidConnectionController;
 import model.basics.Board;
 import model.basics.Match;
 import main.view.SeeBonusController;
+import model.basics.Gamer;
+import model.market.Agent;
 
 
 public class Client extends Application {
@@ -94,7 +98,7 @@ public class Client extends Application {
     	 
              try {
               
-           	  	 FXMLLoader loader = new FXMLLoader();
+           	FXMLLoader loader = new FXMLLoader();
                  loader.setLocation(Client.class.getResource("view/MatchGame.fxml"));
                  AnchorPane matchGame = (AnchorPane) loader.load();
                  
@@ -341,8 +345,96 @@ public class Client extends Application {
                          e.printStackTrace();
                      } 
                  }
+            
+            
+    public void showSaleMarket(Gamer g) { 	
+            	try {
+                     	
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(Client.class.getResource("view/SaleMarket.fxml"));
+                    AnchorPane valid = (AnchorPane) loader.load();
+                         
+                    Stage seeMarketStage = new Stage();
+                    seeMarketStage.setTitle("SaleMarket");
+                    seeMarketStage.initModality(Modality.WINDOW_MODAL);
+                    seeMarketStage.initOwner(primaryStage);
+                    Scene scene = new Scene(valid);
+                    seeMarketStage.setScene(scene);
+                       
+                    // istanzio controller
+                         
+                    MarketController controller = loader.getController();  //new
+                    controller.setSeeMarketStage(seeMarketStage);				//new
+                 
+                    controller.setGamer(g);
+                    
+                    seeMarketStage.showAndWait();
                
+                        } catch (IOException e) {
+                         e.printStackTrace();
+                     } 
+                 }
+    
+    
+//     public void showMarketSelectionToSell(Agent agent) { 	
+//            	try {
+//                     	
+//                    FXMLLoader loader = new FXMLLoader();
+//                    loader.setLocation(Client.class.getResource("view/SeeMarketSelectionToSell.fxml"));
+//                    AnchorPane valid = (AnchorPane) loader.load();
+//                         
+//                    Stage seeMarketSelectionToSellStage = new Stage();
+//                    seeMarketSelectionToSellStage.setTitle("Selction to sell");
+//                    seeMarketSelectionToSellStage.initModality(Modality.WINDOW_MODAL);
+//                    seeMarketSelectionToSellStage.initOwner(primaryStage);
+//                    Scene scene = new Scene(valid);
+//                    seeMarketSelectionToSellStage.setScene(scene);
+//                       
+//                    // istanzio controller
+//                         
+//                    MarketController controller = loader.getController();  //new
+//                    controller.setSeeMarketStage(primaryStage);				//new
+//                 
+//                    controller.setGamer(g);
+//                    
+//                    seeMarketSelectionToSellStage.showAndWait();
+//               
+//                        } catch (IOException e) {
+//                         e.printStackTrace();
+//                     } 
+//                 }
+//               
            
+    
+    
+    
+        public void showMarketPlace(Agent agent) { 	
+            	try {
+                     	
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(Client.class.getResource("view/MarketPlace.fxml"));
+                    AnchorPane valid = (AnchorPane) loader.load();
+                         
+                    Stage seeMarketPlaceStage = new Stage();
+                    seeMarketPlaceStage.setTitle("MarketPlace");
+                    seeMarketPlaceStage.initModality(Modality.WINDOW_MODAL);
+                    seeMarketPlaceStage.initOwner(primaryStage);
+                    Scene scene = new Scene(valid);
+                    seeMarketPlaceStage.setScene(scene);
+                       
+                    // istanzio controller
+                         
+                    MarketPlaceController controller = loader.getController();  //new
+                    controller.setSeeMarketPlaceStage(seeMarketPlaceStage);				//new
+                 
+                    controller.initializee(agent);
+                    
+                    seeMarketPlaceStage.showAndWait();
+               
+                        } catch (IOException e) {
+                         e.printStackTrace();
+                     } 
+                 }
     /**
      * Returns the main stage.
      * @return

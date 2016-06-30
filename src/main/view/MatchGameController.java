@@ -1,5 +1,8 @@
 package main.view;
 
+import examples.example1.MatchExample;
+import java.util.ArrayList;
+import java.util.Iterator;
 import main.Client;
 import main.ClientLogic;
 import model.basics.Board;
@@ -12,28 +15,12 @@ import model.basics.Region;
 import model.basics.Village;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
-<<<<<<< HEAD
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
-import mud.model.basic.interfaces.MatchRequest;
-=======
->>>>>>> 0ecfc63db6e8b0f97160ee713024b7a639e8d4f8
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 
-import com.sun.javafx.collections.MappingChange.Map;
 
-import examples.example1.BoardExample;
-import examples.example1.MatchExample;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -41,15 +28,12 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -80,20 +64,20 @@ public class MatchGameController extends FxmlMatchGameController {
 	private HBox hbPoliticalCardActionKing;
 	java.awt.Color selectColorNobil;
 	java.awt.Color selectColorElectFastNobil;
-	int councilRegionElectNobil = 4;
-	int councilRegionBuyPermitCard = 3;
-	int councilRegionElectNobilFast = 4;
-	int indexPermitCardGamer = 0;
-	int indexUnusedPermitCardGamer = 0;
-	int indexUsedPermitCardGamer = 0;
-	int indexPermitCardBuild = 0;
-	int selectRegionPermitCard1= 0;
-	int selectRegionPermitCard2 = 0;
-	int selectRegionElectFastNobil = 0;
-	int selectRegionSpecialAction = 0;
-	int maxSelectionPoliticalCard = 0;
-	int maxSelectionPoliticalCardKing = 0;
-	int selectRegionChangePermitCards = 3;
+	private int indexCouncilRegionElectNobil = 4;
+	private int councilRegionBuyPermitCard = 3;
+	private int councilRegionElectNobilFast = 4;
+	private int indexPermitCardGamer = 0;
+	private int indexUnusedPermitCardGamer = 0;
+	private int indexUsedPermitCardGamer = 0;
+	private int indexPermitCardBuild = 0;
+	private int selectRegionPermitCard1= 0;
+	private int selectRegionPermitCard2 = 0;
+	private int selectRegionElectFastNobil = 0;
+	private int selectRegionSpecialAction = 0;
+	private int maxSelectionPoliticalCard = 0;
+	private int maxSelectionPoliticalCardKing = 0;
+	private int selectRegionChangePermitCards = 3;
 	String selectedVillageBuildShop;
 	String selectedVillageSingolBonus;
 	String[] selectedVillageDoubleBonus;
@@ -109,10 +93,14 @@ public class MatchGameController extends FxmlMatchGameController {
 	private void initialize() throws BuilderException, GameMapException {
 
 		initComponentsView();
-		accordion.setExpandedPane(datiDiGioco);
+		accordion.setExpandedPane(gameDataTitledPane);
 
 	}
 
+/**
+ * Inizializza diversi componenti
+ */       
+        
 	protected void initComponentsView() {
 
 		// inizializziamo il match
@@ -125,8 +113,7 @@ public class MatchGameController extends FxmlMatchGameController {
 			// pop-up con messaggio di errore (finestre di dialogo)
 			e.printStackTrace();
 		}
-		// inizializzo il consiglio dei nobili per ogni regione
-		// i = numero di riferimento della regione
+	
 
 		for (int i = 0; i <= 3; i++) {
 			if (i == 0) {
@@ -168,7 +155,7 @@ public class MatchGameController extends FxmlMatchGameController {
 			
 		// nascondo finestre non utilizzabili momentaneamente
 		anchorSelectNobil.setVisible(false);
-     	//anchorSelectVillage.setVisible(false);
+                //anchorSelectVillage.setVisible(false);
 		anchorSelectPoliticalCard.setVisible(false);
 		anchorSelectPermitCard1.setVisible(false);
 		anchorTakePermitCard.setVisible(false);
@@ -176,6 +163,12 @@ public class MatchGameController extends FxmlMatchGameController {
 		clickAcquireBonusPermitCard.setVisible(false);
 	}
 
+/**
+ * Setta il testo delle Label dei villaggi relativi alle carte permesso delle regioni della Board
+ * @param s la stringa da far apparire nella Label
+ * @param regioncard la regione selezionata
+ */      
+        
 	public void setTextPermitCardVillageBoard(String s, int regioncard) {
 
 		if (regioncard == 00) {
@@ -197,8 +190,11 @@ public class MatchGameController extends FxmlMatchGameController {
 			villagesRegion2Card1.setText(s);
 		}
 	}
-
-	// testo nelle carte permesso del giocatore
+/**
+ * Setta le label dei villaggi relativi allae carte permesso non usate del giocatore
+ * @param selectPermitCard indice relativo alla carta permesso selezionata
+ * @param villagePermitCardGamer si riferisce a una Label di cui vuoi settare il testo
+ */
 	public void setTextUnusedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
 
 		if (selectPermitCard < unusedPermitCardsGamer.size()) {
@@ -206,7 +202,11 @@ public class MatchGameController extends FxmlMatchGameController {
 		} else
 			selectPermitCard = unusedPermitCardsGamer.size();
 	}
-
+/**
+ * Setta le label dei villaggi relativi allae carte permesso usate del giocatore
+ * @param selectPermitCard indice relativo alla carta permesso selezionata
+ * @param villagePermitCardGamer si riferisce a una Label di cui vuoi settare il testo
+ */
 	public void setTextUsedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
 
 		if (selectPermitCard < usedPermitCardsGamer.size()) {
@@ -216,7 +216,10 @@ public class MatchGameController extends FxmlMatchGameController {
 	}
 
 	
-
+/**
+ * Gestisce i bottoni per spostare in avanti gli indici relativi alle carte permesso
+ * @param e 
+ */
 	@FXML
 	public void nextPermitCard(ActionEvent e) {
 
@@ -297,7 +300,12 @@ public class MatchGameController extends FxmlMatchGameController {
 
 
 	}
-
+        
+/**
+ * Gestisce i bottoni per spostare indietro gli indici relativi alle carte permesso
+ * @param e 
+ */      
+        
 	@FXML
 	public void prevPermitCard(ActionEvent e) {
 
@@ -356,32 +364,36 @@ public class MatchGameController extends FxmlMatchGameController {
 	
 	}
 
+/**
+ * Gestisce i bottoni per spostare in avanti gli indici relativi ai consigli
+ * @param e 
+ */
 	@FXML
 	public void nextCouncil(ActionEvent e) {
 
 		if ((e.getSource() == nextCouncil1) == true) {
 
-			if (councilRegionElectNobil == 4) {
-				councilRegionElectNobil = 0;
+			if (indexCouncilRegionElectNobil == 4) {
+				indexCouncilRegionElectNobil = 0;
 			}
 
-			if (councilRegionElectNobil == 0) {
+			if (indexCouncilRegionElectNobil == 0) {
 				regionNumber1.setText("Regione 1");
 			}
-			if (councilRegionElectNobil == 1) {
+			if (indexCouncilRegionElectNobil == 1) {
 				regionNumber1.setText("Regione 2");
 			}
-			if (councilRegionElectNobil == 2) {
+			if (indexCouncilRegionElectNobil == 2) {
 				regionNumber1.setText("Regione 3");
 			}
 			
-			if (councilRegionElectNobil == 3) {
+			if (indexCouncilRegionElectNobil == 3) {
 				regionNumber1.setText("Consiglio del re");}
 				
-			setCouncilRegion(councilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
+			setCouncilRegion(indexCouncilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
 //			setTextPermitCardVillageAction(councilRegionElectNobil);
-			if (councilRegionElectNobil < 4) {
-				councilRegionElectNobil++;
+			if (indexCouncilRegionElectNobil < 4) {
+				indexCouncilRegionElectNobil++;
 				booleanPrev = true;
 			}
 		}
@@ -401,8 +413,8 @@ public class MatchGameController extends FxmlMatchGameController {
 			if (councilRegionBuyPermitCard == 2) {
 				regionNumber2.setText("Regione 3");
 			}
-			if (councilRegionElectNobil == 3) {
-				regionNumber1.setText("Consiglio del re");}
+//			if (councilRegionBuyPermitCard == 3) {
+//				regionNumber1.setText("Consiglio del re");}
 			
 			
 			setCouncilRegion(councilRegionBuyPermitCard, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
@@ -429,7 +441,8 @@ public class MatchGameController extends FxmlMatchGameController {
 				regionNumberElectFast.setText("Regione 3");
 			}
 			if (councilRegionElectNobilFast == 3) {
-				regionNumberElectFast.setText("Consiglio del re");}
+				regionNumberElectFast.setText("Consiglio del re");
+                        }
 			
 			setCouncilRegion(councilRegionElectNobilFast, councilElectFastNobil0, councilElectFastNobil1, councilElectFastNobil2, councilElectFastNobil3);
 			if (councilRegionElectNobilFast < 4) {
@@ -437,37 +450,43 @@ public class MatchGameController extends FxmlMatchGameController {
 		}
 	}
 	
-
+/**
+ * Gestisce i bottoni per spostare indietro gli indici relativi ai consigli
+ * @param e 
+ */
 	public void prevCouncil(ActionEvent e) {
 
 		if ((e.getSource() == prevCouncil1) == true) {
-			if (councilRegionElectNobil == 2) {
-				councilRegionElectNobil--;
+			if (indexCouncilRegionElectNobil == 3) {
+                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
+                            indexCouncilRegionElectNobil--;
 			}
 
-			if (councilRegionElectNobil == 0) {
-				regionNumber1.setText("Regione 1");
+			if (indexCouncilRegionElectNobil == 0) {
+                            regionNumber1.setText("Regione 1");
 			}
 
-			if (councilRegionElectNobil == 1) {
-				regionNumber1.setText("Regione 2");
+			if (indexCouncilRegionElectNobil == 1) {
+                            regionNumber1.setText("Regione 2");
 			}
 
-			if (councilRegionElectNobil == 2) {
-				regionNumber1.setText("Regione 3");
+			if (indexCouncilRegionElectNobil == 2) {
+                            regionNumber1.setText("Regione 3");
 			}
 
-			if (councilRegionElectNobil < 4) {
-				setCouncilRegion(councilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
+			if (indexCouncilRegionElectNobil < 4) {
+                            setCouncilRegion(indexCouncilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
 			
 			}
 
-			if (councilRegionElectNobil == 0) {
-				councilRegionElectNobil++;
+			if (indexCouncilRegionElectNobil == 0) {
+                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
+                            indexCouncilRegionElectNobil++;
 			}
 
-			if (councilRegionElectNobil > 0 && booleanPrev == true) {
-				councilRegionElectNobil--;
+			if (indexCouncilRegionElectNobil > 0 && booleanPrev == true) {
+                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
+                            indexCouncilRegionElectNobil--;
 			}
 
 		}
@@ -506,6 +525,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		if ((e.getSource() == prevCouncilElectFastNobil) == true) {
 
 			if (councilRegionElectNobilFast == 2) {
+                               // selectRegionPermitCard1 = indexCouncilRegionElectNobil;
 				councilRegionElectNobilFast--;
 			}
 
@@ -527,31 +547,32 @@ public class MatchGameController extends FxmlMatchGameController {
 				setCouncilRegion(councilRegionElectNobilFast, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
 			}
 			if (councilRegionElectNobilFast == 0) {
-				councilRegionElectNobilFast++;
+                            //selectRegionPermitCard1 = indexCouncilRegionElectNobil;
+                            councilRegionElectNobilFast++;
 			}
 			if (councilRegionElectNobilFast > 0 && booleanPrevNobilFast == true) {
-				councilRegionElectNobilFast--;
+                           // selectRegionPermitCard1 = indexCouncilRegionElectNobil;
+                            councilRegionElectNobilFast--;
 			}
 
 		}
 
 	}
 
-	/**
-	 * Setta il testo delle carte permesso all'interno delle azioni principali
-	 * 
-	 * @param i
-	 *            numero regione
-	 * @param j
-	 *            numero di carta permesso
-	 */
-
+/**
+ * Setta le label dei villaggi delle carte regione dell'azione principale acquista carta politica
+ * @param i si riferisce alla regione scelta 
+ */
 	public void setTextPermitCardVillageAction(int i) {
 		villagesRegionCard0.setText("" + regionPermitCard[i][0].getVillages());
 		villagesRegionCard1.setText("" + regionPermitCard[i][1].getVillages());
 
 	}
 	
+/**
+ * Setta le label dei villaggi delle carte regione dell'azione speciale 
+ * @param i si riferisce alla regione scelta
+ */
 	public void setTextPermitCardVillageSpecialAction(int i) {
 		villagesRegionCardSpecialAction0.setText("" + regionPermitCard[i][0].getVillages());
 		villagesRegionCardSpecialAction1.setText("" + regionPermitCard[i][1].getVillages());
@@ -559,7 +580,10 @@ public class MatchGameController extends FxmlMatchGameController {
 	}
 	
 
-
+/**
+ * Inserisce all'interno di un array multiplo di PermitCard le carte regione scoperte relative alla board
+ * puÃ² essere usato per fare l'update
+ */
 	public void setVillagesPermitCardRegion() {
 
 		// [3] = regioni, [2] carte
@@ -595,7 +619,11 @@ public class MatchGameController extends FxmlMatchGameController {
 		setTextPermitCardVillageBoard("" + regionPermitCard[2][1].getVillages(), 21);
 
 	}
-
+/**
+ * Salva in un array le immagini delle carte politiche del giocatore facendo un controllo tra i colori delle carte politiche del giocatore
+ * e i colori stabiliti
+ * @param imgsPoliticalCards ArrayList di ImageView dove salvare le immagini delle carte politiche del giocatore
+ */        
 	private void showPoliticalCard( ArrayList<ImageView>  imgsPoliticalCards) {
 
 		
@@ -695,7 +723,9 @@ public class MatchGameController extends FxmlMatchGameController {
 	// hbPoliticalCard.getChildren().addAll(imgsPoliticalCards);
 	//
 	// }
-
+/**
+ * Crea una nuova HBox dove inserire le immagini delle carte politiche del giocatore per mostrarle nella tabella dati
+ */
 	public void showPoliticalCardGamer() {
 		
 		imgsPoliticalCards = new ArrayList<ImageView>();
@@ -713,6 +743,10 @@ public class MatchGameController extends FxmlMatchGameController {
 		AnchorPane.setLeftAnchor(hbPoliticalCardGamer, 1.0);
 
 	}
+        
+/**
+ * Crea una nuova HBox dove inserire le immagini delle carte politiche per l'azione principale costruisci emporio
+ */
 
 	public void showPoliticalCardAction() {
 		
@@ -733,6 +767,9 @@ public class MatchGameController extends FxmlMatchGameController {
 
 	}
 	
+/**
+ * Crea una nuova HBox dove inserire le immagini delle carte politiche per l'azione aiuto del re
+ */
 	public void showPoliticalCardActionKing() {
 		
 		imgsPoliticalCardsKing = new ArrayList<ImageView>();
@@ -751,7 +788,10 @@ public class MatchGameController extends FxmlMatchGameController {
 		selectPoliticalCardActionKing();
 
 	}
-
+/**
+ * Seleziona le carte politiche per le azioni (gestisce l'interazione grafica di selezione) le salva su un arrayList
+ * da mandare al server
+ */
 	public void selectPoliticalCardAction() {
 
 		selectedPoliticalCards = new ArrayList<PoliticalCard>();
@@ -773,7 +813,10 @@ public class MatchGameController extends FxmlMatchGameController {
 		}
 	}
 	
-	
+/**
+ * Selziona carte politiche per azione aiuto del re (gestisce l'interazione grafica di selezione)
+ */
+        
 	public void selectPoliticalCardActionKing() {
 
 		selectedPoliticalCardsKing = new ArrayList<PoliticalCard>();
@@ -795,6 +838,11 @@ public class MatchGameController extends FxmlMatchGameController {
 		}
 	}
 
+        /**
+         * Metodo che gestisce i "mouse clicked" sui bottoni per vedere gli empori prensenti nei villaggi
+         * @param e evento
+         */
+        
 	@FXML
 	private void clickShopPlayers(ActionEvent e) {
 
@@ -892,6 +940,11 @@ public class MatchGameController extends FxmlMatchGameController {
 
 	}
 
+/**
+ * Mostra una nuova finestra con i bonus relativi al villaggio selezionato
+ * @param e evento riferito al bottone selezionato
+ */       
+        
 	@FXML
 	public void showBonusVillage(ActionEvent e) {
 
@@ -1075,7 +1128,7 @@ public class MatchGameController extends FxmlMatchGameController {
 
 		if ((e.getSource() == selectCouncilElectNobil) == true) {
 
-			selectRegionPermitCard1 = councilRegionElectNobil;
+//			selectRegionPermitCard1
 			anchorSelectNobil.setVisible(true);
 		}
 		
@@ -1161,13 +1214,13 @@ public class MatchGameController extends FxmlMatchGameController {
 	 * 
 	 * @param numberOfRegion
 	 * @param nobil0
-	 *            è il nobile in posizione 0 del balconcino
+	 *            ï¿½ il nobile in posizione 0 del balconcino
 	 * @param nobil1
-	 *            è il nobile in posizione 1 del balconcino
+	 *            ï¿½ il nobile in posizione 1 del balconcino
 	 * @param nobil2
-	 *            è il nobile in posizione 2 del balconcino
+	 *            ï¿½ il nobile in posizione 2 del balconcino
 	 * @param nobil3
-	 *            è il nobile in posizione 3 del balconcino
+	 *            ï¿½ il nobile in posizione 3 del balconcino
 	 */
 	public void setCouncilRegion(int numberOfRegion, ImageView nobil0, ImageView nobil1, ImageView nobil2,
 			ImageView nobil3) {
@@ -1370,43 +1423,6 @@ public class MatchGameController extends FxmlMatchGameController {
 			}
 
 		}
-	}
-
-	// azioni da mandare al server
-	@FXML
-	public void clickEleggiConsigliere(ActionEvent e) {
-
-		if((e.getSource() == electNobil ) == true){ 
-			if (selectColorNobil != null) {
-				// metodoMandaDati(selectCouncilRegion, selectColorNobil);
-				azioniPrincipali.setDisable(true);
-				accordion.setExpandedPane(azioniVeloci);
-			}
-
-			if (selectColorNobil == null) {
-
-				// dialog stage
-			}
-		
-		}
-		
-		if((e.getSource() == electFastNobil) == true){ 
-			if (selectColorElectFastNobil != null) {
-				// metodoMandaDati(councilRegionElectNobilFast, selectColorElectFastNobil);
-			
-			}
-
-			if (selectColorNobil == null) {
-
-				// dialog stage
-			}
-		
-		}
-		
-		
-		
-		
-		
 	}
 
 	@FXML
@@ -1662,7 +1678,7 @@ public class MatchGameController extends FxmlMatchGameController {
 	            Alert alert = new Alert(AlertType.ERROR);
 	            alert.initOwner(Client.getPrimaryStage());
 	            alert.setTitle("Invalid Fields");
-	            alert.setHeaderText("Hai già un emporio in questo villaggio\n");
+	            alert.setHeaderText("Hai giï¿½ un emporio in questo villaggio\n");
 	            alert.setContentText("seleziona un'altro villaggio");
 
 	            alert.showAndWait(); 
@@ -1709,13 +1725,14 @@ public class MatchGameController extends FxmlMatchGameController {
 		 String[] shops = new String[7];
 			for(Village tmp : villages1){
 				if(tmp.getName().equals(nameVillage)){
+                                    
 					shops = tmp.getShops();
-					break;
+                                        break;
 				}
 			}
-			
+// Controlla che il nome del giocatore sia all interno del villaggio			
 		for(int i = 0; i<7; i++){
-			if(shops[i] == ClientLogic.getInstance().getUsername()){
+			if(shops[i].equals(ClientLogic.getInstance().getUsername())){
 				control = true;	
 			}
 		}
@@ -1860,7 +1877,7 @@ public class MatchGameController extends FxmlMatchGameController {
 	 @FXML 
 	 public void selectVillageSingleBonus(ActionEvent e){
 		 
-			    if((e.getSource() == villageA1) == true){
+			   if((e.getSource() == villageA1) == true){
 				
 				selectedVillageSingolBonus = "Arkon";
 				see1.setText("" + selectedVillageSingolBonus );}
@@ -1943,16 +1960,7 @@ public class MatchGameController extends FxmlMatchGameController {
 					villagePathKing.setText("" + villageKingLocation);}
 		 
 	 }
-	 
-	 public void actionAcquireSingleBonus(){
 		 
-		 // manda segnale al server con selectedVillageActionBonus
-		 
-		 
-	 }
-	 
-	 
-	 
 	 @FXML
 	 public void selectRegionSpecialAction(ActionEvent e){
 		 
@@ -2033,10 +2041,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		   
 		   
 		      	
-		   else errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
-		        	
-		        	
-		        	
+		   else errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 		   see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		        	
 		}
@@ -2054,7 +2059,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Burgen";
 			}
 		
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 					
@@ -2069,7 +2074,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Castrum";	
 			}	
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 							
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2084,7 +2089,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Dorful"; 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		}
@@ -2099,7 +2104,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else	selectedVillageDoubleBonus[1] = "Esti"; 
 			}
 	
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		}
@@ -2115,7 +2120,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Framek"; 
 			}
 				
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2130,7 +2135,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Graden"; 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );			
 		}
@@ -2144,7 +2149,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Hellar";	 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);		
 		}
@@ -2159,7 +2164,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Indur";
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2173,7 +2178,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Juvelar";
 			}
 		
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2188,7 +2193,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Kultos"; 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2201,7 +2206,7 @@ public class MatchGameController extends FxmlMatchGameController {
 					}
 				else selectedVillageDoubleBonus[1] = "Lyram"; 
 			}
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2216,7 +2221,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Merkatim"; 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2230,7 +2235,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Naris"; 
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2245,7 +2250,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Osium";
 			}
 			
-			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai giï¿½ selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2266,7 +2271,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		            Alert alert = new Alert(AlertType.ERROR);
 		            alert.initOwner(Client.getPrimaryStage());
 		            alert.setTitle("Invalid Fields");
-		            alert.setHeaderText("Hai già selezionato due villaggi, fai la tua mossa\n");
+		            alert.setHeaderText("Hai giï¿½ selezionato due villaggi, fai la tua mossa\n");
 		            alert.setContentText(errorMessage);
 
 		            alert.showAndWait();
@@ -2363,6 +2368,58 @@ public class MatchGameController extends FxmlMatchGameController {
 			new Client().showBonusNobilityPath(20);
 		}	
 	}
+        
+        
+        //avviare il market 
+        
+        @FXML 
+        public void showMarketStage(){
+        
+            new Client().showSaleMarket(gamer);
+        }
+        
+        
+        	// azioni da mandare al server
+	@FXML
+	public void clickEleggiConsigliere(ActionEvent e) {
+
+		if((e.getSource() == electNobil ) == true){ 
+			if (selectColorNobil != null) {
+				// metodoMandaDati(selectCouncilRegion1, selectColorNobil);
+				//azioniPrincipali.setDisable(true);
+				accordion.setExpandedPane(fastActionTitledPane);
+			}
+
+			if (selectColorNobil == null) {
+
+				// dialog stage
+			}
+		
+		}
+		
+		if((e.getSource() == electFastNobil) == true){ 
+			if (selectColorElectFastNobil != null) {
+				// metodoMandaDati(councilRegionElectNobilFast, selectColorElectFastNobil);
+			
+			}
+
+			if (selectColorNobil == null) {
+
+				// dialog stage
+			}
+		
+		}	
+	}
+        
+        
+        @FXML
+        public void actionBuildWithKing(ActionEvent e){
+        
+            if((e.getSource() == buildWithKing)){
+       
+                    // manda a server metotdo(ArrayList villageKingLocation)             
+            }
+        }
 	 
 	
 	@FXML
@@ -2376,4 +2433,12 @@ public class MatchGameController extends FxmlMatchGameController {
 		
 		
 	}
+        
+        
+         public void actionAcquireSingleBonus(){
+		 
+		 // manda segnale al server con selectedVillageActionBonus
+		 
+		 
+	 }
 }
