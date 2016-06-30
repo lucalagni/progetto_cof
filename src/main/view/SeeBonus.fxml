@@ -107,7 +107,7 @@
             <Label fx:id="bonusAcquireDoubleVillageBonus" alignment="CENTER" prefHeight="93.0" prefWidth="244.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
       </GridPane>
-      <Text fill="#a40404" layoutX="204.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonus Village">
+      <Text fill="#a40404" layoutX="248.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bonus ">
          <font>
             <Font name="Berry Rotunda Regular" size="23.0" />
          </font>

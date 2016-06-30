@@ -2,7 +2,7 @@ package client.controller.data;
 
 import model.basics.Gamer;
 import model.basics.Match;
-import command.basic.actions.ActionSynoptic;
+import commons.data.ActionSynoptic;
 import commons.data.UserData;
 import commons.data.exceptions.UserDataException;
 

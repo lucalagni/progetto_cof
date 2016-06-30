@@ -3,8 +3,8 @@ package client.controller.actions.basics;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import command.client.actions.ActionFacade;
-import command.client.actions.exceptions.ActionFacadeException;
+import client.command.actions.basics.ActionFacade;
+import client.command.actions.basics.exceptions.ActionFacadeException;
 
 /**
  * Classe controller per la gestione delle mosse afferenti al gioco base

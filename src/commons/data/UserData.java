@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import model.basics.Gamer;
 import model.basics.Match;
-import command.basic.actions.ActionSynoptic;
+import commons.data.ActionSynoptic;
 import commons.data.exceptions.UserDataException;
 import commons.data.exceptions.codes.UserDataExceptionCode;
 

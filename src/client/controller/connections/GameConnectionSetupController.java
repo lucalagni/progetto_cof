@@ -1,6 +1,6 @@
 package client.controller.connections;
 
-import command.connection.setup.GameConnectionSetupFacade;
+import client.command.connection.setup.GameConnectionSetupFacade;
 
 /**
  * 

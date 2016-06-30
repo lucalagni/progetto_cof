@@ -1,11 +1,10 @@
 package client.controller;
 
 import commons.data.UserData;
-import client.GameMode;
+import commons.data.GameMode;
 import client.controller.actions.basics.ActionController;
 import client.controller.data.GameDataController;
 import client.controller.updates.GameUpdatesController;
-import controller.client.ClientController;
 
 /**
  * Classe lato client che contiene tutti i controller utili al giocatore
@@ -37,7 +36,6 @@ public class ControllerRepository {
 	public void setClientController(GameMode mode){
 		if(this.clientController == null){
 			this.clientController = ClientController.getInstance();
-			this.clientController.setGameMode(mode);
 		}
 	}
 	

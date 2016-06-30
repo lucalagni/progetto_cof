@@ -2,13 +2,14 @@ package client.controller.updates;
 
 import model.basics.Match;
 import model.basics.constants.MatchConstants;
-import command.basic.actions.ActionSynoptic;
+import commons.data.ActionSynoptic;
+import commons.data.exceptions.UserDataException;
 import client.command.updates.GameUpdatesFacade;
 import client.command.updates.exceptions.GameUpdatesFacadeException;
 
 /**
  * Controller per la ricerca di aggiornamenti
- * @author lucal
+ * @author Luca Lagni
  *
  */
 public class GameUpdatesController {
@@ -34,7 +35,7 @@ public class GameUpdatesController {
 	public Match getMatch(){
 		try {
 			return this.updates.getMatch();
-		} catch (GameUpdatesFacadeException e) {
+		} catch (GameUpdatesFacadeException | UserDataException e) {
 			return MATCH_FAILURE ;
 		}
 	}

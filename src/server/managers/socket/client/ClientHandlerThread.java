@@ -10,8 +10,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import communication.socket.messages.ClientMessage;
-import communication.socket.messages.ServerMessage;
+import commons.messages.*;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;

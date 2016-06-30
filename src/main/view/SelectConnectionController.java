@@ -5,15 +5,19 @@ import java.io.IOException;
 import main.Client;
 import main.ClientLogic;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 public class SelectConnectionController {
 	
 	private Client mainApp;
 	
-	
+	@FXML TextField username;
 
 	@FXML
 	private void selectSocket() throws IOException{
+		
+		//ATTENZIONE
+//		ClientLogic.getInstance().setUsername(username.getText());
 		mainApp.showMessageConnection();	
 	}
 	
@@ -37,7 +41,7 @@ public class SelectConnectionController {
 //		}
 //		
 //		Client.getInstance().setMatch(req.getMatch("user"));
-		
+//		ClientLogic.getInstance().setUsername(username.getText());
 		mainApp.showMessageConnection();	
 	}
 	

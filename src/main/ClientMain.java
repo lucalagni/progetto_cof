@@ -13,7 +13,7 @@ public class ClientMain {
 		setted = view.viewGameModeSetup();
 		if(setted == true){
 			username = view.viewSetupUsername();
-			new GameConnectionSetupFacade().requireMatch(username);
+			new GameConnectionSetupFacade().requireMatch();
 		}
 		
 		System.out.println("\nExited");

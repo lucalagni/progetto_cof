@@ -10,27 +10,26 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.MatchGameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.view.MatchGameController">
    <children>
       <Pane layoutX="755.0" layoutY="-1.0" prefHeight="650.0" prefWidth="443.0">
          <children>
-            <Accordion layoutX="-4.0" layoutY="1.0" prefHeight="650.0" prefWidth="451.0">
+            <Accordion fx:id="accordion" layoutX="-4.0" layoutY="1.0" prefHeight="650.0" prefWidth="503.0">
               <panes>
-                <TitledPane animated="false" prefHeight="230.0" prefWidth="451.0" text="Dati di gioco">
+                <TitledPane fx:id="datiDiGioco" animated="false" prefHeight="230.0" prefWidth="451.0" text="Dati di gioco">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -54,15 +53,13 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                          <Label prefHeight="46.0" prefWidth="139.0" text="Giocatore 1" GridPane.rowIndex="1" />
-                                          <Label prefHeight="69.0" prefWidth="243.0" text="Giocatore 2" GridPane.rowIndex="2" />
-                                          <Label prefHeight="49.0" prefWidth="155.0" text="Giocatore 3" GridPane.rowIndex="3" />
-                                          <Label text="Giocaotre 4" GridPane.rowIndex="4" />
-                                          <Label text="Giocatore 5" GridPane.rowIndex="5" />
-                                          <Label text="Giocatore 6" GridPane.rowIndex="6" />
-                                          <Label text="Giocatore 7" GridPane.rowIndex="7" />
+                                          <Label fx:id="usernamePlayer0" prefHeight="46.0" prefWidth="139.0" text="Giocatore 0" GridPane.rowIndex="1" />
+                                          <Label fx:id="usernamePlayer1" prefHeight="69.0" prefWidth="243.0" text="Giocatore 1" GridPane.rowIndex="2" />
+                                          <Label fx:id="usernamePlayer2" prefHeight="49.0" prefWidth="155.0" text="Giocatore 2" GridPane.rowIndex="3" />
+                                          <Label fx:id="usernamePlayer3" prefHeight="35.0" prefWidth="107.0" text="Giocatore 3" GridPane.rowIndex="4" />
+                                          <Label fx:id="usernamePalyer4" prefHeight="46.0" prefWidth="107.0" text="Giocatore 4" GridPane.rowIndex="5" />
+                                          <Label fx:id="usernamePlayer5" prefHeight="41.0" prefWidth="107.0" text="Giocatore 5" GridPane.rowIndex="6" />
+                                          <Label fx:id="usernamePlayer6" prefHeight="33.0" prefWidth="107.0" text="Giocatore 6" GridPane.rowIndex="7" />
                                           <Label prefHeight="40.0" prefWidth="112.0" style="-fx-background-color: brown;" text="Nome giocatore" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                              <font>
                                                 <Font name="Berry Rotunda Regular" size="11.0" />
@@ -73,12 +70,8 @@
                                                 <Font name="Berry Rotunda Regular" size="9.0" />
                                              </font>
                                           </Label>
-                                          <Label prefHeight="34.0" prefWidth="129.0" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label prefHeight="50.0" prefWidth="167.0" text="Label" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <Label fx:id="coinsPlayer0" prefHeight="34.0" prefWidth="129.0" text="null" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label fx:id="coinsPlayer1" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <Label prefHeight="33.0" prefWidth="113.0" style="-fx-background-color: brown;" text="Percorso nobilta'" textAlignment="CENTER" textFill="WHITE" wrapText="true" GridPane.columnIndex="2">
                                              <font>
                                                 <Font name="Berry Rotunda Regular" size="10.0" />
@@ -89,6 +82,25 @@
                                                 <Font name="Berry Rotunda Regular" size="11.0" />
                                              </font>
                                           </Label>
+                                          <Label fx:id="nobilityPathPlayer0" layoutX="117.0" layoutY="68.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Label fx:id="pointsPlayer0" layoutX="224.0" layoutY="39.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Label fx:id="nobilityPathPlayer1" layoutX="117.0" layoutY="68.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <Label fx:id="pointsPlayer1" layoutX="224.0" layoutY="68.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Label fx:id="nobilityPathPlayer2" layoutX="224.0" layoutY="68.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <Label fx:id="nobilityPathPlayer3" layoutX="224.0" layoutY="98.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                          <Label fx:id="nobilityPathPlayer4" layoutX="224.0" layoutY="128.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                          <Label fx:id="nobilityPathPlayer5" layoutX="224.0" layoutY="158.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                          <Label fx:id="nobilityPathPlayer6" layoutX="224.0" layoutY="188.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                          <Label fx:id="coinsPlayer2" layoutX="117.0" layoutY="68.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label fx:id="coinsPlayer3" layoutX="117.0" layoutY="98.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <Label fx:id="coinsPlayer4" layoutX="117.0" layoutY="128.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <Label fx:id="coinsPlayer5" layoutX="117.0" layoutY="158.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <Label fx:id="coinsPlayer6" layoutX="117.0" layoutY="188.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <Label fx:id="pointsPlayer2" layoutX="331.0" layoutY="39.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Label fx:id="pointsPlayer3" layoutX="331.0" layoutY="98.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                                          <Label fx:id="pointsPlayer4" layoutX="331.0" layoutY="128.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                          <Label fx:id="pointsPlayer5" layoutX="331.0" layoutY="158.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                          <Label fx:id="pointsPlayer6" layoutX="331.0" layoutY="188.0" prefHeight="50.0" prefWidth="167.0" text="null" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                                        </children>
                                     </GridPane>
                                  </children>
@@ -97,7 +109,7 @@
                                  <children>
                                     <ScrollPane layoutY="-8.0" prefHeight="128.0" prefWidth="442.0">
                                       <content>
-                                        <AnchorPane fx:id="proprietaGiocatore" minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="755.0" style="-fx-background-color: white;">
+                                        <AnchorPane fx:id="anchorProprietaGiocatore" minHeight="0.0" minWidth="0.0" prefHeight="111.0" prefWidth="755.0" style="-fx-background-color: white;">
                                              <children>
                                                 <Text layoutX="6.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Political card" wrappingWidth="105.00000341422856">
                                                    <font>
@@ -111,17 +123,35 @@
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
                                              <children>
-                                                <ImageView fitHeight="75.0" fitWidth="71.0" layoutX="29.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="48.0" fitWidth="51.0" layoutX="33.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@image/aiutante.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Label layoutX="49.0" layoutY="125.0" style="-fx-border-color: black;" text="Label" />
+                                                <Label fx:id="helpersPlayer" layoutX="51.0" layoutY="71.0" prefHeight="19.0" prefWidth="3.0" style="-fx-border-color: black;" text="n">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font></Label>
                                                 <Text layoutX="30.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Helpers" wrappingWidth="67.99999558925629">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="12.0" />
                                                    </font>
                                                 </Text>
+                                                <Text layoutX="17.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King location">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <ImageView fitHeight="58.0" fitWidth="39.0" layoutX="14.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/king.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Label fx:id="kingLocation1" layoutX="68.0" layoutY="135.0" prefHeight="29.0" prefWidth="60.0" style="-fx-border-color: black;" text="n">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </Label>
                                              </children>
                                           </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: white;">
@@ -131,12 +161,12 @@
                                                       <Image url="@image/cartapermesso.png" />
                                                    </image>
                                                 </ImageView>
-                                                <Button layoutX="228.0" layoutY="73.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                <Button fx:id="nextPermitCardGamer" layoutX="228.0" layoutY="73.0" mnemonicParsing="false" onAction="#nextPermitCard" prefHeight="38.0" prefWidth="58.0" text="Next">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="12.0" />
                                                    </font>
                                                 </Button>
-                                                <Button layoutX="23.0" layoutY="73.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="60.0" text="Prev">
+                                                <Button fx:id="prevPermitCardGamer" layoutX="23.0" layoutY="73.0" mnemonicParsing="false" onAction="#prevPermitCard" prefHeight="38.0" prefWidth="60.0" text="Prev">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="12.0" />
                                                    </font>
@@ -150,7 +180,7 @@
                                                       </ImageInput>
                                                    </effect>
                                                 </Button>
-                                                <Button layoutX="140.0" layoutY="99.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                <Button fx:id="bonusPermitCardGamer" layoutX="140.0" layoutY="99.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
                                                    <effect>
                                                       <ImageInput x="-3.0" y="-3.0">
                                                          <source>
@@ -159,7 +189,7 @@
                                                       </ImageInput>
                                                    </effect>
                                                 </Button>
-                                                <Label fx:id="villagesRegion2Card11" alignment="CENTER" layoutX="112.0" layoutY="41.0" prefHeight="50.0" prefWidth="87.0" text="K/N" textAlignment="CENTER">
+                                                <Label fx:id="villagePermitCardGamerLabel" alignment="CENTER" layoutX="113.0" layoutY="47.0" prefHeight="38.0" prefWidth="87.0" text="Click next" textAlignment="CENTER">
                                                    <font>
                                                       <Font name="Berry Rotunda Regular" size="14.0" />
                                                    </font>
@@ -178,68 +208,52 @@
                         </AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" text="Azioni principali">
+                <TitledPane fx:id="azioniPrincipali" animated="false" text="Azioni principali">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TabPane layoutX="-2.0" layoutY="1.0" prefHeight="572.0" prefWidth="451.0" tabClosingPolicy="UNAVAILABLE">
+                              <TabPane layoutX="-2.0" layoutY="1.0" prefHeight="572.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
                                   <Tab text="Eleggi consigliere">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="451.0">
                                              <children>
-                                                <SplitPane dividerPositions="0.34026465028355385" layoutX="7.0" layoutY="7.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="443.0">
+                                                <SplitPane dividerPositions="0.34026465028355385" layoutX="7.0" layoutY="7.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="494.0">
                                                   <items>
                                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
                                                          <children>
-                                                            <ImageView fitHeight="94.0" fitWidth="173.0" layoutX="127.0" layoutY="53.0" pickOnBounds="true">
+                                                            <ImageView fitHeight="94.0" fitWidth="173.0" layoutX="160.0" layoutY="52.0" pickOnBounds="true">
                                                                <image>
                                                                   <Image url="@image/balconcino.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fx:id="nobil1" fitHeight="37.0" fitWidth="39.0" layoutX="136.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil11" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil111" fitHeight="37.0" fitWidth="39.0" layoutX="214.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil1111" fitHeight="37.0" fitWidth="39.0" layoutX="254.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <Button layoutX="326.0" layoutY="80.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                            <ImageView fx:id="council1nobil0" fitHeight="37.0" fitWidth="39.0" layoutX="136.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council1nobil1" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council1nobil2" fitHeight="37.0" fitWidth="39.0" layoutX="214.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council1nobil3" fitHeight="37.0" fitWidth="39.0" layoutX="254.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Button fx:id="nextCouncil1" layoutX="359.0" layoutY="80.0" mnemonicParsing="false" onAction="#nextCouncil" prefHeight="38.0" prefWidth="58.0" text="Next">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button layoutX="42.0" layoutY="80.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" text="Prev">
+                                                            <Button fx:id="prevCouncil1" layoutX="71.0" layoutY="80.0" mnemonicParsing="false" onAction="#prevCouncil" prefHeight="38.0" prefWidth="58.0" text="Prev">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
-                                                            <Label layoutX="158.0" layoutY="14.0" text="Region number">
+                                                            <Label fx:id="regionNumber1" layoutX="212.0" layoutY="14.0" text="Region number">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Label>
-                                                            <Button fx:id="selectCouncil" layoutX="169.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickSelectCouncil" text="Select this">
+                                                            <Button fx:id="selectCouncilElectNobil" layoutX="202.0" layoutY="133.0" mnemonicParsing="false" onAction="#clickSelectCouncil" text="Select this">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
                                                          </children>
                                                       </AnchorPane>
-                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="441.0">
+                                                    <AnchorPane fx:id="anchorSelectNobil" minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="441.0">
                                                          <children>
                                                             <Label layoutX="147.0" layoutY="14.0" text="Seleziona consigliere">
                                                                <font>
@@ -251,32 +265,32 @@
                                                                   <Image url="@image/ominoBianco.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="82.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="97.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
                                                                   <Image url="@image/ominoNero.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="156.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="172.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
                                                                   <Image url="@image/ominoCiano.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="229.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="251.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
                                                                   <Image url="@image/ominoArancio.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="302.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="324.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
-                                                                  <Image url="@image/ominoViola.png" />
+                                                                  <Image url="@image/ominoMagenta.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="376.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                            <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="398.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
                                                                   <Image url="@image/ominoRosa.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Button fx:id="eleggiConsigliere" layoutX="170.0" layoutY="270.0" mnemonicParsing="false" onAction="#clickEleggiConsigliere" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
+                                                            <Button fx:id="electNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickEleggiConsigliere" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
@@ -285,11 +299,11 @@
                                                                <toggleGroup>
                                                                   <ToggleGroup fx:id="selectColorNobil" />
                                                                </toggleGroup></RadioButton>
-                                                            <RadioButton fx:id="nobilBlack" layoutX="104.0" layoutY="213.0" mnemonicParsing="false" toggleGroup="$selectColorNobil" />
-                                                            <RadioButton fx:id="nobilCyan" layoutX="178.0" layoutY="213.0" mnemonicParsing="false" toggleGroup="$selectColorNobil" />
-                                                            <RadioButton layoutX="251.0" layoutY="213.0" mnemonicParsing="false" toggleGroup="$selectColorNobil" />
-                                                            <RadioButton layoutX="324.0" layoutY="213.0" mnemonicParsing="false" toggleGroup="$selectColorNobil" />
-                                                            <RadioButton layoutX="398.0" layoutY="213.0" mnemonicParsing="false" toggleGroup="$selectColorNobil" />
+                                                            <RadioButton fx:id="nobilBlack" layoutX="114.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil" />
+                                                            <RadioButton fx:id="nobilCyan" layoutX="191.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil" />
+                                                            <RadioButton fx:id="nobilOrange" layoutX="270.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil" />
+                                                            <RadioButton fx:id="nobilMagenta" layoutX="343.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil" />
+                                                            <RadioButton fx:id="nobilPink" layoutX="417.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil" />
                                                          </children></AnchorPane>
                                                   </items>
                                                 </SplitPane>
@@ -299,10 +313,144 @@
                                   </Tab>
                                   <Tab text="Metti emporio">
                                     <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="547.0" prefWidth="451.0">
+                                                  <items>
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="171.0" layoutY="69.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/cartapermesso.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label fx:id="villagePermitCardBuildLabel" alignment="CENTER" layoutX="105.0" layoutY="85.0" prefHeight="38.0" prefWidth="229.0" text="K/N" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button fx:id="prevPermitCardBuild" layoutX="77.0" layoutY="104.0" mnemonicParsing="false" onAction="#prevPermitCard" prefHeight="38.0" prefWidth="60.0" text="Prev">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="nextPermitCardBuild" layoutX="304.0" layoutY="104.0" mnemonicParsing="false" onAction="#nextPermitCard" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Label layoutX="146.0" layoutY="30.0" text="Scegli carta permesso">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button fx:id="selectPermitCardBuild" layoutX="175.0" layoutY="204.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select this">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
+                                                    <AnchorPane fx:id="anchorSelectVillage" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <AnchorPane fx:id="anchorSelectVillageBuildShop" minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="503.0" style="-fx-background-color: white;">
+                                                               <children>
+                                                                  <Button fx:id="villageA12" layoutX="152.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="A">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageB12" layoutX="193.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="B">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageC12" layoutX="234.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="C">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageD12" layoutX="274.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="D">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageE12" layoutX="314.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="E">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageF12" layoutX="152.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="F">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageG12" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="G">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageH12" layoutX="234.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="H">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageJ12" layoutX="314.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="J">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageI12" layoutX="274.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="I">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageK12" layoutX="152.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="K">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageL12" layoutX="193.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="L">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageM12" layoutX="234.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="M">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="11.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageN12" layoutX="274.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="N">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="villageO12" layoutX="314.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageBuildShop" prefHeight="26.0" prefWidth="32.0" text="O">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Label fx:id="seeVillageBuildShop" layoutX="236.0" layoutY="146.0" text="Label" />
+                                                                  <Button fx:id="buildShop" layoutX="205.0" layoutY="188.0" mnemonicParsing="false" onAction="#actionBuildShop" text="Fai mossa">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Label fx:id="see" layoutX="198.0" layoutY="5.0" text="Scegli villaggio">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                      </AnchorPane>
+                                                  </items>
+                                                </SplitPane>
+                                             </children></AnchorPane>
                                     </content>
                                   </Tab>
-                                    <Tab text="Compra carta politica">
+                                    <Tab text="Compra carta permesso">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="451.0">
                                              <children>
@@ -315,45 +463,265 @@
                                                                   <Image url="@image/balconcino.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <ImageView fx:id="nobil11" fitHeight="37.0" fitWidth="39.0" layoutX="136.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil111" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil1111" fitHeight="37.0" fitWidth="39.0" layoutX="214.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <ImageView fx:id="nobil11111" fitHeight="37.0" fitWidth="39.0" layoutX="254.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                                                               <image>
-                                                                  <Image url="@image/consBlu.png" />
-                                                               </image>
-                                                            </ImageView>
-                                                            <Button layoutX="326.0" layoutY="80.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                            <ImageView fx:id="council2nobil0" fitHeight="37.0" fitWidth="39.0" layoutX="136.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council2nobil1" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council2nobil2" fitHeight="37.0" fitWidth="39.0" layoutX="214.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="council2nobil3" fitHeight="37.0" fitWidth="39.0" layoutX="254.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Button fx:id="nextCouncil2" layoutX="326.0" layoutY="80.0" mnemonicParsing="false" onAction="#nextCouncil" prefHeight="38.0" prefWidth="58.0" text="Next">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button layoutX="42.0" layoutY="80.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" text="Prev">
+                                                            <Button fx:id="prevCouncil2" layoutX="42.0" layoutY="80.0" mnemonicParsing="false" onAction="#prevCouncil" prefHeight="38.0" prefWidth="58.0" text="Prev">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Button>
-                                                            <Label layoutX="158.0" layoutY="14.0" text="Region number">
+                                                            <Label fx:id="regionNumber2" layoutX="176.0" layoutY="14.0" text="Regione number">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
                                                             </Label>
+                                                            <Button fx:id="selectCouncilBuyPermitCard" layoutX="169.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickSelectCouncil" text="Select this">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
                                                          </children>
                                                       </AnchorPane>
-                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" />
-                                                      <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" />
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="441.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="46.0" fitWidth="270.0" layoutX="86.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@image/buyPermitCard.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Button fx:id="selectPoliticalCardOk" layoutX="384.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectPoliticalCard" text="Ok">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <ScrollPane layoutY="43.0" prefHeight="126.0" prefWidth="443.0">
+                                                              <content>
+                                                                <AnchorPane fx:id="anchorSelectPoliticalCard" minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="1074.0" />
+                                                              </content>
+                                                            </ScrollPane>
+                                                         </children></AnchorPane>
+                                                      <AnchorPane fx:id="anchorSelectPermitCard1" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="107.0" fitWidth="95.0" layoutX="93.0" layoutY="15.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/cartapermesso.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <ImageView fitHeight="107.0" fitWidth="95.0" layoutX="230.0" layoutY="15.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/cartapermesso.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label fx:id="villagesRegionCard1" alignment="CENTER" layoutX="231.0" layoutY="27.0" prefHeight="38.0" prefWidth="95.0" text="K/N" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="villagesRegionCard0" alignment="CENTER" layoutX="93.0" layoutY="27.0" prefHeight="38.0" prefWidth="95.0" text="K/N" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button fx:id="regionCard0" layoutX="125.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                               <effect>
+                                                                  <ImageInput x="-3.0" y="-3.0">
+                                                                     <source>
+                                                                        <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                                     </source>
+                                                                  </ImageInput>
+                                                               </effect>
+                                                            </Button>
+                                                            <Button fx:id="regionCard1" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                               <effect>
+                                                                  <ImageInput x="-3.0" y="-3.0">
+                                                                     <source>
+                                                                        <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                                     </source>
+                                                                  </ImageInput>
+                                                               </effect>
+                                                            </Button>
+                                                            <Button fx:id="selectPermitCardBuy0" layoutX="112.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="selectPermitCardBuy1" layoutX="250.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children></AnchorPane>
+                                                   </items>
+                                                </SplitPane>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </Tab>
+                                    <Tab fx:id="kingHelp" onSelectionChanged="#buyWithKingHelp" text="Aiuto del re">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="451.0">
+                                             <children>
+                                                <SplitPane dividerPositions="0.34026465028355385, 0.6710775047258979" layoutX="6.0" layoutY="7.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="496.0">
+                                                   <items>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="94.0" fitWidth="173.0" layoutX="127.0" layoutY="53.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/balconcino.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <ImageView fx:id="councilKingNobil0" fitHeight="37.0" fitWidth="39.0" layoutX="136.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="councilKingNobil1" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="councilKingNobil2" fitHeight="37.0" fitWidth="39.0" layoutX="214.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <ImageView fx:id="councilKingNobil3" fitHeight="37.0" fitWidth="39.0" layoutX="254.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Label fx:id="regionOfKing" layoutX="166.0" layoutY="14.0" text="Council of King">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button fx:id="selectCouncilKing" layoutX="169.0" layoutY="137.0" mnemonicParsing="false" onAction="#clickSelectCouncil" text="Select this">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Text layoutX="357.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="King location">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <ImageView fitHeight="58.0" fitWidth="51.0" layoutX="378.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@image/king.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label fx:id="kingLocation2" layoutX="374.0" layoutY="105.0" prefHeight="29.0" prefWidth="60.0" style="-fx-border-color: black;" text="n">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="130.0" prefWidth="441.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="46.0" fitWidth="270.0" layoutX="86.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@image/buyPermitCard.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Button fx:id="selectPoliticalCardOkKing" layoutX="384.0" layoutY="10.0" mnemonicParsing="false" onAction="#selectPoliticalCard" text="Ok">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <ScrollPane layoutY="43.0" prefHeight="126.0" prefWidth="493.0">
+                                                               <content>
+                                                                  <AnchorPane fx:id="anchorSelectPoliticalCardKing" minHeight="0.0" minWidth="0.0" prefHeight="112.0" prefWidth="1074.0" />
+                                                               </content>
+                                                            </ScrollPane>
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane fx:id="anchorSelectKingVillage" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <Button fx:id="villageA" layoutX="152.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="A">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageB" layoutX="193.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="B">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageC" layoutX="234.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="C">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageD" layoutX="274.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="D">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageE" layoutX="314.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="E">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Label fx:id="villagePathKing" layoutX="14.0" layoutY="140.0" text="Label" />
+                                                            <Text layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleziona il percorso del re per arrivare al villaggio ">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="11.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Button fx:id="villageF" layoutX="152.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="F">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageG" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="G">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageH" layoutX="234.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="H">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageJ" layoutX="314.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="J">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageI" layoutX="274.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="I">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageK" layoutX="152.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="K">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageL" layoutX="193.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="L">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageM" layoutX="234.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="M">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="11.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageN" layoutX="274.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="N">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="villageO" layoutX="314.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="32.0" text="O">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="cancelVillagePathKing" layoutX="388.0" layoutY="57.0" mnemonicParsing="false" onAction="#selectVillageKing" prefHeight="26.0" prefWidth="95.0" text="Cancel">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button layoutX="388.0" layoutY="90.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="95.0" text="Fai mossa">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
                                                    </items>
                                                 </SplitPane>
                                              </children>
@@ -365,23 +733,678 @@
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
-                <TitledPane animated="false" text="untitled 3">
+                <TitledPane fx:id="azioniVeloci" animated="false" text="Azioni con aiutanti">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="449.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="449.0">
+                           <children>
+                              <TabPane prefHeight="575.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab text="Compra un aiutante">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <Text layoutX="62.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paga &quot;3&quot; monete ricevi un aiutante" wrappingWidth="403.4519958496094">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="18.0" />
+                                                   </font>
+                                                </Text>
+                                                <ImageView fitHeight="65.0" fitWidth="68.0" layoutX="137.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/monetaTre.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="64.0" fitWidth="45.0" layoutX="220.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/freccia.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="89.0" fitWidth="72.0" layoutX="264.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/aiutante.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button layoutX="184.0" layoutY="223.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="117.0" text="Fai mossa">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="15.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Cambia tessere permesso">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <Text layoutX="26.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cambia le tessere permesso di costruzione, seleziona la regione " wrappingWidth="464.2401123046875">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text layoutX="193.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costa un aiutante" underline="true">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <ImageView fitHeight="108.0" fitWidth="95.0" layoutX="204.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/aiutante.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button fx:id="region1" layoutX="52.0" layoutY="248.0" mnemonicParsing="false" onAction="#changePermitCards" text="Regione 1">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="region2" layoutX="209.0" layoutY="248.0" mnemonicParsing="false" onAction="#changePermitCards" text="Regione 2">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="region3" layoutX="359.0" layoutY="248.0" mnemonicParsing="false" onAction="#changePermitCards" text="Regione 3">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="buttonChangePermitCards" layoutX="184.0" layoutY="351.0" mnemonicParsing="false" onAction="#changePermitCards" text="Fai mossa">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="18.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab text="Eleggi consigliere">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="559.0" prefWidth="503.0">
+                                                   <children>
+                                                      <SplitPane dividerPositions="0.34026465028355385" layoutX="7.0" layoutY="7.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="494.0">
+                                                         <items>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                               <children>
+                                                                  <ImageView fitHeight="94.0" fitWidth="173.0" layoutX="160.0" layoutY="52.0" pickOnBounds="true">
+                                                                     <image>
+                                                                        <Image url="@image/balconcino.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fx:id="councilElectFastNobil0" fitHeight="37.0" fitWidth="39.0" layoutX="173.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                                  <ImageView fx:id="councilElectFastNobil1" fitHeight="37.0" fitWidth="39.0" layoutX="212.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                                  <ImageView fx:id="councilElectFastNobil2" fitHeight="37.0" fitWidth="39.0" layoutX="249.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" />
+                                                                  <ImageView fx:id="councilElectFastNobil3" fitHeight="37.0" fitWidth="39.0" layoutX="292.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" />
+                                                                  <Button fx:id="nextCouncilElectFastNobil" layoutX="359.0" layoutY="80.0" mnemonicParsing="false" onAction="#nextCouncil" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Button fx:id="prevCouncilElectFastNobil" layoutX="71.0" layoutY="80.0" mnemonicParsing="false" onAction="#prevCouncil" prefHeight="38.0" prefWidth="58.0" text="Prev">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <Label fx:id="regionNumberElectFast" layoutX="212.0" layoutY="14.0" text="Region number">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Button fx:id="selectCouncilElectFastNobil" layoutX="202.0" layoutY="133.0" mnemonicParsing="false" onAction="#clickSelectCouncil" text="Select this">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <ImageView fitHeight="38.0" fitWidth="45.0" layoutX="71.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/aiutante.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </AnchorPane>
+                                                            <AnchorPane fx:id="anchorSelectFastNobil" minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="441.0">
+                                                               <children>
+                                                                  <Label layoutX="147.0" layoutY="14.0" text="Seleziona consigliere">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="14.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoBianco.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="97.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoNero.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="172.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoCiano.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="251.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoArancio.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="324.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoMagenta.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <ImageView fitHeight="132.0" fitWidth="79.0" layoutX="398.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@image/ominoRosa.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                                  <Button fx:id="electFastNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickEleggiConsigliere" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
+                                                                     <font>
+                                                                        <Font name="Berry Rotunda Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Button>
+                                                                  <RadioButton fx:id="fastNobilWhite" layoutX="39.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection">
+                                                                     <toggleGroup>
+                                                                        <ToggleGroup fx:id="selectColorNobil1" />
+                                                                     </toggleGroup>
+                                                                  </RadioButton>
+                                                                  <RadioButton fx:id="fastNobilBlack" layoutX="114.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                                  <RadioButton fx:id="fastNobilCyan1" layoutX="191.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                                  <RadioButton fx:id="fastNobilOrange" layoutX="270.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                                  <RadioButton fx:id="fastNobilMagenta" layoutX="343.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                                  <RadioButton fx:id="fastNobilPink" layoutX="417.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </items>
+                                                      </SplitPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Nuova azione principale">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <Text layoutX="188.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costo: tre aiutanti" underline="true">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <ImageView fitHeight="108.0" fitWidth="95.0" layoutX="197.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/aiutante.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="108.0" fitWidth="95.0" layoutX="102.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/aiutante.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="108.0" fitWidth="95.0" layoutX="292.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/aiutante.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Button layoutX="176.0" layoutY="463.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="151.0" text="Fai mossa">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="17.0" />
+                                                   </font>
+                                                </Button>
+                                                <ImageView fitHeight="79.0" fitWidth="51.0" layoutX="226.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/frecciaGiu.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="58.0" fitWidth="82.0" layoutX="218.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@image/stella.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <Text layoutX="121.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ottieni una nuova azione pricipale" underline="true">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children></AnchorPane>
                   </content>
                 </TitledPane>
+                  <TitledPane fx:id="specialActionTitledPane" animated="false" onMouseClicked="#clickSpecialActionTitledPane" text="Azioni speciali">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <TabPane prefHeight="553.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE">
+                                <tabs>
+                                  <Tab fx:id="bonusSingleTab" text="Bonus singolo">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Text layoutX="20.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ottieni bonus dei villagi in cui hai un emporio, scegli un villaggio" wrappingWidth="463.0321044921875">
+                                                   <font>
+                                                      <Font name="Berry Rotunda Regular" size="12.0" />
+                                                   </font>
+                                                </Text>
+                                                <AnchorPane fx:id="anchorSelectKingVillage1" layoutX="-6.0" layoutY="58.0" minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="503.0" style="-fx-background-color: white;">
+                                                   <children>
+                                                      <Button fx:id="villageA1" layoutX="152.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="A">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageB1" layoutX="193.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="B">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageC1" layoutX="234.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="C">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageD1" layoutX="274.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="D">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageE1" layoutX="314.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="E">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageF1" layoutX="152.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="F">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageG1" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="G">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageH1" layoutX="234.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="H">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageJ1" layoutX="314.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="J">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageI1" layoutX="274.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="I">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageK1" layoutX="152.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="K">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageL1" layoutX="193.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="L">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageM1" layoutX="234.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="M">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="11.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageN1" layoutX="274.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="N">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageO1" layoutX="314.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageSingleBonus" prefHeight="26.0" prefWidth="32.0" text="O">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="aquireSingleBonus" layoutX="203.0" layoutY="209.0" mnemonicParsing="false" onAction="#actionAcquireSingleBonus" prefHeight="26.0" prefWidth="95.0" text="Fai mossa">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Label fx:id="see1" layoutX="236.0" layoutY="146.0" text="Label" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="Prendi tessera permesso">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                                             <children>
+                                                <SplitPane dividerPositions="0.5030674846625767, 0.5" layoutX="2.0" layoutY="-7.0" orientation="VERTICAL" prefHeight="527.0" prefWidth="503.0">
+                                                  <items>
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <Text layoutX="181.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleziona regione" wrappingWidth="138.2401123046875">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <Button fx:id="regionSpecialAction0" layoutX="46.0" layoutY="105.0" mnemonicParsing="false" onAction="#selectRegionSpecialAction" text="Regione 1">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="regionSpecialAction1" layoutX="196.0" layoutY="105.0" mnemonicParsing="false" onAction="#selectRegionSpecialAction" text="Regione 2">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="regionSpecialAction2" layoutX="350.0" layoutY="105.0" mnemonicParsing="false" onAction="#selectRegionSpecialAction" text="Regione 3">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="buttonSelectRegionSpecialAction" layoutX="219.0" layoutY="187.0" mnemonicParsing="false" onAction="#selectRegionSpecialAction" text="Ok">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="15.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
+                                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="225.0" prefWidth="501.0" />
+                                                      <AnchorPane fx:id="anchorTakePermitCard" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
+                                                         <children>
+                                                            <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="230.0" layoutY="15.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/cartapermesso.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="92.0" layoutY="15.0" pickOnBounds="true">
+                                                               <image>
+                                                                  <Image url="@image/cartapermesso.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <Label fx:id="villagesRegionCardSpecialAction1" alignment="CENTER" layoutX="231.0" layoutY="27.0" prefHeight="38.0" prefWidth="95.0" text="K/N" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Label fx:id="villagesRegionCardSpecialAction0" alignment="CENTER" layoutX="93.0" layoutY="27.0" prefHeight="38.0" prefWidth="95.0" text="K/N" textAlignment="CENTER">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <Button fx:id="regionCardSpecialAction0" layoutX="125.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                               <effect>
+                                                                  <ImageInput x="-3.0" y="-3.0">
+                                                                     <source>
+                                                                        <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                                     </source>
+                                                                  </ImageInput>
+                                                               </effect>
+                                                            </Button>
+                                                            <Button fx:id="regionCardSpecialAction1" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                               <effect>
+                                                                  <ImageInput x="-3.0" y="-3.0">
+                                                                     <source>
+                                                                        <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                                     </source>
+                                                                  </ImageInput>
+                                                               </effect>
+                                                            </Button>
+                                                            <Button fx:id="selectPermitCardTake0" layoutX="115.0" layoutY="138.0" mnemonicParsing="false" onAction="#acquirePermitCard" text="Select">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="selectPermitCardTake1" layoutX="253.0" layoutY="138.0" mnemonicParsing="false" onAction="#acquirePermitCard" text="Select">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="clickAcquirePermitCard" layoutX="157.0" layoutY="189.0" mnemonicParsing="false" onAction="#acquirePermitCard" text="Fai mossa">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="15.0" />
+                                                               </font>
+                                                            </Button>
+                                                         </children>
+                                                      </AnchorPane>
+                                                  </items>
+                                                </SplitPane>
+                                             </children></AnchorPane>
+                                    </content>
+                                  </Tab>
+                                    <Tab text="Ottieni bonus carta permesso">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="206.0" prefWidth="503.0" style="-fx-background-color: white;">
+                                                   <children>
+                                                      <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="203.0" layoutY="31.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@image/cartapermesso.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button fx:id="nextUnusedPermitCardGamer" layoutX="332.0" layoutY="73.0" mnemonicParsing="false" onAction="#nextPermitCard" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="prevUnusedPermitCardGamer" layoutX="113.0" layoutY="73.0" mnemonicParsing="false" onAction="#prevPermitCard" prefHeight="38.0" prefWidth="60.0" text="Prev">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="region2Card111" layoutX="652.0" layoutY="427.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                         <effect>
+                                                            <ImageInput x="-3.0" y="-3.0">
+                                                               <source>
+                                                                  <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                               </source>
+                                                            </ImageInput>
+                                                         </effect>
+                                                      </Button>
+                                                      <Button fx:id="bonusUnusedPermitCardGamer" layoutX="237.0" layoutY="95.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                         <effect>
+                                                            <ImageInput x="-3.0" y="-3.0">
+                                                               <source>
+                                                                  <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                               </source>
+                                                            </ImageInput>
+                                                         </effect>
+                                                      </Button>
+                                                      <Label fx:id="villageUnusedPermitCardGamerLabel" alignment="CENTER" layoutX="208.0" layoutY="46.0" prefHeight="38.0" prefWidth="87.0" text="Click next" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unused Permit card" wrappingWidth="168.00000341422856">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Button fx:id="selectUnusedPermitCardBonus" layoutX="223.0" layoutY="163.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane layoutY="218.0" minHeight="0.0" minWidth="0.0" prefHeight="299.0" prefWidth="503.0" style="-fx-background-color: white;">
+                                                   <children>
+                                                      <ImageView fitHeight="123.0" fitWidth="97.0" layoutX="203.0" layoutY="31.0" pickOnBounds="true">
+                                                         <image>
+                                                            <Image url="@image/cartapermesso.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <Button fx:id="nextUsedPermitCardGamer" layoutX="332.0" layoutY="73.0" mnemonicParsing="false" onAction="#nextPermitCard" prefHeight="38.0" prefWidth="58.0" text="Next">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="prevUsedPermitCardGamer" layoutX="113.0" layoutY="73.0" mnemonicParsing="false" onAction="#prevPermitCard" prefHeight="38.0" prefWidth="60.0" text="Prev">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="region2Card1111" layoutX="652.0" layoutY="427.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                         <effect>
+                                                            <ImageInput x="-3.0" y="-3.0">
+                                                               <source>
+                                                                  <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                               </source>
+                                                            </ImageInput>
+                                                         </effect>
+                                                      </Button>
+                                                      <Button fx:id="bonusUsedPermitCardGamer" layoutX="236.0" layoutY="95.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                         <effect>
+                                                            <ImageInput x="-3.0" y="-3.0">
+                                                               <source>
+                                                                  <Image url="file:/C:/Users/Antonietta/Documents/MEGA/1-ANTO/CODE/CODICE/CouncilOfFour/src/main.view.image/buttonRed.png" />
+                                                               </source>
+                                                            </ImageInput>
+                                                         </effect>
+                                                      </Button>
+                                                      <Label fx:id="villageUsedPermitCardGamerLabel" alignment="CENTER" layoutX="208.0" layoutY="46.0" prefHeight="38.0" prefWidth="87.0" text="Click next" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="14.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Text layoutX="14.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Used Permit card" wrappingWidth="171.00000341422856">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Button fx:id="selectUsedPermitCardBonus" layoutX="223.0" layoutY="162.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="clickAcquireBonusPermitCard" layoutX="195.0" layoutY="220.0" mnemonicParsing="false" onAction="#acquirePermitCard" text="Fai mossa">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children></AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Ottieni bonus doppio">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <AnchorPane fx:id="anchorSelectKingVillage11" minHeight="0.0" minWidth="0.0" prefHeight="294.0" prefWidth="503.0" style="-fx-background-color: white;">
+                                                   <children>
+                                                      <Button fx:id="villageA11" layoutX="152.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="A">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageB11" layoutX="193.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="B">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageC11" layoutX="234.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="C">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageD11" layoutX="274.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="D">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageE11" layoutX="314.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="E">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageF11" layoutX="152.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="F">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageG11" layoutX="193.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="G">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageH11" layoutX="234.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="H">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageJ11" layoutX="314.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="J">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageI11" layoutX="274.0" layoutY="70.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="I">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageK11" layoutX="152.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="K">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageL11" layoutX="193.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="L">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageM11" layoutX="234.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="M">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="11.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageN11" layoutX="274.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="N">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="villageO11" layoutX="314.0" layoutY="103.0" mnemonicParsing="false" onAction="#selectVillageDoubleBonus" prefHeight="26.0" prefWidth="32.0" text="O">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button fx:id="acquireDoubleBonus" layoutX="203.0" layoutY="209.0" mnemonicParsing="false" onAction="#actionAcquireDoubleBonus" prefHeight="26.0" prefWidth="95.0" text="Fai mossa">
+                                                         <font>
+                                                            <Font name="Berry Rotunda Regular" size="12.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Label fx:id="see11" layoutX="236.0" layoutY="146.0" text="Label" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
               </panes>
             </Accordion>
          </children>
       </Pane>
       <Pane layoutX="-1.0" layoutY="2.0">
          <children>
-            <ImageView fx:id="maps" fitHeight="645.0" fitWidth="760.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="map" fitHeight="645.0" fitWidth="760.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@image/council-of-four-board.jpg" />
+                  <Image url="@image/board.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="buttonShopPlayers" layoutX="57.0" layoutY="118.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopA" layoutX="57.0" layoutY="118.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <effect>
                   <ImageInput>
                      <source>
@@ -393,7 +1416,7 @@
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Circle fx:id="button" fill="DODGERBLUE" layoutX="31.0" layoutY="31.0" onMouseEntered="#click2" onMousePressed="#click" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="button" fill="DODGERBLUE" layoutX="31.0" layoutY="31.0" onMouseEntered="#click2" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Button fx:id="arkonBonus" layoutX="66.0" layoutY="55.0" mnemonicParsing="false" onAction="#showBonusVillage" prefHeight="32.0" prefWidth="32.0">
                <effect>
                   <ImageInput x="-3.0" y="-3.0">
@@ -465,7 +1488,7 @@
                   <Font name="Berry Rotunda Regular" size="8.0" />
                </font>
             </Label>
-            <Button fx:id="buttonShopPlayers1" layoutX="170.0" layoutY="152.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopC" layoutX="170.0" layoutY="152.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -477,7 +1500,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers2" layoutX="49.0" layoutY="231.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopB" layoutX="49.0" layoutY="231.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -489,7 +1512,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers3" layoutX="164.0" layoutY="252.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopD" layoutX="164.0" layoutY="252.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -501,7 +1524,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers4" layoutX="90.0" layoutY="330.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopE" layoutX="90.0" layoutY="330.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -513,7 +1536,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers5" layoutX="289.0" layoutY="130.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopF" layoutX="289.0" layoutY="130.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="23.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -525,7 +1548,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers6" layoutX="297.0" layoutY="229.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopG" layoutX="297.0" layoutY="229.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="22.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -537,7 +1560,7 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers7" layoutX="313.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="21.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopH" layoutX="313.0" layoutY="318.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="21.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -549,31 +1572,31 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers8" layoutX="402.0" layoutY="128.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopI" layoutX="411.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+               <font>
+                  <Font name="Berry Rotunda Regular" size="9.0" />
+               </font>
                <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="buttonShopK" layoutX="530.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
+               <effect>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
                </effect>
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Button fx:id="buttonShopPlayers9" layoutX="517.0" layoutY="128.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
-               <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
-               </effect>
-               <font>
-                  <Font name="Berry Rotunda Regular" size="9.0" />
-               </font>
-            </Button>
-            <Button fx:id="buttonShopPlayers10" layoutX="394.0" layoutY="260.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopJ" layoutX="394.0" layoutY="260.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
@@ -585,49 +1608,49 @@
                   </ImageInput>
                </effect>
             </Button>
-            <Button fx:id="buttonShopPlayers11" layoutX="517.0" layoutY="231.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopL" layoutX="517.0" layoutY="231.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="68.0" style="-fx-background-color: brown;" text="Show shops">
                <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
                </effect>
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Button fx:id="buttonShopPlayers12" layoutX="612.0" layoutY="185.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopN" layoutX="616.0" layoutY="187.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
                </effect>
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Button fx:id="buttonShopPlayers13" layoutX="499.0" layoutY="340.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopM" layoutX="507.0" layoutY="340.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
                </effect>
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Button fx:id="buttonShopPlayers131" layoutX="612.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="6.0" prefWidth="87.0" style="-fx-background-color: brown;" text="Show shops">
+            <Button fx:id="buttonShopO" layoutX="619.0" layoutY="301.0" mnemonicParsing="false" onAction="#clickShopPlayers" prefHeight="19.0" prefWidth="72.0" style="-fx-background-color: brown;" text="Show shops">
                <effect>
-                  <DropShadow height="43.24" radius="21.490000000000002" spread="0.37" width="44.72">
-                     <input>
-                        <ColorAdjust brightness="0.07" contrast="0.21" hue="0.16" saturation="-0.24" />
-                     </input>
-                  </DropShadow>
+                  <ImageInput>
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/showShops.png" />
+                     </source>
+                  </ImageInput>
                </effect>
                <font>
                   <Font name="Berry Rotunda Regular" size="9.0" />
@@ -804,15 +1827,316 @@
                   </ImageInput>
                </effect>
             </Button>
-            <ImageView fx:id="nobil00" fitHeight="23.0" fitWidth="28.0" layoutX="115.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="nobil01" fitHeight="23.0" fitWidth="28.0" layoutX="132.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="nobil02" fitHeight="23.0" fitWidth="28.0" layoutX="149.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="nobil03" fitHeight="23.0" fitWidth="28.0" layoutX="166.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="32.0" fitWidth="79.0" layoutX="111.0" layoutY="461.0" pickOnBounds="true">
+            <ImageView fx:id="nobil00" fitHeight="23.0" fitWidth="28.0" layoutX="110.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil01" fitHeight="23.0" fitWidth="28.0" layoutX="132.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil02" fitHeight="23.0" fitWidth="28.0" layoutX="155.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil03" fitHeight="23.0" fitWidth="28.0" layoutX="175.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="32.0" fitWidth="95.0" layoutX="106.0" layoutY="457.0" pickOnBounds="true">
                <image>
                   <Image url="@image/balconcino.png" />
                </image>
             </ImageView>
+            <ImageView fx:id="nobil10" fitHeight="23.0" fitWidth="32.0" layoutX="331.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil11" fitHeight="23.0" fitWidth="32.0" layoutX="350.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil12" fitHeight="23.0" fitWidth="32.0" layoutX="370.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil13" fitHeight="23.0" fitWidth="32.0" layoutX="391.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="32.0" fitWidth="95.0" layoutX="326.0" layoutY="457.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/balconcino.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="nobil20" fitHeight="23.0" fitWidth="32.0" layoutX="577.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil21" fitHeight="23.0" fitWidth="32.0" layoutX="601.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil22" fitHeight="23.0" fitWidth="28.0" layoutX="624.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="nobil23" fitHeight="23.0" fitWidth="28.0" layoutX="647.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="32.0" fitWidth="103.0" layoutX="573.0" layoutY="457.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/balconcino.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="nobilKing0" fitHeight="23.0" fitWidth="32.0" layoutX="473.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/consNero.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="nobilKing1" fitHeight="23.0" fitWidth="32.0" layoutX="493.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/consNero.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="nobilKing2" fitHeight="23.0" fitWidth="28.0" layoutX="513.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/consNero.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="nobilKing3" fitHeight="23.0" fitWidth="28.0" layoutX="531.0" layoutY="478.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/consNero.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="95.0" layoutX="466.0" layoutY="489.0" pickOnBounds="true">
+               <image>
+                  <Image url="@image/balconcino.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="shopA" fitHeight="32.0" fitWidth="28.0" layoutX="118.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopB" fitHeight="32.0" fitWidth="28.0" layoutX="115.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopC" fitHeight="32.0" fitWidth="28.0" layoutX="238.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopD" fitHeight="32.0" fitWidth="28.0" layoutX="232.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopE" fitHeight="32.0" fitWidth="28.0" layoutX="161.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="bonusRegion2" fitHeight="32.0" fitWidth="48.0" layoutX="652.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/bonusRegione3.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRegion1" fitHeight="32.0" fitWidth="48.0" layoutX="411.0" layoutY="338.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/bonusRegione2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRegion0" fitHeight="32.0" fitWidth="48.0" layoutX="197.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/bonusRegione1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusGiallo" fitHeight="32.0" fitWidth="48.0" layoutX="662.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusGiallo.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusGrigio" fitHeight="32.0" fitWidth="48.0" layoutX="628.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true" rotate="46.0">
+               <image>
+                  <Image url="@image/bonusGrigio.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusGrigio1" fitHeight="32.0" fitWidth="48.0" layoutX="590.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusArancio.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusGrigio11" fitHeight="32.0" fitWidth="48.0" layoutX="555.0" layoutY="553.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusAzzurro.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRe4" fitHeight="32.0" fitWidth="48.0" layoutX="656.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusRe5.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRe3" fitHeight="32.0" fitWidth="48.0" layoutX="657.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusRe4.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRe2" fitHeight="32.0" fitWidth="48.0" layoutX="655.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusRe3.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRe1" fitHeight="32.0" fitWidth="48.0" layoutX="656.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusRe2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bonusRe0" fitHeight="32.0" fitWidth="48.0" layoutX="656.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" rotate="45.0">
+               <image>
+                  <Image url="@image/bonusRe1.png" />
+               </image>
+            </ImageView>
+            <HBox fillHeight="false" layoutX="46.0" layoutY="526.0" prefHeight="32.0" prefWidth="513.0">
+               <children>
+                  <Button fx:id="pathBonus6" layoutX="134.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus7" layoutX="157.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus8" layoutX="180.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus9" layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus10" layoutX="226.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus11" layoutX="249.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="26.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus12" layoutX="277.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="23.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus13" layoutX="303.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus14" layoutX="326.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus15" layoutX="350.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus16" layoutX="374.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus17" layoutX="398.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus18" layoutX="422.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus19" layoutX="446.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+                  <Button fx:id="pathBonus20" layoutX="470.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+                     <effect>
+                        <ImageInput x="-3.0" y="-3.0">
+                           <source>
+                              <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                           </source>
+                        </ImageInput>
+                     </effect>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="pathBonus0" layoutX="40.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="27.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="pathBonus2" layoutX="98.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="pathBonus1" layoutX="68.0" layoutY="481.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="pathBonus3" layoutX="130.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="pathBonus4" layoutX="159.0" layoutY="489.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="24.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
+            <Button fx:id="pathBonus5" layoutX="202.0" layoutY="483.0" mnemonicParsing="false" onMouseClicked="#showBonusNobility" prefHeight="26.0" prefWidth="25.0">
+               <effect>
+                  <ImageInput x="-3.0" y="-3.0">
+                     <source>
+                        <Image url="file:/C:/Users/Antonietta/Desktop/PROGETTO%20FINALE/progetto_cof/src/main/view/image/buttonRedSmall.png" />
+                     </source>
+                  </ImageInput>
+               </effect>
+            </Button>
          </children>
       </Pane>
    </children>
