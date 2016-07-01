@@ -3,6 +3,7 @@ package client.view.cli.setup;
 import java.util.Scanner;
 
 import client.controller.ControllerRepository;
+import client.controller.connections.scheduler.GameConnectionScheduler;
 import client.view.cli.utils.CliClearConsole;
 import commons.data.UserData;
 
@@ -50,6 +51,7 @@ public class CliUsernameSetup {
 			else{
 				System.out.println("\nUsername setted: " + username);
 				ControllerRepository.getInstance().setGameDataController(new UserData(username));
+				new GameConnectionScheduler().activateAddMe();
 				flag = true;
 			}
 			
