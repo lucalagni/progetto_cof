@@ -1,6 +1,9 @@
 package server.managers.match;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 import model.basics.Match;
 import model.basics.builders.exceptions.BuilderException;
@@ -10,12 +13,17 @@ import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
 
 public class MatchManager {
+	private static final int NUM_THREADS = 1;
+	private static final boolean DONT_INTERRUPT_IF_RUNNING = false ;
+	private static ScheduledExecutorService scheduler ;
+	
 	private Thread timer;
 	private ArrayList<String> gamersQueque;
 	private MatchRepository matchRepository;
 	private static MatchManager instance = null;
 	
 	private MatchManager(){
+		scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 		this.gamersQueque = new ArrayList<String>();
 		this.matchRepository = MatchRepository.getInstance();
 	}
@@ -26,6 +34,10 @@ public class MatchManager {
 			timer = genTimer();
 			timer.start();
 		}
+	}
+	
+	private void activateAddGamerTask(){
+		
 	}
 	
 	private Thread genTimer(){
@@ -40,6 +52,29 @@ public class MatchManager {
 					e.printStackTrace();
 				}
 			}});
+	}
+	
+	private static final class StartAddGamerToMatchTask implements Runnable {
+
+		public void run() {
+			//Non fa nulla se non aspettare
+		}
+		
+	}
+	
+	private static final class StopAddGamerToMatchTask implements Runnable {
+		private ScheduledFuture<?> futureScheduled; 
+		
+		StopAddGamerToMatchTask(ScheduledFuture<?> scheduledFuture){
+			this.futureScheduled = scheduledFuture;
+		}
+		
+		@Override
+		public void run() {
+			this.futureScheduled.cancel(DONT_INTERRUPT_IF_RUNNING);
+			scheduler.shutdown();
+		}
+		
 	}
 	
 	private void genMatches(){

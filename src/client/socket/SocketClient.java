@@ -38,16 +38,12 @@ public class SocketClient {
 	 */
 	public ServerMessage sendMessage(ClientMessage cm){
 		this.initCommunication();
-		System.out.println("communicazione stabilita");
 		ServerMessage sm = null;
 		
 		try {
 			this.output.writeObject(cm);
 			sm = (ServerMessage)this.input.readObject();
-			System.out.println(sm.getUsername());
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
 		
 		return sm;
 	}
@@ -66,9 +62,7 @@ public class SocketClient {
 			this.input = new ObjectInputStream(is);
 			
 			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { e.printStackTrace(); }
 	}
 	
 	/**
@@ -79,20 +73,9 @@ public class SocketClient {
 			if(this.client != null) this.client.close();
 			if(this.input != null) this.input.close();
 			if(this.output != null) this.output.close();
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
+		}catch(Exception ex){ ex.printStackTrace(); }
 	}
 	
 	public String getServerIp(){ return this.serverIp ; }
 	public int getServerPort(){ return this.serverPort; }
-
-	
-	/*public void run() {
-		try{
-			this.initCommunication();
-			
-		}catch(Exception ex){}
-		
-	}*/
 }

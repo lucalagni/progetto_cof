@@ -51,16 +51,11 @@ public class ClientHandlerThread extends Thread{
             
             ClientMessage request;
 			try {		
-				System.out.println("Messaggio ricevuto");
 				request = (ClientMessage)this.input.readObject(); 
-				System.out.println("Messaggio ricevuto");
 	            ServerMessage response = handler.handle(request);
 	            this.output.writeObject(response);
 	            
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (ClassNotFoundException e) { e.printStackTrace(); }
             
             break;
         }

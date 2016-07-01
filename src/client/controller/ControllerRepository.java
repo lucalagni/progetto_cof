@@ -3,6 +3,7 @@ package client.controller;
 import commons.data.UserData;
 import commons.data.GameMode;
 import client.controller.actions.basics.ActionController;
+import client.controller.connections.GameConnectionSetupController;
 import client.controller.data.GameDataController;
 import client.controller.updates.GameUpdatesController;
 
@@ -20,12 +21,14 @@ public class ControllerRepository {
 	private GameDataController gameDataController ;
 	private ActionController actionController ;
 	private GameUpdatesController gameUpdatesController;
+	private GameConnectionSetupController gameConnectionSetupController;
 	
 	private ControllerRepository(){
 		this.clientController = null;
 		this.gameDataController = null;
 		this.actionController = null;
 		this.gameUpdatesController = null;
+		this.gameConnectionSetupController = null;
 	}
 	
 	/**
@@ -36,6 +39,7 @@ public class ControllerRepository {
 	public void setClientController(GameMode mode){
 		if(this.clientController == null){
 			this.clientController = ClientController.getInstance();
+			this.clientController.setGameMode(mode);
 		}
 	}
 	
@@ -67,10 +71,17 @@ public class ControllerRepository {
 		this.gameUpdatesController = GameUpdatesController.getInstance();
 	}
 	
+	public void setGameConnectionSetupController(){
+		if(this.gameConnectionSetupController != null) return ;
+		
+		this.gameConnectionSetupController = GameConnectionSetupController.getInstance();
+	}
+	
 	public ClientController getClientController(){ return this.clientController; }
 	public GameDataController getGameDataController(){ return this.gameDataController; }
 	public ActionController getActionController(){ return this.actionController; }
 	public GameUpdatesController getGameUpdatesController(){ return this.gameUpdatesController; }
+	public GameConnectionSetupController getGameConnectionSetupController(){ return this.gameConnectionSetupController; }
 	
 	public static ControllerRepository getInstance(){
 		if(instance == null) instance = new ControllerRepository();

@@ -10,9 +10,12 @@ import client.command.connection.setup.GameConnectionSetupFacade;
  *
  */
 public class GameConnectionSetupController {
+	private static GameConnectionSetupController instance = null;
 	private GameConnectionSetupFacade gcsp = null;
 	
-	public GameConnectionSetupController(){ this.gcsp = new GameConnectionSetupFacade(); }
+	private GameConnectionSetupController(){ 
+		this.gcsp = new GameConnectionSetupFacade(); 
+	}
 	
 	public String requireMatch(){
 		String response = null;
@@ -22,5 +25,10 @@ public class GameConnectionSetupController {
 		//while((response.equals(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE)));
 		
 		return response;
+	}
+	
+	public static GameConnectionSetupController getInstance(){
+		if(instance == null) instance = new GameConnectionSetupController();
+		return instance;
 	}
 }

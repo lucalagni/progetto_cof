@@ -1,0 +1,2 @@
+Faccio partire il thread che richiamo il metodo per l'aggiunta del giocatore e si mette 
+in attesa per un certo tempo, al termine del quale notifica che ha terminato 

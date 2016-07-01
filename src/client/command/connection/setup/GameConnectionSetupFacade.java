@@ -17,7 +17,7 @@ public class GameConnectionSetupFacade {
 	
 	@SuppressWarnings("static-access")
 	public GameConnectionSetupFacade(){
-		this.mode = ControllerRepository.getInstance().getClientController().getInstance().getClient().getGameMode();
+		this.mode = ControllerRepository.getInstance().getClientController().getClient().getGameMode();
 	}
 	
 	

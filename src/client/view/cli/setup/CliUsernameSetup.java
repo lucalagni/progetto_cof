@@ -51,7 +51,7 @@ public class CliUsernameSetup {
 			else{
 				System.out.println("\nUsername setted: " + username);
 				ControllerRepository.getInstance().setGameDataController(new UserData(username));
-				new GameConnectionScheduler().activateAddMe();
+				
 				flag = true;
 			}
 			
