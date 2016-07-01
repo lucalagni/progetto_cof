@@ -2,8 +2,6 @@ package client.view.cli.basic;
 
 import java.util.Scanner;
 
-import view.basic.cli.client.CliUtils;
-
 public class MainCliMenu {
 	private String menu ;
 	
