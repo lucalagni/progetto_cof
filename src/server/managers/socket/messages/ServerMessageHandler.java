@@ -244,10 +244,15 @@ public class ServerMessageHandler {
 	}
 	
 	private ServerMessage clientRequestToBeAddedToAMatch(UserData data){
-		ServerMessage response = null;
-		//this.matchManager.addGamer(username);
-		response = new ServerMessage(data);
-		response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE, null);
+		ServerMessage response = new ServerMessage(data);
+		boolean available = this.matchManager.addGamer(data.getUsername());
+		
+		if(available == false) {
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_USERNAME_NOT_AVAILABLE, null);
+		}
+		else {
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE, null);
+		}
 		return response;
 	}
 	

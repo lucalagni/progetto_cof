@@ -19,10 +19,7 @@ public class GameConnectionSetupController {
 	
 	public String requireMatch(){
 		String response = null;
-		
-		//do{
 		response = this.gcsp.requireMatch();
-		//while((response.equals(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE)));
 		
 		return response;
 	}

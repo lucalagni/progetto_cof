@@ -18,24 +18,26 @@ import commons.schedulers.client.ClientSchedulersConstants;
 public class GameConnectionScheduler extends Thread{
 	public static final int NUM_THREADS = 1;       					//Indica quanti thread far partire
 	public static final boolean DONT_INTERRUPT_IF_RUNNING = false ; //Indica che il thread può essere bloccato anche se esso non ha concluso la sua esecuzione
-	public static final int SLEEP_TIME = 1000;
+	public static final int SLEEP_TIME = 100;
 	
 	private static ScheduledExecutorService scheduler;
 	private static GameConnectionSetupController controller;
 	
 	private static boolean gamerAddedToTheQueuque;
+	private static boolean usernameNotAvailable ;
 	
 	public GameConnectionScheduler(){
 		scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 		ControllerRepository.getInstance().setGameConnectionSetupController();
 		controller = ControllerRepository.getInstance().getGameConnectionSetupController();
 		gamerAddedToTheQueuque = false ;
+		usernameNotAvailable = false ;
 	}
 	
 	/**
 	 * Metodo che attiva lo scheduler per il polling
 	 */
-	public void activateAddMe(){
+	private void activateAddMe(){
 		try{
 		Runnable addMeTask = new AddMeTask();
 		ScheduledFuture<?> requireAddMe = scheduler.scheduleWithFixedDelay(addMeTask, ClientSchedulersConstants.CLIENT_SCHEDULER_CONNECTIONS_DELAY, ClientSchedulersConstants.CLIENT_SCHEDULER_CONNECTIONS_PERIOD, ClientSchedulersConstants.CLIENT_SCHEDULER_CONNECTIONS_TIME_UNIT);
@@ -49,11 +51,27 @@ public class GameConnectionScheduler extends Thread{
 		}catch(Exception ex){}
 	}
 	
-	public static void gamerAddedToTheQueue(){ 
+	/**
+	 * Se il giocatore e' stato aggiunto alla coda fermo la richiesta dello scheduler di 
+	 * aggiungere un giocatore
+	 */
+	private static void gamerAddedToTheQueue(){ 
 		gamerAddedToTheQueuque = true; 
+		usernameNotAvailable = false ;
 		scheduler.shutdown();
 	}
+	
+	/**
+	 * Se il giocatore ha scelto uno username non disponibile , notifico la mancata ricezione
+	 */
+	private static void usernameNotAvailable(){
+		usernameNotAvailable = true ;
+		gamerAddedToTheQueuque = false ;
+		scheduler.shutdown();
+	}
+	
 	public boolean getGamerAddedToTheQueque(){ return gamerAddedToTheQueuque; }
+	public boolean getUsernameNotAvailable(){ return usernameNotAvailable; }
 	
 	private static final class AddMeTask implements Runnable{
 
@@ -62,7 +80,8 @@ public class GameConnectionScheduler extends Thread{
 			String result = controller.requireMatch();
 			
 			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE.getServerMessageContentType())) gamerAddedToTheQueue();
-			System.out.println(controller.requireMatch());
+			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_USERNAME_NOT_AVAILABLE.getServerMessageContentType())) usernameNotAvailable();
+			System.out.println(result);
 		}
 		
 	}
@@ -74,7 +93,7 @@ public class GameConnectionScheduler extends Thread{
 		
 		@Override
 		public void run() {
-			System.out.println("\nScheduler Stopped");
+			//System.out.println("\nScheduler Stopped");
 			futureScheduled.cancel(DONT_INTERRUPT_IF_RUNNING);
 			scheduler.shutdown();
 		}
@@ -83,7 +102,6 @@ public class GameConnectionScheduler extends Thread{
 	
 	@Override
 	public void run(){
-		activateAddMe();
 		try {
 			this.activateAddMe();
 			sleep(SLEEP_TIME);

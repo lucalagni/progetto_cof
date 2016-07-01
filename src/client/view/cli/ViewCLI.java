@@ -22,14 +22,17 @@ public class ViewCLI {
 		
 		wait = new CliConsoleType().show();   //Acquisisco il tipo di terminale sul quale visualizzare le informazioni
 		wait = new CliGameModeSetup().show(); //Acquisisco la modalità di trasmissione dati
-		wait = new CliUsernameSetup().show(); //Acquisisco lo username
-		wait = new CliWaitForMatchCode().show(); //Richiedo al server di unirmi alla coda degli utenti
+		
+		//Ciclo fino a quando non mi viene inserito uno username valido
+		do {
+			wait = new CliUsernameSetup().show(); //Acquisisco lo username
+			wait = new CliWaitForMatchCode().show(); //Richiedo al server di unirmi alla coda degli utenti
+			if(wait == CliWaitForMatchCode.USERNAME_NOT_AVAILABLE) System.out.println("\nUsername not available, retry");
+		}while(wait == CliWaitForMatchCode.USERNAME_NOT_AVAILABLE);
+		
 		if(wait == CliWaitForMatchCode.GAMER_ADDED_TO_THE_QUEQUE){
-			//fa qualcosa
 		}
-		else {
-			System.out.println("\nGamer cannot play");
-		}
+		
 	}
 	
 	private void setTitle(){ this.title = new String("\n++++++++++{ Council Of Four }++++++++++\n\n"); }

@@ -1,9 +1,6 @@
 package server.managers.match;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 
 import model.basics.Match;
 import model.basics.builders.exceptions.BuilderException;
@@ -12,32 +9,45 @@ import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;
 import model.basics.exceptions.PoliticalCardsDeckException;
 
+/**
+ * Classe che gestisce l'aggiunta di giocatori ad un match
+ * 
+ * @author Luca Lagni
+ *
+ */
 public class MatchManager {
-	private static final int NUM_THREADS = 1;
-	private static final boolean DONT_INTERRUPT_IF_RUNNING = false ;
-	private static ScheduledExecutorService scheduler ;
-	
 	private Thread timer;
 	private ArrayList<String> gamersQueque;
 	private MatchRepository matchRepository;
 	private static MatchManager instance = null;
 	
 	private MatchManager(){
-		scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 		this.gamersQueque = new ArrayList<String>();
 		this.matchRepository = MatchRepository.getInstance();
 	}
 	
-	public synchronized void addGamer(String gamer){ 
+	public synchronized boolean addGamer(String gamer){ 
+		if(this.checkName(gamer) == false) return false; //Evito che venga inserito un utente duplicato 
 		this.gamersQueque.add(gamer); 
 		if(this.gamersQueque.size() >= MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
 			timer = genTimer();
 			timer.start();
 		}
+		
+		return true;
 	}
 	
-	private void activateAddGamerTask(){
+	/**
+	 * Metodo che verifica se uno username e' gia stato inserito.
+	 * @param username
+	 * @return
+	 */
+	private synchronized boolean checkName(String username){
+		for(String name : this.gamersQueque){
+			if(name.equals(username)) return false ;
+		}
 		
+		return true;
 	}
 	
 	private Thread genTimer(){
@@ -52,29 +62,6 @@ public class MatchManager {
 					e.printStackTrace();
 				}
 			}});
-	}
-	
-	private static final class StartAddGamerToMatchTask implements Runnable {
-
-		public void run() {
-			//Non fa nulla se non aspettare
-		}
-		
-	}
-	
-	private static final class StopAddGamerToMatchTask implements Runnable {
-		private ScheduledFuture<?> futureScheduled; 
-		
-		StopAddGamerToMatchTask(ScheduledFuture<?> scheduledFuture){
-			this.futureScheduled = scheduledFuture;
-		}
-		
-		@Override
-		public void run() {
-			this.futureScheduled.cancel(DONT_INTERRUPT_IF_RUNNING);
-			scheduler.shutdown();
-		}
-		
 	}
 	
 	private void genMatches(){
