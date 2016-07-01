@@ -93,7 +93,6 @@ public class GameConnectionScheduler extends Thread{
 		
 		@Override
 		public void run() {
-			//System.out.println("\nScheduler Stopped");
 			futureScheduled.cancel(DONT_INTERRUPT_IF_RUNNING);
 			scheduler.shutdown();
 		}

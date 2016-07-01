@@ -1,6 +1,11 @@
 package server.managers.match;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+
+import commons.schedulers.server.ServerSchedulersConstants;
 
 import model.basics.Match;
 import model.basics.builders.exceptions.BuilderException;
@@ -16,25 +21,85 @@ import model.basics.exceptions.PoliticalCardsDeckException;
  *
  */
 public class MatchManager {
-	private Thread timer;
+	public static final int NUM_THREADS = 1;
+	public static final boolean SGS_DONT_INTERRUPT_IF_RUNNING = false ;
+	public static final boolean MGS_DONT_INTERRUPT_IF_RUNNING = true ;
+	
+	private static ScheduledExecutorService singleGamerScheduler;    
+	private static ScheduledExecutorService multipleGamersScheduler ;
+	
 	private ArrayList<String> gamersQueque;
 	private MatchRepository matchRepository;
 	private static MatchManager instance = null;
 	
+	private String aloneGamer;
+	private ScheduledFuture<?> singleGamerTask;
+	
 	private MatchManager(){
 		this.gamersQueque = new ArrayList<String>();
 		this.matchRepository = MatchRepository.getInstance();
+		this.aloneGamer = null;
+		
+		singleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
+		multipleGamersScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 	}
 	
 	public synchronized boolean addGamer(String gamer){ 
 		if(this.checkName(gamer) == false) return false; //Evito che venga inserito un utente duplicato 
 		this.gamersQueque.add(gamer); 
+		if(this.gamersQueque.size() == 1) this.startSingleGamerScheduler();
+		if(this.gamersQueque.size() == 2){
+			System.out.println("\nDoppio giocatore");
+			this.singleGamerTask.cancel(true);
+			singleGamerScheduler.shutdownNow();
+		}
+		
 		if(this.gamersQueque.size() >= MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
-			timer = genTimer();
-			timer.start();
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Questo metodo si occupa della gestione del timeout del singolo giocatore, in quanto,
+	 * se dopo un certo tot di tempo non si sono aggiunti altri giocatori, viene tenuto
+	 * in memoria che esso non ha potuto partecipare a match
+	 */
+	private synchronized void startSingleGamerScheduler(){
+		try{
+			Runnable startSingleGamerTask = new StartSingleGamerTask();
+			this.singleGamerTask = singleGamerScheduler.scheduleWithFixedDelay(startSingleGamerTask, ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_DELAY, 
+																												   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD, 
+																												   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
+			Runnable stopSingleGamerTask = new StopSingleGamerTask(singleGamerTask);
+			singleGamerScheduler.schedule(stopSingleGamerTask, ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT, 
+															   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
+			
+		}catch(Exception ex){}
+	}
+	
+	private class StartSingleGamerTask implements Runnable {
+		@Override
+		public void run() {
+			//Non fa nulla , attende unicamente lo scadere del quanto di tempo
+			System.out.println("\nGiocatore singolo");
+		}
+		
+	}
+	
+	private class StopSingleGamerTask implements Runnable {
+		private ScheduledFuture<?> futureScheduled;
+		
+		StopSingleGamerTask(ScheduledFuture<?> futureScheduled){ this.futureScheduled = futureScheduled; }
+		
+		@Override
+		public void run() {
+			MatchRepository.getInstance().addAloneGamer(aloneGamer);
+			this.futureScheduled.cancel(SGS_DONT_INTERRUPT_IF_RUNNING);
+			singleGamerScheduler.shutdown();
+			System.out.println("\nGiocatore singolo aggiunto alla coda di attesa");
+		}
+		
 	}
 	
 	/**
@@ -50,19 +115,6 @@ public class MatchManager {
 		return true;
 	}
 	
-	private Thread genTimer(){
-		return new Thread(new Runnable(){
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(MatchConstants.MATCH_TIMEOUT * 1000);
-					genMatches();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}});
-	}
 	
 	private void genMatches(){
 		ArrayList<String> users = this.gamersQueque;
