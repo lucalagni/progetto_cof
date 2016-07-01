@@ -26,7 +26,7 @@ public class MatchManager {
 	public static final boolean MGS_DONT_INTERRUPT_IF_RUNNING = true ;
 	
 	private static ScheduledExecutorService singleGamerScheduler;    
-	private static ScheduledExecutorService multipleGamersScheduler ;
+	private static ScheduledExecutorService multipleGamerScheduler ;
 	
 	private ArrayList<String> gamersQueque;
 	private MatchRepository matchRepository;
@@ -41,23 +41,59 @@ public class MatchManager {
 		this.aloneGamer = null;
 		
 		singleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
-		multipleGamersScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
+		multipleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 	}
 	
 	public synchronized boolean addGamer(String gamer){ 
 		if(this.checkName(gamer) == false) return false; //Evito che venga inserito un utente duplicato 
 		this.gamersQueque.add(gamer); 
 		if(this.gamersQueque.size() == 1) this.startSingleGamerScheduler();
-		if(this.gamersQueque.size() == 2){
+		if(this.gamersQueque.size() == MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
+			
 			System.out.println("\nDoppio giocatore");
 			this.singleGamerTask.cancel(true);
 			singleGamerScheduler.shutdownNow();
-		}
-		
-		if(this.gamersQueque.size() >= MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
+			this.aloneGamer = null;
+			this.startMultipleGamerScheduler();
 		}
 		
 		return true;
+	}
+	
+	private synchronized void startMultipleGamerScheduler(){
+		try{
+			Runnable startMultipleGamersTask = new StartMultipleGamersTask();
+			ScheduledFuture<?> multipleGamersTask = multipleGamerScheduler.scheduleWithFixedDelay(startMultipleGamersTask, 
+																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_DELAY, 
+																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD, 
+																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
+			Runnable stopMultipleGamersTask = new StopMultipleGamersTask(multipleGamersTask);
+			multipleGamerScheduler.schedule(stopMultipleGamersTask, 
+					                        ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT, 
+					                        ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
+			multipleGamerScheduler.awaitTermination(ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_AWAIT, 
+													ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
+		}catch(Exception ex){}
+	}
+	
+	private class StartMultipleGamersTask implements Runnable {
+
+		public void run() {	System.out.println("\nGiocatori multipli in coda");}
+		
+	}
+	
+	private class StopMultipleGamersTask implements Runnable {
+		private ScheduledFuture<?> futureScheduled;
+		
+		StopMultipleGamersTask(ScheduledFuture<?> futureScheduled){ this.futureScheduled = futureScheduled; }
+		
+		@Override
+		public void run() {
+			MatchRepository.getInstance().addAloneGamer(aloneGamer);
+			this.futureScheduled.cancel(SGS_DONT_INTERRUPT_IF_RUNNING);
+			multipleGamerScheduler.shutdown();
+			genMatches();
+		}
 	}
 	
 	/**
@@ -131,7 +167,8 @@ public class MatchManager {
 		if(numMatches == 0){
 			try {
 				mg[0] = new MatchGenerator();
-				for(String username : this.gamersQueque){
+				for(String username : users){
+					System.out.println("username: " + username);
 					mg[0].addGamer(username);
 				}
 				

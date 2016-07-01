@@ -65,6 +65,8 @@ public class MatchGenerator {
 		
 		this.gamers.add(g);
 		
+		System.out.println(g.toString());
+		
 		return this.gamers.size();
 	}
 	
