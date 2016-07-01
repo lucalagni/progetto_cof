@@ -3,7 +3,6 @@ package client.view.cli.setup;
 import java.util.Scanner;
 
 import client.controller.ControllerRepository;
-import client.controller.connections.scheduler.GameConnectionScheduler;
 import client.view.cli.utils.CliClearConsole;
 import commons.data.UserData;
 

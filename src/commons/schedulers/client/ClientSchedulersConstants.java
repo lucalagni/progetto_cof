@@ -14,6 +14,6 @@ public final class ClientSchedulersConstants {
 	public static final TimeUnit CLIENT_SCHEDULER_CONNECTIONS_TIME_UNIT = TimeUnit.SECONDS;
 	public static final long 	 CLIENT_SCHEDULER_CONNECTIONS_DELAY = 0;
 	public static final long 	 CLIENT_SCHEDULER_CONNECTIONS_PERIOD = 1;
-	public static final long 	 CLIENT_SCHEDULER_CONNECTIONS_TIMEOUT = 20;
-	public static final long     CLIENT_SCHEDULER_CONNECTIONS_AWAIT = 40;
+	public static final long 	 CLIENT_SCHEDULER_CONNECTIONS_TIMEOUT = 10;
+	public static final long     CLIENT_SCHEDULER_CONNECTIONS_AWAIT = 20;
 }

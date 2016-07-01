@@ -1,18 +1,16 @@
 package client.view.cli.setup;
 
-import java.util.concurrent.Executors;
-
 import client.controller.connections.scheduler.GameConnectionScheduler;
 import client.view.cli.utils.CliClearConsole;
 
 /**
- * Classe che gestisce l'attesa per il matchCode
+ * Classe che gestisce l'attesa per il match code
  * 
  * @author Luca Lagni
  *
  */
 public class CliWaitForMatchCode {
-	@SuppressWarnings("unused")
+	public static final int GAMER_ADDED_TO_THE_QUEQUE = 0;
 	private String text = null;
 	
 	public CliWaitForMatchCode(){
@@ -30,12 +28,18 @@ public class CliWaitForMatchCode {
 		GameConnectionScheduler gcs = new GameConnectionScheduler();
 		Thread t = new Thread(gcs);
 		t.start();
-		
+		System.out.println(this.text);
 		try {
 			t.join();
 		} catch (InterruptedException e) {}
 		
-		System.out.println("\nDone");
-		return 0;
+		if(gcs.getGamerAddedToTheQueque() == true){
+			System.out.println("Gamer Added To The Queque");
+			return GAMER_ADDED_TO_THE_QUEQUE;
+		}
+		else {
+			System.out.println("Gamer Not Added To The Queque");
+			return GAMER_ADDED_TO_THE_QUEQUE + 1;
+		}
 	}
 }
