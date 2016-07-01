@@ -3,6 +3,7 @@ package client.view.cli.setup;
 import java.util.Scanner;
 
 import client.controller.ControllerRepository;
+import client.view.cli.utils.CliClearConsole;
 import commons.data.UserData;
 
 /**
@@ -32,6 +33,7 @@ public class CliUsernameSetup {
 		
 		do
 		{
+			CliClearConsole.clearConsole(false);
 			System.out.print(this.text);
 			try{
 				username = this.input.nextLine();

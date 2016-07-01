@@ -3,8 +3,8 @@ package client.view.cli.setup;
 import java.util.Scanner;
 
 import commons.data.GameMode;
-
 import client.controller.ControllerRepository;
+import client.view.cli.utils.CliClearConsole;
 
 /**
  * Classe per la visualizzazione grafica cli del metodo di interscambio 
@@ -37,6 +37,7 @@ public class CliGameModeSetup {
 		
 		do
 		{
+			CliClearConsole.clearConsole(false);
 			System.out.print(this.menu);
 			try{
 				choice = Integer.parseInt(this.input.nextLine());

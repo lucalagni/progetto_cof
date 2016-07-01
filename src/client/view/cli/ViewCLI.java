@@ -1,5 +1,6 @@
 package client.view.cli;
 
+import client.view.cli.setup.CliConsoleType;
 import client.view.cli.setup.CliGameModeSetup;
 import client.view.cli.setup.CliUsernameSetup;
 
@@ -18,6 +19,8 @@ public class ViewCLI {
 		int wait = 0;
 		
 		System.out.println(this.title);
+		
+		wait = new CliConsoleType().show();   //Acquisisco il tipo di terminale sul quale visualizzare le informazioni
 		wait = new CliGameModeSetup().show(); //Acquisisco la modalità di trasmissione dati
 		wait = new CliUsernameSetup().show(); //Acquisisco lo username
 	}
