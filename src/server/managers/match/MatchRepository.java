@@ -38,9 +38,6 @@ public class MatchRepository {
 	
 	public synchronized boolean getAloneGamerAssociatedTo(String username){
 		for(String gamer : this.aloneGamers){
-			System.out.println("\nVerifico");
-			System.out.println(username);
-			System.out.println(gamer);
 			if(gamer.equals(username)) return true;
 		}
 		

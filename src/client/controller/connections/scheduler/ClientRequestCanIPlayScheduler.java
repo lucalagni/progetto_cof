@@ -103,7 +103,6 @@ public class ClientRequestCanIPlayScheduler extends Thread{
 
 		@Override
 		public void run() {	
-			System.out.println("[ClientRequestCanIPlayScheduler] thread iniziato ");
 			String result = controller.clientRequestCanIPlay();
 			
 			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_TOO_FEAW_GAMERS_TO_PLAY.getServerMessageContentType())){
@@ -125,9 +124,6 @@ public class ClientRequestCanIPlayScheduler extends Thread{
 				System.out.println("[ClientRequestCanIPlayScheduler] SERVER_RESPONSE_MATCH_NOT_AVAILABLE_YET ");
 				setServerResponseMatchNotAvailableYet();
 			}
-			
-			System.out.println("[ClientRequestCanIPlayScheduler] Result: "+result);
-			System.out.println(result);
 		}
 		
 	}
@@ -141,7 +137,7 @@ public class ClientRequestCanIPlayScheduler extends Thread{
 		public void run() {	
 			scheduled.cancel(DONT_INTERRUPT_IF_RUNNING);
 			scheduler.shutdown();
-			System.out.println("\nRichiesta scaduta");
+			System.out.println("[ClientRequestCanIPlayScheduler] SCHEDULER FINISHED ITS WORK");
 		}
 		
 	}

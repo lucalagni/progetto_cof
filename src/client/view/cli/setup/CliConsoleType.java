@@ -33,12 +33,12 @@ public class CliConsoleType {
 		boolean flag = false ;
 		
 		do{
-			System.out.println(this.text);
+			System.out.print(this.text);
 			
 			try{
 				choice = Integer.parseInt(this.input.nextLine());
 			}catch(Exception ex){
-				System.out.println("\nInvalid input data, retry");
+				System.out.println("\n[CliConsoleType] INVALID CHOICE , RETRY");
 				flag = false ;
 				continue;
 			}

@@ -1,7 +1,6 @@
 package client.view.cli.setup;
 
 import client.controller.connections.scheduler.ClientRequestCanIPlayScheduler;
-import client.view.cli.utils.CliClearConsole;
 
 /**
  * Visualizzazione grafica CLI dello stato di gioco del giocatore
@@ -34,9 +33,9 @@ public class CliRequestCanIPlay {
 		System.out.println(this.text);
 		
 		try {
-			System.out.println("[CliRequestCanIPlay] sto aspettando che termina lo scheduler ... ");
+			System.out.println("[CliRequestCanIPlay] waiting for the scheduled task to be completed");
 			t.join();
-			System.out.println("[CliRequestCanIPlay] Iuppiii è terminato!!! ");
+			System.out.println("[CliRequestCanIPlay] scheduled task completed ");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

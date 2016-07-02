@@ -60,7 +60,7 @@ public class ClientHandlerThread extends Thread{
             break;
         }
         
-        System.out.println("Chiusura socket");
+        System.out.print("\n[ClientHandlerThread] SOCKET CLOSED");
         this.client.close();
         this.output.close();
 		this.input.close();
@@ -68,7 +68,6 @@ public class ClientHandlerThread extends Thread{
    
     
     public void forceClose(){
-        System.out.println("Chiusura TH: "+localIndex);
         try {
 			this.client.close();
 			this.output.close();
@@ -76,8 +75,6 @@ public class ClientHandlerThread extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        System.out.println("Chiusura socket");
-        
     }
     
     @Override

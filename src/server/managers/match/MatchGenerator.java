@@ -89,7 +89,6 @@ public class MatchGenerator {
 			}
 		
 		this.updateActualCode();
-		System.out.println(m.toString());
 		return m;
 	}
 	

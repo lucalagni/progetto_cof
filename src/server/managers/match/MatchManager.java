@@ -44,7 +44,6 @@ public class MatchManager {
 	public synchronized boolean addGamer(String gamer){ 
 		if(this.checkName(gamer) == false) return false; //Evito che venga inserito un utente duplicato 
 		this.gamersQueque.add(gamer); 
-		System.out.println("dimensione code: " +this.gamersQueque.size());
 		if(this.gamersQueque.size() == 1) {
 			this.singleGamerTask = null;
 			singleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
@@ -78,8 +77,14 @@ public class MatchManager {
 	}
 	
 	private class StartMultipleGamersTask implements Runnable {
-
-		public void run() {	System.out.println("\nGiocatori multipli in coda");}
+		private int counter ;
+		
+		StartMultipleGamersTask(){ this.counter = 0; }
+		
+		public void run() {
+			System.out.print("\n[StartMultipleGamersTask] (" + counter + ") ACTUAl NUMBER OF GAMERS CONNECTED: " + gamersQueque.size());
+			this.counter++;
+		}
 		
 	}
 	
@@ -90,6 +95,7 @@ public class MatchManager {
 		
 		@Override
 		public void run() {
+			System.out.print("\n[StopMultipleGamersTask] SCHEDULER STOPPED -> ACTUAl NUMBER OF GAMERS CONNECTED: " + gamersQueque.size());
 			this.futureScheduled.cancel(SGS_DONT_INTERRUPT_IF_RUNNING);
 			multipleGamerScheduler.shutdown();
 			genMatches();
@@ -119,9 +125,8 @@ public class MatchManager {
 		StartSingleGamerTask(){ counter = 0 ; }
 		@Override
 		public void run() {
-			//Non fa nulla , attende unicamente lo scadere del quanto di tempo
-			System.out.println("\nGiocatore singolo " + counter);
-			counter++;
+			System.out.print("\n[StartSingleGamerTask] SINGLE GAMER CONNECTED (" + counter + ")");
+			this.counter++;
 		}
 		
 	}
@@ -137,7 +142,7 @@ public class MatchManager {
 			this.futureScheduled.cancel(SGS_DONT_INTERRUPT_IF_RUNNING);
 			singleGamerScheduler.shutdown();
 			gamersQueque = new ArrayList<String>();
-			System.out.println("\nGiocatore singolo aggiunto alla coda di attesa");
+			System.out.print("\n[StopSingleGamerTask] SINGLE GAMER ADDED TO THE ALONE GAMERS LIST");
 		}
 		
 	}
@@ -171,7 +176,9 @@ public class MatchManager {
 		if(numMatches > 0) mg = new MatchGenerator[numMatches];
 		else mg = new MatchGenerator[1];
 		
-		System.out.println("\nnumero partite: " + numMatches);
+		if(numMatches == 0)System.out.print("\n\n[genMatches] NUMBER OF MATCHES CREATED: " + numMatches + 1);
+		else System.out.print("\n\n[genMatches] NUMBER OF MATCHES CREATED: " + numMatches);
+		
 		if(numMatches == 0){
 			try {
 				mg[0] = new MatchGenerator();
@@ -190,13 +197,10 @@ public class MatchManager {
 			for(int i = 0; i < numMatches; i++){
 				try {
 					mg[i] = new MatchGenerator();
-					System.out.println("\nMatch generato");
 					for(int j = 0; j < MatchConstants.MID_NUMBER_OF_GAMERS; j++){
 						mg[i].addGamer(users.get(index));
-						//users.remove(j);
 						index++;
 						left--;
-						System.out.println("\nGiocatori aggiunti");
 					}
 				} catch (BuilderException | GameMapException | PoliticalCardsDeckException e) { e.printStackTrace(); }
 			}

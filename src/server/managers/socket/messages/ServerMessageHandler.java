@@ -269,7 +269,6 @@ public class ServerMessageHandler {
 			}
 			
 			if(flag == false){
-				System.out.println("\nGiocatore non trovato");
 				response = new ServerMessage(data);
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_NOT_IN_MATCH, null);
 			}
