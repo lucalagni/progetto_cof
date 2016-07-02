@@ -65,8 +65,6 @@ public class MatchGenerator {
 		
 		this.gamers.add(g);
 		
-		System.out.println(g.toString());
-		
 		return this.gamers.size();
 	}
 	
@@ -91,6 +89,7 @@ public class MatchGenerator {
 			}
 		
 		this.updateActualCode();
+		System.out.println(m.toString());
 		return m;
 	}
 	
@@ -98,8 +97,8 @@ public class MatchGenerator {
 		char[] c = new char[3];
 		String fakeGamer = GamerConstants.FAKE_GAMER;
 		Village[] villages = match.getBoard().getGameMap().getVillages();
-		int random = (int) (Math.random() * RegionConstants.VILLAGES_REGION_1.length); 
 		
+		int random = (int) (Math.random() * RegionConstants.VILLAGES_REGION_1.length); 
 		c[0] = RegionConstants.VILLAGES_REGION_1[random].charAt(0);
 		random = (int) (Math.random() * RegionConstants.VILLAGES_REGION_2.length); 
 		c[1] = RegionConstants.VILLAGES_REGION_2[random].charAt(0);
