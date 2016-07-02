@@ -1,9 +1,9 @@
 package client.command.connection.setup;
 
 import commons.data.GameMode;
+import commons.data.exceptions.UserDataException;
 import commons.messages.ServerMessage;
 import commons.messages.ServerMessageContentType;
-
 import client.controller.ControllerRepository;
 
 /**
@@ -25,13 +25,13 @@ public class GameConnectionSetupFacade {
 	 * @param username
 	 * @return
 	 */
-	public String requireMatch(){
+	public String clientRequireAddMe(){
 		ServerMessage response = null;
 		String message = null;
 		
 		switch(this.mode){
 			case SOCKET:
-				response = new GameConnectionSetupSocket().requireMatch();
+				response = new GameConnectionSetupSocket().clientRequireAddMe();
 				//Se mi viene restituito il matchcode allora ritorno quello, altrimenti ritorno il messaggio del server
 				if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_MATCH_CODE) message = response.getMatchCode();
 				else message = response.getContent().getServerMessageContentType();
@@ -42,5 +42,25 @@ public class GameConnectionSetupFacade {
 		
 		return message;
 		
+	}
+	
+	/**
+	 * Metodo che, una volta che il giocatore sa di essere statio aggiunto alla coda di attesa
+	 * verifica se può giocare.
+	 * @return
+	 * @throws UserDataException 
+	 */
+	public String clientRequestCanIPlay() throws UserDataException{
+		String response = null;
+		
+		switch(this.mode){
+			case SOCKET:
+						response = new GameConnectionSetupSocket().clientRequestCanIPlay();
+						break;
+			default:
+				break;
+		}
+		
+		return response;
 	}
 }

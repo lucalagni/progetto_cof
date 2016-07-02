@@ -2,6 +2,7 @@ package server.managers.socket.messages;
 
 import java.util.ArrayList;
 
+import model.basics.Gamer;
 import model.basics.Match;
 import model.basics.constants.MatchConstants;
 import server.managers.match.MatchManager;
@@ -220,29 +221,72 @@ public class ServerMessageHandler {
 		return response;
 	}
 	
-	//Metodo che gestisce la richiesta del client per sapere se il match è pronto
+	/**
+	 * Metodo che gestisce la richiesta di un client di sapere se è associato ad un match
+	 * @param data
+	 * @return
+	 */
 	private ServerMessage clientRequestCanIPlay(UserData data){
 		ServerMessage response = null;
 		String matchCode = null;
+		Match m = null;
+		boolean flag = false ;
 		
+		//cerco di ottenere il match associato ad un certo utente
 		matchCode = this.matchRepository.getMatchCodeAssociatedTo(data.getUsername());
 		if(matchCode == null){
-			if(this.matchRepository.getAloneGamerAssociatedTo(data.getUsername()) == true){
+			if(this.matchRepository.getAloneGamerAssociatedTo(data.getUsername()) == true)
+			{
+				/*
+				 * Caso in cui il match non è disponibile e l'utente è stato messo nella coda
+				 * degli utenti che non hanno la possibilità di giocare
+				 */
 				response = new ServerMessage(data);
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_TOO_FEAW_GAMERS_TO_PLAY, null);
 			}
+			else 
+			{
+				/*
+				 * Il server risponde che non si sa ancora se il giocatore sia stato a omeno aggiunto 
+				 * ad un match
+				 */
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_AVAILABLE_YET, null);
+			}
 			
-			response = new ServerMessage(data);
-			response.addContent(ServerMessageContentType.SEREVR_RESPONSE_MATCHCODE_NOT_AVAILABLE_YET, null);
 		}
 		else{
-			response = new ServerMessage(data);
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_CODE, null);
+			m = this.matchRepository.getMatch(matchCode);
+			for(Gamer gam : m.getGamers()){
+				if(gam.getUsername().equals(data.getUsername())){
+					try {
+						data.setupGamer(gam);
+						data.setupMatch(m);
+						flag = true;
+						break;
+					} catch (UserDataException e) { e.printStackTrace(); }
+				}
+			}
+			
+			if(flag == false){
+				System.out.println("\nGiocatore non trovato");
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_NOT_IN_MATCH, null);
+			}
+			else {
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH, null);
+			}
 		}
 		
 		return response ;
 	}
 	
+	/**
+	 * Metodo che gestisce la richiesta di gioco di un utente
+	 * @param data
+	 * @return
+	 */
 	private ServerMessage clientRequestToBeAddedToAMatch(UserData data){
 		ServerMessage response = new ServerMessage(data);
 		boolean available = this.matchManager.addGamer(data.getUsername());

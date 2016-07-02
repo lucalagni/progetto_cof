@@ -38,7 +38,7 @@ public class MatchManager {
 	private MatchManager(){
 		this.gamersQueque = new ArrayList<String>();
 		this.matchRepository = MatchRepository.getInstance();
-		this.aloneGamer = null;
+		this.aloneGamer = new String(GamerConstants.NULL_GAMER);
 	}
 	
 	public synchronized boolean addGamer(String gamer){ 
@@ -48,13 +48,14 @@ public class MatchManager {
 		if(this.gamersQueque.size() == 1) {
 			this.singleGamerTask = null;
 			singleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
+			this.aloneGamer = gamer;
 			this.startSingleGamerScheduler();
 		}
 		if(this.gamersQueque.size() == MatchConstants.MIN_NUMBER_OF_GAMERS_TO_PLAY){
 			multipleGamerScheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 			this.singleGamerTask.cancel(true);
 			singleGamerScheduler.shutdownNow();
-			this.aloneGamer = null;
+			this.aloneGamer = new String(GamerConstants.NULL_GAMER);
 			this.startMultipleGamerScheduler();
 		}
 		
@@ -114,10 +115,13 @@ public class MatchManager {
 	}
 	
 	private class StartSingleGamerTask implements Runnable {
+		private int counter ;
+		StartSingleGamerTask(){ counter = 0 ; }
 		@Override
 		public void run() {
 			//Non fa nulla , attende unicamente lo scadere del quanto di tempo
-			System.out.println("\nGiocatore singolo");
+			System.out.println("\nGiocatore singolo " + counter);
+			counter++;
 		}
 		
 	}

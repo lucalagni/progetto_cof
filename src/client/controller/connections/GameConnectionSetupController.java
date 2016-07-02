@@ -1,5 +1,7 @@
 package client.controller.connections;
 
+import commons.data.exceptions.UserDataException;
+
 import client.command.connection.setup.GameConnectionSetupFacade;
 
 /**
@@ -17,12 +19,32 @@ public class GameConnectionSetupController {
 		this.gcsp = new GameConnectionSetupFacade(); 
 	}
 	
-	public String requireMatch(){
+	/**
+	 * Metodo che notifica se la richiesta del giocatore di 
+	 * poter richiedere un match è stata eseguita
+	 * @return
+	 */
+	public String clientRequireAddMe(){
 		String response = null;
-		response = this.gcsp.requireMatch();
+		response = this.gcsp.clientRequireAddMe();
 		
 		return response;
 	}
+	
+	/**
+	 * Metodo che serve al giocatore per sapere se è nelle condizioni di poter 
+	 * giocare oppure no
+	 * @return
+	 */
+	public String clientRequestCanIPlay(){
+		String response = null;
+		try {
+			response = this.gcsp.clientRequestCanIPlay();
+		} catch (UserDataException e) { e.printStackTrace(); }
+		
+		return response;
+	}
+	
 	
 	public static GameConnectionSetupController getInstance(){
 		if(instance == null) instance = new GameConnectionSetupController();

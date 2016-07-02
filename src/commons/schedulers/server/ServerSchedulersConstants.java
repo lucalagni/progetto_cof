@@ -16,9 +16,9 @@ public final class ServerSchedulersConstants {
 		public static final long 	 SERVER_SCHEDULER_CONNECTIONS_TIMEOUT = 20;
 		
 	//Parametri temporali inerenti alle richieste degli utenti di poter essere aggiunti al match
-		public static final TimeUnit SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT = TimeUnit.MINUTES;
+		public static final TimeUnit SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT = TimeUnit.SECONDS;
 		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_DELAY = 0;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD = 1;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT = 2;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_AWAIT = 3;
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD = 10;
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT = 30;
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_AWAIT = 40;
 }

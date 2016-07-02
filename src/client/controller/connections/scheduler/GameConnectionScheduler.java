@@ -77,7 +77,7 @@ public class GameConnectionScheduler extends Thread{
 
 		@Override
 		public void run() {
-			String result = controller.requireMatch();
+			String result = controller.clientRequireAddMe();
 			
 			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE.getServerMessageContentType())) gamerAddedToTheQueue();
 			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_USERNAME_NOT_AVAILABLE.getServerMessageContentType())) usernameNotAvailable();
