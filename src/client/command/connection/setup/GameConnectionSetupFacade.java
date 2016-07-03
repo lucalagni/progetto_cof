@@ -63,4 +63,23 @@ public class GameConnectionSetupFacade {
 		
 		return response;
 	}
+	
+	/**
+	 * Metodo che richiede al server di chi è il turno di gioco
+	 * @return
+	 * @throws UserDataException
+	 */
+	public int clientRequestGamerTurn() throws UserDataException{
+		int gamerTurn = 0;
+		
+		switch(this.mode){
+			case SOCKET:
+				gamerTurn = new GameConnectionSetupSocket().clientRequestGamerTurn();
+				break;
+			default :
+				break;
+		}
+		
+		return gamerTurn ;
+	}
 }

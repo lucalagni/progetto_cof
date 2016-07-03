@@ -1,8 +1,14 @@
 package client.view.cli.basic;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import client.controller.ControllerRepository;
+import client.controller.actions.basics.ActionController;
+import client.controller.data.GameDataController;
 import client.view.cli.utils.CliClearConsole;
+import model.basics.PermitCard;
+import model.basics.Region;
 
 /**
  * Classe che mostra il sinottico principale per le azioni di gioco in modalità CLI
@@ -14,11 +20,17 @@ public class CliMainMenu{
 	private String text ;
 	private boolean gamerTurn;
 	private Scanner input;
+	private GameDataController controller;
+	private ActionController actionController;
 	
-	public CliMainMenu(){ 
+	public CliMainMenu(boolean gamerTurn){ 
 		this.input = new Scanner(System.in);
-		this.gamerTurn = false ;
+		this.setGamerTurn(gamerTurn);
+		this.controller = ControllerRepository.getInstance().getGameDataController();
 	}
+	
+	private void setGamerTurn(boolean gamerTurn){ this.gamerTurn = gamerTurn; }
+	private boolean getGamerTurn(){ return this.gamerTurn ; }
 	
 	private void setBasicText(){
 		this.text += "\n=========={ Main Menu }==========\n";
@@ -157,6 +169,7 @@ public class CliMainMenu{
 					break;
 				case 23:
 					if(this.gamerTurn == false) continue;
+					this.showActionSynoptic();
 					break;
 				case 24:
 					if(this.gamerTurn == false) continue;
@@ -203,5 +216,54 @@ public class CliMainMenu{
 		}while(flag == false);
 		
 		return choice;
+	}
+	
+	private void showActionSynoptic(){
+		System.out.println("\n----------{ Action Synoptic }----------\n");
+		System.out.println(this.controller.getUserData().getActionSynoptic().toString());
+	}
+	
+	private void changeNoble(boolean mainAction){
+		boolean king = false ;
+		int in = -1 ;
+		
+		System.out.println("\n----------{ Change Noble }----------\n");
+		
+		System.out.println("\n1)king noble");
+		System.out.println("\n2)region noble");
+		System.out.println("\nchoice: ");
+		in = Integer.parseInt(this.input.nextLine());
+		
+		if(in == 2){
+			System.out.println("\n Select region number: ");
+			in = Integer.parseInt(this.input.nextLine());
+			Region r = this.controller.getUserData().getMatch().getBoard().getRegions()[in];
+			for(int i = 0; i < r.getCouncil().getNobles().length; i++){
+				System.out.print(" " + r.getCouncil().getNobles()[i]);
+			}
+		}
+	}
+	
+	private void buildShop(){
+		System.out.println("\n----------{ Build Shop }----------\n");
+		ArrayList<PermitCard> unusedPermitsCards = this.controller.getUserData().getGamer().getUnusedPermitCards();
+		boolean flag = false ;
+		int permitCardIndex = -1;
+		char village;
+		
+		for(int i = 0; i < unusedPermitsCards.size(); i++){
+			System.out.print("\ni)permit card: " + unusedPermitsCards.get(i).toString());
+		}
+			
+		System.out.print("\nSelect a permit card: ");
+		permitCardIndex = Integer.parseInt(this.input.nextLine());
+		
+		System.out.println("\n----------{ Permit Card }----------\n");	
+		System.out.println("\nnumber: " + permitCardIndex);
+		System.out.println(unusedPermitsCards.get(permitCardIndex).toString());
+		System.out.println("\nSelect village: ");
+		village = this.input.nextLine().charAt(0);
+		
+		this.actionController.placeShop(village, permitCardIndex);
 	}
 }

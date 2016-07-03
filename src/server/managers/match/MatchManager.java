@@ -66,11 +66,11 @@ public class MatchManager {
 			Runnable startMultipleGamersTask = new StartMultipleGamersTask();
 			ScheduledFuture<?> multipleGamersTask = multipleGamerScheduler.scheduleWithFixedDelay(startMultipleGamersTask, 
 																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_DELAY, 
-																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD, 
+																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_PERIOD, 
 																			   					  ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
 			Runnable stopMultipleGamersTask = new StopMultipleGamersTask(multipleGamersTask);
 			multipleGamerScheduler.schedule(stopMultipleGamersTask, 
-					                        ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT, 
+					                        ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIMEOUT, 
 					                        ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
 			
 		}catch(Exception ex){}
@@ -111,10 +111,10 @@ public class MatchManager {
 		try{
 			Runnable startSingleGamerTask = new StartSingleGamerTask();
 			this.singleGamerTask = singleGamerScheduler.scheduleWithFixedDelay(startSingleGamerTask, ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_DELAY, 
-																												   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD, 
+																												   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_PERIOD, 
 																												   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
 			Runnable stopSingleGamerTask = new StopSingleGamerTask(singleGamerTask);
-			singleGamerScheduler.schedule(stopSingleGamerTask, ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT, 
+			singleGamerScheduler.schedule(stopSingleGamerTask, ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIMEOUT, 
 															   ServerSchedulersConstants.SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT);
 			
 		}catch(Exception ex){}

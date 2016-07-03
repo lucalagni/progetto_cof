@@ -40,6 +40,13 @@ public class GameUpdatesSocket {
 		
 		if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_GAMER_TURN){
 			gamer = Integer.parseInt(response.getParameters().get(0)[0]);
+			try {
+				this.data.updateMatch(response.getUserData().getMatch());
+				this.data.updateGamer(response.getUserData().getGamer());
+			} catch (UserDataException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else ;//lanciare un'eccezione per notificare eventuali errori
 		

@@ -18,7 +18,15 @@ public final class ServerSchedulersConstants {
 	//Parametri temporali inerenti alle richieste degli utenti di poter essere aggiunti al match
 		public static final TimeUnit SERVER_SCHEDULER_MATCH_MANAGER_TIME_UNIT = TimeUnit.SECONDS;
 		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_DELAY = 0;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_PERIOD = 10;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_TIMEOUT = 30;
-		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_SINGLE_GAMER_AWAIT = 40;
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_PERIOD = 5; 
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_TIMEOUT = 20;
+		public static final long	 SERVER_SCHEDULER_MATCH_MANAGER_AWAIT = 25;
+		
+	//Parametri temporali inerenti alla gestione dein turni
+		public static final TimeUnit SERVER_SCHEDULER_MATCH_SCHEDULER_TIME_UNIT = TimeUnit.MINUTES;
+		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_DELAY = 0; //Ritado prima dell'avvio dello scheduler (tempo del primo giocatore per fare la mossa)
+		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_PERIOD = 5; //Periodo che ha l'utente a disposizione per fare la mossa
+		public static final long     SERVER_SCHEDULER_MATCH_SCHEDULER_TIMEOUT = 5; //Perido che ha l'utente a disposizione prima di essere messo fuori uso
+		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_AWAIT = 120;
+		
 }

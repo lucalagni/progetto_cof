@@ -123,6 +123,9 @@ public class Gamer implements Serializable{
 		
 	}
 	
+	public void toggleOnline(){ this.setStatus(GamerStatus.ONLINE); }
+	public void toggleOffline(){ this.setStatus(GamerStatus.OFFLINE); }
+	
 	public PoliticalCard subPoliticalCard(int position)  {
 		PoliticalCard pc = this.politicalCards.get(position);
 		this.politicalCards.remove(position);

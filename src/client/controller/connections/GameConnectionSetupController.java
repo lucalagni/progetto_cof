@@ -45,6 +45,17 @@ public class GameConnectionSetupController {
 		return response;
 	}
 	
+	public int clientRequestGamerTurn(){
+		int gamerTurn = 0;
+		
+		try {
+			gamerTurn = this.gcsp.clientRequestGamerTurn();
+		} catch (UserDataException e) {
+			e.printStackTrace();
+		}
+		
+		return gamerTurn;
+	}
 	
 	public static GameConnectionSetupController getInstance(){
 		if(instance == null) instance = new GameConnectionSetupController();

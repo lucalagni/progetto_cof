@@ -191,6 +191,14 @@ public class ServerMessageHandler {
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
 		}
 		else {
+			try {
+				data.updateMatch(m);
+				data.updateGamer(data.getGamer());
+				//data.updateActionSynoptic(data.getActionSynoptic());
+				response = new ServerMessage(data);
+			} catch (UserDataException e) {
+				e.printStackTrace();
+			}
 			params[0] = new String("" + m.getActualGamer());
 			parameters.add(params);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_TURN, parameters);

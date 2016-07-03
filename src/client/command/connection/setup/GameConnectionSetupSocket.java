@@ -55,5 +55,28 @@ public class GameConnectionSetupSocket {
 		
 		return responseString;
 	}
+	
+	/**
+	 * Metodo per la verifica del turno giocatore
+	 * @return
+	 * @throws UserDataException 
+	 */
+	public int clientRequestGamerTurn() throws UserDataException{
+		ClientMessage request = new ClientMessage(this.data);
+		ServerMessage response = null;
+		int gamerTurn = 0;
+		
+		request.addContent(ClientMessageContentType.CLIENT_REQUEST_GAMER_TURN, null);
+		response = this.client.sendMessage(request);
+		
+		if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_GAMER_TURN){
+			this.data.updateMatch(response.getUserData().getMatch());
+			this.data.updateGamer(response.getUserData().getGamer());
+			this.data.updateActionSynoptic(response.getUserData().getActionSynoptic());
+			gamerTurn = Integer.parseInt(response.getParameters().get(0)[0]);
+		}
+		
+		return gamerTurn;
+	}
 
 }

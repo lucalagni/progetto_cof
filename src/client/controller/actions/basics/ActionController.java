@@ -3,6 +3,7 @@ package client.controller.actions.basics;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import server.command.basic.actions.exceptions.MainActionCommandException;
 import client.command.actions.basics.ActionFacade;
 import client.command.actions.basics.exceptions.ActionFacadeException;
 
@@ -80,9 +81,7 @@ public class ActionController {
 			ActionFacade af = new ActionFacade();
 			af.placeShop(village, permitCardIndex);
 			return OK_MESSAGE;
-		} catch (ActionFacadeException e) {
-			return e.getMessage().toString();
-		}
+		} catch (ActionFacadeException | MainActionCommandException e) { return e.toString(); }
 	} 
 	
 	/**

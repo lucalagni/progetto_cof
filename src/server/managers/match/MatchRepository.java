@@ -5,17 +5,21 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import server.schedulers.match.MatchScheduler;
 import model.basics.Gamer;
 import model.basics.Match;
 
+//I match semplici (non schedulati) probabilmente possono essere tolti
 public class MatchRepository {
 	private static MatchRepository instance = null;
 	private HashMap<String, Match> matches;
 	private HashSet<String> aloneGamers;
+	private HashMap<String, MatchScheduler> scheduledMatches;
 	
 	private MatchRepository(){
 		this.matches = new HashMap<String,Match>();
 		this.aloneGamers = new HashSet<String>();
+		this.scheduledMatches = new HashMap<String,MatchScheduler>();
 	}
 	
 	public synchronized Match getMatch(String matchCode){
@@ -34,6 +38,8 @@ public class MatchRepository {
 	
 	public synchronized void addMatch(Match match){
 		this.matches.put(match.getMatchCode(), match);
+		this.scheduledMatches.put(match.getMatchCode(), new MatchScheduler(match));
+		this.scheduledMatches.get(match.getMatchCode()).matchScheduler();
 	}
 	
 	public synchronized boolean getAloneGamerAssociatedTo(String username){

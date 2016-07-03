@@ -35,6 +35,8 @@ public class ClientHandlerThread extends Thread{
         
         index++;
         localIndex = index;
+        
+       // System.out.println("[ClientHandlerThread] "+client.getInetAddress()+":"+client.getPort());
     }
     
     public void setHandler(ServerMessageHandler handler){
@@ -52,6 +54,7 @@ public class ClientHandlerThread extends Thread{
             ClientMessage request;
 			try {		
 				request = (ClientMessage)this.input.readObject(); 
+				System.out.println("\n[ClientHandlerThread] username: " + request.getUsername());
 	            ServerMessage response = handler.handle(request);
 	            this.output.writeObject(response);
 	            
