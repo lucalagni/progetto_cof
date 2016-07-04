@@ -51,7 +51,7 @@ public class MainActionCommand {
 	
 	
 	public MainActionCommand(UserData data) throws MainActionCommandException{
-		if(actionSynoptic.getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
+		if(data.getActionSynoptic().getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
 		this.setActionSynoptic(data.getActionSynoptic());
@@ -344,7 +344,7 @@ public class MainActionCommand {
 			for(int i = 0; i < politicalCardsPosition.length; i++){
 				if(positions[i] == true) continue;
 				
-				if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]))){
+				if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getColor())){
 					positions[i] = true;
 					continue;
 				}
@@ -388,11 +388,15 @@ public class MainActionCommand {
 			}
 		}
 		else this.virtualCoins = this.virtualCoins - coins;
-		
+		for(int i = 0; i < politicalCardsPosition.length; i++)System.out.println(politicalCardsPosition[i]);
 		//Tolgo le carte usate dal giocatore
 		PoliticalCard pc = null;
+		PoliticalCard pc2[] = new PoliticalCard[politicalCardsPosition.length];
+		for(int i = 0; i < pc2.length; i++){
+			pc2[i] = this.gamer.getPoliticalCards().get(politicalCardsPosition[i]);
+		}
 		for(int i = 0; i < politicalCardsPosition.length; i++){
-			pc = this.gamer.subPoliticalCard(politicalCardsPosition[i]);
+			pc = this.gamer.subPoliticalCard(pc2[i]);
 			this.match.getBoard().getPoliticalCardsDeck().addCard(pc);
 		}
 		

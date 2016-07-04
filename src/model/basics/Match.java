@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import model.basics.constants.MatchConstants;
 import model.basics.exceptions.MatchException;
 import model.basics.supports.MatchStatus;
 import model.market.Market;
@@ -21,6 +22,8 @@ public class Match implements Serializable{
 	private Market market;
 	private Boolean lastTurn;        //Indica se un giocatore ha finito tutti gli empori a sua disposizione -> ultimo tuno
 	private Boolean lastTurnStarted; 
+	private Integer nextCondition; //indica la condizione in cui si trova il match (0=match,1=setter,2=market)
+	private Integer actualCondition;
 	/*
 	 * lastTurn : indica se un giocatore ha terminato tutti i suoi empori e, in caso affermativo , decreta la presenza di solo
 	 * un turno disponibile
@@ -53,23 +56,16 @@ public class Match implements Serializable{
 	//private void setMarket(Market market){ this.market = market; }
 	private void setLastTurn(boolean lastTurn){ this.lastTurn = new Boolean(lastTurn); }
 	private void setLastTurnStarted(boolean lastTurnStarted){ this.lastTurnStarted = new Boolean(lastTurnStarted); }
+	private void setActualCondition(int actualCondition){this.actualCondition = new Integer(actualCondition); }
+	private void setNextCondition(int nextCondition){this.nextCondition = new Integer(nextCondition); }
 	
 	public void changeMatchStatus(MatchStatus newStatus){ this.setMatchStatus(status); }
 	
-	/**private void setNextGamer(){
-		if((this.getActualGamer() + 1) >= this.gamers.size()){
-			this.setNextGamer(MatchConstants.TIME_TO_MARKET_SETUP);
-			this.setMarket(new Market());
+	private void setNextGamerWithMarket(){
+		if((this.getActualGamer() + 1) > this.gamers.size() ){
+			if(this.getActualCondition() == MatchConstants.TIME_TO_MATCH) this.setNextCondition(nextCondition);
 		}
-		else if(this.getActualGamer() == MatchConstants.TIME_TO_MARKET_SETUP){
-			this.setNextGamer(MatchConstants.TIME_TO_MARKET);
-		}
-		else if(this.getActualGamer() == MatchConstants.TIME_TO_MARKET) this.setNextGamer(0);
-		else{
-			this.setNextGamer(this.getActualGamer() + 1);
-			this.setMarket(null);
-		}
-	}*/
+	}
 	
 	private void setNextGamer(){
 		if((this.getActualGamer() + 1) >= this.gamers.size()){
@@ -101,6 +97,8 @@ public class Match implements Serializable{
 	public Market getMarket(){ return this.market; }
 	public boolean getLastTurn(){ return this.lastTurn.booleanValue(); }
 	public boolean getLastTurnStarted(){ return this.lastTurnStarted.booleanValue(); }
+	public int getActualCondition(){ return this.actualCondition.intValue(); }
+	public int getNextCondition(){ return this.nextCondition.intValue(); }
 	
 	@Override
 	public String toString() {

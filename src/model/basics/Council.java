@@ -59,7 +59,14 @@ public class Council implements Serializable {
 		String councilString = "\nCouncil \n";
 		
 		councilString += "colors: \n";
-		for(int i = 0; i < this.getNobles().length; i++) councilString += nobles[i].toString() + "\n";
+		for(int i = 0; i < this.getNobles().length; i++){
+			if(this.nobles[i].equals(Color.BLACK))  councilString += " BLACK \n";
+			if(this.nobles[i].equals(Color.WHITE)) councilString += " WHITE \n";
+			if(this.nobles[i].equals(Color.ORANGE))  councilString += " ORANGE \n";
+			if(this.nobles[i].equals(Color.MAGENTA))  councilString += " MAGENTA \n";
+			if(this.nobles[i].equals(Color.CYAN))  councilString += " CYAN \n";
+			if(this.nobles[i].equals(Color.PINK))  councilString += " PYNK \n";
+		}
 		
 		return councilString;
 	}

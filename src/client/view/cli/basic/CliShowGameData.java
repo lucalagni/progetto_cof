@@ -21,7 +21,7 @@ public class CliShowGameData {
 	public CliShowGameData(boolean indipendent){
 		this.dataController = ControllerRepository.getInstance().getGameDataController();
 		this.input = new Scanner(System.in);
-		CliClearConsole.clearConsole(false);
+		//CliClearConsole.clearConsole(false);
 		this.indipendent = indipendent;
 	}
 	
@@ -32,13 +32,9 @@ public class CliShowGameData {
 		String text = "\n----------{ Map Connections }----------\n\n ";
 		
 		text += this.dataController.getUserData().getMatch().getBoard().getGameMap().printConnections(new String());
-		text += "\n[press any key to continue]";
-		
 		System.out.print(text);
 		
-		input.nextLine();
-		
-		return ;
+		this.showContinue();
 	}
 	
 	/**
@@ -56,7 +52,13 @@ public class CliShowGameData {
 		
 		text += "\n\nSelect a village number: ";
 		System.out.print(text);
-		villageNumber = Integer.parseInt(this.input.nextLine());
+		
+		try {
+			villageNumber = this.input.nextInt();
+		}catch(Exception ex){
+			System.out.println("\nInvalid input data, retry");
+			return ;
+		}
 		
 		if(villageNumber < 0){
 			System.out.println("\n[Village not found]");
@@ -71,9 +73,7 @@ public class CliShowGameData {
 			System.out.println(this.dataController.getUserData().getMatch().getBoard().getGameMap().getVillages()[villageNumber].toString());
 		}
 		
-		System.out.println("\n[press any key to continue]");
-		this.input.nextLine();
-		return;
+		this.showContinue();
 	}
 	
 	/**
@@ -84,8 +84,14 @@ public class CliShowGameData {
 		int region = 0;
 		
 		System.out.print("\n----------{ Unhidden Permit Cards }----------\n\n");
-		System.out.print("Select a region number beetween 0 and " + len + " : ");
-		region = Integer.parseInt(this.input.nextLine());
+		System.out.print("Select a region number beetween 0 and " + (len-1) + " : ");
+		
+		try {
+			region = this.input.nextInt();
+		}catch(Exception ex){
+			System.out.println("\nInvalid input data, retry");
+			return;
+		}
 		
 		if((region < 0) || (region >= len)) System.out.print("\n[Region not found]");
 		else{
@@ -322,6 +328,7 @@ public class CliShowGameData {
 		if(this.indipendent == false) return ;
 		System.out.println("\n[press any key to continue]");
 		this.input.nextLine();
+		this.input.nextLine();
 		return;
 	}
 	
@@ -335,13 +342,17 @@ public class CliShowGameData {
 		System.out.print("\n----------{ Region Council }----------\n\n");
 		
 		System.out.print("select a number beetween 0 and " + (len-1) + " : ");
-		regionNumber = Integer.parseInt(this.input.nextLine());
+		
+		try {
+			regionNumber = this.input.nextInt();
+		}catch(Exception ex){
+			System.out.println("\nInvalid input data, retry");
+			return ;
+		}
 		
 		if((regionNumber < 0) || (regionNumber >= len)) System.out.print("\n[Region not found]");
 		else System.out.print("\n" + this.dataController.getUserData().getMatch().getBoard().getRegions()[regionNumber].toString());
 		
-		System.out.println("\n[press any key to continue]");
-		this.input.nextLine();
-		return;
+		this.showContinue();
 	}
 }

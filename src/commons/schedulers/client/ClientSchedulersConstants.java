@@ -25,9 +25,14 @@ public final class ClientSchedulersConstants {
 	public static final long	 CLIENT_SCHEDULER_CAN_I_PLAY_AWAIT = 35;
 	
 	//Quanti di tempo relativi alla richiesta del turno giocatore
+	/*public static final TimeUnit CLIENT_SCHEDULER_GAMER_TURN_TIME_UNIT = TimeUnit.MINUTES;
+	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_DELAY = 0;
+	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 5;
+	public static final long 	 CLIENT_SCHEDULER_GAMER_TURN_TIMEOUT = 120;
+	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_AWAIT = 4000;*/
 	public static final TimeUnit CLIENT_SCHEDULER_GAMER_TURN_TIME_UNIT = TimeUnit.MINUTES;
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_DELAY = 0;
-	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 1;
-	public static final long 	 CLIENT_SCHEDULER_GAMER_TURN_TIMEOUT = 20;
+	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 2;
+	public static final long 	 CLIENT_SCHEDULER_GAMER_TURN_TIMEOUT = 120;
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_AWAIT = 4000;
 }

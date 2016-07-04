@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import commons.data.UserData;
+import commons.data.exceptions.UserDataException;
 import commons.messages.*;
 import client.controller.ControllerRepository;
 import client.Client;
@@ -26,7 +27,7 @@ public class ActionEncoderSocket {
 	 * Metodo che costruisce il messaggio per richiedere al server di poter spostare il re
 	 * @param path
 	 */
-	public void moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition){
+	public String moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition){
 		ClientMessage message = new ClientMessage(this.user);
 		ServerMessage response = null;
 		ArrayList<String[]> pm = new ArrayList<String[]>();
@@ -41,7 +42,7 @@ public class ActionEncoderSocket {
 		
 		response = this.client.sendMessage(message);
 		
-		if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_KING_MOVED);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -51,8 +52,9 @@ public class ActionEncoderSocket {
 	 * @param noble
 	 * @param mainAction
 	 */
-	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction){
+	public String changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction){
 		ClientMessage message = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] parameters = new String[4];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -68,7 +70,8 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_CHANGE_NOBLE, params);
-		this.client.sendMessage(message);
+		response = this.client.sendMessage(message);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -78,8 +81,9 @@ public class ActionEncoderSocket {
 	 * @param noble
 	 * @param mainAction
 	 */
-	public void buyPermitCard(int regionNumber,int permitCardNumber,int[] politicalCardsIndex){
+	public String buyPermitCard(int regionNumber,int permitCardNumber,int[] politicalCardsIndex){
 		ClientMessage message = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] parameters = new String[2];
 		String[] parameters2 = new String[politicalCardsIndex.length];
 		ArrayList<String[]> params = new ArrayList<String[]>();
@@ -91,7 +95,18 @@ public class ActionEncoderSocket {
 		params.add(parameters2);
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_PERMIT_CARD, params);
-		this.client.sendMessage(message);
+		response = this.client.sendMessage(message);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -99,8 +114,9 @@ public class ActionEncoderSocket {
 	 * @param village
 	 * @param permitCardIndex
 	 */
-	public void placeShop(char village,int permitCardIndex){
+	public String placeShop(char village,int permitCardIndex){
 		ClientMessage message = new ClientMessage(this.user);
+		ServerMessage response;
 		String[] parameters = new String[2];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -109,15 +125,17 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_TO_PLACE_A_SHOP, params);
-		this.client.sendMessage(message);
+		response = this.client.sendMessage(message);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
 	 * Metodo che costruisce ed invia il messaggio al server per l'acuisto di aiutanti
 	 * @param helpers
 	 */
-	public void buyHelper(boolean queque){
+	public String buyHelper(boolean queque){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] params = new String[2];
 		ArrayList<String[]> parameters = new ArrayList<String[]>();
 		
@@ -127,32 +145,37 @@ public class ActionEncoderSocket {
 		
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_HELPERS, parameters);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
 	 * Metodo che genera ed invia al server il messaggio  di acquisto di una nuova azione principale
 	 */
-	public void buyNewMainAction(){
+	public String buyNewMainAction(){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response ;
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_NEW_MAIN_ACTION, null);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
 	 * Metodo che genera ed invia il messaggio di doppia azione
 	 * @param regionNumber
 	 */
-	public void doubleAction(int regionNumber){
+	public String doubleAction(int regionNumber){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] parameters = new String[1];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
 		parameters[0] = new String("" + regionNumber);
 		params.add(parameters);
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_DOUBLE_ACTION, params);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -161,8 +184,9 @@ public class ActionEncoderSocket {
 	 * @param regionNumber
 	 * @param permitCardIndex
 	 */
-	public void acquirePermitCard(int regionNumber,int permitCardIndex){
+	public String acquirePermitCard(int regionNumber,int permitCardIndex){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response ;
 		String[] parameters = new String[2];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -171,7 +195,8 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_PERMIT_CARD, params);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -179,8 +204,9 @@ public class ActionEncoderSocket {
 	 * afferente ad un villaggio in cui il giocatore ha precedentemente costruito un emporio (no shift)
 	 * @param villageFirstLetter
 	 */
-	public void acquireSingleVillageBonus(char villageFirstLetter){
+	public String acquireSingleVillageBonus(char villageFirstLetter){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response ;
 		String[] parameters = new String[1];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -188,7 +214,8 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS, params);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -196,8 +223,9 @@ public class ActionEncoderSocket {
 	 * afferente a due villaggi in cui il giocatore ha precedentemente costruito un emporio (no shift)
 	 * @param villageFirstLetter
 	 */
-	public void acquireDoubleVillageBonus(char firstVillageFirstLetter, char secondVillageFirstLetter){
+	public String acquireDoubleVillageBonus(char firstVillageFirstLetter, char secondVillageFirstLetter){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] parameters = new String[2];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -206,7 +234,8 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS, params);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -214,8 +243,9 @@ public class ActionEncoderSocket {
 	 * afferente ad una carta permesso precedentemente utilizzata
 	 * @param permitCardIndex
 	 */
-	public void reusePermitCardBonus(int permitCardIndex){
+	public String reusePermitCardBonus(int permitCardIndex){
 		ClientMessage request = new ClientMessage(this.user);
+		ServerMessage response = null;
 		String[] parameters = new String[1];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
@@ -223,6 +253,7 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS, params);
-		this.client.sendMessage(request);
+		response = this.client.sendMessage(request);
+		return response.getContent().getServerMessageContentType();
 	}
 }

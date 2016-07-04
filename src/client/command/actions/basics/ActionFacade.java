@@ -64,21 +64,6 @@ public class ActionFacade {
 	 * @throws MainActionCommandException 
 	 */
 	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) throws ActionFacadeException, MainActionCommandException{
-		/*int totalRegions = this.data.getMatch().getBoard().getRegions().length;
-		boolean flag = false ;
-		
-		//Verifica che l'utente abbia a disposizione le mosse necessarie
-		if(this.data.getActionSynoptic() == null) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_CANNOT_PLAY_NOW.getExceptionCode());
-		if(mainAction == true)if(this.data.getActionSynoptic().getMainActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_MAIN_ACTIONS.getExceptionCode());
-		else if(this.data.getActionSynoptic().getHelpersActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_HELPERS_ACTIONS.getExceptionCode());
-		
-		//Verifico che l'utente abbia selezionato la regione corretta
-		if(king == false){
-			if(regionNumber < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
-			if(regionNumber >= totalRegions) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
-		}
-		
-		//Verificare che il nobile sia del colore corretto*/
 		
 		if(this.mode == GameMode.SOCKET){
 			new ActionEncoderSocket().changeNoble(king, regionNumber, noble, mainAction);

@@ -6,6 +6,7 @@ import java.util.concurrent.ScheduledFuture;
 
 import commons.schedulers.server.ServerSchedulersConstants;
 import model.basics.Match;
+import model.basics.exceptions.PoliticalCardsDeckException;
 
 /**
  * Classe che si occupa di gestire i turni dei match
@@ -61,6 +62,12 @@ public class MatchScheduler {
 
 		public void run() {
 			getMatch().done();
+			try {
+				getMatch().getGamers().get(getMatch().getActualGamer()).addPoliticalCard(getMatch().getBoard().getPoliticalCardsDeck().pickupCard());
+			} catch (PoliticalCardsDeckException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 		}
 		

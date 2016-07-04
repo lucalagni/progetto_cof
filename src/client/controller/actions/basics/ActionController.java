@@ -24,7 +24,7 @@ public class ActionController {
 	 * @param path
 	 * @throws ActionFacadeException
 	 */
-	public String moveKing(ArrayList<String> path,int politicalCardsPosition[]) {
+	public String moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition) {
 		try {
 			ActionFacade af = new ActionFacade();
 			af.moveKing(path, politicalCardsPosition);

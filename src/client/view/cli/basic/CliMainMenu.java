@@ -1,6 +1,10 @@
 package client.view.cli.basic;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import client.view.cli.utils.CliClearConsole;
 
@@ -15,9 +19,11 @@ public class CliMainMenu extends Thread{
 	private String text ;
 	private boolean gamerTurn;
 	private Scanner input;
+	private BufferedReader bufferedInput;
 	
 	public CliMainMenu(boolean gamerTurn){ 
 		this.input = new Scanner(System.in);
+		this.bufferedInput = new BufferedReader(new InputStreamReader(System.in));
 		this.setGamerTurn(gamerTurn);
 	}
 	
@@ -95,22 +101,27 @@ public class CliMainMenu extends Thread{
 	}
 	
 	public int show(){
-		int choice = -1;
+		int choice = 0;
 		boolean flag = false ;
+		@SuppressWarnings("resource")
+		Scanner in = new Scanner(System.in);
 		
 		do
 		{
-			this.text = null;
-			CliClearConsole.clearConsole(false);
+			this.text = new String();
+			//CliClearConsole.clearConsole(false);
 			this.setBasicText();
 			if(this.gamerTurn == true) this.setActionText();
 			this.setOptionText();
 			
-			System.out.print(this.text);
+			System.out.println(this.text);
 			
 			try {
-				choice = Integer.parseInt(this.input.nextLine());
+				choice = Integer.parseInt(in.nextLine());
+				
+				//choice = Integer.parseInt(this.bufferedInput.readLine());
 			}catch(Exception ex){
+				ex.printStackTrace();
 				System.out.println("\nInvalid input data, retry");
 				flag = false ;
 				continue;
@@ -194,12 +205,14 @@ public class CliMainMenu extends Thread{
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction().buildShop();
 					break;
 				case 27:
 					if(this.gamerTurn == false) continue;
 					break;
 				case 28:
-					if(this.gamerTurn == false) continue;
+					//if(this.gamerTurn == false) continue;
+ 				new CliPerformAction().buyPermitCard();
 					break;
 				case 29:
 					if(this.gamerTurn == false) continue;

@@ -32,9 +32,9 @@ import server.managers.match.MatchRepository;
  *
  */
 public class ServerMatchActionHandler {
-	private MatchRepository matchRepository;
 	
-	public void ServerMacthActionHandler(){ this.setMatchRepository(MatchRepository.getInstance());}
+	public void ServerMacthActionHandler(){ }
+	
 	
 	/**
 	 * Metodo che consente di ottenere il match più aggiornato (utile per vedere se un giocatore può ù
@@ -42,7 +42,9 @@ public class ServerMatchActionHandler {
 	 * @param matchCode
 	 * @return
 	 */
-	private Match retriveMatch(String matchCode){ return this.matchRepository.getMatch(matchCode); }
+	private Match retriveMatch(String matchCode){ 
+		 return MatchRepository.getInstance().getMatch(matchCode); 
+	}
 	
 	/**
 	 * Metodo che verifica se il giocatore che richiede le mosse è ancora nelle condizioni di poterlo fare
@@ -412,7 +414,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestBuyPermitCard(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+	//	if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int regionNumber = Integer.parseInt(msg.getParameters().get(0)[0]);
 		int permitCardNumber = Integer.parseInt(msg.getParameters().get(0)[1]);
@@ -573,7 +575,4 @@ public class ServerMatchActionHandler {
 		return response;
 	}
 	
-	
-	private void setMatchRepository(MatchRepository matchRepository){ this.matchRepository = matchRepository; }
-	public MatchRepository getMatchRepository(){ return this.matchRepository; }
 }
