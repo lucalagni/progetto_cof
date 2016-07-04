@@ -39,8 +39,14 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import main.view.custom.Operation;
+import model.market.Agent;
+import model.market.PoliticalCardItem;
 
 public class MatchGameController extends FxmlMatchGameController {
+    
+    
+        Operation op = new Operation();
 
 	private Board be;
 	private Match matchNew;
@@ -54,7 +60,7 @@ public class MatchGameController extends FxmlMatchGameController {
 	ArrayList<PermitCard> unusedPermitCardsGamer;
 	ArrayList<PermitCard> usedPermitCardsGamer;
 	ArrayList<String> villageKingLocation;
-	PermitCard permitCardBuy;
+	PermitCard selectedPermitCardBuy;
 	PermitCard permitCardBuild;
 	PermitCard[][] regionPermitCard;
 	PermitCard permitCardSpecialActionAcquire;
@@ -64,36 +70,40 @@ public class MatchGameController extends FxmlMatchGameController {
 	private HBox hbPoliticalCardActionKing;
 	java.awt.Color selectColorNobil;
 	java.awt.Color selectColorElectFastNobil;
-	private int indexCouncilRegionElectNobil = 4;
-	private int councilRegionBuyPermitCard = 3;
-	private int councilRegionElectNobilFast = 4;
-	private int indexPermitCardGamer = 0;
-	private int indexUnusedPermitCardGamer = 0;
-	private int indexUsedPermitCardGamer = 0;
-	private int indexPermitCardBuild = 0;
-	private int selectRegionPermitCard1= 0;
-	private int selectRegionPermitCard2 = 0;
-	private int selectRegionElectFastNobil = 0;
+		
 	private int selectRegionSpecialAction = 0;
 	private int maxSelectionPoliticalCard = 0;
 	private int maxSelectionPoliticalCardKing = 0;
-	private int selectRegionChangePermitCards = 3;
+	private int selectedRegionChangePermitCards = 3;
+        
+        //indici per next e prev
+        private int selectedPermitCardGamer =  -1;
+        private int selectedPermitCardBuild =  -1;
+        private int selectedUnusedPermitCard = -1;
+        private int selectedUsedPermitCard = -1;
+        private int selectedRegionPermitCard1= -1;
+	private int selectedRegionPermitCard2 = -1;
+        private int selectedRegionElectFastNobil = -1;
+        
 	String selectedVillageBuildShop;
 	String selectedVillageSingolBonus;
 	String[] selectedVillageDoubleBonus;
 	boolean clickSelectCouncilBoolean = false;
 	boolean clickSelectCouncilKingBoolean = false;
 	boolean clickSelectCouncilElectFastBoolean = false;
-	
-	
-	boolean booleanPrev = false;
-	boolean booleanPrevNobilFast = false;
+        
+        
+       
+        
+        // da togliere
+    
+     
 
 	@FXML
 	private void initialize() throws BuilderException, GameMapException {
 
 		initComponentsView();
-		accordion.setExpandedPane(gameDataTitledPane);
+		
 
 	}
 
@@ -113,36 +123,24 @@ public class MatchGameController extends FxmlMatchGameController {
 			// pop-up con messaggio di errore (finestre di dialogo)
 			e.printStackTrace();
 		}
-	
 
-		for (int i = 0; i <= 3; i++) {
-			if (i == 0) {
-				setCouncilRegion(i, nobil00, nobil01, nobil02, nobil03);
-			}
-			if (i == 1) {
-				setCouncilRegion(i, nobil10, nobil11, nobil12, nobil13);
-			}
-			if (i == 2) {
-				setCouncilRegion(i, nobil20, nobil21, nobil22, nobil23);
-			}
-			if (i == 3) {
-				setCouncilRegion(i, nobilKing0, nobilKing1, nobilKing2, nobilKing3);
-			}
-
-		}
-		// setta mappa
-		
+                // setta mappa
 		String urlMappa = new String();
 		// prendere da file
 		urlMappa = "main/view/image/board.jpg";
 		Image mapImage = new Image(urlMappa);
 		map.setImage(mapImage);
+                
+                setCouncilRegionBoard();
 		
 		
 		selectedVillageDoubleBonus = new String[2];
 		selectedVillageDoubleBonus[0]= " ";
 		selectedVillageDoubleBonus[1]= " ";
-		setVillagesPermitCardRegion();
+                // [3] = regioni, [2] carte
+		regionPermitCard = new PermitCard[3][2];
+                setVillagesPermitCardRegion();
+                
 		setTabPlayers();
 		showPoliticalCardGamer();
 		gamer = ClientLogic.getInstance().getGamer();
@@ -159,9 +157,76 @@ public class MatchGameController extends FxmlMatchGameController {
 		anchorSelectPoliticalCard.setVisible(false);
 		anchorSelectPermitCard1.setVisible(false);
 		anchorTakePermitCard.setVisible(false);
-		anchorSelectVillageBuildShop.setVisible(false);
+		anchorSelectVillageBuildShop.setDisable(true);
 		clickAcquireBonusPermitCard.setVisible(false);
+                actionBuyPermitCardButton.setDisable(true);
+                accordion.setExpandedPane(gameDataTitledPane);
+                
+                //disabilita azioni
+//               mainActionTitledPane.setDisable(true);
+//               fastActionTitledPane.setDisable(true);
+//               specialActionTitledPane.setDisable(true);
+//                
 	}
+        
+        public void upgradeBoard(Match match){
+            
+            ClientLogic.getInstance().setMatch(match);
+            matchNew =  ClientLogic.getInstance().getMatch();
+            be =  ClientLogic.getInstance().getMatch().getBoard();
+            
+            setVillagesPermitCardRegion();
+            setTabPlayers();
+            setCouncilRegionBoard();
+            
+            kingLocation1.setText("" + matchNew.getBoard().getKing().getPosition());
+            kingLocation2.setText("" + matchNew.getBoard().getKing().getPosition());
+            
+//            if(isMyTurn == true){
+//               mainActionTitledPane.setDisable(false);
+//               fastActionTitledPane.setDisable(false);
+//            }
+//            
+        }
+        
+        public void upgradeGamer(Gamer g){
+            
+            
+            helpersPlayer.setText("" + g.getHelpers());
+            selectedPermitCardGamer = -1;
+            selectedPermitCardGamer =  -1;
+            selectedPermitCardBuild =  -1;
+            selectedUnusedPermitCard = -1;
+            selectedUsedPermitCard = -1;
+            selectedRegionPermitCard1= -1;
+            selectedRegionPermitCard2 = -1;
+            selectedRegionElectFastNobil = -1;
+            
+            showPoliticalCardGamer();
+        }
+        
+        
+        
+        
+        
+        
+        
+        public void setCouncilRegionBoard(){
+            for (int i = 0; i <= 3; i++) {
+                    if (i == 0) {
+			setCouncilRegion(i, nobil00, nobil01, nobil02, nobil03);
+                    }
+                    if (i == 1) {
+			setCouncilRegion(i, nobil10, nobil11, nobil12, nobil13);
+                    }
+                    if (i == 2) {
+			setCouncilRegion(i, nobil20, nobil21, nobil22, nobil23);
+                    }
+                    if (i == 3) {
+			setCouncilRegion(i, nobilKing0, nobilKing1, nobilKing2, nobilKing3);
+                    }
+		}  
+        }
 
 /**
  * Setta il testo delle Label dei villaggi relativi alle carte permesso delle regioni della Board
@@ -190,111 +255,39 @@ public class MatchGameController extends FxmlMatchGameController {
 			villagesRegion2Card1.setText(s);
 		}
 	}
-/**
- * Setta le label dei villaggi relativi allae carte permesso non usate del giocatore
- * @param selectPermitCard indice relativo alla carta permesso selezionata
- * @param villagePermitCardGamer si riferisce a una Label di cui vuoi settare il testo
- */
-	public void setTextUnusedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
-
-		if (selectPermitCard < unusedPermitCardsGamer.size()) {
-			villagePermitCardGamer.setText("" + unusedPermitCardsGamer.get(selectPermitCard).getVillages());
-		} else
-			selectPermitCard = unusedPermitCardsGamer.size();
-	}
-/**
- * Setta le label dei villaggi relativi allae carte permesso usate del giocatore
- * @param selectPermitCard indice relativo alla carta permesso selezionata
- * @param villagePermitCardGamer si riferisce a una Label di cui vuoi settare il testo
- */
-	public void setTextUsedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
-
-		if (selectPermitCard < usedPermitCardsGamer.size()) {
-			villagePermitCardGamer.setText("" + usedPermitCardsGamer.get(selectPermitCard).getVillages());
-		} else
-			selectPermitCard = usedPermitCardsGamer.size();
-	}
 
 	
 /**
- * Gestisce i bottoni per spostare in avanti gli indici relativi alle carte permesso
+ * Gestisce gli eventi dei pulsanti per spostare in avanti gli indici relativi alle carte permesso
  * @param e 
  */
 	@FXML
 	public void nextPermitCard(ActionEvent e) {
 
 		if ((e.getSource() == nextPermitCardGamer) == true) {
-			
-			if (indexPermitCardGamer < (unusedPermitCardsGamer.size())-1) {
-			
-				if(indexPermitCardGamer == 0){
-					setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabel);
-					indexPermitCardGamer++;
-				}
-				
-				else{
-					setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabel);
-					indexPermitCardGamer++;
-				}
-					
-			}
-			
-			else setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabel);
+      
+                    selectedPermitCardGamer = op.nextPermitCard(selectedPermitCardGamer,unusedPermitCardsGamer, villagePermitCardGamerLabel);    
+
 		}
 
 		if ((e.getSource() == nextPermitCardBuild) == true) {
-			
-			if (indexPermitCardBuild < (unusedPermitCardsGamer.size())-1) {
-				
-				if(indexPermitCardBuild == 0){
-					setTextUnusedPermitCardVillageGamer(indexPermitCardBuild, villagePermitCardBuildLabel);
-					indexPermitCardBuild++;
-				}
-				
-				else{
-					setTextUnusedPermitCardVillageGamer(indexPermitCardBuild, villagePermitCardBuildLabel);
-					indexPermitCardBuild++;
-				}
-					
-			}
-			
-			else setTextUnusedPermitCardVillageGamer(indexPermitCardBuild, villagePermitCardBuildLabel);
-		}
-		
+
+                   // selected permit card viene passato come indice per mostrare carte permesso successive
+                   selectedPermitCardBuild = op.nextPermitCard(selectedPermitCardBuild,unusedPermitCardsGamer, villagePermitCardBuildLabel);
+                   setButtonVillageAvailable();
+                   anchorSelectVillageBuildShop.setDisable(true);
+              
+                }
 		if ((e.getSource() == nextUnusedPermitCardGamer) == true) {
-			
-			if (indexUnusedPermitCardGamer < (unusedPermitCardsGamer.size())-1) {
-				if(indexUnusedPermitCardGamer == 0){
-					setTextUnusedPermitCardVillageGamer( indexUnusedPermitCardGamer, villageUnusedPermitCardGamerLabel);
-					indexUnusedPermitCardGamer++;
-				}
-				
-				else{
-					setTextUnusedPermitCardVillageGamer(indexUnusedPermitCardGamer, villageUnusedPermitCardGamerLabel);
-					indexUnusedPermitCardGamer++;
-				}
-					
-			}
-			
-			else setTextUnusedPermitCardVillageGamer(indexUnusedPermitCardGamer, villageUnusedPermitCardGamerLabel);
-		}
+
+                   selectedUnusedPermitCard = op.nextPermitCard(selectedUnusedPermitCard,unusedPermitCardsGamer, villageUnusedPermitCardGamerLabel);  
+                }
 		
 		if ((e.getSource() == nextUsedPermitCardGamer) == true) {
-			
-			if (indexUsedPermitCardGamer < (usedPermitCardsGamer.size())-1) {
-				if(indexUsedPermitCardGamer == 0){
-					setTextUsedPermitCardVillageGamer( indexUsedPermitCardGamer, villageUsedPermitCardGamerLabel);
-					indexUsedPermitCardGamer++;
-				}
-				
-				else{
-					setTextUsedPermitCardVillageGamer(indexUsedPermitCardGamer, villageUsedPermitCardGamerLabel);
-					indexUsedPermitCardGamer++;
-				}
-					
-			}
-			
-			else setTextUsedPermitCardVillageGamer(indexUsedPermitCardGamer, villageUsedPermitCardGamerLabel);
+                    
+                   selectedUsedPermitCard = op.nextPermitCard(selectedUsedPermitCard,usedPermitCardsGamer, villageUsedPermitCardGamerLabel);
+                   System.out.println("next  " + selectedUsedPermitCard);
+                   
 		}
 
 
@@ -310,58 +303,28 @@ public class MatchGameController extends FxmlMatchGameController {
 	public void prevPermitCard(ActionEvent e) {
 
 		if ((e.getSource() == prevPermitCardGamer) == true) {
+                    
+                    selectedPermitCardGamer = op.prevPermitCard(selectedPermitCardGamer, unusedPermitCardsGamer, villagePermitCardGamerLabel);            
+                }
 
-			if (indexPermitCardGamer > 0) {
-				indexPermitCardGamer--;
-				setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabel);
-			}
-
-			if (indexPermitCardGamer == 0) {
-				setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabel);
-			}
-		}
 
 		if ((e.getSource() == prevPermitCardBuild) == true) {
-
-			if (indexPermitCardBuild > 0) {
-				indexPermitCardBuild--;
-				setTextUnusedPermitCardVillageGamer(indexPermitCardBuild, villagePermitCardBuildLabel);
-			}
-
-			if (indexPermitCardBuild == 0) {
-				setTextUnusedPermitCardVillageGamer(indexPermitCardBuild, villagePermitCardBuildLabel);
-
-			}
+                    
+                     selectedPermitCardBuild = op.prevPermitCard(selectedPermitCardBuild, unusedPermitCardsGamer, villagePermitCardBuildLabel);
+                    setButtonVillageAvailable();
+                    anchorSelectVillageBuildShop.setDisable(true);
+             
 		}
 		
 		if ((e.getSource() == prevUnusedPermitCardGamer) == true) {
 
-			if (indexUnusedPermitCardGamer > 0) {
-				indexUnusedPermitCardGamer--;
-				setTextUnusedPermitCardVillageGamer( indexUnusedPermitCardGamer, villageUnusedPermitCardGamerLabel);
-			}
-
-			if (indexUnusedPermitCardGamer == 0) {
-				setTextUnusedPermitCardVillageGamer( indexUnusedPermitCardGamer, villageUnusedPermitCardGamerLabel);
-
-			}
+                    selectedUnusedPermitCard = op.prevPermitCard(selectedUnusedPermitCard, unusedPermitCardsGamer,villageUnusedPermitCardGamerLabel);
+                  
 		}
 		
 		if ((e.getSource() == prevUsedPermitCardGamer) == true) {
-
-			if (indexUsedPermitCardGamer > 0) {
-				indexUsedPermitCardGamer--;
-				setTextUsedPermitCardVillageGamer( indexUsedPermitCardGamer, villageUsedPermitCardGamerLabel);
-			}
-
-			if (indexUnusedPermitCardGamer == 0) {
-				setTextUsedPermitCardVillageGamer( indexUsedPermitCardGamer, villageUsedPermitCardGamerLabel);
-
-			}
+                    selectedUsedPermitCard = op.prevPermitCard(selectedUsedPermitCard, usedPermitCardsGamer,villageUsedPermitCardGamerLabel);
 		}
-		
-		
-	
 	}
 
 /**
@@ -372,82 +335,23 @@ public class MatchGameController extends FxmlMatchGameController {
 	public void nextCouncil(ActionEvent e) {
 
 		if ((e.getSource() == nextCouncil1) == true) {
-
-			if (indexCouncilRegionElectNobil == 4) {
-				indexCouncilRegionElectNobil = 0;
-			}
-
-			if (indexCouncilRegionElectNobil == 0) {
-				regionNumber1.setText("Regione 1");
-			}
-			if (indexCouncilRegionElectNobil == 1) {
-				regionNumber1.setText("Regione 2");
-			}
-			if (indexCouncilRegionElectNobil == 2) {
-				regionNumber1.setText("Regione 3");
-			}
-			
-			if (indexCouncilRegionElectNobil == 3) {
-				regionNumber1.setText("Consiglio del re");}
-				
-			setCouncilRegion(indexCouncilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
-//			setTextPermitCardVillageAction(councilRegionElectNobil);
-			if (indexCouncilRegionElectNobil < 4) {
-				indexCouncilRegionElectNobil++;
-				booleanPrev = true;
-			}
+                    
+                selectedRegionPermitCard1 = op.nextCouncil(3,selectedRegionPermitCard1, regionNumber1);
+                setCouncilRegion(selectedRegionPermitCard1, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
+                
 		}
 
 		if ((e.getSource() == nextCouncil2) == true) {
 
-			if (councilRegionBuyPermitCard == 3) {
-				councilRegionBuyPermitCard = 0;
-			}
-
-			if (councilRegionBuyPermitCard == 0) {
-				regionNumber2.setText("Regione 1");
-			}
-			if (councilRegionBuyPermitCard == 1) {
-				regionNumber2.setText("Regione 2");
-			}
-			if (councilRegionBuyPermitCard == 2) {
-				regionNumber2.setText("Regione 3");
-			}
-//			if (councilRegionBuyPermitCard == 3) {
-//				regionNumber1.setText("Consiglio del re");}
-			
-			
-			setCouncilRegion(councilRegionBuyPermitCard, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
-			setTextPermitCardVillageAction(councilRegionBuyPermitCard);
-			if (councilRegionBuyPermitCard < 3) {
-				councilRegionBuyPermitCard++;
-			}
-		}
+                selectedRegionPermitCard2 = op.nextCouncil(2,selectedRegionPermitCard2, regionNumber2);
+                setCouncilRegion(selectedRegionPermitCard2, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
+            }
 		
 		
 		if ((e.getSource() == nextCouncilElectFastNobil) == true) {
-			
-			if (councilRegionElectNobilFast == 4) {  
-				councilRegionElectNobilFast = 0;
-			}
-
-			if (councilRegionElectNobilFast == 0) {
-				regionNumberElectFast.setText("Regione 1");
-			}
-			if (councilRegionElectNobilFast == 1) {
-				regionNumberElectFast.setText("Regione 2");
-			}
-			if (councilRegionElectNobilFast == 2) {
-				regionNumberElectFast.setText("Regione 3");
-			}
-			if (councilRegionElectNobilFast == 3) {
-				regionNumberElectFast.setText("Consiglio del re");
-                        }
-			
-			setCouncilRegion(councilRegionElectNobilFast, councilElectFastNobil0, councilElectFastNobil1, councilElectFastNobil2, councilElectFastNobil3);
-			if (councilRegionElectNobilFast < 4) {
-				councilRegionElectNobilFast++;}
-		}
+                    selectedRegionElectFastNobil = op.nextCouncil(3,selectedRegionElectFastNobil, regionNumberElectFast);
+                    setCouncilRegion( selectedRegionElectFastNobil, councilElectFastNobil0, councilElectFastNobil1, councilElectFastNobil2, councilElectFastNobil3);   
+                }
 	}
 	
 /**
@@ -457,138 +361,31 @@ public class MatchGameController extends FxmlMatchGameController {
 	public void prevCouncil(ActionEvent e) {
 
 		if ((e.getSource() == prevCouncil1) == true) {
-			if (indexCouncilRegionElectNobil == 3) {
-                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-                            indexCouncilRegionElectNobil--;
-			}
 
-			if (indexCouncilRegionElectNobil == 0) {
-                            regionNumber1.setText("Regione 1");
-			}
-
-			if (indexCouncilRegionElectNobil == 1) {
-                            regionNumber1.setText("Regione 2");
-			}
-
-			if (indexCouncilRegionElectNobil == 2) {
-                            regionNumber1.setText("Regione 3");
-			}
-
-			if (indexCouncilRegionElectNobil < 4) {
-                            setCouncilRegion(indexCouncilRegionElectNobil, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
-			
-			}
-
-			if (indexCouncilRegionElectNobil == 0) {
-                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-                            indexCouncilRegionElectNobil++;
-			}
-
-			if (indexCouncilRegionElectNobil > 0 && booleanPrev == true) {
-                            selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-                            indexCouncilRegionElectNobil--;
-			}
-
+                    selectedRegionPermitCard1 = op.prevCouncil(selectedRegionPermitCard1, regionNumber1);
+                    setCouncilRegion(selectedRegionPermitCard1, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
 		}
 
 		if ((e.getSource() == prevCouncil2) == true) {
 
-			if (councilRegionBuyPermitCard == 2) {
-				councilRegionBuyPermitCard--;
-			}
-
-			if (councilRegionBuyPermitCard == 0) {
-				regionNumber2.setText("Regione 1");
-			}
-
-			if (councilRegionBuyPermitCard == 1) {
-				regionNumber2.setText("Regione 2");
-			}
-
-			if (councilRegionBuyPermitCard == 2) {
-				regionNumber2.setText("Regione 3");
-			}
-
-			if (councilRegionBuyPermitCard < 3) {
-				setCouncilRegion(councilRegionBuyPermitCard, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
-				setTextPermitCardVillageAction(councilRegionBuyPermitCard);
-			}
-			if (councilRegionBuyPermitCard == 0) {
-				councilRegionBuyPermitCard++;
-			}
-			if (councilRegionBuyPermitCard > 0 && booleanPrev == true) {
-				councilRegionBuyPermitCard--;
-			}
-
+                         selectedRegionPermitCard2 = op.prevCouncil(selectedRegionPermitCard2, regionNumber2);
+                         setCouncilRegion(selectedRegionPermitCard2, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
 		}
 		
 		if ((e.getSource() == prevCouncilElectFastNobil) == true) {
-
-			if (councilRegionElectNobilFast == 2) {
-                               // selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-				councilRegionElectNobilFast--;
-			}
-
-			if (councilRegionElectNobilFast == 0) {
-				regionNumberElectFast.setText("Regione 1");
-			}
-
-			if (councilRegionElectNobilFast == 1) {
-				regionNumberElectFast.setText("Regione 2");
-			}
-
-			if (councilRegionElectNobilFast == 2) {
-				regionNumberElectFast.setText("Regione 3");
-			}
-			if (councilRegionElectNobilFast == 3) {
-				regionNumberElectFast.setText("Consiglio del re");}
-
-			if (councilRegionElectNobilFast < 4) {
-				setCouncilRegion(councilRegionElectNobilFast, council2nobil0, council2nobil1, council2nobil2, council2nobil3);
-			}
-			if (councilRegionElectNobilFast == 0) {
-                            //selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-                            councilRegionElectNobilFast++;
-			}
-			if (councilRegionElectNobilFast > 0 && booleanPrevNobilFast == true) {
-                           // selectRegionPermitCard1 = indexCouncilRegionElectNobil;
-                            councilRegionElectNobilFast--;
-			}
-
+                    
+                    selectedRegionElectFastNobil = op.prevCouncil(selectedRegionElectFastNobil, regionNumberElectFast);
+                    setCouncilRegion(selectedRegionElectFastNobil, councilElectFastNobil0, councilElectFastNobil1, councilElectFastNobil2, councilElectFastNobil3);
+                    
 		}
 
 	}
-
-/**
- * Setta le label dei villaggi delle carte regione dell'azione principale acquista carta politica
- * @param i si riferisce alla regione scelta 
- */
-	public void setTextPermitCardVillageAction(int i) {
-		villagesRegionCard0.setText("" + regionPermitCard[i][0].getVillages());
-		villagesRegionCard1.setText("" + regionPermitCard[i][1].getVillages());
-
-	}
-	
-/**
- * Setta le label dei villaggi delle carte regione dell'azione speciale 
- * @param i si riferisce alla regione scelta
- */
-	public void setTextPermitCardVillageSpecialAction(int i) {
-		villagesRegionCardSpecialAction0.setText("" + regionPermitCard[i][0].getVillages());
-		villagesRegionCardSpecialAction1.setText("" + regionPermitCard[i][1].getVillages());
-
-	}
-	
-
+        
 /**
  * Inserisce all'interno di un array multiplo di PermitCard le carte regione scoperte relative alla board
  * può essere usato per fare l'update
  */
 	public void setVillagesPermitCardRegion() {
-
-		// [3] = regioni, [2] carte
-
-		regionPermitCard = new PermitCard[3][2];
 
 		regionPermitCard[0][0] = be.getRegions()[0].getPermitCardsDeck().getUnhiddenCards()[0];
 		regionPermitCard[0][1] = be.getRegions()[0].getPermitCardsDeck().getUnhiddenCards()[1];
@@ -1033,25 +830,41 @@ public class MatchGameController extends FxmlMatchGameController {
 		}
 
 		if ((e.getSource() == villagesRegionCard0)) {
-			new Client().showBonusPermitCard(councilRegionBuyPermitCard, 0);
+			new Client().showBonusPermitCard(selectedRegionPermitCard2, 0);
 		}
 
 		if ((e.getSource() == villagesRegionCard1)) {
-			new Client().showBonusPermitCard(councilRegionBuyPermitCard, 1);
+			new Client().showBonusPermitCard(selectedRegionPermitCard2, 1);
 		}
 		
 		if ((e.getSource() == bonusPermitCardGamer)) {
-			new Client().showBonusPermitCardGamer(indexPermitCardGamer);
+			new Client().showBonusPermitCardGamer(selectedPermitCardGamer);
 		}
 		
 		if ((e.getSource() == bonusUnusedPermitCardGamer)) {
-			new Client().showBonusPermitCardGamer(indexUnusedPermitCardGamer);
+			new Client().showBonusPermitCardGamer(selectedUnusedPermitCard);
 		}
 		
 		if ((e.getSource() == bonusUsedPermitCardGamer)) {
-			new Client().showBonusUsedPermitCardGamer(indexUsedPermitCardGamer);
+			new Client().showBonusUsedPermitCardGamer(selectedUsedPermitCard);
 		}
 		
+                if ((e.getSource() == buyRegionCard0)) {
+			new Client().showBonusPermitCard(selectedRegionPermitCard2, 0);
+		}
+                
+                 if ((e.getSource() == buyRegionCard1)) {
+			new Client().showBonusPermitCard(selectedRegionPermitCard2, 1);
+		}
+                
+                if ((e.getSource() == regionCardSpecialAction0)) {
+			new Client().showBonusPermitCard(selectRegionSpecialAction, 0);
+		}
+                
+                 if ((e.getSource() == regionCardSpecialAction1)) {
+			new Client().showBonusPermitCard(selectRegionSpecialAction, 1);
+		}
+               
 		
 		
 		
@@ -1063,23 +876,22 @@ public class MatchGameController extends FxmlMatchGameController {
 		
 		// per azione principale
 		if (e.getSource() == nobilWhite) {
-			selectColorNobil = java.awt.Color.WHITE;
-		}
-		
+                    selectColorNobil = java.awt.Color.WHITE;
+                }
 		if (e.getSource() == nobilBlack) {
-			selectColorNobil = java.awt.Color.BLACK;
+                    selectColorNobil = java.awt.Color.BLACK;
 		}
 		if (e.getSource() == nobilCyan) {
-			selectColorNobil = java.awt.Color.CYAN;
+                    selectColorNobil = java.awt.Color.CYAN;
 		}
 		if (e.getSource() == nobilOrange) {
-			selectColorNobil = java.awt.Color.ORANGE;
+                    selectColorNobil = java.awt.Color.ORANGE;
 		}
 		if (e.getSource() == nobilMagenta) {
-			selectColorNobil = java.awt.Color.MAGENTA;
+                    selectColorNobil = java.awt.Color.MAGENTA;
 		}
 		if (e.getSource() == nobilPink) {
-			selectColorNobil = java.awt.Color.PINK;
+                    selectColorNobil = java.awt.Color.PINK;
 		}
 		
 		// per azione veloce
@@ -1116,10 +928,8 @@ public class MatchGameController extends FxmlMatchGameController {
 				anchorSelectPoliticalCard.setVisible(false);
 				anchorSelectPermitCard1.setVisible(false);
 			}
-
+                        op.setTextPermitCardVillageAction(selectedRegionPermitCard2, regionPermitCard, villagesRegionCard0, villagesRegionCard1);
 			maxSelectionPoliticalCard = 0;
-			selectRegionPermitCard2 = councilRegionBuyPermitCard;
-
 			showPoliticalCardAction();
 			clickSelectCouncilBoolean = true;
 			// anchorSelectPoliticalCard.setVisible(true);
@@ -1154,7 +964,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				anchorSelectFastNobil.setVisible(false);
 			}
 			
-				selectRegionElectFastNobil = councilRegionBuyPermitCard;
+				//selectRegionElectFastNobil;
 				clickSelectCouncilElectFastBoolean = true;
 		}
 		
@@ -1182,7 +992,8 @@ public class MatchGameController extends FxmlMatchGameController {
 			}
 
 			else
-				anchorSelectPermitCard1.setVisible(true);
+                            anchorSelectPermitCard1.setVisible(true);
+                     
 		}
 		
 		
@@ -1429,35 +1240,55 @@ public class MatchGameController extends FxmlMatchGameController {
 	public void selectPermitCard(ActionEvent e) {
 
 		if ((e.getSource() == selectPermitCardBuy0) == true) {
-			permitCardBuy = regionPermitCard[selectRegionPermitCard2][0];
+                    selectedPermitCardBuy = regionPermitCard[selectedRegionPermitCard2][0];
+                    actionBuyPermitCardButton.setDisable(false);
+                    selectPermitCardBuy1.setDisable(true);
 		}
 
 		if ((e.getSource() == selectPermitCardBuy1) == true) {
-			permitCardBuy = regionPermitCard[selectRegionPermitCard2][1];
+                    selectedPermitCardBuy = regionPermitCard[selectedRegionPermitCard2][1];
+                    actionBuyPermitCardButton.setDisable(false);
+                    selectPermitCardBuy0.setDisable(true);
 		}
 		
 		if ((e.getSource() == selectPermitCardBuild) == true) {
-			
-			permitCardBuild = unusedPermitCardsGamer.get(indexPermitCardBuild);
-			setVillageBuildShop(permitCardBuild);
-			anchorSelectVillageBuildShop.setVisible(true);
+                    
+                    permitCardBuild = unusedPermitCardsGamer.get(selectedPermitCardBuild);
+                    setVillageBuildShop(permitCardBuild);
+                    anchorSelectVillageBuildShop.setDisable(false);
 		}
 
 		if ((e.getSource() == selectUnusedPermitCardBonus) == true) {
-			permitCardSpecialActionBonus = unusedPermitCardsGamer.get(indexUnusedPermitCardGamer);
+			permitCardSpecialActionBonus = unusedPermitCardsGamer.get(selectedUnusedPermitCard);
 			clickAcquireBonusPermitCard.setVisible(true);
 		}
 		
 		if ((e.getSource() == selectUsedPermitCardBonus) == true) {
-			permitCardSpecialActionBonus = usedPermitCardsGamer.get(indexUsedPermitCardGamer);
+			permitCardSpecialActionBonus = usedPermitCardsGamer.get(selectedUsedPermitCard);
 			clickAcquireBonusPermitCard.setVisible(true);
-		}
-		
-		
-		
-		
-		
+		}	
 	}
+        
+        public void setButtonVillageAvailable(){
+            villageA12.setDisable(false);
+            villageB12.setDisable(false);
+            villageC12.setDisable(false);
+            villageD12.setDisable(false);
+            villageE12.setDisable(false);
+            villageF12.setDisable(false);
+            villageG12.setDisable(false);
+            villageH12.setDisable(false);
+            villageI12.setDisable(false);
+            villageJ12.setDisable(false);
+            villageK12.setDisable(false);
+            villageL12.setDisable(false);
+            villageM12.setDisable(false);
+            villageN12.setDisable(false);
+            villageO12.setDisable(false);
+   
+        }
+        
+        
 	
 	@FXML
 	public void buyWithKingHelp() {
@@ -1563,19 +1394,19 @@ public class MatchGameController extends FxmlMatchGameController {
 	 public void changePermitCards(ActionEvent e){
 		 
 		 if((e.getSource() == region1) == true){
-			 selectRegionChangePermitCards = 0;
+			 selectedRegionChangePermitCards = 0;
 		 }
 		 
 		 if((e.getSource() == region2) == true){
-			 selectRegionChangePermitCards = 1;
+			 selectedRegionChangePermitCards = 1;
 		 }
 		 
 		 if((e.getSource() == region3) == true){
-			 selectRegionChangePermitCards = 2;
+			 selectedRegionChangePermitCards = 2;
 		 }
 		 
 		 if((e.getSource() == buttonChangePermitCards) == true){
-			 if( selectRegionChangePermitCards<3){
+			 if( selectedRegionChangePermitCards<3){
 				 //manda al server richiesta azione 	 
 			 }
 			 
@@ -1600,77 +1431,106 @@ public class MatchGameController extends FxmlMatchGameController {
 		if((e.getSource() == villageA12)){ 
 			selectedVillageBuildShop = "Arkon";
 			controlShopGamer = controlShop("Arkon"); 
+                        seeVillageBuildShop.setText("Arkon");
 		 }
 		 
 		if((e.getSource() == villageB12) == true){
 			selectedVillageBuildShop = "Burgen";
-			controlShopGamer = controlShop("Burgen");}
+			controlShopGamer = controlShop("Burgen");
+                        seeVillageBuildShop.setText("Burgen");
+                }
 			
 		if((e.getSource() == villageC12) == true){
 				
 			selectedVillageBuildShop = "Castrum";
-			controlShopGamer = controlShop("Castrum");}
+			controlShopGamer = controlShop("Castrum");
+                        seeVillageBuildShop.setText("Castrum");
+                }
 			
 		if((e.getSource() == villageD12) == true){
 				
 			selectedVillageBuildShop = "Dorful";
-			controlShopGamer = controlShop("Dorful");}
+			controlShopGamer = controlShop("Dorful");
+                        seeVillageBuildShop.setText("Dorful");
+                }
 			
 			
 		if((e.getSource() == villageE12) == true){
 		
 			selectedVillageBuildShop  = "Esti";
-			controlShopGamer = controlShop("Esti");}
+			controlShopGamer = controlShop("Esti");
+                        seeVillageBuildShop.setText("Esti");
+                }
 			
 		if((e.getSource() == villageF12) == true){
 				
 			selectedVillageBuildShop  = "Framek";
-			controlShopGamer = controlShop("Framek");}
+			controlShopGamer = controlShop("Framek");
+                        seeVillageBuildShop.setText("Framek");
+                }
 		
 		if((e.getSource() == villageG12) == true){
 		
 			selectedVillageBuildShop  = "Graden";
-			controlShopGamer = controlShop("Graden");}
+			controlShopGamer = controlShop("Graden");
+                        seeVillageBuildShop.setText("Graden");
+                }
 			
 		if((e.getSource() == villageH12) == true){
 				
 			selectedVillageBuildShop  = "Hellar";
-			controlShopGamer = controlShop("Hellar");}
+			controlShopGamer = controlShop("Hellar");
+                        seeVillageBuildShop.setText("Hellar");
+                }
 			
 		if((e.getSource() == villageI12) == true){
 				
 			selectedVillageBuildShop = "Indur";
-			controlShopGamer = controlShop("Indur");}
+			controlShopGamer = controlShop("Indur");
+                         seeVillageBuildShop.setText("Indur");
+                }
 
 		if((e.getSource() == villageJ12) == true){
 		
 			selectedVillageBuildShop = "Juvelar";
-			controlShopGamer = controlShop("Juvelar");}
+			controlShopGamer = controlShop("Juvelar");
+                        seeVillageBuildShop.setText("Juvelar");
+                }
 			
 		if((e.getSource() == villageK12) == true){
 				
 			selectedVillageBuildShop = "Kultos";
-			controlShopGamer = controlShop("Kultos");}
+			controlShopGamer = controlShop("Kultos");
+                        seeVillageBuildShop.setText("Kultos");
+                }
 			
 		if((e.getSource() == villageL12) == true){
 			
 			selectedVillageBuildShop = "Lyram";
-			controlShopGamer = controlShop("Lyram");}
+			controlShopGamer = controlShop("Lyram");
+                        seeVillageBuildShop.setText("Lyram");
+                }
 
 		if((e.getSource() == villageM12) == true){
 		
 			selectedVillageBuildShop = "Merkatim";
-			controlShopGamer = controlShop("Merkatim");}
+			controlShopGamer = controlShop("Merkatim");
+                        seeVillageBuildShop.setText("Merkatim");
+                }
 			
 		if((e.getSource() == villageN12) == true){
 				
 			selectedVillageBuildShop = "Naris";
-			controlShopGamer = controlShop("Naris");}
+			controlShopGamer = controlShop("Naris");
+                        seeVillageBuildShop.setText("Naris");
+                }
 
 		if((e.getSource() == villageO12) == true){
 		
 			selectedVillageBuildShop = "Osium";
-			controlShopGamer = controlShop("Osium");}
+			controlShopGamer = controlShop("Osium");
+                        seeVillageBuildShop.setText("Osium");
+                }
 				 
 		 
 		 if(controlShopGamer == true){
@@ -1678,7 +1538,7 @@ public class MatchGameController extends FxmlMatchGameController {
 	            Alert alert = new Alert(AlertType.ERROR);
 	            alert.initOwner(Client.getPrimaryStage());
 	            alert.setTitle("Invalid Fields");
-	            alert.setHeaderText("Hai gi� un emporio in questo villaggio\n");
+	            alert.setHeaderText("Hai già un emporio in questo villaggio\n");
 	            alert.setContentText("seleziona un'altro villaggio");
 
 	            alert.showAndWait(); 
@@ -1690,11 +1550,18 @@ public class MatchGameController extends FxmlMatchGameController {
 	 
 	 public boolean controlVillagePermitCard(String nameVillage, PermitCard permitCard){
 		
-		 boolean control = false;
-	
-		Iterator<String> it = permitCard.getVillages().iterator();
-			
-		while(it.hasNext()) control = it.next().toString().contains(nameVillage);
+		boolean control = false;
+                boolean trovato = false ;
+		Iterator<Character> it = permitCard.getVillages().iterator();	
+		while(it.hasNext()){
+                    String name = "" + it.next();
+                    if(name.equals(nameVillage)) {
+                        control = true ;
+                        break;
+                    }
+                }
+                
+                if(control == false) ; //gestire il fatto che non è stato trovato
 
 //		control = permitCard.verifyVillage(nameVillage);
 		
@@ -1705,9 +1572,12 @@ public class MatchGameController extends FxmlMatchGameController {
 	 
 	 
 	 @FXML
-	 public void actionBuildShop(){
+	 public void actionBuildShop(ActionEvent e){
+            
+            if((e.getSource() == buildShop) == true){
+             
 		// passa al server i dati metodo(PermitCard permitCardBuild, String selectedVillageBuildShop) 
-					 
+            }
 
 	 }
 	 
@@ -1721,7 +1591,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		 boolean control = false;
 		 
 		 Village[] villages1= new Village[15];
-		 villages1 = be.getGameMap().getVillages();
+		 villages1 = be.getGameMap().getVillages(); 
 		 String[] shops = new String[7];
 			for(Village tmp : villages1){
 				if(tmp.getName().equals(nameVillage)){
@@ -1806,63 +1676,63 @@ public class MatchGameController extends FxmlMatchGameController {
 	 
  public void setVillageBuildShop(PermitCard permitCardBuild){
 		 
-		 if(controlVillagePermitCard("Arkon", permitCardBuild) == false){
+		 if(controlVillagePermitCard("A", permitCardBuild) == false){
 			 villageA12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Burgen", permitCardBuild) == false){
+		 if(controlVillagePermitCard("B", permitCardBuild) == false){
 			 villageB12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Castrum", permitCardBuild) == false){
+		 if(controlVillagePermitCard("C", permitCardBuild) == false){
 			 villageC12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Dorful", permitCardBuild) == false){
+		 if(controlVillagePermitCard("D", permitCardBuild) == false){
 			 villageD12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Esti", permitCardBuild) == false){
+		 if(controlVillagePermitCard("E", permitCardBuild) == false){
 			 villageE12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Framek", permitCardBuild) == false){
+		 if(controlVillagePermitCard("F", permitCardBuild) == false){
 			 villageF12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Graden", permitCardBuild) == false){
+		 if(controlVillagePermitCard("G", permitCardBuild) == false){
 			 villageG12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Hellar", permitCardBuild) == false){
+		 if(controlVillagePermitCard("H", permitCardBuild) == false){
 			 villageH12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Indur", permitCardBuild) == false){
+		 if(controlVillagePermitCard("I", permitCardBuild) == false){
 			 villageI12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Juvelar", permitCardBuild) == false){
+		 if(controlVillagePermitCard("J", permitCardBuild) == false){
 			 villageJ12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Kultos", permitCardBuild) == false){
+		 if(controlVillagePermitCard("K", permitCardBuild) == false){
 			 villageK12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Lyram", permitCardBuild) == false){
+		 if(controlVillagePermitCard("L", permitCardBuild) == false){
 			 villageL12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Merkatim", permitCardBuild) == false){
+		 if(controlVillagePermitCard("M", permitCardBuild) == false){
 			 villageM12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Naris", permitCardBuild) == false){
+		 if(controlVillagePermitCard("N", permitCardBuild) == false){
 			 villageN12.setDisable(true);		 
 		 }
 		 
-		 if(controlVillagePermitCard("Osium", permitCardBuild) == false){
+		 if(controlVillagePermitCard("O", permitCardBuild) == false){
 			 villageO12.setDisable(true);		 
 		 }
 	 }
@@ -1979,7 +1849,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		 if((e.getSource() == buttonSelectRegionSpecialAction) == true){
 			 if(  selectRegionSpecialAction<3){
 				 anchorTakePermitCard.setVisible(true);
-				 setTextPermitCardVillageSpecialAction(selectRegionSpecialAction);
+                                 op.setTextPermitCardVillageAction(selectRegionSpecialAction, regionPermitCard, villagesRegionCardSpecialAction0, villagesRegionCardSpecialAction1);
 				 //manda al server richiesta azione 	 
 			 }
 			 
@@ -2041,7 +1911,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		   
 		   
 		      	
-		   else errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+		   else errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 		   see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		        	
 		}
@@ -2059,7 +1929,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Burgen";
 			}
 		
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 					
@@ -2074,7 +1944,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Castrum";	
 			}	
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 							
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2089,7 +1959,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Dorful"; 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		}
@@ -2104,7 +1974,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else	selectedVillageDoubleBonus[1] = "Esti"; 
 			}
 	
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai gi�àselezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );
 		}
@@ -2120,7 +1990,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Framek"; 
 			}
 				
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2135,7 +2005,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Graden"; 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1] );			
 		}
@@ -2149,7 +2019,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Hellar";	 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);		
 		}
@@ -2164,7 +2034,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Indur";
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2178,7 +2048,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Juvelar";
 			}
 		
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2193,7 +2063,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Kultos"; 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2206,7 +2076,7 @@ public class MatchGameController extends FxmlMatchGameController {
 					}
 				else selectedVillageDoubleBonus[1] = "Lyram"; 
 			}
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2221,7 +2091,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Merkatim"; 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 			
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 		}
@@ -2235,7 +2105,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Naris"; 
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2250,7 +2120,7 @@ public class MatchGameController extends FxmlMatchGameController {
 				else selectedVillageDoubleBonus[1] = "Osium";
 			}
 			
-			else  errorMessage += "Hai gi� selezionato due villaggi, fai la tua mossa\n";
+			else  errorMessage += "Hai già selezionato due villaggi, fai la tua mossa\n";
 					
 			see11.setText("" + selectedVillageDoubleBonus[0] + "," + selectedVillageDoubleBonus[1]);
 					
@@ -2271,7 +2141,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		            Alert alert = new Alert(AlertType.ERROR);
 		            alert.initOwner(Client.getPrimaryStage());
 		            alert.setTitle("Invalid Fields");
-		            alert.setHeaderText("Hai gi� selezionato due villaggi, fai la tua mossa\n");
+		            alert.setHeaderText("Hai già selezionato due villaggi, fai la tua mossa\n");
 		            alert.setContentText(errorMessage);
 
 		            alert.showAndWait();
@@ -2381,12 +2251,22 @@ public class MatchGameController extends FxmlMatchGameController {
         
         	// azioni da mandare al server
 	@FXML
-	public void clickEleggiConsigliere(ActionEvent e) {
+	public void clickActionElectCouncil(ActionEvent e) {
 
 		if((e.getSource() == electNobil ) == true){ 
 			if (selectColorNobil != null) {
 				// metodoMandaDati(selectCouncilRegion1, selectColorNobil);
+                                //controllare che le azioni principali sono finite
 				//azioniPrincipali.setDisable(true);
+                                
+                                selectedRegionPermitCard1 = -1;
+                                selectColorNobil = null;
+                                setCouncilRegion(0, council1nobil0, council1nobil1, council1nobil2, council1nobil3);
+                                // quando ricevo il match dal server
+                                //upgradeBoard(Match match);
+                                //upgradeGamer(ClientLogic.getInstance().getGamer());
+                                //aggioranare dati del giocatore;
+                                
 				accordion.setExpandedPane(fastActionTitledPane);
 			}
 
@@ -2399,7 +2279,7 @@ public class MatchGameController extends FxmlMatchGameController {
 		
 		if((e.getSource() == electFastNobil) == true){ 
 			if (selectColorElectFastNobil != null) {
-				// metodoMandaDati(councilRegionElectNobilFast, selectColorElectFastNobil);
+				// metodoMandaDati(selectedRegionElectFastNobil, selectColorElectFastNobil);
 			
 			}
 
@@ -2434,11 +2314,22 @@ public class MatchGameController extends FxmlMatchGameController {
 		
 	}
         
-        
-         public void actionAcquireSingleBonus(){
+        @FXML
+        public void actionAcquireSingleBonus(){
 		 
 		 // manda segnale al server con selectedVillageActionBonus
 		 
 		 
 	 }
+        
+        @FXML
+        public void actionBuyPermitCard(ActionEvent e){
+            
+            if((e.getSource() == actionBuyPermitCardButton) == true){
+                    selectPermitCardBuy0.setDisable(false);
+                    selectPermitCardBuy1.setDisable(false);
+                    // manda al server (int selectedRegionPermitCard2, ArrayList<PoliticalCard> selectedPoliticalCards,PermitCard selectedPermitCardBuy )
+            }
+         
+        }
 }

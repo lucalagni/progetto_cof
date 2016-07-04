@@ -23,13 +23,14 @@ import javafx.stage.Stage;
 import main.Client;
 import main.ClientLogic;
 import main.view.custom.NumberTextField;
+import main.view.custom.Operation;
 import model.basics.Gamer;
 import model.basics.PermitCard;
 import model.basics.PoliticalCard;
 import model.market.Agent;
-import model.market.ItemHelpers;
-import model.market.ItemPermitCard;
-import model.market.ItemPoliticalCard;
+import model.market.HelpersItem;
+import model.market.PermitCardItem;
+import model.market.PoliticalCardItem;
 
 /**
  *
@@ -39,10 +40,10 @@ public class MarketController {
 
     private Stage seeMarketStage;
     private Gamer gamer;
-    private ItemHelpers itemHelpers;
-    private ItemPermitCard itemPermitCard;
-    private ItemPoliticalCard itemPoliticalCard;
-    
+    private HelpersItem helpersItem;
+    private PermitCardItem  permitCardItem;
+    private PoliticalCardItem politicalCardItem;
+ 
    
     
     @FXML Label  helpersGamerLabel;
@@ -68,25 +69,21 @@ public class MarketController {
     private int pricePermitCard = 0;
     private int indexHelpers = 0;
     private int indexPermitCardGamer = -1;
-    private int selectedPermitCard = 0;
+    private int selectedPermitCard = -1;
+    private int selectedPoliticalCard = -1;
     private int maxSelectionPoliticalCard = 0;
     private ArrayList<PermitCard> unusedPermitCardsGamer = new ArrayList<PermitCard> ();
     private ArrayList<PoliticalCard> politicalCardGamer = new ArrayList<PoliticalCard> ();
     private ArrayList<ImageView> imgsPoliticalCards;
-    private PoliticalCard selectedPoliticalCards;
     private HBox hbPoliticalCardGamer;
     private Agent agentGamer;
+    private Operation op = new Operation();
   
      
     public void setGamer(Gamer gamer){
-        
-        // AGGIUNGI OBSERVER VALUE, GUARDA ESEMPIO TEXTFIELD 
-        this.gamer = gamer;
-        
-        
-        
+  
         //CHIEDI DANTE SE QUESTO COPIA IL RIFERIMENTO O SOLO IL VALORE 
-        
+        this.gamer = gamer;
         helpersGamer = gamer.getHelpers(); 
         unusedPermitCardsGamer = gamer.getUnusedPermitCards();
         agentGamer = new Agent(gamer);
@@ -136,52 +133,26 @@ public class MarketController {
    
     
    
-   public void setTextUnusedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
-
-	if (selectPermitCard <unusedPermitCardsGamer.size()) {
-            villagePermitCardGamer.setText("" + unusedPermitCardsGamer.get(selectPermitCard).getVillages());
-            } 
-        
-        else selectPermitCard = unusedPermitCardsGamer.size();
-        
-}
-    
-   public void nextPermitCardGamer(){
-			
-	if (indexPermitCardGamer < (unusedPermitCardsGamer.size())-1) {
-                            
-            if(indexPermitCardGamer == -1){
-                indexPermitCardGamer = 0;
-            }
-            
-            else{
-                indexPermitCardGamer++;
-            }    	
-	}
-        
-          selectedPermitCard = indexPermitCardGamer;
-          setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabelM); 
-    }
-   
-   public void prevPermitCardGamer(){
-       if (indexPermitCardGamer > 0) {                  
-            indexPermitCardGamer--; 
-	}
-        
-        setTextUnusedPermitCardVillageGamer(indexPermitCardGamer, villagePermitCardGamerLabelM);
-        selectedPermitCard = indexPermitCardGamer;       
-    }
+//   public void setTextUnusedPermitCardVillageGamer(int selectPermitCard, Label villagePermitCardGamer) {
+//
+//	if (selectPermitCard <unusedPermitCardsGamer.size()) {
+//            villagePermitCardGamer.setText("" + unusedPermitCardsGamer.get(selectPermitCard).getVillages());
+//            } 
+//        
+//        else selectPermitCard = unusedPermitCardsGamer.size();
+//        
+//}
    
   
     @FXML
     public void changePermitCard(ActionEvent e){
         
         if((e.getSource() == nextPermitCardGamerMButton) == true){
-            nextPermitCardGamer();
+            selectedPermitCard = op.nextPermitCard(selectedPermitCard,unusedPermitCardsGamer, villagePermitCardGamerLabelM);
         }
         
         if((e.getSource() == prevPermitCardGamerMButton) == true){
-            prevPermitCardGamer();
+            selectedPermitCard = op.prevPermitCard(selectedPermitCard, unusedPermitCardsGamer, villagePermitCardGamerLabelM);    
         }
 
     }
@@ -190,20 +161,22 @@ public class MarketController {
    public void selectedItem(ActionEvent e){
        // se preme il pulsante per selezionare gli aiutanti da vendere
        if((e.getSource() == selectHelpersButton) == true){
-          itemHelpers = new ItemHelpers();
           // manda un messaggio di informazione che non è stato inserito un prezzo o  il numero di aiutanti diverso da zero
           //int priceHelpers = Integer.parseInt(priceHelpersTextField.getText());
+          
           if(priceHelpersTextField.getText().trim().isEmpty() || selectedHelpers == 0 ){ 
               alertStageNoCorrectInput(0);  
             }
           // se il campo prezzo non è vuoto e il numero di aiutanti è maggiore di 0 allora
+          
           if((priceHelpersTextField.getText().trim().isEmpty())== false  && helpersGamer>0){
+              
               //aggiunge all'itemHelpers il numero di aiutanti selezionati e il relativo prezzo 
-              itemHelpers.setHelpers(selectedHelpers);
-              itemHelpers.setPrice(Integer.parseInt(priceHelpersTextField.getText()));
+              
+              helpersItem = new HelpersItem(selectedHelpers, Integer.parseInt(priceHelpersTextField.getText()));
               
               //li aggiunge nell'array di itemHelpers dell'agente
-              agentGamer.selectToSellHelpers(itemHelpers, Integer.parseInt(priceHelpersTextField.getText()));
+              agentGamer.addHelpersItem(helpersItem);
               
               // decrementa il numero totale di aiutanti in base a quelli selezionati     
               helpersGamer = helpersGamer - selectedHelpers;
@@ -213,11 +186,11 @@ public class MarketController {
               indexHelpers = 0;
               helpersGamerLabel.setText("" + indexHelpers);
             }    
-       }
+        }
        
        
           if((e.getSource() == selectPermitCardButton) == true){
-             itemPermitCard = new ItemPermitCard();
+           
                 if(pricePermitCardTextField.getText().trim().isEmpty() || selectedPermitCard == -1){
                         alertStageNoCorrectInput(1);  
                 }
@@ -229,54 +202,58 @@ public class MarketController {
                         alertStageNoCorrectInput(2);
                     
                     }
+                }
+            
                     
-                    
-                    if((isPermitCardSelected(unusedPermitCardsGamer.get(selectedPermitCard))) == false){
+                if((isPermitCardSelected(unusedPermitCardsGamer.get(selectedPermitCard))) == false){
                         
-                        System.out.println("" + selectedPermitCard);
+                    System.out.println("" + selectedPermitCard);
                         
-                        //aggiunge all'itemHelpers il numero di aiutanti selezionati e il relativo prezzo 
-                        itemPermitCard.setPermitCard(unusedPermitCardsGamer.get(selectedPermitCard));
-                        itemPermitCard.setPrice(Integer.parseInt(pricePermitCardTextField.getText()));
+                    //aggiunge all'itemHelpers il numero di aiutanti selezionati e il relativo prezzo 
+                    permitCardItem = new PermitCardItem(unusedPermitCardsGamer.get(selectedPermitCard),
+                                                             Integer.parseInt(pricePermitCardTextField.getText()),
+                                                             selectedPermitCard);
+                       
+                    //li aggiunge nell'array di itemHelpers dell'agente
+                    agentGamer.addPermitCardItem(permitCardItem);
               
-                        //li aggiunge nell'array di itemHelpers dell'agente
-                        agentGamer.selectToSellPermitCard(itemPermitCard, Integer.parseInt(pricePermitCardTextField.getText()));
-              
-                        //resetta gli indici a zero e resetta la label che mostra il numero di aiutanti
-                        selectedPermitCard = 0;
-                        indexPermitCardGamer = -1;
-                        villagePermitCardGamerLabelM.setText("Click next");
-                    }
-                }      
-            }
+                    //resetta gli indici a zero e resetta la label che mostra il numero di aiutanti
+                    selectedPermitCard = -1;
+                    villagePermitCardGamerLabelM.setText("Click next");
+                }
+            }      
+    
         
           if((e.getSource() == selectPoliticalCardButton) == true){
-              
-              itemPoliticalCard = new ItemPoliticalCard();
-              if(pricePoliticalCardTextField.getText().trim().isEmpty() || selectedPoliticalCards == null){
+            
+              if(pricePoliticalCardTextField.getText().trim().isEmpty() || selectedPoliticalCard == -1){
                   alertStageNoCorrectInput(3);
               }
-              else{
-                  if(selectedPoliticalCards !=null){
-                     itemPoliticalCard.setPoliticalCard(selectedPoliticalCards);
-                     agentGamer.selectToSellPoliticalCard(itemPoliticalCard, Integer.parseInt(pricePoliticalCardTextField.getText()));
-                     //hbPoliticalCardGamer.getChildren().removeAll(imgsPoliticalCards);
-                     maxSelectionPoliticalCard = 0;
-                     selectPoliticalCard(imgsPoliticalCards);
+              
+             if((pricePoliticalCardTextField.getText().trim().isEmpty()) == false  && selectedPoliticalCard>=0){
+                 
+                    System.out.println("ho fatto select  " + selectedPoliticalCard);
+                    politicalCardItem = new PoliticalCardItem(gamer.getPoliticalCards().get(selectedPoliticalCard), 
+                                                            Integer.parseInt(pricePoliticalCardTextField.getText()),
+                                                            selectedPoliticalCard);
+                    //aggiungi ad agente la PoliticalCardItem
+                    agentGamer.addPoliticalCardItem(politicalCardItem);
+                    //hbPoliticalCardGamer.getChildren().removeAll(imgsPoliticalCards);
+                    maxSelectionPoliticalCard = 0;
+                    selectedPoliticalCard = -1;
+                    selectionPoliticalCard();
                     
-                  }   
-              }
-          }
-         
-    
-   }
+                }   
+           }
+        }
+       
     
    
    public boolean isPermitCardSelected(PermitCard permitCard){
        boolean control = false;
-       ArrayList<ItemPermitCard> arrayPermitCard = agentGamer.getArrayListItemPermitCard();
+       ArrayList<PermitCardItem> arrayPermitCard = agentGamer.getPermitCardStock();
        
-       for(ItemPermitCard item: arrayPermitCard){
+       for(PermitCardItem item: arrayPermitCard){
            if((item.getPermitCard().equals(permitCard)) == true){
                 control = true; 
            }
@@ -288,7 +265,7 @@ public class MarketController {
    public void showPoliticalCardGamer() {
 		
 		imgsPoliticalCards = new ArrayList<ImageView>();
-		selectPoliticalCard(imgsPoliticalCards);
+		selectPoliticalCard();
 
 		hbPoliticalCardGamer = new HBox();
 		hbPoliticalCardGamer.setPadding(new Insets(0, 100, 10, 10));
@@ -300,10 +277,10 @@ public class MarketController {
 
 		AnchorPane.setBottomAnchor(hbPoliticalCardGamer, 0.0);
 		AnchorPane.setLeftAnchor(hbPoliticalCardGamer, 1.0);
-                selectPoliticalCardAction();
+                selectionPoliticalCard();
 	}
    
-   	public void selectPoliticalCardAction() {
+   	public void selectionPoliticalCard() {
 
 		for (int i = 0; i < imgsPoliticalCards.size(); i++) {
 
@@ -314,7 +291,9 @@ public class MarketController {
 				public void handle(MouseEvent event) {
 					if (maxSelectionPoliticalCard < 1) {
 						imgsPoliticalCards.get(j).setImage(null);
-						selectedPoliticalCards = politicalCardGamer.get(j);
+						selectedPoliticalCard = j;
+                                                System.out.println("ho salvato selectpoli:  " + selectedPoliticalCard);
+                                                //        = politicalCardGamer.get(j);
 						maxSelectionPoliticalCard++;
 					}
 				}
@@ -322,7 +301,7 @@ public class MarketController {
 		}
 	}
    
-  private void selectPoliticalCard( ArrayList<ImageView>  imgsPoliticalCards) {
+  private void selectPoliticalCard() {
 
 		politicalCardGamer = gamer.getPoliticalCards();
 
@@ -376,8 +355,7 @@ public class MarketController {
   @FXML 
   public void optionMarketSelect(ActionEvent e){
       if((e.getSource() == endSelectionToSell)){
-          
-          
+
           new Client().showMarketPlace(agentGamer);
           seeMarketStage.close();
           // invia al server l'agente (agentGamer)

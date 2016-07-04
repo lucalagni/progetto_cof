@@ -5,6 +5,7 @@ import java.io.IOException;
 import main.Client;
 import main.ClientLogic;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class SelectConnectionController {
@@ -16,9 +17,22 @@ public class SelectConnectionController {
 	@FXML
 	private void selectSocket() throws IOException{
 		
+            if(username.getText().trim().isEmpty()){
+                     Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.initOwner(Client.getPrimaryStage());
+		            alert.setTitle("Invalid Fields");
+		            alert.setHeaderText("Non hai inserito nessun carattere\n");
+		            alert.setContentText("Per favore, inserire username");
+
+		            alert.showAndWait();
+  
+            }
+           
+            else{
 		//ATTENZIONE
 		ClientLogic.getInstance().setUsername(username.getText());
-		mainApp.showMessageConnection();	
+		mainApp.showMessageConnection();
+            }
 	}
 	
 	@FXML
@@ -41,8 +55,22 @@ public class SelectConnectionController {
 //		}
 //		
 //		Client.getInstance().setMatch(req.getMatch("user"));
+
+         if(username.getText().trim().isEmpty()){
+                     Alert alert = new Alert(Alert.AlertType.ERROR);
+		            alert.initOwner(Client.getPrimaryStage());
+		            alert.setTitle("Invalid Fields");
+                            alert.setHeaderText("Non hai inserito nessun carattere\n");
+		            alert.setContentText("Per favore, inserire username");
+
+		            alert.showAndWait();
+  
+            }
+
+        else{
 		ClientLogic.getInstance().setUsername(username.getText());
-		mainApp.showMessageConnection();	
+		mainApp.showMessageConnection();            
+            }   
 	}
 	
 }
