@@ -35,14 +35,10 @@ public class Council implements Serializable {
 		Color tmp = app;
 		
 		old = this.nobles[nobles.length - 1];
-		for(int i = 0; i < (this.nobles.length - 1); i++){
-			if(i == 0) nobles[0] = noble;
-			else {
-				tmp = this.nobles[i + 1];
-				this.nobles[i] = app;
-				app = tmp;
-			}
+		for(int i = (this.nobles.length - 1); i > 0; i--){
+			this.nobles[i] = this.nobles[i - 1];
 		}
+		this.nobles[0] = noble;
 		
 		return old;
 	}
