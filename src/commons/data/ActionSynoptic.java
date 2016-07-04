@@ -22,15 +22,21 @@ public class ActionSynoptic implements Serializable{
 	private Integer acquireSingleVillageBonusNumber;    //Indica il numero di bonus da un villaggio che posso prendere non shist
 	private Integer acquireDoubleVillageBonusNumber;    //Indica il numero di bonus da due villaggi che posso prendere non shift
 	
+	private Integer virtualHelpers ;
+	private Integer virtualCoins;
+	
 	public ActionSynoptic(String username,String matchCode){
 		this.setUsername(username);
 		this.setMatchCode(matchCode);
-		this.setMainActionNumber(ActionSynopticConstants.INITIAL_MAIN_ACTIONS);
-		this.setHelpersActionNumber(ActionSynopticConstants.INITIAL_HELPERS_ACTIONS);
-		this.setReusePermitCardBonusNumber(ActionSynopticConstants.INITIAL_SPECIAL_ACTIONS);
-		this.setAcquirePermitCardNumber(ActionSynopticConstants.INITIAL_SPECIAL_ACTIONS);
-		this.setAcquireSingleVillageBonusNumber(ActionSynopticConstants.INITIAL_SPECIAL_ACTIONS);
-		this.setAcquireDoubleVillageBonusNumber(ActionSynopticConstants.INITIAL_SPECIAL_ACTIONS);
+		this.setMainActionNumber(10);
+		this.setHelpersActionNumber(10);
+		this.setReusePermitCardBonusNumber(10);
+		this.setAcquirePermitCardNumber(10);
+		this.setAcquireSingleVillageBonusNumber(10);
+		this.setAcquireDoubleVillageBonusNumber(10);
+		this.setVirtualHelpers(0);
+		this.setVirtualCoins(0);
+		
 	}
 	
 	private void setUsername(String username){ this.username = username; }
@@ -41,6 +47,8 @@ public class ActionSynoptic implements Serializable{
 	private void setAcquirePermitCardNumber(int acquirePermitCard){this.acquirePermitCardNumber = new Integer(acquirePermitCard); }
 	private void setAcquireSingleVillageBonusNumber(int acquireSingleVillageBonus){ this.acquireSingleVillageBonusNumber = new Integer(acquireSingleVillageBonus); }
 	private void setAcquireDoubleVillageBonusNumber(int acquireDoubleVillageBonus){ this.acquireDoubleVillageBonusNumber = new Integer(acquireDoubleVillageBonus); }
+	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
+	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
 	
 	/**
 	 * Metodo che riduce di una unità il numero di azioni principali del giocatore interessato
@@ -131,6 +139,18 @@ public class ActionSynoptic implements Serializable{
 		this.setAcquireDoubleVillageBonusNumber(this.getAcquireDoubleVillageBonusNumber() + 1);
 	}
 	
+	public void addVirtualHepers(int virtualHelpers){ this.setVirtualHelpers(this.getVirtualHelpers() + virtualHelpers); }
+	public void subVirtualHelpers(int virtualHelpers){
+		if((this.getVirtualHelpers() - virtualHelpers) < 0) this.setVirtualHelpers(0);
+		else this.setVirtualHelpers(this.getVirtualHelpers() - virtualHelpers);
+	}
+	
+	public void addVirtualCoins(int virtualCoins){ this.setVirtualCoins(this.getVirtualCoins() + virtualCoins); }
+	public void subVirtualCoins(int virtualCoins){
+		if((this.getVirtualCoins() - virtualCoins) < 0) this.setVirtualCoins(0);
+		else this.setVirtualCoins(this.getVirtualCoins() - virtualCoins);
+	}
+	
 	/**
 	 * metodo che restituisce lo username a cui è associato un certo sinottico
 	 * @return
@@ -174,6 +194,9 @@ public class ActionSynoptic implements Serializable{
 	 */
 	public int getAcquireDoubleVillageBonusNumber(){ return this.acquireDoubleVillageBonusNumber.intValue(); }
 	
+	public int getVirtualHelpers(){ return this.virtualHelpers.intValue(); }
+	public int getVirtualCoins(){ return this.virtualCoins.intValue(); }
+	
 	@Override
 	public String toString(){
 		String s = "\nActionSynoptic\n";
@@ -185,7 +208,9 @@ public class ActionSynoptic implements Serializable{
 		s += "reuse permit card bonus number: " + this.getReusePermitCardBonusNumber() + "\n";
 		s += "acquire permit card number: " + this.getAcquirePermitCardNumber() + "\n";
 		s += "acquire single village bonus number: " + this.getAcquireSingleVillageBonusNumber() + "\n";
-		s += "acquire double village bonus number: " + this.getAcquireDoubleVillageBonusNumber() ;
+		s += "acquire double village bonus number: " + this.getAcquireDoubleVillageBonusNumber() + "\n";
+		s += "virtual helpers: " + this.getVirtualHelpers() + "\n";
+		s += "virtual coins: " + this.getVirtualCoins() ;
 		
 		return s;
 	}

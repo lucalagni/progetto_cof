@@ -1,6 +1,7 @@
 package client.view.updates;
 
 import client.controller.updates.scheduler.GameUpdatesScheduler;
+import client.view.cli.basic.CliMainMenu;
 
 /**
  * Classe per la visualizzazione del giocatore attuale per il match
@@ -25,7 +26,7 @@ public class CliGamerTurn {
 		Thread t = new Thread(gus);
 		t.start();
 		
-		System.out.println(this.text);
+		//System.out.println(this.text);
 		
 		try {
 			t.join();

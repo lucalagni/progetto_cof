@@ -47,7 +47,7 @@ public class ActionController {
 				ActionFacade af = new ActionFacade();
 				af.changeNoble(king, regionNumber, noble, mainAction);
 				return OK_MESSAGE;
-			} catch (ActionFacadeException e) {
+			} catch (ActionFacadeException | MainActionCommandException e) {
 				return e.getMessage().toString();
 			}
 		

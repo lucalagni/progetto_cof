@@ -15,7 +15,7 @@ import java.io.Serializable;
  * CLIENT_REQUEST_CAN_I_PLAY = Il client chiede se e' stato creato il match con cui puo' giocare...
  * 
  * ============={ messaggi azioni principali }===============
- * CLIENT_REQUEST_MOVE_KING_ACTION = Il client richiede di poter spostare il re (azione principale)
+ * CLIENT_REQUEST_MOVE_KING = Il client richiede di poter spostare il re (azione principale)
  * CLIENT_REQUEST_CHANGE_NOBLE = Il client richiede di cambiare un nobile (azione principale o secondaria)
  * CLIENT_REQUEST_BUY_PERMIT_CARD = il client richiede di comprare una carta permesso di costruzione (azione principale) 
  * CLIENT_REQUEST_TO_PLACE_A_SHOP = il client richiede di piazzare un emporio
@@ -47,7 +47,7 @@ public enum ClientMessageContentType implements Serializable{
 	CLIENT_REQUEST_ADD_ME("CLIENT_REQUEST_ADD_ME"),
 	CLIENT_REQUEST_CAN_I_PLAY("CLIENT_REQUEST_CAN_I_PLAY"),
 	
-	CLIENT_REQUEST_MOVE_KING_ACTION("CLIENT_REQUEST_MOVE_KING_ACTION"),
+	CLIENT_REQUEST_MOVE_KING("CLIENT_REQUEST_MOVE_KING"),
 	CLIENT_REQUEST_CHANGE_NOBLE("CLIENT_REQUEST_CHANGE_NOBLE"),
 	CLIENT_REQUEST_BUY_PERMIT_CARD("CLIENT_REQUEST_BUY_PERMIT_CARD"),
 	CLIENT_REQUEST_TO_PLACE_A_SHOP("CLIENT_REQUEST_TO_PLACE_A_SHOP"),

@@ -2,6 +2,7 @@ package server.command.actions.basics;
 
 import commons.data.ActionSynopticConstants;
 import commons.data.ActionSynoptic;
+import commons.data.UserData;
 import server.command.basic.actions.exceptions.SpecialActionCommandException;
 import server.command.basic.actions.exceptions.codes.SpecialActionCommandExceptionCode;
 import model.basics.Bonus;
@@ -32,12 +33,12 @@ public class SpecialActionCommand {
 	private int virtualHelpers ;
 	private int virtualCoins ;
 	
-	public SpecialActionCommand(Match match,Gamer gamer,int virtualHelpers,int virtualCoins,ActionSynoptic actionSynoptic){
-		this.setMatch(match);
-		this.setGamer(gamer);
-		this.setVirtualCoins(virtualCoins);
-		this.setVirtualHelpers(virtualHelpers);
-		this.setActionSynoptic(actionSynoptic);
+	public SpecialActionCommand(UserData data){
+		this.setMatch(data.getMatch());
+		this.setGamer(data.getGamer());
+		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
+		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
+		this.setActionSynoptic(data.getActionSynoptic());
 	}
 	
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }

@@ -1,14 +1,9 @@
 package client.view.cli.basic;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import client.controller.ControllerRepository;
-import client.controller.actions.basics.ActionController;
-import client.controller.data.GameDataController;
 import client.view.cli.utils.CliClearConsole;
-import model.basics.PermitCard;
-import model.basics.Region;
+
 
 /**
  * Classe che mostra il sinottico principale per le azioni di gioco in modalità CLI
@@ -16,21 +11,18 @@ import model.basics.Region;
  * @author Luca Lagni
  *
  */
-public class CliMainMenu{
+public class CliMainMenu extends Thread{
 	private String text ;
 	private boolean gamerTurn;
 	private Scanner input;
-	private GameDataController controller;
-	private ActionController actionController;
 	
 	public CliMainMenu(boolean gamerTurn){ 
 		this.input = new Scanner(System.in);
 		this.setGamerTurn(gamerTurn);
-		this.controller = ControllerRepository.getInstance().getGameDataController();
 	}
 	
 	private void setGamerTurn(boolean gamerTurn){ this.gamerTurn = gamerTurn; }
-	private boolean getGamerTurn(){ return this.gamerTurn ; }
+	public boolean getGamerTurn(){ return this.gamerTurn ; }
 	
 	private void setBasicText(){
 		this.text += "\n=========={ Main Menu }==========\n";
@@ -40,11 +32,11 @@ public class CliMainMenu{
 		this.text += "\n01)Connections";
 		this.text += "\n02)Village";
 		this.text += "\n03)Region council";
-		this.text += "\n04)King council";
+		this.text += "\n04)King";
 		this.text += "\n05)Unhidden permit cards";
 		this.text += "\n06)Nobilty path";
 		this.text += "\n07)Helpers Pool";
-		this.text += "\n08)Council Pool";
+		this.text += "\n08)Nobles Pool";
 		
 		this.text += "\n\n-----{ Show Gamer Data}-----\n";
 		
@@ -56,15 +48,20 @@ public class CliMainMenu{
 		this.text += "\n14)Helpers";
 		this.text += "\n15)Points";
 		this.text += "\n16)Shifts";
+		this.text += "\n17)Show all";
 		
 		this.text += "\n\n-----{ Show Match Data}-----\n";
 		
-		this.text += "\n17)Match Code";
-		this.text += "\n18)Match Title";
-		this.text += "\n19)Match Data";
-		this.text += "\n20)Match positions";
-		this.text += "\n21)Actual gamer";
-		this.text += "\n22)Next gamer";
+		this.text += "\n18)Match Code";
+		this.text += "\n19)Match Title";
+		this.text += "\n20)Match Data";
+		this.text += "\n21)Match Status";
+		this.text += "\n22)Actual gamer";
+		this.text += "\n23)Next gamer";
+		this.text += "\n24)Positions" ;
+		
+		this.text += "\n\n-----{ Action Synoptic }-------\n";
+		this.text += "\n25)Show Action Synoptic";
 	}
 	
 	private void setActionText(){
@@ -72,26 +69,23 @@ public class CliMainMenu{
 
 		this.text += "\n\n=========={ Action Menu }==========\n";
 		
-		this.text += "\n\n-----{ Action Synoptic }-------\n";
-		this.text += "\n23)Show Action Synoptic";
-		
 		this.text += "\n\n-----{ Main Actions }-----\n";
-		this.text += "\n24)Build shop";
-		this.text += "\n25)Move King";
-		this.text += "\n26)Buy Permit Card";
-		this.text += "\n27)Change noble";
+		this.text += "\n26)Build shop";
+		this.text += "\n27)Move King";
+		this.text += "\n28)Buy Permit Card";
+		this.text += "\n29)Change noble";
 		
 		this.text += "\n\n-----{ Helpers Actions }-----\n";
-		this.text += "\n28)Buy helper";
-		this.text += "\n29)Change noble";
-		this.text += "\n30)Double action";
-		this.text += "\n31)New Main Action";
+		this.text += "\n30)Buy helper";
+		this.text += "\n31)Change noble";
+		this.text += "\n32)Double action";
+		this.text += "\n33)New Main Action";
 		
 		this.text += "\n\n-----{ Special Actions }------\n";
-		this.text += "\n32)Acquire permit card";
-		this.text += "\n33)Reuse permit card bonus";
-		this.text += "\n34)Acquire single village bonus";
-		this.text += "\n35)Acquire double village bonus";
+		this.text += "\n34)Acquire permit card";
+		this.text += "\n35)Reuse permit card bonus";
+		this.text += "\n36)Acquire single village bonus";
+		this.text += "\n37)Acquire double village bonus";
 	}
 	
 	private void setOptionText(){
@@ -124,58 +118,79 @@ public class CliMainMenu{
 			
 			switch(choice){
 				case 1:
+					new CliShowGameData(true).showConnections();
 					break;
 				case 2:
+					new CliShowGameData(true).showVillage();
 					break;
 				case 3:
+					new CliShowGameData(true).showRegionCouncil();
 					break;
 				case 4:
+					new CliShowGameData(true).showKingCouncil();
 					break;
 				case 5:
+					new CliShowGameData(true).showUnhiddenPermitCards();
 					break;
 				case 6:
+					new CliShowGameData(true).showNobiltyPath();
 					break;
 				case 7:
+					new CliShowGameData(true).showHelpersPool();
 					break;
 				case 8:
+					new CliShowGameData(true).showCouncilPool();
 					break;
 				case 9:
+					new CliShowGameData(true).showUsername();
 					break;
 				case 10:
+					new CliShowGameData(true).showUnusedPermitCards();
 					break;
 				case 11:
+					new CliShowGameData(true).showUsedPermitCards();
 					break;
 				case 12:
+					new CliShowGameData(true).showPoliticalCards();
 					break;
 				case 13:
+					new CliShowGameData(true).showCoins();
 					break;
 				case 14:
+					new CliShowGameData(true).showHelpers();
 					break;
 				case 15:
+					new CliShowGameData(true).showPoints();
 					break;
 				case 16:
+					new CliShowGameData(true).showShifts();
 					break;
 				case 17:
+					new CliShowGameData(true).showAllGamerData();
 					break;
 				case 18:
+					new CliShowGameData(true).showMatchCode();
 					break;
 				case 19:
+					new CliShowGameData(true).showMatchTitle();
 					break;
 				case 20:
+					new CliShowGameData(true).showMatchData();
 					break;
 				case 21:
+					new CliShowGameData(true).showMatchStatus();
 					break;
 				case 22:
+					new CliShowGameData(true).showMatchActualGamer();
 					break;
 				case 23:
-					if(this.gamerTurn == false) continue;
-					this.showActionSynoptic();
+					new CliShowGameData(true).showMatchNextGamer();
 					break;
 				case 24:
-					if(this.gamerTurn == false) continue;
+					new CliShowGameData(true).showPositions();
 					break;
 				case 25:
-					if(this.gamerTurn == false) continue;
+					new CliShowGameData(true).showActionSynoptic();
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
@@ -218,52 +233,9 @@ public class CliMainMenu{
 		return choice;
 	}
 	
-	private void showActionSynoptic(){
-		System.out.println("\n----------{ Action Synoptic }----------\n");
-		System.out.println(this.controller.getUserData().getActionSynoptic().toString());
+	@Override
+	public void run(){
+		this.show();
 	}
 	
-	private void changeNoble(boolean mainAction){
-		boolean king = false ;
-		int in = -1 ;
-		
-		System.out.println("\n----------{ Change Noble }----------\n");
-		
-		System.out.println("\n1)king noble");
-		System.out.println("\n2)region noble");
-		System.out.println("\nchoice: ");
-		in = Integer.parseInt(this.input.nextLine());
-		
-		if(in == 2){
-			System.out.println("\n Select region number: ");
-			in = Integer.parseInt(this.input.nextLine());
-			Region r = this.controller.getUserData().getMatch().getBoard().getRegions()[in];
-			for(int i = 0; i < r.getCouncil().getNobles().length; i++){
-				System.out.print(" " + r.getCouncil().getNobles()[i]);
-			}
-		}
-	}
-	
-	private void buildShop(){
-		System.out.println("\n----------{ Build Shop }----------\n");
-		ArrayList<PermitCard> unusedPermitsCards = this.controller.getUserData().getGamer().getUnusedPermitCards();
-		boolean flag = false ;
-		int permitCardIndex = -1;
-		char village;
-		
-		for(int i = 0; i < unusedPermitsCards.size(); i++){
-			System.out.print("\ni)permit card: " + unusedPermitsCards.get(i).toString());
-		}
-			
-		System.out.print("\nSelect a permit card: ");
-		permitCardIndex = Integer.parseInt(this.input.nextLine());
-		
-		System.out.println("\n----------{ Permit Card }----------\n");	
-		System.out.println("\nnumber: " + permitCardIndex);
-		System.out.println(unusedPermitsCards.get(permitCardIndex).toString());
-		System.out.println("\nSelect village: ");
-		village = this.input.nextLine().charAt(0);
-		
-		this.actionController.placeShop(village, permitCardIndex);
-	}
 }

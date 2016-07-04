@@ -20,6 +20,7 @@ public class GameUpdatesScheduler extends Thread{
 	private static final int NUM_THREADS = 1;
 	private static final boolean DONT_INTERRUPT_IF_RUNNING = true ;
 	private static final int SLEEP_TIME = 100;
+	private static int counter = 0;
 	
 	private ScheduledExecutorService scheduler;
 	private GameUpdatesController controller;
@@ -32,6 +33,7 @@ public class GameUpdatesScheduler extends Thread{
 	private boolean itsMyTurnToPlay;
 	
 	public GameUpdatesScheduler(){
+		counter++;
 		this.scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
 		ControllerRepository.getInstance().setGameUpdatesController();
 		this.dataController = ControllerRepository.getInstance().getGameDataController();
@@ -53,8 +55,8 @@ public class GameUpdatesScheduler extends Thread{
 	
 	private void setItsMyTurnToPlay(boolean itsMyTurnToPlay){ 
 		this.itsMyTurnToPlay = itsMyTurnToPlay; 
-		this.scheduledTask.cancel(DONT_INTERRUPT_IF_RUNNING);
-		this.scheduler.shutdownNow();
+		//this.scheduledTask.cancel(DONT_INTERRUPT_IF_RUNNING);
+		//this.scheduler.shutdownNow();
 	}
 	
 	public boolean getItsMyTurnToPlay(){ return this.itsMyTurnToPlay; }
@@ -76,21 +78,26 @@ public class GameUpdatesScheduler extends Thread{
 	private class StartRequestGamerTurn implements Runnable  {
 
 		public void run() {
+			 System.out.println("counter: " + counter);
+			 controller.getGamerTurn();
 			 int gamerTurn = dataController.getUserData().getMatch().getActualGamer();
+			 System.out.println("\nGamer turn: " + gamerTurn);
+			 if(myGamerID == gamerTurn) setItsMyTurnToPlay(true);
+			 else setItsMyTurnToPlay(false);
 			
-			if(controller.getGamerTurn() != getActualGamer()){
+			/*if(controller.getGamerTurn() != getActualGamer()){
 				//Verifico se è il mio turno di fare azioni
 				System.out.println("[GameUpdatesScheduler] IT'S THE TURN OF: " + gamerTurn);
 				setActualGamer(gamerTurn);
 				if(gamerTurn == getMyGamerID()) {
 					System.out.println("[GameUpdatesScheduler] IT'S MY TURN TO PLAY");
-					setItsMyTurnToPlay(true);
+					//setItsMyTurnToPlay(true);
 				}
 				else{
 					System.out.println("[GameUpdatesScheduler] IT'S NOT MY TURN TO PLAY");
-					setItsMyTurnToPlay(false);
+					//setItsMyTurnToPlay(false);
 				}
-			}
+			}*/
 		}
 		
 	}

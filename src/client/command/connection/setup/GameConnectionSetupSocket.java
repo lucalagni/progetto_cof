@@ -51,6 +51,7 @@ public class GameConnectionSetupSocket {
 		if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_MATCH){
 			this.data.setupGamer(response.getUserData().getGamer());
 			this.data.setupMatch(response.getUserData().getMatch());
+			this.data.updateActionSynoptic(response.getUserData().getActionSynoptic());
 		}
 		
 		return responseString;

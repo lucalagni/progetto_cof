@@ -33,6 +33,7 @@ public class MatchScheduler {
 		this.setHasPlayed(false);
 		this.setFirstTurn(true);
 		this.scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
+		this.getMatch().done();
 	}
 	
 	private void setMatch(Match match){ this.match = match; }
@@ -59,8 +60,7 @@ public class MatchScheduler {
 	private class StartMatchScheduler implements Runnable {
 
 		public void run() {
-			if(getFirstTurn() == true) setFirstTurn(false);
-			else getMatch().done();
+			getMatch().done();
 			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 		}
 		

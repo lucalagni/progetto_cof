@@ -26,16 +26,18 @@ public class ActionEncoderSocket {
 	 * Metodo che costruisce il messaggio per richiedere al server di poter spostare il re
 	 * @param path
 	 */
-	public void moveKing(ArrayList<String> path){
+	public void moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition){
 		ClientMessage message = new ClientMessage(this.user);
 		ServerMessage response = null;
 		ArrayList<String[]> pm = new ArrayList<String[]>();
 		String[] parameters = new String[path.size()];
+		String[] parameters2 = new String[politicalCardsPosition.size()]; 
 		
 		for(int i = 0; i < path.size(); i++) parameters[i] = new String("" + path.get(i));
 		pm.add(parameters);
-		
-		message.addContent(ClientMessageContentType.CLIENT_REQUEST_MOVE_KING_ACTION, pm);
+		for(int i = 0; i < politicalCardsPosition.size(); i++) parameters2[i] = new String("" + politicalCardsPosition.get(i));
+		pm.add(parameters2);
+		message.addContent(ClientMessageContentType.CLIENT_REQUEST_MOVE_KING, pm);
 		
 		response = this.client.sendMessage(message);
 		
@@ -56,7 +58,12 @@ public class ActionEncoderSocket {
 		
 		parameters[0] = new String("" + king);
 		parameters[1] = new String("" + regionNumber);
-		parameters[2] = new String("" + noble);
+		if(noble.equals(Color.BLACK)) parameters[2] = new String("BLACK");
+		if(noble.equals(Color.CYAN)) parameters[2] = new String("CYAN");
+		if(noble.equals(Color.PINK)) parameters[2] = new String("PINK");
+		if(noble.equals(Color.MAGENTA)) parameters[2] = new String("MAGENTA");
+		if(noble.equals(Color.ORANGE)) parameters[2] = new String("ORANGE");
+		if(noble.equals(Color.WHITE)) parameters[2] = new String("WHITE");
 		parameters[3] = new String("" + mainAction);
 		params.add(parameters);
 		
@@ -73,13 +80,15 @@ public class ActionEncoderSocket {
 	 */
 	public void buyPermitCard(int regionNumber,int permitCardNumber,int[] politicalCardsIndex){
 		ClientMessage message = new ClientMessage(this.user);
-		String[] parameters = new String[politicalCardsIndex.length + 2];
+		String[] parameters = new String[2];
+		String[] parameters2 = new String[politicalCardsIndex.length];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
 		parameters[0] = new String("" + regionNumber);
 		parameters[1] = new String("" + permitCardNumber);
-		for(int i = 2; i < parameters.length; i++) parameters[i] = new String("" + politicalCardsIndex[i]);
+		for(int i = 0; i < parameters2.length; i++) parameters2[i] = new String("" + politicalCardsIndex[i]);
 		params.add(parameters);
+		params.add(parameters2);
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_PERMIT_CARD, params);
 		this.client.sendMessage(message);

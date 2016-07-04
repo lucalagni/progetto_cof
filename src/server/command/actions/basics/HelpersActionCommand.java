@@ -33,15 +33,15 @@ public class HelpersActionCommand {
 	private int virtualCoins ;
 	private ActionSynoptic actionSynoptic;
 	
-	public HelpersActionCommand(Gamer gamer,Match match,int virtualHelpers,int virtualCoins,ActionSynoptic actionSynoptic) throws HelpersActionCommandException{
+	public HelpersActionCommand(UserData data) throws HelpersActionCommandException{
 		if(this.actionSynoptic.getHelpersActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new HelpersActionCommandException(HelpersActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
-		this.setActionSynoptic(actionSynoptic);
-		this.setGamer(gamer);
-		this.setMatch(match);
-		this.setVirtualHelpers(virtualHelpers);
-		this.setVirtualCoins(virtualCoins);
+		this.setActionSynoptic(data.getActionSynoptic());
+		this.setGamer(data.getGamer());
+		this.setMatch(data.getMatch());
+		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
+		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 	}
 	
 	private void setMatch(Match match){ this.match = match; }
@@ -213,4 +213,5 @@ public class HelpersActionCommand {
 	public Gamer getGamer(){ return this.gamer; }
 	public int getVirtualHelpers(){ return this.virtualHelpers ; }
 	public int getVirtualCoins(){ return this.virtualCoins; }
+	public ActionSynoptic getActionSynoptic(){ return this.actionSynoptic; }
 }

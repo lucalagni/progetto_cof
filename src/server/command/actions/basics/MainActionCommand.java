@@ -50,15 +50,15 @@ public class MainActionCommand {
 	private int virtualCoins ;
 	
 	
-	public MainActionCommand(Match match,Gamer gamer,int virtualHelpers,int virtualCoins,ActionSynoptic actionSynoptic) throws MainActionCommandException{
+	public MainActionCommand(UserData data) throws MainActionCommandException{
 		if(actionSynoptic.getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
-		this.setActionSynoptic(actionSynoptic);
-		this.setMatch(match);
-		this.setGamer(gamer);
-		this.setVirtualHelpers(virtualHelpers);
-		this.setVirtualCoins(virtualCoins);
+		this.setActionSynoptic(data.getActionSynoptic());
+		this.setMatch(data.getMatch());
+		this.setGamer(data.getGamer());
+		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
+		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 	}
 	
 	private void setMatch(Match match){ this.match = match; }
