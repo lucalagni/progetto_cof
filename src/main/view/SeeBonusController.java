@@ -95,7 +95,7 @@ public class SeeBonusController {
     public void seeBonusVillage(int i){
     	
     	setBonusHelpers("" + be.getGameMap().getVillages()[i].getBonus().getHelpers());
-		setBonusShifts("" + be.getGameMap().getVillages()[i].getBonus().getShifts());
+	setBonusShifts("" + be.getGameMap().getVillages()[i].getBonus().getShifts());
 	    setBonusPoliticalCards("" + be.getGameMap().getVillages()[i].getBonus().getPoliticalCards());
 	    setBonusCoins("" + be.getGameMap().getVillages()[i].getBonus().getCoins());
 	    setBonusPoints("" + be.getGameMap().getVillages()[i].getBonus().getPoints());
@@ -107,9 +107,12 @@ public class SeeBonusController {
 	}
     
     public void seeBonusPermitCard(int i, int card){
-    	
-    	PermitCard pc;
-    	pc = be.getRegions()[i].getPermitCardsDeck().getAvailableCardsList().get(card);
+ 
+    	PermitCard[] pcs;
+        PermitCard pc;
+    	//pc = be.getRegions()[i].getPermitCardsDeck().getAvailableCardsList().get(card);
+        pcs = be.getRegions()[i].getPermitCardsDeck().getUnhiddenCards();
+        pc = pcs[card];
     	setBonusHelpers("" + pc.getBonus().getHelpers());
     	setBonusShifts("" + pc.getBonus().getShifts());
     	setBonusPoliticalCards("" + pc.getBonus().getPoliticalCards());
@@ -119,9 +122,7 @@ public class SeeBonusController {
     	setBonusReusePermitCard("" + pc.getBonus().getReusePermitBonus());
     	setBonusAcquirePermitCard("" + pc.getBonus().getAcquirePermitCard());
     	setBonusAcquireSingleVillageBonus("" + pc.getBonus().getAcquireSingleVillageBonus());
-    	setBonusAcquireDoubleVillageBonus("" + pc.getBonus().getAcquireDoubleVillageBonus());
-   	
-    	
+    	setBonusAcquireDoubleVillageBonus("" + pc.getBonus().getAcquireDoubleVillageBonus());	
     }
     
     public void seeBonusPermitCardGamer(int i){

@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import model.basics.Board;
 import model.basics.Gamer;
 import model.basics.Match;
+import model.market.Market;
 
 public class ClientLogic {
 	
@@ -12,13 +13,10 @@ public class ClientLogic {
 	private final ObjectProperty<Match> match; //new 23.06
 	//private Match match;
     private Board be;
-<<<<<<< HEAD
-    private String username = "Gamer1";
+    private String username;
     private Gamer gamer;
-    
-    MatchRequest req;
-=======
->>>>>>> 0ecfc63db6e8b0f97160ee713024b7a639e8d4f8
+    private Market market;
+
 	
 	public ClientLogic()
 	{
@@ -44,11 +42,11 @@ public class ClientLogic {
     		for( Gamer g:getMatch().getGamers() ){
     			System.out.format("G: %s\nUser: %s\n", g.getUsername(), username);
     			if( g.getUsername().equals(username) ){
-    				System.out.println("UGUALI");
     				gamer=g;
     				break;
     			}
     		}
+        market = getMatch().getMarket();
     	}
     }
     
@@ -75,6 +73,11 @@ public class ClientLogic {
     
     public Gamer getGamer(){
     	return gamer;
+    }
+  
+    
+    public Market getMarket(){
+        return market;
     }
     
     

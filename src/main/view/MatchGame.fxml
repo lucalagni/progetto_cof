@@ -210,7 +210,7 @@
                 </TitledPane>
                 <TitledPane fx:id="mainActionTitledPane" animated="false" text="Azioni principali">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane fx:id="anchorPaneMainAction" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <TabPane layoutX="-2.0" layoutY="1.0" prefHeight="572.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE">
                                 <tabs>
@@ -290,7 +290,7 @@
                                                                   <Image url="@image/ominoRosa.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Button fx:id="electNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickEleggiConsigliere" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
+                                                            <Button fx:id="electNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickActionElectCouncil" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
                                                                </font>
@@ -454,7 +454,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="308.0" prefWidth="451.0">
                                              <children>
-                                                <SplitPane dividerPositions="0.34026465028355385, 0.6710775047258979" layoutX="7.0" layoutY="7.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="443.0">
+                                                <SplitPane dividerPositions="0.34026465028355385, 0.6710775047258979" layoutX="30.0" layoutY="6.0" orientation="VERTICAL" prefHeight="531.0" prefWidth="503.0">
                                                    <items>
                                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;">
                                                          <children>
@@ -529,7 +529,7 @@
                                                                   <Font name="Berry Rotunda Regular" size="14.0" />
                                                                </font>
                                                             </Label>
-                                                            <Button fx:id="regionCard0" layoutX="125.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                            <Button fx:id="buyRegionCard0" layoutX="125.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
                                                                <effect>
                                                                   <ImageInput x="-3.0" y="-3.0">
                                                                      <source>
@@ -538,7 +538,7 @@
                                                                   </ImageInput>
                                                                </effect>
                                                             </Button>
-                                                            <Button fx:id="regionCard1" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
+                                                            <Button fx:id="buyRegionCard1" layoutX="263.0" layoutY="78.0" mnemonicParsing="false" onAction="#showBonusPermitCard" prefHeight="32.0" prefWidth="32.0">
                                                                <effect>
                                                                   <ImageInput x="-3.0" y="-3.0">
                                                                      <source>
@@ -555,6 +555,11 @@
                                                             <Button fx:id="selectPermitCardBuy1" layoutX="250.0" layoutY="125.0" mnemonicParsing="false" onAction="#selectPermitCard" text="Select">
                                                                <font>
                                                                   <Font name="Berry Rotunda Regular" size="12.0" />
+                                                               </font>
+                                                            </Button>
+                                                            <Button fx:id="actionBuyPermitCardButton" layoutX="340.0" layoutY="52.0" mnemonicParsing="false" onAction="#actionBuyPermitCard" text="Fai mossa">
+                                                               <font>
+                                                                  <Font name="Berry Rotunda Regular" size="15.0" />
                                                                </font>
                                                             </Button>
                                                          </children></AnchorPane>
@@ -898,7 +903,7 @@
                                                                         <Image url="@image/ominoRosa.png" />
                                                                      </image>
                                                                   </ImageView>
-                                                                  <Button fx:id="electFastNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickEleggiConsigliere" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
+                                                                  <Button fx:id="electFastNobil" layoutX="201.0" layoutY="271.0" mnemonicParsing="false" onAction="#clickActionElectCouncil" prefHeight="38.0" prefWidth="100.0" text="Fai mossa">
                                                                      <font>
                                                                         <Font name="Berry Rotunda Regular" size="12.0" />
                                                                      </font>
@@ -909,7 +914,7 @@
                                                                      </toggleGroup>
                                                                   </RadioButton>
                                                                   <RadioButton fx:id="fastNobilBlack" layoutX="114.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
-                                                                  <RadioButton fx:id="fastNobilCyan1" layoutX="191.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
+                                                                  <RadioButton fx:id="fastNobilCyan" layoutX="191.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
                                                                   <RadioButton fx:id="fastNobilOrange" layoutX="270.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
                                                                   <RadioButton fx:id="fastNobilMagenta" layoutX="343.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
                                                                   <RadioButton fx:id="fastNobilPink" layoutX="417.0" layoutY="213.0" mnemonicParsing="false" onAction="#nobilSelection" toggleGroup="$selectColorNobil1" />
@@ -1222,7 +1227,7 @@
                                                             <Font name="Berry Rotunda Regular" size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <Text layoutX="14.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unused Permit card" wrappingWidth="168.00000341422856">
+                                                      <Text layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Unused Permit card" wrappingWidth="168.00000341422856">
                                                          <font>
                                                             <Font name="Berry Rotunda Regular" size="12.0" />
                                                          </font>

@@ -66,8 +66,8 @@ public class FxmlMatchGameController {
 	@FXML  Button region2Card1;
 	
 	// Pulsanti bonus carte regione azioni principali
-	@FXML  Button regionCard0;
-	@FXML  Button regionCard1;
+	@FXML  Button buyRegionCard0;
+	@FXML  Button buyRegionCard1;
 	
 	//Pulsanti bonus carte regione azioni speciali
 	@FXML  Button regionCardSpecialAction0;
@@ -97,6 +97,8 @@ public class FxmlMatchGameController {
 	// label carte permesso regione delle azioni speciali
 	@FXML  Label villagesRegionCardSpecialAction0;
 	@FXML  Label villagesRegionCardSpecialAction1;
+        
+        @FXML  Label seeVillageBuildShop;
 	
 	// nobil of board
 	@FXML  ImageView nobil00;
@@ -419,8 +421,8 @@ public class FxmlMatchGameController {
 	@FXML AnchorPane anchorSelectVillageBuildShop;
 	@FXML AnchorPane anchorSelectPermitCard1;
 	@FXML AnchorPane anchorSelectKingVillage;
-	@FXML  AnchorPane anchorProprietaGiocatore;
-	@FXML  AnchorPane anchorTakePermitCard;
+	@FXML AnchorPane anchorProprietaGiocatore;
+	@FXML AnchorPane anchorTakePermitCard;
 
 	//set label region number
 	@FXML  Label regionNumber1;
@@ -441,6 +443,7 @@ public class FxmlMatchGameController {
 	@FXML Button clickAcquirePermitCard;
 	@FXML Button clickAcquireBonusPermitCard;
         @FXML Button buildWithKing;
+        @FXML Button actionBuyPermitCardButton;
 	
 	
 	
