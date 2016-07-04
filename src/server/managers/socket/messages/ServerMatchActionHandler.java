@@ -87,7 +87,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestReusePermitCardBonus(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int index = Integer.parseInt(msg.getParameters().get(0)[0]);
 		
@@ -126,7 +126,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestAcquireDoubleVillageBonus(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		char village1 = msg.getParameters().get(0)[0].charAt(0);
 		char village2 = msg.getParameters().get(0)[1].charAt(0);
@@ -166,7 +166,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestAcquireSingleVillageBonus(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		char village = msg.getParameters().get(0)[0].charAt(0);
 		
@@ -207,7 +207,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestAcquirePermitCard(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int regionNumber = Integer.parseInt(msg.getParameters().get(0)[0]);
 		int permitCard = Integer.parseInt(msg.getParameters().get(0)[1]);
@@ -251,7 +251,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestBuyNewMainAction(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		try {
 			HelpersActionCommand hac = new HelpersActionCommand(msg.getUserData());
@@ -289,7 +289,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestDoubleAction(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int regionNumber = Integer.parseInt(msg.getParameters().get(0)[0]);
 		
@@ -329,7 +329,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestBuyHelper(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int numberOfHelpers = Integer.parseInt(msg.getParameters().get(0)[0]);
 		boolean queque = Boolean.parseBoolean(msg.getParameters().get(0)[1]);
@@ -373,7 +373,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestPlaceShop(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		char village = msg.getParameters().get(0)[0].charAt(0);
 		int permitCard = Integer.parseInt(msg.getParameters().get(0)[1]);
@@ -459,7 +459,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestChangeNoble(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		//Estraggo i parametri dal messaggio
 		boolean king = Boolean.parseBoolean(msg.getParameters().get(0)[0]);
@@ -538,7 +538,7 @@ public class ServerMatchActionHandler {
 	public ServerMessage clientRequestMoveKing(ClientMessage msg){
 		ServerMessage response = null;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
+		if(this.isActualGamer(msg.getUserData()) == false) ;//return this.serverResponseGamerCannotPlay(msg);
 		else {
 			try {
 				MainActionCommand mac = new MainActionCommand(msg.getUserData());

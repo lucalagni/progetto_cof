@@ -141,11 +141,14 @@ public class Gamer implements Serializable{
 	
 	
 	public void addCoins(int coins) throws GamerException{
-		if((this.getCoins() + coins) > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER) {
+		int cns = this.coins.intValue();
+		cns += coins ;
+		System.out.println("\nCoins2: " + cns);
+		if(cns > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER) {
 			this.setCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
 			throw new GamerException(GamerExceptionCode.TOO_MANY_COINS.getExceptionCode());
 		}
-		else this.setCoins(this.getCoins() + coins);
+		else this.setCoins(cns);
 	} 
 	
 	public void subCoins(int coins) throws GamerException{

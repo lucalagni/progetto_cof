@@ -8,7 +8,6 @@ import model.basics.PoliticalCard;
 import model.basics.builders.GamerBuilder;
 import model.basics.constants.CoinsPoolConstants;
 import model.basics.constants.GamerConstants;
-import model.basics.constants.HelpersPoolConstants;
 import model.basics.supports.GamerStatus;
 
 public class Gamer1Example {

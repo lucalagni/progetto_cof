@@ -34,6 +34,7 @@ public class HelpersActionCommand {
 	private ActionSynoptic actionSynoptic;
 	
 	public HelpersActionCommand(UserData data) throws HelpersActionCommandException{
+		this.setActionSynoptic(data.getActionSynoptic());
 		if(this.actionSynoptic.getHelpersActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new HelpersActionCommandException(HelpersActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
@@ -207,6 +208,8 @@ public class HelpersActionCommand {
 		this.match.getBoard().getHelpersPool().addHelpers(HelpersPoolConstants.HELPERS_FOR_NEW_MAIN_ACTION);
 		
 		this.actionSynoptic.addMainAction();
+		this.actionSynoptic.useHelpersAction();
+		
 	}
 	
 	public Match getMatch(){ return this.match; }

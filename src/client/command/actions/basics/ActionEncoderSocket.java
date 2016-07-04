@@ -42,6 +42,16 @@ public class ActionEncoderSocket {
 		
 		response = this.client.sendMessage(message);
 		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -71,6 +81,16 @@ public class ActionEncoderSocket {
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_CHANGE_NOBLE, params);
 		response = this.client.sendMessage(message);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -105,7 +125,7 @@ public class ActionEncoderSocket {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -126,6 +146,16 @@ public class ActionEncoderSocket {
 		
 		message.addContent(ClientMessageContentType.CLIENT_REQUEST_TO_PLACE_A_SHOP, params);
 		response = this.client.sendMessage(message);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -146,6 +176,16 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_HELPERS, parameters);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -158,6 +198,16 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_BUY_NEW_MAIN_ACTION, null);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -175,6 +225,16 @@ public class ActionEncoderSocket {
 		params.add(parameters);
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_DOUBLE_ACTION, params);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -196,6 +256,16 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_PERMIT_CARD, params);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -215,6 +285,16 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS, params);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -235,6 +315,16 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS, params);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -254,6 +344,15 @@ public class ActionEncoderSocket {
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS, params);
 		response = this.client.sendMessage(request);
+		
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
+		} catch (UserDataException e) {
+			e.printStackTrace();
+		}
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
 		return response.getContent().getServerMessageContentType();
 	}
 }

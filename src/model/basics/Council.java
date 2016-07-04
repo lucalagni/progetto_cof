@@ -30,23 +30,18 @@ public class Council implements Serializable {
 	}
 	
 	public Color slideNoble(Color noble) throws CouncilException{
-		Color tmp = noble, app = null ;
-		Color[] nobles = this.getNobles();
 		Color old = null ;
+		Color app = this.nobles[0];
+		Color tmp = app;
 		
-		if(checkSingleColorConsistence(noble) == false) throw new CouncilException(CouncilExceptionCode.INCONSISTENCE_BETWEEN_NEW_NOBLE_AND_PALETTE.getExceptionCode());
-		for(int i = 0; i < (nobles.length - 1); i++){
-			if(i == 0){
-				tmp = nobles[i];
-				nobles[i] = noble;
+		old = this.nobles[nobles.length - 1];
+		for(int i = 0; i < (this.nobles.length - 1); i++){
+			if(i == 0) nobles[0] = noble;
+			else {
+				tmp = this.nobles[i + 1];
+				this.nobles[i] = app;
+				app = tmp;
 			}
-			else
-			{
-				app = nobles[i];
-				nobles[i] = tmp;
-				tmp = app;
-			}
-			if(i == nobles.length - 1) old = app;
 		}
 		
 		return old;
@@ -65,7 +60,7 @@ public class Council implements Serializable {
 			if(this.nobles[i].equals(Color.ORANGE))  councilString += " ORANGE \n";
 			if(this.nobles[i].equals(Color.MAGENTA))  councilString += " MAGENTA \n";
 			if(this.nobles[i].equals(Color.CYAN))  councilString += " CYAN \n";
-			if(this.nobles[i].equals(Color.PINK))  councilString += " PYNK \n";
+			if(this.nobles[i].equals(Color.PINK))  councilString += " PINK \n";
 		}
 		
 		return councilString;

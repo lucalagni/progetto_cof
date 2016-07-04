@@ -205,29 +205,32 @@ public class CliMainMenu extends Thread{
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().buildShop();
 					break;
 				case 27:
 					if(this.gamerTurn == false) continue;
 					break;
 				case 28:
-					//if(this.gamerTurn == false) continue;
- 				new CliPerformAction().buyPermitCard();
+					if(this.gamerTurn == false) continue;
+					new CliPerformAction().buyPermitCard();
 					break;
 				case 29:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction().changeNoble(true);
 					break;
 				case 30:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction().buyHelper();
 					break;
 				case 31:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction().changeNoble(false);
 					break;
 				case 32:
 					if(this.gamerTurn == false) continue;
 					break;
 				case 33:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction().buyNewMainAction();
 					break;
 				case 34:
 					if(this.gamerTurn == false) continue;

@@ -582,6 +582,20 @@ public class MainActionCommand {
 		for(Color c: ColorConstants.POLITICAL_COLORS) if(c.equals(noble)) flag = true;
 		if(flag == false) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_NOBLE_COLOR.getExceptionCode());
 		
+		System.out.println("Gamer coins: "+ this.gamer.getCoins());
+		System.out.println("\nVirtual Coins: " + this.getVirtualCoins());
+		System.out.println("\nReward: " + CouncilConstants.REWARD_COINS);
+		System.out.println("\nMax number of coins: " + CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
+		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
+		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
+				this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;
+				this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
+		}
+		else{
+
+			this.gamer.addCoins( CouncilConstants.REWARD_COINS);
+		}
+		
 		//determino dove cambiare il nobile
 		if(isKing == true) old = this.match.getBoard().getKing().getCouncil().slideNoble(noble);
 		else old = this.match.getBoard().getRegions()[regionNumber].getCouncil().slideNoble(noble);
@@ -602,13 +616,6 @@ public class MainActionCommand {
 		if(old.equals(ColorConstants.POLITICAL_COLORS[3])) this.match.getBoard().getNoblesPool().addMagentaNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[4])) this.match.getBoard().getNoblesPool().addOrangeNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[5])) this.match.getBoard().getNoblesPool().addWhiteNoble();
-		
-		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
-		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
-			this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;
-			this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER-this.gamer.getCoins());
-		}
-		else this.gamer.addCoins(this.gamer.getCoins() + CouncilConstants.REWARD_COINS);
 		
 		//Riduco il numero di azioni principali del giocatore
 		this.actionSynoptic.useMainAction();
