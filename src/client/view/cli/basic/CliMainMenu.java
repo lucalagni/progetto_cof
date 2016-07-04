@@ -18,16 +18,18 @@ import client.view.cli.utils.CliClearConsole;
 public class CliMainMenu extends Thread{
 	private String text ;
 	private boolean gamerTurn;
-	private Scanner input;
-	private BufferedReader bufferedInput;
 	
 	public CliMainMenu(boolean gamerTurn){ 
-		this.input = new Scanner(System.in);
-		this.bufferedInput = new BufferedReader(new InputStreamReader(System.in));
 		this.setGamerTurn(gamerTurn);
 	}
 	
-	private void setGamerTurn(boolean gamerTurn){ this.gamerTurn = gamerTurn; }
+	public void setGamerTurn(boolean gamerTurn){ 
+		this.gamerTurn = gamerTurn; 
+		this.text = null;
+		this.setBasicText();
+		if(this.gamerTurn == true) this.setActionText();
+		this.setOptionText();
+	}
 	public boolean getGamerTurn(){ return this.gamerTurn ; }
 	
 	private void setBasicText(){
@@ -117,11 +119,9 @@ public class CliMainMenu extends Thread{
 			System.out.println(this.text);
 			
 			try {
-				choice = Integer.parseInt(in.nextLine());
+				choice = in.nextInt();
 				
-				//choice = Integer.parseInt(this.bufferedInput.readLine());
 			}catch(Exception ex){
-				ex.printStackTrace();
 				System.out.println("\nInvalid input data, retry");
 				flag = false ;
 				continue;
@@ -129,79 +129,79 @@ public class CliMainMenu extends Thread{
 			
 			switch(choice){
 				case 1:
-					new CliShowGameData(true).showConnections();
+					new CliShowGameData(true,in).showConnections();
 					break;
 				case 2:
-					new CliShowGameData(true).showVillage();
+					new CliShowGameData(true,in).showVillage();
 					break;
 				case 3:
-					new CliShowGameData(true).showRegionCouncil();
+					new CliShowGameData(true,in).showRegionCouncil();
 					break;
 				case 4:
-					new CliShowGameData(true).showKingCouncil();
+					new CliShowGameData(true,in).showKingCouncil();
 					break;
 				case 5:
-					new CliShowGameData(true).showUnhiddenPermitCards();
+					new CliShowGameData(true,in).showUnhiddenPermitCards();
 					break;
 				case 6:
-					new CliShowGameData(true).showNobiltyPath();
+					new CliShowGameData(true,in).showNobiltyPath();
 					break;
 				case 7:
-					new CliShowGameData(true).showHelpersPool();
+					new CliShowGameData(true,in).showHelpersPool();
 					break;
 				case 8:
-					new CliShowGameData(true).showCouncilPool();
+					new CliShowGameData(true,in).showCouncilPool();
 					break;
 				case 9:
-					new CliShowGameData(true).showUsername();
+					new CliShowGameData(true,in).showUsername();
 					break;
 				case 10:
-					new CliShowGameData(true).showUnusedPermitCards();
+					new CliShowGameData(true,in).showUnusedPermitCards();
 					break;
 				case 11:
-					new CliShowGameData(true).showUsedPermitCards();
+					new CliShowGameData(true,in).showUsedPermitCards();
 					break;
 				case 12:
-					new CliShowGameData(true).showPoliticalCards();
+					new CliShowGameData(true,in).showPoliticalCards();
 					break;
 				case 13:
-					new CliShowGameData(true).showCoins();
+					new CliShowGameData(true,in).showCoins();
 					break;
 				case 14:
-					new CliShowGameData(true).showHelpers();
+					new CliShowGameData(true,in).showHelpers();
 					break;
 				case 15:
-					new CliShowGameData(true).showPoints();
+					new CliShowGameData(true,in).showPoints();
 					break;
 				case 16:
-					new CliShowGameData(true).showShifts();
+					new CliShowGameData(true,in).showShifts();
 					break;
 				case 17:
-					new CliShowGameData(true).showAllGamerData();
+					new CliShowGameData(true,in).showAllGamerData();
 					break;
 				case 18:
-					new CliShowGameData(true).showMatchCode();
+					new CliShowGameData(true,in).showMatchCode();
 					break;
 				case 19:
-					new CliShowGameData(true).showMatchTitle();
+					new CliShowGameData(true,in).showMatchTitle();
 					break;
 				case 20:
-					new CliShowGameData(true).showMatchData();
+					new CliShowGameData(true,in).showMatchData();
 					break;
 				case 21:
-					new CliShowGameData(true).showMatchStatus();
+					new CliShowGameData(true,in).showMatchStatus();
 					break;
 				case 22:
-					new CliShowGameData(true).showMatchActualGamer();
+					new CliShowGameData(true,in).showMatchActualGamer();
 					break;
 				case 23:
-					new CliShowGameData(true).showMatchNextGamer();
+					new CliShowGameData(true,in).showMatchNextGamer();
 					break;
 				case 24:
-					new CliShowGameData(true).showPositions();
+					new CliShowGameData(true,in).showPositions();
 					break;
 				case 25:
-					new CliShowGameData(true).showActionSynoptic();
+					new CliShowGameData(true,in).showActionSynoptic();
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;

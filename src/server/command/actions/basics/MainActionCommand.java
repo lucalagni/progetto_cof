@@ -326,6 +326,8 @@ public class MainActionCommand {
 	 * @throws HelpersPoolException
 	 * @throws PoliticalCardsDeckException
 	 * @throws NobiltyPathException
+	 * 
+	 * Funzionante
 	 */
 	public void pickupPermitCard(int regionNumber,int permitCardNumber,int politicalCardsPosition[]) throws MainActionCommandException, PermitCardsDeckException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
 		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 1)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());

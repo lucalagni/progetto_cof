@@ -1,5 +1,6 @@
 package client.controller.updates.scheduler;
 
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -72,32 +73,26 @@ public class GameUpdatesScheduler extends Thread{
 	
 	private class StartRequestGamerTurn implements Runnable  {
 		private Thread t1 ;
+		private CliMainMenu cmm;
 		
 		StartRequestGamerTurn(){ 
 			this.t1 = null;
+			this.cmm = new CliMainMenu(false);
+			this.t1 = new Thread(this.cmm);
+			this.t1.start();
 		}
 		
 		public void run() {
 			 controller.getGamerTurn();
 			 int gamerTurn = dataController.getUserData().getMatch().getActualGamer();
+			 
 			 if(myGamerID == gamerTurn){
 				 setItsMyTurnToPlay(true);
-				 
-				 if(this.t1 != null)this.t1.interrupt(); 
-				 this.t1 = new Thread(new CliMainMenu(true)); 
-				 this.t1.start();
-				 
-				 System.out.println("\n========== SONO IL GIOCATORE DI TURNO ==========\n");
-				 
+				 this.cmm.setGamerTurn(true);
 			 }
 			 else{
 				 setItsMyTurnToPlay(false);
-				 
-				 if(this.t1 != null) this.t1.interrupt();
-				 this.t1 = new Thread(new CliMainMenu(false)); 
-				 this.t1.start();
-				 
-				 System.out.println("\n========== NON SONO IL GIOCATORE DI TURNO ==========\n");
+				 this.cmm.setGamerTurn(false);
 			 }
 		}
 		

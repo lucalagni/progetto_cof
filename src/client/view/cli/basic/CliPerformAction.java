@@ -38,6 +38,7 @@ public class CliPerformAction {
 		int len = this.dataController.getUserData().getMatch().getBoard().getRegions().length;
 		int region,index;
 		boolean flag = true;
+		
 		ArrayList<Integer> cards = new ArrayList<Integer>();
 		System.out.println("Select a region number beetween 0 and " + (len-1) + " : ");
 		region = Integer.parseInt(this.input.nextLine());
@@ -47,7 +48,7 @@ public class CliPerformAction {
 			System.out.println(this.dataController.getUserData().getMatch().getBoard().getRegions()[region].getCouncil().toString());
 			System.out.println("\nSelect an index: ");
 			index = Integer.parseInt(this.input.nextLine());
-			new CliShowGameData(false).showPoliticalCards();
+			new CliShowGameData(false, this.input).showPoliticalCards();
 			do{
 				System.out.println("\nSelect a cardb index: ");
 				cards.add(Integer.parseInt(this.input.nextLine()));
@@ -78,7 +79,7 @@ public class CliPerformAction {
 			System.out.print("Gamer doesn't have any permit card");
 		}
 		else {
-			new CliShowGameData(false).showUnusedPermitCards();
+			new CliShowGameData(false,this.input).showUnusedPermitCards();
 			System.out.println("\nSelect permit card: ");
 			permitCard = Integer.parseInt(this.input.nextLine());
 			//Verificare che l'indice sia corretto

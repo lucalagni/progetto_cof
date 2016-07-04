@@ -18,9 +18,9 @@ public class CliShowGameData {
 	private Scanner input;
 	private boolean indipendent ;
 	
-	public CliShowGameData(boolean indipendent){
+	public CliShowGameData(boolean indipendent,Scanner input){
 		this.dataController = ControllerRepository.getInstance().getGameDataController();
-		this.input = new Scanner(System.in);
+		this.input = input;
 		//CliClearConsole.clearConsole(false);
 		this.indipendent = indipendent;
 	}
