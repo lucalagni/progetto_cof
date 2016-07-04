@@ -29,7 +29,7 @@ public class Region1Example {
 									.setNewMainAction(false)
 									.setAvailable(true)
 									.build();
-		this.region = new RegionBuilder().setNumber(1)
+		this.region = new RegionBuilder().setNumber(0)
 										 .setVillages(villages)
 										 .setBonus(b)
 										 .setCouncil(new CouncilBuilder().setNobles(nobles).build())

@@ -21,7 +21,7 @@ public class Server {
 			System.out.println("command: ");
 			cmd = input.nextLine();
 			
-			if( cmd.equals("ESCI") ){
+			if( cmd.equals("EXIT") ){
 				socketThread.interrupt();
 				socketServer.stop();
 				break;

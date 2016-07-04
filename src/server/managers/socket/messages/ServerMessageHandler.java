@@ -2,6 +2,7 @@ package server.managers.socket.messages;
 
 import java.util.ArrayList;
 
+import model.basics.Gamer;
 import model.basics.Match;
 import model.basics.constants.MatchConstants;
 import server.managers.match.MatchManager;
@@ -28,13 +29,16 @@ public class ServerMessageHandler {
 			   response = this.clientRequestToBeAddedToAMatch(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_CAN_I_PLAY:
+			   System.out.println("\nusername: " + msg.getUserData().getUsername() + " request to play at " + System.currentTimeMillis());
 			   response = this.clientRequestCanIPlay(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_MATCH:
 			   response = this.clientRequestMatch(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_GAMER_TURN:
+			   System.out.println("\nCLIENT username: " + msg.getUserData().getUsername() + " request gamer turn at " + System.currentTimeMillis());
 			   response = this.clientRequestGamerTurn(msg.getUserData());
+			   System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " response gamer turn at " + System.currentTimeMillis());
 			   break;
 		   case CLIENT_REQUEST_ACTION_SYNOPTIC:
 			   response = this.clientRequestActionSynoptic(msg.getUserData());
@@ -48,12 +52,57 @@ public class ServerMessageHandler {
 		   case CLIENT_REQUEST_MATCH_TIME:
 			   response = this.clientRequestMatchTime(msg.getUserData());
 			   break;
-			   
+		   case CLIENT_REQUEST_MOVE_KING:
+			   ServerMatchActionHandler smah1 = new ServerMatchActionHandler();
+			   response = smah1.clientRequestMoveKing(msg);
+			   break;
+		   case CLIENT_REQUEST_CHANGE_NOBLE:
+			   ServerMatchActionHandler smah2 = new ServerMatchActionHandler();
+			   response = smah2.clientRequestChangeNoble(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_PERMIT_CARD:
+			   ServerMatchActionHandler smah3 = new ServerMatchActionHandler();
+			   response = smah3.clientRequestBuyPermitCard(msg);
+			   break;
+		   case CLIENT_REQUEST_TO_PLACE_A_SHOP:
+			   ServerMatchActionHandler smah4 = new ServerMatchActionHandler();
+			   response = smah4.clientRequestPlaceShop(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_HELPERS:
+			   ServerMatchActionHandler smah5 = new ServerMatchActionHandler();
+			   response = smah5.clientRequestBuyHelper(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_NEW_MAIN_ACTION:
+			   ServerMatchActionHandler smah6 = new ServerMatchActionHandler();
+			   response = smah6.clientRequestBuyNewMainAction(msg);
+			   break;
+		   case CLIENT_REQUEST_DOUBLE_ACTION:
+			   ServerMatchActionHandler smah7 = new ServerMatchActionHandler();
+			   response = smah7.clientRequestDoubleAction(msg);
+			   break;
+		   case CLIENT_REQUEST_ACQUIRE_PERMIT_CARD:
+			   ServerMatchActionHandler smah8 = new ServerMatchActionHandler();
+			   response = smah8.clientRequestAcquirePermitCard(msg);
+			   break;
+		   case CLIENT_REQUEST_ACQUIRE_SINGLE_VILLAGE_BONUS:
+			   ServerMatchActionHandler smah9 = new ServerMatchActionHandler();
+			   response = smah9.clientRequestAcquireSingleVillageBonus(msg);
+			   break; 
+		   case CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS:
+			   ServerMatchActionHandler smah10 = new ServerMatchActionHandler();
+			   response = smah10.clientRequestAcquireDoubleVillageBonus(msg);
+			   break; 
+		   case CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS:
+			   ServerMatchActionHandler smah11 = new ServerMatchActionHandler();
+			   response = smah11.clientRequestReusePermitCardBonus(msg);
+			   break; 
+		   
 		   default:
 			   response = this.invalidMessageFromClient(msg.getUserData());
 			   break;
 		}
 		
+		System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " SEND response gamer turn at " + System.currentTimeMillis());
 		return response;
 	}
 	
@@ -190,6 +239,28 @@ public class ServerMessageHandler {
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
 		}
 		else {
+			try {
+				data.updateMatch(m);
+				data.updateGamer(data.getGamer());
+				response = new ServerMessage(data);
+			} catch (UserDataException e) {
+				e.printStackTrace();
+			}
+			
+			if(data.getUsername().equals(m.getGamers().get(m.getActualGamer())) == false){
+				try {
+					data.updateActionSynoptic(new ActionSynoptic(data.getUsername(), data.getMatchCode()));
+				} catch (UserDataException e) {
+					e.printStackTrace();
+				}
+			}
+			else{
+				try {
+					data.updateActionSynoptic(data.getActionSynoptic());
+				} catch (UserDataException e) {
+					e.printStackTrace();
+				}
+			}
 			params[0] = new String("" + m.getActualGamer());
 			parameters.add(params);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_TURN, parameters);
@@ -220,34 +291,84 @@ public class ServerMessageHandler {
 		return response;
 	}
 	
-	//Metodo che gestisce la richiesta del client per sapere se il match è pronto
+	/**
+	 * Metodo che gestisce la richiesta di un client di sapere se è associato ad un match
+	 * @param data
+	 * @return
+	 */
 	private ServerMessage clientRequestCanIPlay(UserData data){
 		ServerMessage response = null;
 		String matchCode = null;
+		Match m = null;
+		boolean flag = false ;
 		
+		//cerco di ottenere il match associato ad un certo utente
 		matchCode = this.matchRepository.getMatchCodeAssociatedTo(data.getUsername());
 		if(matchCode == null){
-			if(this.matchRepository.getAloneGamerAssociatedTo(data.getUsername()) == true){
+			if(this.matchRepository.getAloneGamerAssociatedTo(data.getUsername()) == true)
+			{
+				/*
+				 * Caso in cui il match non è disponibile e l'utente è stato messo nella coda
+				 * degli utenti che non hanno la possibilità di giocare
+				 */
 				response = new ServerMessage(data);
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_TOO_FEAW_GAMERS_TO_PLAY, null);
 			}
+			else 
+			{
+				/*
+				 * Il server risponde che non si sa ancora se il giocatore sia stato a omeno aggiunto 
+				 * ad un match
+				 */
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_AVAILABLE_YET, null);
+			}
 			
-			response = new ServerMessage(data);
-			response.addContent(ServerMessageContentType.SEREVR_RESPONSE_MATCHCODE_NOT_AVAILABLE_YET, null);
 		}
 		else{
-			response = new ServerMessage(data);
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_CODE, null);
+			m = this.matchRepository.getMatch(matchCode);
+			for(Gamer gam : m.getGamers()){
+				if(gam.getUsername().equals(data.getUsername())){
+					try {
+						data.setupGamer(gam);
+						data.setupMatch(m);
+						flag = true;
+						break;
+					} catch (UserDataException e) { e.printStackTrace(); }
+				}
+			}
+			
+			if(flag == false){
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_NOT_IN_MATCH, null);
+			}
+			else {
+				try {
+					data.updateActionSynoptic(new ActionSynoptic(data.getUsername(), data.getMatchCode()));
+				} catch (UserDataException e) { e.printStackTrace(); }
+				response = new ServerMessage(data);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH, null);
+			}
 		}
 		
 		return response ;
 	}
 	
+	/**
+	 * Metodo che gestisce la richiesta di gioco di un utente
+	 * @param data
+	 * @return
+	 */
 	private ServerMessage clientRequestToBeAddedToAMatch(UserData data){
-		ServerMessage response = null;
-		//this.matchManager.addGamer(username);
-		response = new ServerMessage(data);
-		response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE, null);
+		ServerMessage response = new ServerMessage(data);
+		boolean available = this.matchManager.addGamer(data.getUsername());
+		
+		if(available == false) {
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_USERNAME_NOT_AVAILABLE, null);
+		}
+		else {
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_ADDED_TO_QUEQUE, null);
+		}
 		return response;
 	}
 	

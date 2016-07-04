@@ -101,8 +101,13 @@ public class GameMap implements Serializable {
 	}
 	public Bonus[] getColorsBonus(){ return this.colorsBonus; }
 	
-	private String printConnections(String s){
+	public String printConnections(String s){
 		int length = 0;
+		
+		s += "\nLegenda: \n";
+		s += "CONNECTED: " + GameMapConstants.CONNECTED + " \n";
+		s += "ITSELF: " + GameMapConstants.ITSELF + " \n";
+		s += "NOT_CONNECTED: " + GameMapConstants.NOT_CONNECTED + " \n";
 		
 		for(int i = 0; i < this.villages.length; i++)if(this.villages[i].getName().length() > length) length = this.villages[i].getName().length();
 		s += createSpaceString(this.villages[0].getName().length() + length);

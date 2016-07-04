@@ -35,7 +35,13 @@ public class PoliticalCard implements Serializable{
 	public String toString(){
 		String pcString = "\npolitical card\n";
 		
-		pcString += "color: " + this.getColor().toString() + "\n";
+		pcString += "color: " ;
+		if(this.getColor().equals(Color.BLACK))  pcString += " BLACK \n";
+		if(this.getColor().equals(Color.WHITE))  pcString += " WHITE \n";
+		if(this.getColor().equals(Color.ORANGE))  pcString += " ORANGE \n";
+		if(this.getColor().equals(Color.MAGENTA))  pcString += " MAGENTA \n";
+		if(this.getColor().equals(Color.CYAN))  pcString += " CYAN \n";
+		if(this.getColor().equals(Color.PINK))  pcString += " PYNK \n";
 		pcString += "jolly: " + this.getJolly() +"\n";
 		
 		return pcString;

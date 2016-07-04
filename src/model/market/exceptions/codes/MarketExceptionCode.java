@@ -26,7 +26,7 @@ public enum MarketExceptionCode implements Serializable{
 	AGENT_ALREADY_PRESENT("AGENT_ALREADY_PRESENT");
 	
 	private String excpetionCode;
-	MarketExceptionCode(String exceptionCode){}
+	MarketExceptionCode(String exceptionCode){this.setExceptionCode(exceptionCode);}
 	private void setExceptionCode(String exceptionCode){ this.excpetionCode = exceptionCode; }
 	public String getExceptionCode(){ return this.excpetionCode; }
 }

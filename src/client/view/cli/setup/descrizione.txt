@@ -1,0 +1,2 @@
+Questo package contiene le classi per il settaggio delle configurazioni iniziali
+per la preparazione del gioco.

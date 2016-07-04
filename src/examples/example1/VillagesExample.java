@@ -19,11 +19,8 @@ public class VillagesExample {
 		
 		String[] gamerShop = new String[MatchConstants.MAX_NUMBER_OF_GAMERS];
 		
-		gamerShop[0] = "Gamer1";
-		
 		this.villages[0] = new VillageBuilder().setName(VillageConstants.ARKON)
 											   .setColor(ColorConstants.VILLAGES_COLORS[0])
-											   //.setShops(new String[MatchConstants.MAX_NUMBER_OF_GAMERS])
 											   .setShops(gamerShop)
 											   .setBonus(new BonusBuilder().setCoins(0)
 													   					   .setHelpers(0)
@@ -75,7 +72,6 @@ public class VillagesExample {
 		
 		this.villages[3] = new VillageBuilder().setName(VillageConstants.DORFUL)
 				   .setColor(ColorConstants.VILLAGES_COLORS[2])
-				   //.setShops(new String[MatchConstants.MAX_NUMBER_OF_GAMERS])
 				   .setShops(gamerShop)
 				   .setBonus(new BonusBuilder().setCoins(0)
 						   					   .setHelpers(1)
@@ -93,7 +89,6 @@ public class VillagesExample {
 		
 		this.villages[4] = new VillageBuilder().setName(VillageConstants.ESTI)
 				   .setColor(ColorConstants.VILLAGES_COLORS[3])
-//				   .setShops(new String[MatchConstants.MAX_NUMBER_OF_GAMERS])
 				   .setShops(gamerShop)
 				   .setBonus(new BonusBuilder().setCoins(0)
 						   					   .setHelpers(0)

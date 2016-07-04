@@ -3,6 +3,7 @@ package client.controller.actions.basics;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import server.command.basic.actions.exceptions.MainActionCommandException;
 import client.command.actions.basics.ActionFacade;
 import client.command.actions.basics.exceptions.ActionFacadeException;
 
@@ -23,7 +24,7 @@ public class ActionController {
 	 * @param path
 	 * @throws ActionFacadeException
 	 */
-	public String moveKing(ArrayList<String> path,int politicalCardsPosition[]) {
+	public String moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition) {
 		try {
 			ActionFacade af = new ActionFacade();
 			af.moveKing(path, politicalCardsPosition);
@@ -46,7 +47,7 @@ public class ActionController {
 				ActionFacade af = new ActionFacade();
 				af.changeNoble(king, regionNumber, noble, mainAction);
 				return OK_MESSAGE;
-			} catch (ActionFacadeException e) {
+			} catch (ActionFacadeException | MainActionCommandException e) {
 				return e.getMessage().toString();
 			}
 		
@@ -80,9 +81,7 @@ public class ActionController {
 			ActionFacade af = new ActionFacade();
 			af.placeShop(village, permitCardIndex);
 			return OK_MESSAGE;
-		} catch (ActionFacadeException e) {
-			return e.getMessage().toString();
-		}
+		} catch (ActionFacadeException | MainActionCommandException e) { return e.toString(); }
 	} 
 	
 	/**

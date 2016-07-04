@@ -139,4 +139,20 @@ public class UserData implements Serializable {
 	public boolean getMatchUpdated(){ return this.matchUpdated.booleanValue(); }
 	public boolean getGamerUpdated(){ return this.gamerUpdated.booleanValue(); }
 	public boolean getActionSynopticUpdated(){ return this.synopticUpdated.booleanValue(); }
+	
+	@Override
+	public String toString(){
+		String s = "\n user data \n";
+		
+		s += "username: " + this.getUsername() + "\n";
+		s += "match_code: " + this.getMatchCode() + "\n";
+		if(this.getMatch() != null) s += "match: " + this.getMatch().toString() + "\n";
+		else s += "match unsetted \n";
+		if(this.getGamer() != null) s += "gamer: " + this.getGamer().toString() + "\n";
+		else s += "gamer_unsetted \n";
+		if(this.getActionSynoptic() != null) s += "action_synoptic: " + this.getActionSynoptic().toString() + "\n";
+		else s += "action_synoptic_unsetted \n";
+		
+		return s;
+	}
 }

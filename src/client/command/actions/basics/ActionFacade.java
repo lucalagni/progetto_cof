@@ -9,6 +9,10 @@ import commons.data.UserData;
 import commons.data.GameMode;
 import client.controller.ControllerRepository;
 
+//da cambiare
+import server.command.basic.actions.exceptions.MainActionCommandException;
+import server.command.basic.actions.exceptions.codes.MainActionCommandExceptionCode;
+
 /**
  * Classe che contiene la facciata per l'esecuzione delle azioni del match
  * in modo indipendente dalla modalità di comunicazione
@@ -39,12 +43,14 @@ public class ActionFacade {
 	 * @param path
 	 * @throws ActionFacadeException
 	 */
-	public void moveKing(ArrayList<String> path,int politicalCardsPosition[]) throws ActionFacadeException{
+	public void moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition) throws ActionFacadeException{
+		//Verifico che l'utente possa effettuare la mossa
 		if(this.data.getActionSynoptic() == null) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_CANNOT_PLAY_NOW.getExceptionCode());
 		if(this.data.getActionSynoptic().getMainActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_MAIN_ACTIONS.getExceptionCode());
 		
+		
 		if(this.mode == GameMode.SOCKET){
-			new ActionEncoderSocket().moveKing(path);
+			new ActionEncoderSocket().moveKing(path, politicalCardsPosition);
 		}
 	}
 	
@@ -55,11 +61,9 @@ public class ActionFacade {
 	 * @param noble
 	 * @param mainAction indica se è un'azione primaria o secondaria
 	 * @throws ActionFacadeException
+	 * @throws MainActionCommandException 
 	 */
-	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) throws ActionFacadeException{
-		if(this.data.getActionSynoptic() == null) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_CANNOT_PLAY_NOW.getExceptionCode());
-		if(mainAction == true)if(this.data.getActionSynoptic().getMainActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_MAIN_ACTIONS.getExceptionCode());
-		else if(this.data.getActionSynoptic().getHelpersActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_HELPERS_ACTIONS.getExceptionCode());
+	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) throws ActionFacadeException, MainActionCommandException{
 		
 		if(this.mode == GameMode.SOCKET){
 			new ActionEncoderSocket().changeNoble(king, regionNumber, noble, mainAction);
@@ -87,10 +91,15 @@ public class ActionFacade {
 	 * @param village
 	 * @param permitCardIndex
 	 * @throws ActionFacadeException
+	 * @throws MainActionCommandException 
 	 */
-	public void placeShop(char village,int permitCardIndex) throws ActionFacadeException{
+	public void placeShop(char village,int permitCardIndex) throws ActionFacadeException, MainActionCommandException{
 		if(this.data.getActionSynoptic() == null) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_CANNOT_PLAY_NOW.getExceptionCode());
 		if(this.data.getActionSynoptic().getMainActionNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_MAIN_ACTIONS.getExceptionCode());
+		
+		if(this.data.getGamer().getUnusedPermitCards().size() < permitCardIndex) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_DOES_NOT_HAS_THAT_PERMIT_CARD.getExceptionCode());
+		if(permitCardIndex < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_DOES_NOT_HAS_THAT_PERMIT_CARD.getExceptionCode());
+		
 		
 		if(this.mode == GameMode.SOCKET){
 			new ActionEncoderSocket().placeShop(village, permitCardIndex);

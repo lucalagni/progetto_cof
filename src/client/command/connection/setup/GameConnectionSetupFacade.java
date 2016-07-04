@@ -1,9 +1,9 @@
 package client.command.connection.setup;
 
 import commons.data.GameMode;
+import commons.data.exceptions.UserDataException;
 import commons.messages.ServerMessage;
 import commons.messages.ServerMessageContentType;
-
 import client.controller.ControllerRepository;
 
 /**
@@ -15,9 +15,8 @@ import client.controller.ControllerRepository;
 public class GameConnectionSetupFacade {
 	private GameMode mode;
 	
-	@SuppressWarnings("static-access")
 	public GameConnectionSetupFacade(){
-		this.mode = ControllerRepository.getInstance().getClientController().getInstance().getClient().getGameMode();
+		this.mode = ControllerRepository.getInstance().getClientController().getClient().getGameMode();
 	}
 	
 	
@@ -26,13 +25,13 @@ public class GameConnectionSetupFacade {
 	 * @param username
 	 * @return
 	 */
-	public String requireMatch(){
+	public String clientRequireAddMe(){
 		ServerMessage response = null;
 		String message = null;
 		
 		switch(this.mode){
 			case SOCKET:
-				response = new GameConnectionSetupSocket().requireMatch();
+				response = new GameConnectionSetupSocket().clientRequireAddMe();
 				//Se mi viene restituito il matchcode allora ritorno quello, altrimenti ritorno il messaggio del server
 				if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_MATCH_CODE) message = response.getMatchCode();
 				else message = response.getContent().getServerMessageContentType();
@@ -43,5 +42,44 @@ public class GameConnectionSetupFacade {
 		
 		return message;
 		
+	}
+	
+	/**
+	 * Metodo che, una volta che il giocatore sa di essere statio aggiunto alla coda di attesa
+	 * verifica se può giocare.
+	 * @return
+	 * @throws UserDataException 
+	 */
+	public String clientRequestCanIPlay() throws UserDataException{
+		String response = null;
+		
+		switch(this.mode){
+			case SOCKET:
+						response = new GameConnectionSetupSocket().clientRequestCanIPlay();
+						break;
+			default:
+				break;
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * Metodo che richiede al server di chi è il turno di gioco
+	 * @return
+	 * @throws UserDataException
+	 */
+	public int clientRequestGamerTurn() throws UserDataException{
+		int gamerTurn = 0;
+		
+		switch(this.mode){
+			case SOCKET:
+				gamerTurn = new GameConnectionSetupSocket().clientRequestGamerTurn();
+				break;
+			default :
+				break;
+		}
+		
+		return gamerTurn ;
 	}
 }
