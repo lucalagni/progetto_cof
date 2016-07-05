@@ -333,13 +333,14 @@ public class ActionEncoderSocket {
 	 * afferente ad una carta permesso precedentemente utilizzata
 	 * @param permitCardIndex
 	 */
-	public String reusePermitCardBonus(int permitCardIndex){
+	public String reusePermitCardBonus(int permitCardIndex,boolean usedPermitCard){
 		ClientMessage request = new ClientMessage(this.user);
 		ServerMessage response = null;
-		String[] parameters = new String[1];
+		String[] parameters = new String[2];
 		ArrayList<String[]> params = new ArrayList<String[]>();
 		
 		parameters[0] = new String("" + permitCardIndex);
+		parameters[1] = new String("" + usedPermitCard);  
 		params.add(parameters);
 		
 		request.addContent(ClientMessageContentType.CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS, params);

@@ -102,12 +102,13 @@ public class ServerMatchActionHandler {
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		int index = Integer.parseInt(msg.getParameters().get(0)[0]);
+		boolean usedPermitCard = Boolean.parseBoolean(msg.getParameters().get(0)[1]);
 		
 		try {
 			SpecialActionCommand sac = new SpecialActionCommand(msg.getUserData());
 			
 			//compro la nuova azione
-			sac.reusePermitCardBonus(index);
+			sac.reusePermitCardBonus(index, usedPermitCard);
 			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());

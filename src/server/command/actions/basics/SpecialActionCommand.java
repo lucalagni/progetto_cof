@@ -56,7 +56,7 @@ public class SpecialActionCommand {
 	 * @throws NobiltyPathException
 	 * @throws SpecialActionCommandException 
 	 */
-	public void reusePermitCardBonus(int permitCardPosition) throws  GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException, SpecialActionCommandException{
+	public void reusePermitCardBonus(int permitCardPosition,boolean usedPermitCard) throws  GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException, SpecialActionCommandException{
 		if(this.actionSynoptic.getReusePermitCardBonusNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new SpecialActionCommandException(SpecialActionCommandExceptionCode.CANNOT_PERFORM_THIS_ACTION.getExceptionCode());
 		}
@@ -65,7 +65,8 @@ public class SpecialActionCommand {
 			throw new SpecialActionCommandException(SpecialActionCommandExceptionCode.INVALID_PERMIT_CARD_POSITION.getExceptionCode());
 		}
 		
-		this.manageBonus(gamer.getUsedPermitCards().get(permitCardPosition).getBonus());
+		if(usedPermitCard == true)this.manageBonus(gamer.getUsedPermitCards().get(permitCardPosition).getBonus());
+		else this.manageBonus(gamer.getUnusedPermitCards().get(permitCardPosition).getBonus());
 		
 	    this.actionSynoptic.useReusePermitCardBonus();
 	}

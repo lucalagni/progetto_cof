@@ -71,22 +71,22 @@ public class CliMainMenu extends Thread{
 		this.text += "\n\n=========={ Action Menu }==========\n";
 		
 		this.text += "\n\n-----{ Main Actions }-----\n";
-		this.text += "\n26)Build shop";
-		this.text += "\n27)Move King";
+		this.text += "\n26)Build shop (untested)";
+		this.text += "\n27)Move King (untested)";
 		this.text += "\n28)Buy Permit Card";
 		this.text += "\n29)Change noble";
 		
 		this.text += "\n\n-----{ Helpers Actions }-----\n";
 		this.text += "\n30)Buy helper";
 		this.text += "\n31)Change noble";
-		this.text += "\n32)Double action";
+		this.text += "\n32)Double action (untested)";
 		this.text += "\n33)New Main Action";
 		
 		this.text += "\n\n-----{ Special Actions }------\n";
-		this.text += "\n34)Acquire permit card";
-		this.text += "\n35)Reuse permit card bonus";
-		this.text += "\n36)Acquire single village bonus";
-		this.text += "\n37)Acquire double village bonus";
+		this.text += "\n34)Acquire permit card (untested)";
+		this.text += "\n35)Reuse permit card bonus (untested)";
+		this.text += "\n36)Acquire single village bonus (untested)";
+		this.text += "\n37)Acquire double village bonus (untested)";
 	}
 	
 	private void setOptionText(){
@@ -197,38 +197,51 @@ public class CliMainMenu extends Thread{
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).buildShop();
 					break;
 				case 27:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).moveKing();
 					break;
 				case 28:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().buyPermitCard();
+					new CliPerformAction(in).buyPermitCard();
 					break;
 				case 29:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().changeNoble(true);
+					new CliPerformAction(in).changeNoble(true);
 					break;
 				case 30:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().buyHelper();
+					new CliPerformAction(in).buyHelper();
 					break;
 				case 31:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().changeNoble(false);
+					new CliPerformAction(in).changeNoble(false);
 					break;
 				case 32:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).doubleAction();
 					break;
 				case 33:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction().buyNewMainAction();
+					new CliPerformAction(in).buyNewMainAction();
 					break;
 				case 34:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).acquirePermitCard();
 					break;
 				case 35:
 					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).reusePermitCardBonus();
+					break;
+				case 36:
+					if(this.gamerTurn == false) continue;
+					new CliPerformAction(in).acquireSingleVillageBonus();
+					break;
+				case 37:
+					if(this.gamerTurn == false)continue;
+					new CliPerformAction(in).acquireDoubleVillageBonus();
 					break;
 				case 0:
 					break;
