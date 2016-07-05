@@ -5,11 +5,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
+import model.basics.supports.MatchPhase;
 import commons.schedulers.client.ClientSchedulersConstants;
 import client.controller.ControllerRepository;
 import client.controller.data.GameDataController;
 import client.controller.updates.GameUpdatesController;
 import client.view.cli.basic.CliMainMenu;
+import client.view.cli.setter.CliSetterMainMenu;
 
 /**
  * Classe per la gestione dello scheduler per la richiesta del turno di gioco
@@ -77,22 +79,26 @@ public class GameUpdatesScheduler extends Thread{
 		
 		StartRequestGamerTurn(){ 
 			this.t1 = null;
-			this.cmm = new CliMainMenu(false);
+			this.cmm = new CliMainMenu(false,MatchPhase.MATCH_PHASE);
 			this.t1 = new Thread(this.cmm);
-			this.t1.start();
+			t1.start();
 		}
 		
+		@SuppressWarnings("deprecation")
 		public void run() {
 			 controller.getGamerTurn();
+			 MatchPhase phase = dataController.getUserData().getMatch().getMatchPhase();
 			 int gamerTurn = dataController.getUserData().getMatch().getActualGamer();
 			 
 			 if(myGamerID == gamerTurn){
 				 setItsMyTurnToPlay(true);
 				 this.cmm.setGamerTurn(true);
+				 this.cmm.setMatchPhase(phase);
 			 }
 			 else{
 				 setItsMyTurnToPlay(false);
 				 this.cmm.setGamerTurn(false);
+				 this.cmm.setMatchPhase(phase);
 			 }
 		}
 		

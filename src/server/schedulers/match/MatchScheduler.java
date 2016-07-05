@@ -34,7 +34,7 @@ public class MatchScheduler {
 		this.setHasPlayed(false);
 		this.setFirstTurn(true);
 		this.scheduler = Executors.newScheduledThreadPool(NUM_THREADS);
-		this.getMatch().done();
+		System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 	}
 	
 	public void setMatch(Match match){ this.match = match; }
@@ -64,10 +64,7 @@ public class MatchScheduler {
 			getMatch().done();
 			try {
 				getMatch().getGamers().get(getMatch().getActualGamer()).addPoliticalCard(getMatch().getBoard().getPoliticalCardsDeck().pickupCard());
-			} catch (PoliticalCardsDeckException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} catch (PoliticalCardsDeckException e) { e.printStackTrace();}
 			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 		}
 		

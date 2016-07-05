@@ -32,9 +32,12 @@ import java.io.Serializable;
  * CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS = il client richiede di poter riutilizzare il bonus di una carta permesso precedentemente usata
  * 
  * ============={ messaggi per la fase di setter }============
- * CLIENT_REQUEST_CREATE_AGENT = Il client chiede di essere trasformato in un agent
- * CLIENT_REQUEST_MODIFY_AGENT = Il client chiede di essere modificato
- * CLIENT_REQUEST_SKIP_MARKET = Il client richiede di non partecipare alla fase di market
+ * CLIENT_REQUEST_SET_AGENT = Il client chiede al server di aggiornare il suo agent con i nuovi dati
+ * 
+ *============={ messaggi per la fase di market }============
+ *CLIENT_REQUEST_BUY_HELPERS_ITEM = Il client chiede al server di poter comprare un aiutante
+ *CLIENT_REQUEST_BUY_POLITICAL_CARD_ITEM = Il client chiede al server di poter comprare una carta politica
+ *CLIENT_REQUEST_BUY_PERMIT_CARD_ITEM = Il client chiede al server di poter comprare una carta permesso
  */
 
 public enum ClientMessageContentType implements Serializable{
@@ -61,9 +64,11 @@ public enum ClientMessageContentType implements Serializable{
 	CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS("CLIENT_REQUEST_ACQUIRE_DOUBLE_VILLAGE_BONUS"),
 	CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS("CLIENT_REQUEST_REUSE_PERMIT_CARD_BONUS"),
 	
-	CLIENT_REQUEST_CREATE_AGENT("CLIENT_REQUEST_CREATE_AGENT"),
-	CLIENT_REQUEST_MODIFY_AGENT("CLIENT_REQUEST_MODIFY_AGENT"),
-	CLIENT_REQUEST_SKIP_MARKET("CLIENT_REQUEST_SKIP_MARKET");
+	CLIENT_REQUEST_SET_AGENT("CLIENT_REQUEST_SET_AGENT"),
+	
+	CLIENT_REQUEST_BUY_HELPERS_ITEM("CLIENT_REQUEST_BUY_HELPERS_ITEM"),
+	CLIENT_REQUEST_BUY_POLITICAL_CARD_ITEM("CLIENT_REQUEST_BUY_POLITICAL_CARD_ITEM"),
+	CLIENT_REQUEST_BUY_PERMIT_CARD_ITEM("CLIENT_REQUEST_BUY_PERMIT_CARD_ITEM");
 	
 	private String clientMessageContentType;
 	ClientMessageContentType(String clientMessageContentType){ this.setClientMessageContentType(clientMessageContentType); }

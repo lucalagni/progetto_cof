@@ -110,9 +110,10 @@ public class Gamer implements Serializable{
 	}
 	
 	public PermitCard subPermitCard(PermitCard permitCard) throws GamerException{
-		this.swapPermitCardInSet(permitCard, this.unusedPermitCards, this.unusedPermitCards);
-		
-		return permitCard;
+		for(int i = 0; i < this.unusedPermitCards.size(); i++){
+			if(this.unusedPermitCards.get(i).equals(permitCard)) return this.unusedPermitCards.remove(i);
+		}
+		return null;
 	}
 	
 	public void usePermitCard(PermitCard permitCard) throws GamerException{
@@ -133,7 +134,7 @@ public class Gamer implements Serializable{
 	
 	public PoliticalCard subPoliticalCard(PoliticalCard pc)  {
 		for(int i = 0; i < this.politicalCards.size(); i++){
-			if(this.politicalCards.get(i) == pc) return this.politicalCards.remove(i);
+			if(this.politicalCards.get(i).equals(pc)) return this.politicalCards.remove(i);
 		}
 		return null;
 	}

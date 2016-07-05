@@ -64,7 +64,6 @@ public class ActionFacade {
 	 * @throws MainActionCommandException 
 	 */
 	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) throws ActionFacadeException, MainActionCommandException{
-		
 		if(this.mode == GameMode.SOCKET){
 			new ActionEncoderSocket().changeNoble(king, regionNumber, noble, mainAction);
 		}

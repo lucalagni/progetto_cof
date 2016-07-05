@@ -35,7 +35,7 @@ import model.basics.exceptions.PoliticalCardsDeckException;
 import model.basics.exceptions.VillageException;
 
 /**
- * Classe che implementa i  metodi per l'esecuzione delle azionin pricipali eseguibili dal giocatore interessato
+ * Classe che implementa i  metodi per l'esecuzione delle azioni pricipali eseguibili dal giocatore interessato
  * La classe non è serializzata in quanto eseguita unicamente dal server
  * @author Luca Lagni
  *

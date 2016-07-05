@@ -7,7 +7,9 @@ import java.util.Date;
 import model.basics.exceptions.MatchException;
 import model.basics.supports.MatchPhase;
 import model.basics.supports.MatchStatus;
+import model.market.Agent;
 import model.market.Market;
+import model.market.exceptions.MarketException;
 
 public class Match implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -43,6 +45,7 @@ public class Match implements Serializable{
 		this.setLastTurn(false);
 		this.setLastTurnStarted(false);
 		this.setMatchPhase(MatchPhase.MATCH_PHASE);
+		this.setMarket(new Market());
 	}
 	
 	private void setMatchStatus(MatchStatus status){this.status = status; }
@@ -53,7 +56,14 @@ public class Match implements Serializable{
 	private void setGamers(ArrayList<Gamer> gamers){ this.gamers = gamers; }
 	private void setActualGamer(int actualGamer){ this.actualGamer = new Integer(actualGamer); }
 	private void setNextGamer(int nextGamer){ this.nextGamer = new Integer(nextGamer); }
-	//private void setMarket(Market market){ this.market = market; }
+	private void setMarket(Market market){ 
+		for(int i = 0; i < this.gamers.size(); i++){
+			try {
+				market.updateAgent(new Agent(this.gamers.get(i).getUsername()));
+			} catch (MarketException e) { e.printStackTrace(); }
+		}
+		this.market = market; 
+	}
 	private void setLastTurn(boolean lastTurn){ this.lastTurn = new Boolean(lastTurn); }
 	private void setLastTurnStarted(boolean lastTurnStarted){ this.lastTurnStarted = new Boolean(lastTurnStarted); }
 	private void setMatchPhase(MatchPhase matchPhase){ this.matchPhase = matchPhase; }
@@ -65,21 +75,6 @@ public class Match implements Serializable{
 			this.setNextGamer(0);
 			if(this.getLastTurn() == true){ if(this.getLastTurnStarted() == true) this.setMatchStatus(MatchStatus.TERMINATED); }
 			else this.setLastTurnStarted(true);
-			
-			switch(this.getMatchPhase()){
-				case MATCH_PHASE :
-					this.setMatchPhase(MatchPhase.SETTER_PHASE);
-					break;
-				case SETTER_PHASE:
-					this.setMatchPhase(MatchPhase.MARKET_PHASE);
-					break;
-				case MARKET_PHASE:
-					this.setMatchPhase(MatchPhase.MATCH_PHASE);
-					break;
-				default:
-					break;
-			}
-			
 		}
 		else this.setNextGamer(this.getActualGamer() + 1);
 	}
@@ -101,6 +96,24 @@ public class Match implements Serializable{
 	public void done(){
 		this.setActualGamer(this.getNextGamer());
 		this.setNextGamer();
+		if(this.getActualGamer() == 0) this.changePhase();
+	}
+	
+	private void changePhase(){
+		switch(this.getMatchPhase()){
+		case MATCH_PHASE :
+			this.setMatchPhase(MatchPhase.SETTER_PHASE);
+			break;
+		case SETTER_PHASE:
+			this.setMatchPhase(MatchPhase.MARKET_PHASE);
+			break;
+		case MARKET_PHASE:
+			this.setMatchPhase(MatchPhase.MATCH_PHASE);
+			for(int i = 0; i < this.market.getAgents().size(); i++) this.market.getAgents().get(i).resetAgent();
+			break;
+		default:
+			break;
+	}
 	}
 	
 	public void updateGamer(Gamer gamer){

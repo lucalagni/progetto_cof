@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import model.basics.Gamer;
 import model.basics.Match;
-import model.market.Agent;
 import commons.data.ActionSynoptic;
 import commons.data.exceptions.UserDataException;
 import commons.data.exceptions.codes.UserDataExceptionCode;
@@ -28,7 +27,6 @@ public class UserData implements Serializable {
 	private Gamer gamer;
 	private Match match;
 	private ActionSynoptic actionSynoptic;
-	private Agent agent;
 	
 	public UserData(String username){
 		
@@ -40,7 +38,6 @@ public class UserData implements Serializable {
 		this.setMatchUpdated(false);
 		this.setGamerUpdated(false);
 		this.setActionSynopticUpdated(false);
-		this.setAgent(null);
 	}
 	
 	private void setUsername(String username){ this.username = username; }
@@ -50,8 +47,7 @@ public class UserData implements Serializable {
 	private void setActionSynoptic(ActionSynoptic synoptic){ this.actionSynoptic = synoptic; }
 	private void setMatchUpdated(boolean matchUpdated){ this.matchUpdated = new Boolean(matchUpdated); }
 	private void setGamerUpdated(boolean gamerUpdated){ this.gamerUpdated = new Boolean(gamerUpdated); }
-	private void setActionSynopticUpdated(boolean synopticUpdated){ this.synopticUpdated = new Boolean(synopticUpdated); }
-	private void setAgent(Agent agent){ this.agent = agent; } 
+	private void setActionSynopticUpdated(boolean synopticUpdated){ this.synopticUpdated = new Boolean(synopticUpdated); } 
 	
 	/**
 	 * Metodo che setta i parametri inerenti al match del giocatore
@@ -79,7 +75,6 @@ public class UserData implements Serializable {
 		{
 			this.setGamer(gamer);
 			this.setGamerUpdated(true);
-			this.setAgent(new Agent(gamer));
 		}
 		else throw new UserDataException(UserDataExceptionCode.INCONCISTENCE_BEETWEEN_GAMER_AND_USERNAME.getExceptionCode());
 	}
@@ -143,7 +138,6 @@ public class UserData implements Serializable {
 	public boolean getMatchUpdated(){ return this.matchUpdated.booleanValue(); }
 	public boolean getGamerUpdated(){ return this.gamerUpdated.booleanValue(); }
 	public boolean getActionSynopticUpdated(){ return this.synopticUpdated.booleanValue(); }
-	public Agent getAgent(){ return this.agent; }
 	
 	@Override
 	public String toString(){
