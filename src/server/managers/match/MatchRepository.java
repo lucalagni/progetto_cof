@@ -32,6 +32,21 @@ public class MatchRepository {
 		return null;
 	}
 	
+	public void updateMatch(Match m){
+		Iterator<Map.Entry<String, Match>> it = this.matches.entrySet().iterator();
+		Iterator<Map.Entry<String, MatchScheduler>> it2 = this.scheduledMatches.entrySet().iterator();
+		
+		while(it.hasNext()){
+			Map.Entry<String, Match> entry = it.next();
+			if(entry.getKey().equals(m.getMatchCode())) entry.setValue(m);
+		}
+		
+		while(it2.hasNext()){
+			Map.Entry<String, MatchScheduler> entry = it2.next();
+			if(entry.getKey().equals(m.getMatchCode())) entry.getValue().setMatch(m);
+		}
+	}
+	
 	public synchronized void addAloneGamer(String gamer){
 		this.aloneGamers.add(gamer);
 	}

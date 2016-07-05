@@ -330,7 +330,7 @@ public class MainActionCommand {
 	 * Funzionante
 	 */
 	public void pickupPermitCard(int regionNumber,int permitCardNumber,int politicalCardsPosition[]) throws MainActionCommandException, PermitCardsDeckException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
-		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 1)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
+		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 0)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
 		if((permitCardNumber < 0) || (permitCardNumber > (PermitCardsDeckConstants.UNHIDDEN_CARDS_FOR_REGION - 1))) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_PERMIT_CARD_NUMBER.getExceptionCode());
 		
 		//Verifico la quantità di carte passatami

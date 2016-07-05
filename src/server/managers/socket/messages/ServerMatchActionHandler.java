@@ -110,6 +110,10 @@ public class ServerMatchActionHandler {
 			//compro la nuova azione
 			sac.reusePermitCardBonus(index, usedPermitCard);
 			
+			//Aggiorno i dati del repository
+			sac.getMatch().updateGamer(sac.getGamer());
+			MatchRepository.getInstance().updateMatch(sac.getMatch());
+			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(sac.getGamer());
@@ -160,6 +164,10 @@ public class ServerMatchActionHandler {
 			//compro la nuova azione
 			sac.acquireDoubleVillageBonus(village1, village2);
 			
+			//Aggiorno i dati del repository
+			sac.getMatch().updateGamer(sac.getGamer());
+			MatchRepository.getInstance().updateMatch(sac.getMatch());
+			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(sac.getGamer());
@@ -208,6 +216,10 @@ public class ServerMatchActionHandler {
 			
 			//compro la nuova azione
 			sac.acquireSingleVillageBonus(village, true);
+			
+			//Aggiorno i dati del repository
+			sac.getMatch().updateGamer(sac.getGamer());
+			MatchRepository.getInstance().updateMatch(sac.getMatch());
 			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
@@ -261,6 +273,10 @@ public class ServerMatchActionHandler {
 			//compro la nuova azione
 			sac.acquirePermitCard(regionNumber, permitCard);
 			
+			//Aggiorno i dati del repository
+			sac.getMatch().updateGamer(sac.getGamer());
+			MatchRepository.getInstance().updateMatch(sac.getMatch());
+			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(sac.getGamer());
@@ -310,6 +326,10 @@ public class ServerMatchActionHandler {
 			
 			//compro la nuova azione
 			hac.buyNewMainAction();
+			
+			//Aggiorno i dati del repository
+			hac.getMatch().updateGamer(hac.getGamer());
+			MatchRepository.getInstance().updateMatch(hac.getMatch());
 			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
@@ -361,6 +381,10 @@ public class ServerMatchActionHandler {
 			//eseguo la doppia azione
 			hac.doubleAction(regionNumber);
 			
+			//Aggiorno i dati del repository
+			hac.getMatch().updateGamer(hac.getGamer());
+			MatchRepository.getInstance().updateMatch(hac.getMatch());
+			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(hac.getGamer());
@@ -411,6 +435,10 @@ public class ServerMatchActionHandler {
 			
 			//compro gli aiutanti
 			hac.buyHelpers(numberOfHelpers, queque);
+			
+			//Aggiorno i dati del repository
+			hac.getMatch().updateGamer(hac.getGamer());
+			MatchRepository.getInstance().updateMatch(hac.getMatch());
 			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
@@ -466,6 +494,10 @@ public class ServerMatchActionHandler {
 			//costruisco l'emporio
 			mac.placeShop(permitCard, village);
 			
+			//Aggiorno i dati del repository
+			mac.getMatch().updateGamer(mac.getGamer());
+			MatchRepository.getInstance().updateMatch(mac.getMatch());
+			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(mac.getGamer());
@@ -520,7 +552,11 @@ public class ServerMatchActionHandler {
 			//compro la carta
 			mac.pickupPermitCard(regionNumber, permitCardNumber, politicalCardsIndex);
 			
-			//Aggiorno i dati utente
+			//Aggiorno i dati del repository
+			mac.getMatch().updateGamer(mac.getGamer());
+			MatchRepository.getInstance().updateMatch(mac.getMatch());
+			
+			//aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
 			ud.setupGamer(mac.getGamer());
 			ud.setupMatch(mac.getMatch());
@@ -582,6 +618,10 @@ public class ServerMatchActionHandler {
 				//eseguo lo spostamento del nobile
 				mac.changeNoble(king, regionNumber, noble);
 				
+				//Aggiorno i dati del repository
+				mac.getMatch().updateGamer(mac.getGamer());
+				MatchRepository.getInstance().updateMatch(mac.getMatch());
+				
 				//Aggiorno i dati utente
 				UserData ud = new UserData(msg.getUsername());
 				ud.setupGamer(mac.getGamer());
@@ -611,6 +651,10 @@ public class ServerMatchActionHandler {
 			
 			//eseguo lo spostamento del nobile
 			hac.changeNoble(king, regionNumber, noble);
+			
+			//Aggiorno i dati del repository
+			hac.getMatch().updateGamer(hac.getGamer());
+			MatchRepository.getInstance().updateMatch(hac.getMatch());
 			
 			//Aggiorno i dati utente
 			UserData ud = new UserData(msg.getUsername());
@@ -668,6 +712,10 @@ public class ServerMatchActionHandler {
 				
 				//Sposto il re
 				mac.moveKing(politicalCardsIndex, path);
+				
+				//Aggiorno i dati del repository
+				mac.getMatch().updateGamer(mac.getGamer());
+				MatchRepository.getInstance().updateMatch(mac.getMatch());
 				
 				//Aggiorno i dati utente
 				UserData ud = new UserData(msg.getUsername());

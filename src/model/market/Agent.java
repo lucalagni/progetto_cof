@@ -12,6 +12,7 @@ import model.basics.Gamer;
  */
 public class Agent implements Serializable{
 	private static final long serialVersionUID = 1L;
+	private Boolean editable;
 	private Gamer gamer;
 	private ArrayList<HelpersItem> helpersStock;
 	private ArrayList<PoliticalCardItem> politicalCardStock;
@@ -22,6 +23,7 @@ public class Agent implements Serializable{
 		this.helpersStock = new ArrayList<HelpersItem>();
 		this.politicalCardStock = new ArrayList<PoliticalCardItem>();
 		this.permitCardStock = new ArrayList<PermitCardItem>();
+		this.setEditable(false);
 	}
 	
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
@@ -29,6 +31,13 @@ public class Agent implements Serializable{
 	public void addHelpersItem(HelpersItem helpersItem){ this.helpersStock.add(helpersItem); }
 	public void addPoliticalCardItem(PoliticalCardItem politicalCardItem){ this.politicalCardStock.add(politicalCardItem); }
 	public void addPermitCardItem(PermitCardItem permitCardItem){ this.permitCardStock.add(permitCardItem); }
+	public void setEditable(boolean editable){ this.editable = new Boolean(editable); }
+	
+	public void resetAgent(){
+		this.helpersStock = new ArrayList<HelpersItem>();
+		this.permitCardStock = new ArrayList<PermitCardItem>();
+		this.politicalCardStock = new ArrayList<PoliticalCardItem>();
+	}
 
 	public HelpersItem subHelpersItem(int position){
 		//gestire il fatto che la posizione ecceda quella dello stock
@@ -59,6 +68,7 @@ public class Agent implements Serializable{
 	public ArrayList<HelpersItem> getHelpersStock(){ return this.helpersStock; }
 	public ArrayList<PoliticalCardItem> getPoliticalCardStock(){ return this.politicalCardStock; }
 	public ArrayList<PermitCardItem> getPermitCardStock(){ return this.permitCardStock; }
+	public boolean getEditable(){ return this.editable.booleanValue(); }
 	
 	@Override
 	public String toString(){

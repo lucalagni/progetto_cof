@@ -21,11 +21,11 @@ public class CliPerformAction {
 	private ActionController actionController ;
 	private Scanner input;
 	
-	public CliPerformAction(Scanner input){
+	public CliPerformAction(){
 		this.dataController = ControllerRepository.getInstance().getGameDataController();
 		ControllerRepository.getInstance().setActionController();
 		this.actionController = ControllerRepository.getInstance().getActionController();
-		this.input = input;
+		this.input = new Scanner(System.in);
 		CliClearConsole.clearConsole(false);
 		
 	}

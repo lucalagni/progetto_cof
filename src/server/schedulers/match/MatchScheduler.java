@@ -37,7 +37,7 @@ public class MatchScheduler {
 		this.getMatch().done();
 	}
 	
-	private void setMatch(Match match){ this.match = match; }
+	public void setMatch(Match match){ this.match = match; }
 	private void setMatchCode(String matchCode){ this.matchCode = matchCode; }
 	private void setHasPlayed(boolean hasPlayed){ this.hasPlayed = hasPlayed; }
 	private void setFirstTurn(boolean firstTurn){ this.fistTurn = firstTurn; }

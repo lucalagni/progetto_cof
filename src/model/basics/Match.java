@@ -103,6 +103,15 @@ public class Match implements Serializable{
 		this.setNextGamer();
 	}
 	
+	public void updateGamer(Gamer gamer){
+		for(int i = 0; i < this.gamers.size(); i++){
+			if(gamer.getUsername().equals(this.gamers.get(i).getUsername())){
+				this.gamers.set(i, gamer);
+				break;
+			}
+		}
+	}
+	
 	public String getTitle(){ return this.title; }
 	public Date getDate(){ return this.date; }
 	public Board getBoard(){ return this.board; }

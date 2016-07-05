@@ -197,51 +197,51 @@ public class CliMainMenu extends Thread{
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).buildShop();
+					new CliPerformAction().buildShop();
 					break;
 				case 27:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).moveKing();
+					new CliPerformAction().moveKing();
 					break;
 				case 28:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).buyPermitCard();
+					new CliPerformAction().buyPermitCard();
 					break;
 				case 29:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).changeNoble(true);
+					new CliPerformAction().changeNoble(true);
 					break;
 				case 30:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).buyHelper();
+					new CliPerformAction().buyHelper();
 					break;
 				case 31:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).changeNoble(false);
+					new CliPerformAction().changeNoble(false);
 					break;
 				case 32:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).doubleAction();
+					new CliPerformAction().doubleAction();
 					break;
 				case 33:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).buyNewMainAction();
+					new CliPerformAction().buyNewMainAction();
 					break;
 				case 34:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).acquirePermitCard();
+					new CliPerformAction().acquirePermitCard();
 					break;
 				case 35:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).reusePermitCardBonus();
+					new CliPerformAction().reusePermitCardBonus();
 					break;
 				case 36:
 					if(this.gamerTurn == false) continue;
-					new CliPerformAction(in).acquireSingleVillageBonus();
+					new CliPerformAction().acquireSingleVillageBonus();
 					break;
 				case 37:
 					if(this.gamerTurn == false)continue;
-					new CliPerformAction(in).acquireDoubleVillageBonus();
+					new CliPerformAction().acquireDoubleVillageBonus();
 					break;
 				case 0:
 					break;
