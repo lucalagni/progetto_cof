@@ -3,6 +3,7 @@ package client.view.cli.basic;
 import java.util.Scanner;
 
 import model.basics.supports.MatchPhase;
+import client.view.cli.market.CliMarketPerformAction;
 import client.view.cli.setter.CliSetterPerformAction;
 import client.view.cli.utils.CliClearConsole;
 
@@ -121,8 +122,8 @@ public class CliMainMenu extends Thread{
 		this.text += "\n\n=========={ Market Menu }==========\n";
 		this.text += "\n43) Show your items";
 		this.text += "\n----------{ Show Items From }----------\n";
-		this.text += "\n44)Show all Agents";
-		this.text += "\n45)Show specific Agent";
+		this.text += "\n44)Show Market";
+		this.text += "\n45)Show Specific Agent";
 	}
 	
 	private void setMarketActionText(){
@@ -329,24 +330,30 @@ public class CliMainMenu extends Thread{
 					break;
 				case 43:
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showYourItems();
 					break;
 				case 44:
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showMarket();
 					break;
 				case 45:
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showSpecificAgent();
 					break;
 				case 46:
 					if(this.gamerTurn == false) continue;
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyHelpersItem();
 					break;
 				case 47:
 					if(this.gamerTurn == false) continue;
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyPoliticalCardItem();
 					break;
 				case 48:
 					if(this.gamerTurn == false) continue;
 					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyPermitCardItem();
 					break;
 				case 0:
 					break;

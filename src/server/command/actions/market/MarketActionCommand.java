@@ -3,6 +3,7 @@ package server.command.actions.market;
 import server.command.actions.market.exceptions.MarketActionCommandException;
 import server.command.actions.market.exceptions.codes.MarketActionCommandExceptionCode;
 import commons.data.UserData;
+import model.basics.Gamer;
 import model.basics.Match;
 import model.basics.constants.HelpersPoolConstants;
 import model.basics.exceptions.GamerException;
@@ -214,6 +215,8 @@ public class MarketActionCommand {
 		this.match.getMarket().getAgents().set(buyerIndex, agent);
 		
 	}
+	
+	public Gamer getGamer(){ return match.getGamers().get(buyerIndex); }
 	
 	private void setAgent(Agent agent) throws MarketActionCommandException{ 
 		if(agent == null)throw new MarketActionCommandException(MarketActionCommandExceptionCode.AGENT_NOT_FOUND.getExceptionCode());

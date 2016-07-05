@@ -11,7 +11,6 @@ import client.controller.ControllerRepository;
 import client.controller.data.GameDataController;
 import client.controller.updates.GameUpdatesController;
 import client.view.cli.basic.CliMainMenu;
-import client.view.cli.setter.CliSetterMainMenu;
 
 /**
  * Classe per la gestione dello scheduler per la richiesta del turno di gioco
@@ -84,7 +83,6 @@ public class GameUpdatesScheduler extends Thread{
 			t1.start();
 		}
 		
-		@SuppressWarnings("deprecation")
 		public void run() {
 			 controller.getGamerTurn();
 			 MatchPhase phase = dataController.getUserData().getMatch().getMatchPhase();

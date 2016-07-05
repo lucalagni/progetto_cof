@@ -96,6 +96,22 @@ public class ServerMessageHandler {
 			   ServerMatchActionHandler smah11 = new ServerMatchActionHandler();
 			   response = smah11.clientRequestReusePermitCardBonus(msg);
 			   break; 
+		   case CLIENT_REQUEST_SET_AGENT:
+			   ServerSetterActionHandler ssah = new ServerSetterActionHandler();
+			   response = ssah.updateAgent(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_HELPERS_ITEM:
+			   ServerMarketActionHandler skah1 = new ServerMarketActionHandler();
+			   response = skah1.clientRequestBuyHelpersItem(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_POLITICAL_CARD_ITEM:
+			   ServerMarketActionHandler skah2 = new ServerMarketActionHandler();
+			   response = skah2.clientRequestBuyPoliticalCardItem(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_PERMIT_CARD_ITEM:
+			   ServerMarketActionHandler skah3 = new ServerMarketActionHandler();
+			   response = skah3.clientRequestBuyPermitCardItem(msg);
+			   break;
 		   
 		   default:
 			   response = this.invalidMessageFromClient(msg.getUserData());

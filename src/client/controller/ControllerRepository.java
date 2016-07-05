@@ -3,6 +3,7 @@ package client.controller;
 import commons.data.UserData;
 import commons.data.GameMode;
 import client.controller.actions.basics.ActionController;
+import client.controller.actions.market.MarketActionController;
 import client.controller.actions.setter.SetterActionController;
 import client.controller.connections.GameConnectionSetupController;
 import client.controller.data.GameDataController;
@@ -24,6 +25,7 @@ public class ControllerRepository {
 	private GameUpdatesController gameUpdatesController;
 	private GameConnectionSetupController gameConnectionSetupController;
 	private SetterActionController setterActionController;
+	private MarketActionController markerActionController;
 	
 	private ControllerRepository(){
 		this.clientController = null;
@@ -32,6 +34,7 @@ public class ControllerRepository {
 		this.gameUpdatesController = null;
 		this.gameConnectionSetupController = null;
 		this.setterActionController = null;
+		this.markerActionController = null;
 	}
 	
 	/**
@@ -68,6 +71,12 @@ public class ControllerRepository {
 		this.actionController =  ActionController.getInstance();
 	}
 	
+	public void setMarketActionController(){
+		if(this.markerActionController != null) return;
+		
+		this.markerActionController = MarketActionController.getInstance();
+	}
+	
 	public void setGameUpdatesController(){
 		if(this.gameUpdatesController != null) return ;
 		
@@ -92,6 +101,7 @@ public class ControllerRepository {
 	public GameUpdatesController getGameUpdatesController(){ return this.gameUpdatesController; }
 	public GameConnectionSetupController getGameConnectionSetupController(){ return this.gameConnectionSetupController; }
 	public SetterActionController getSetterActionController(){ return this.setterActionController; }
+	public MarketActionController getMarketActionController(){ return this.markerActionController; }
 	
 	public static ControllerRepository getInstance(){
 		if(instance == null) instance = new ControllerRepository();
