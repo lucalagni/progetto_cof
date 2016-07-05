@@ -5,7 +5,6 @@ import java.util.Scanner;
 import model.basics.Village;
 import client.controller.ControllerRepository;
 import client.controller.data.GameDataController;
-import client.view.cli.utils.CliClearConsole;
 
 /**
  * Classe per la visuazlizzazione in modalità CLI dei dati comuni di gioco

@@ -1,6 +1,7 @@
 package server.managers.socket.messages;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import model.basics.Match;
 import model.basics.exceptions.CouncilException;
@@ -64,15 +65,24 @@ public class ServerMatchActionHandler {
 	 * @param msg
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private ServerMessage serverResponseGamerCannotPlay(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		
 		try {
 			msg.getUserData().updateGamer(msg.getUserData().getGamer());
 			msg.getUserData().updateMatch(this.retriveMatch(msg.getMatchCode()));
-		} catch (UserDataException e){ e.printStackTrace(); }
+		} catch (UserDataException e){ 
+			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
+		}
 		response = new ServerMessage(msg.getUserData());
-		response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_CANNOT_PLAY_NOW, null);
+		response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_CANNOT_PLAY_NOW, parameters);
 		
 		return response ;
 	}
@@ -86,6 +96,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestReusePermitCardBonus(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -108,12 +120,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (SpecialActionCommandException| NobiltyPathException | PoliticalCardsDeckException | HelpersPoolException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -125,6 +145,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestAcquireDoubleVillageBonus(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters;
+		String[] exception = null;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -148,12 +170,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (SpecialActionCommandException| NobiltyPathException | PoliticalCardsDeckException | HelpersPoolException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -165,6 +195,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestAcquireSingleVillageBonus(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters;
+		String[] exception ;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -187,12 +219,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (SpecialActionCommandException| NobiltyPathException | PoliticalCardsDeckException | HelpersPoolException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -206,6 +246,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestAcquirePermitCard(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -229,12 +271,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (SpecialActionCommandException| NobiltyPathException | PermitCardsDeckException | PoliticalCardsDeckException | HelpersPoolException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -250,7 +300,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestBuyNewMainAction(ClientMessage msg){
 		ServerMessage response = null;
-		
+		ArrayList<String[]> parameters;
+		String[] exception;
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
 		try {
@@ -270,12 +321,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (HelpersActionCommandException | HelpersPoolException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		return response ;
 		
@@ -288,6 +347,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestDoubleAction(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters;
+		String[] exception ;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -310,12 +371,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (HelpersActionCommandException | PermitCardsDeckException | GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		}
 		
 		return response ;
@@ -328,6 +397,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestBuyHelper(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -351,12 +422,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (HelpersActionCommandException | HelpersPoolException| GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -372,6 +451,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestPlaceShop(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -394,13 +475,21 @@ public class ServerMatchActionHandler {
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_SHOP_PLACED, null);
 			
 		} catch (MainActionCommandException | GameMapException |VillageException|NobiltyPathException|HelpersPoolException|PoliticalCardsDeckException| GamerException e) { 
-			e.printStackTrace(); 
+			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -413,6 +502,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestBuyPermitCard(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception;
 		
 	//	if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -439,12 +530,20 @@ public class ServerMatchActionHandler {
 			
 		} catch (MainActionCommandException |NobiltyPathException|PermitCardsDeckException|HelpersPoolException|PoliticalCardsDeckException| GamerException e) { 
 			e.printStackTrace(); 
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, parameters);
 		} catch (UserDataException e) {
 			e.printStackTrace();
+			parameters = new ArrayList<String[]>();
+			exception = new String[1];
+			exception[0] = e.getMessage();
+			parameters.add(exception);
 			response = new ServerMessage(msg.getUserData());
-			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 		} 
 		
 		return response ;
@@ -458,6 +557,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestChangeNoble(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception ;
 		
 		//if(this.isActualGamer(msg.getUserData()) == false) return this.serverResponseGamerCannotPlay(msg);
 		
@@ -490,13 +591,17 @@ public class ServerMatchActionHandler {
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_NOBLE_CHANGED, null);
 				
 			} catch (MainActionCommandException | CouncilException | NoblesPoolException | GamerException e) { 
-				e.printStackTrace(); 
+				e.printStackTrace();
+				parameters = new ArrayList<String[]>();
+				exception = new String[1];
+				exception[0] = e.getMessage();
+				parameters.add(exception);
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, parameters);
 			} catch (UserDataException e) {
 				e.printStackTrace();
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 			}
 		}
 		else{
@@ -517,12 +622,20 @@ public class ServerMatchActionHandler {
 			
 			} catch (MainActionCommandException | HelpersActionCommandException | CouncilException | NoblesPoolException | GamerException e) { 
 				e.printStackTrace(); 
+				parameters = new ArrayList<String[]>();
+				exception = new String[1];
+				exception[0] = e.getMessage();
+				parameters.add(exception);
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE, parameters);
 			} catch (UserDataException e) {
 				e.printStackTrace();
+				parameters = new ArrayList<String[]>();
+				exception = new String[1];
+				exception[0] = e.getMessage();
+				parameters.add(exception);
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 			
 			} 
 		}
@@ -537,6 +650,8 @@ public class ServerMatchActionHandler {
 	 */
 	public ServerMessage clientRequestMoveKing(ClientMessage msg){
 		ServerMessage response = null;
+		ArrayList<String[]> parameters = null;
+		String[] exception ;
 		
 		if(this.isActualGamer(msg.getUserData()) == false) ;//return this.serverResponseGamerCannotPlay(msg);
 		else {
@@ -563,11 +678,20 @@ public class ServerMatchActionHandler {
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_KING_MOVED, null);
 				
 			} catch (MainActionCommandException | GamerException | KingException | GameMapException | HelpersPoolException | PoliticalCardsDeckException | NobiltyPathException | VillageException e) {
+				e.printStackTrace();
+				parameters = new ArrayList<String[]>();
+				exception = new String[1];
+				exception[0] = e.getMessage();
+				parameters.add(exception);
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE, parameters);
 			} catch (UserDataException e) {
+				parameters = new ArrayList<String[]>();
+				exception = new String[1];
+				exception[0] = e.getMessage();
+				parameters.add(exception);
 				response = new ServerMessage(msg.getUserData());
-				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, null);
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 			}
 			
 		}

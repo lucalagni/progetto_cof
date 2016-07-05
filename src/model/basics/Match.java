@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import model.basics.constants.MatchConstants;
 import model.basics.exceptions.MatchException;
+import model.basics.supports.MatchPhase;
 import model.basics.supports.MatchStatus;
 import model.market.Market;
 
@@ -22,8 +22,7 @@ public class Match implements Serializable{
 	private Market market;
 	private Boolean lastTurn;        //Indica se un giocatore ha finito tutti gli empori a sua disposizione -> ultimo tuno
 	private Boolean lastTurnStarted; 
-	private Integer nextCondition; //indica la condizione in cui si trova il match (0=match,1=setter,2=market)
-	private Integer actualCondition;
+	private MatchPhase matchPhase;
 	/*
 	 * lastTurn : indica se un giocatore ha terminato tutti i suoi empori e, in caso affermativo , decreta la presenza di solo
 	 * un turno disponibile
@@ -43,6 +42,7 @@ public class Match implements Serializable{
 		this.setNextGamer();
 		this.setLastTurn(false);
 		this.setLastTurnStarted(false);
+		this.setMatchPhase(MatchPhase.MATCH_PHASE);
 	}
 	
 	private void setMatchStatus(MatchStatus status){this.status = status; }
@@ -56,18 +56,35 @@ public class Match implements Serializable{
 	//private void setMarket(Market market){ this.market = market; }
 	private void setLastTurn(boolean lastTurn){ this.lastTurn = new Boolean(lastTurn); }
 	private void setLastTurnStarted(boolean lastTurnStarted){ this.lastTurnStarted = new Boolean(lastTurnStarted); }
-	private void setActualCondition(int actualCondition){this.actualCondition = new Integer(actualCondition); }
-	private void setNextCondition(int nextCondition){this.nextCondition = new Integer(nextCondition); }
+	private void setMatchPhase(MatchPhase matchPhase){ this.matchPhase = matchPhase; }
 	
 	public void changeMatchStatus(MatchStatus newStatus){ this.setMatchStatus(status); }
 	
-	private void setNextGamerWithMarket(){
-		if((this.getActualGamer() + 1) > this.gamers.size() ){
-			if(this.getActualCondition() == MatchConstants.TIME_TO_MATCH) this.setNextCondition(nextCondition);
+	private void setNextGamer(){
+		if((this.getActualGamer() + 1) >= this.gamers.size()){
+			this.setNextGamer(0);
+			if(this.getLastTurn() == true){ if(this.getLastTurnStarted() == true) this.setMatchStatus(MatchStatus.TERMINATED); }
+			else this.setLastTurnStarted(true);
+			
+			switch(this.getMatchPhase()){
+				case MATCH_PHASE :
+					this.setMatchPhase(MatchPhase.SETTER_PHASE);
+					break;
+				case SETTER_PHASE:
+					this.setMatchPhase(MatchPhase.MARKET_PHASE);
+					break;
+				case MARKET_PHASE:
+					this.setMatchPhase(MatchPhase.MATCH_PHASE);
+					break;
+				default:
+					break;
+			}
+			
 		}
+		else this.setNextGamer(this.getActualGamer() + 1);
 	}
 	
-	private void setNextGamer(){
+	/*private void setNextGamer(){
 		if((this.getActualGamer() + 1) >= this.gamers.size()){
 			this.setNextGamer(0);
 			if(this.getLastTurn() == true) {
@@ -79,7 +96,7 @@ public class Match implements Serializable{
 			}
 		}
 		else this.setNextGamer(this.getActualGamer() + 1);
-	}
+	}*/
 	
 	public void done(){
 		this.setActualGamer(this.getNextGamer());
@@ -94,11 +111,13 @@ public class Match implements Serializable{
 	public String getMatchCode(){ return this.matchCode; }
 	public int getActualGamer(){ return this.actualGamer.intValue() ; }
 	public int getNextGamer(){ return this.nextGamer.intValue(); }
-	public Market getMarket(){ return this.market; }
+	public Market getMarket(){ 
+		if((this.getMatchPhase()) != MatchPhase.MARKET_PHASE) return null;
+		return this.market; 
+	}
 	public boolean getLastTurn(){ return this.lastTurn.booleanValue(); }
 	public boolean getLastTurnStarted(){ return this.lastTurnStarted.booleanValue(); }
-	public int getActualCondition(){ return this.actualCondition.intValue(); }
-	public int getNextCondition(){ return this.nextCondition.intValue(); }
+	public MatchPhase getMatchPhase(){ return this.matchPhase; }
 	
 	@Override
 	public String toString() {
@@ -108,6 +127,7 @@ public class Match implements Serializable{
 		mString += "title: " + this.getTitle() + "\n";
 		mString += "date: " + this.getDate() + "\n";
 		mString += "status: "+ this.getMatchStatus().getStatusCode() + "\n";
+		mString += "phase: " + this.getMatchPhase().getMatchPhase() + "\n";
 		mString += "actual gamer: " + this.getActualGamer() + "\n";
 		mString += "next gamer: " + this.getNextGamer() + "\n";
 		mString += "board: " + this.getBoard().toString() + "\n";

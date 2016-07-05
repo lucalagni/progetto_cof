@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import model.basics.exceptions.GamerException;
 import model.market.exceptions.MarketException;
 import model.market.exceptions.codes.MarketExceptionCode;
-
+/**
+ * Classe per la realizzazione della funzionalità market
+ * 
+ * @author Luca Lagni, Maria Antonietta Palermo
+ *
+ */
 public class Market implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Agent> agents;

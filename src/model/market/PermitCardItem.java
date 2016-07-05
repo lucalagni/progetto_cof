@@ -6,7 +6,7 @@ import model.basics.PermitCard;
 
 /**
  *	Classe wrapper per la vendita di una carta permesso 
- * @author Luca Lagni
+ * @author Luca Lagni, Maria Antonietta Palermo
  *
  */
 public class PermitCardItem implements Serializable{

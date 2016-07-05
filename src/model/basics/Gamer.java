@@ -15,7 +15,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+/**
+ * Classe che contiene tutti i dati di interesse del giocatore
+ * 
+ * @author Luca Lagni
+ *
+ */
 public class Gamer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
@@ -143,7 +148,6 @@ public class Gamer implements Serializable{
 	public void addCoins(int coins) throws GamerException{
 		int cns = this.coins.intValue();
 		cns += coins ;
-		System.out.println("\nCoins2: " + cns);
 		if(cns > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER) {
 			this.setCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
 			throw new GamerException(GamerExceptionCode.TOO_MANY_COINS.getExceptionCode());

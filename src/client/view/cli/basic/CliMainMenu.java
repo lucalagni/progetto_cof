@@ -1,13 +1,6 @@
 package client.view.cli.basic;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
-
-import client.view.cli.utils.CliClearConsole;
-
 
 /**
  * Classe che mostra il sinottico principale per le azioni di gioco in modalità CLI
@@ -105,7 +98,6 @@ public class CliMainMenu extends Thread{
 	public int show(){
 		int choice = 0;
 		boolean flag = false ;
-		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		
 		do

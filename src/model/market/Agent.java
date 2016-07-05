@@ -7,7 +7,7 @@ import model.basics.Gamer;
 
 /**
  * Classe wrapper che rappresenta il giocatore come agente del mercato (venditore o compratore)
- * @author Luca Lagni
+ * @author Luca Lagni, Maria Antonietta Palermo
  *
  */
 public class Agent implements Serializable{

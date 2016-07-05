@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Classe wrapper per la rappresentazione di un lotto di aiutanti da vendere
- * @author Luca Lagni
+ * @author Luca Lagni, Maria Antonietta Palermo
  *
  */
 public class HelpersItem implements Serializable{
