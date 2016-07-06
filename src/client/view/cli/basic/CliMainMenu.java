@@ -87,7 +87,7 @@ public class CliMainMenu extends Thread{
 		this.text += "\n\n-----{ Helpers Actions }-----\n";
 		this.text += "\n30)Buy helper";
 		this.text += "\n31)Change noble";
-		this.text += "\n32)Double action (untested)";
+		this.text += "\n32)Double action ";
 		this.text += "\n33)New Main Action";
 		
 		this.text += "\n\n-----{ Special Actions }------\n";
@@ -99,7 +99,7 @@ public class CliMainMenu extends Thread{
 	
 	private void setOptionText(){
 		this.text +=  "\n\n------{ Options }------\n";
-		this.text += "\n0)Exit";
+		this.text += "\n0)Go offline";
 		this.text += "\n\nChoice> ";
 	}
 	
@@ -356,6 +356,8 @@ public class CliMainMenu extends Thread{
 					new CliMarketPerformAction().buyPermitCardItem();
 					break;
 				case 0:
+					new CliShowGameData(true,in).goOffline();
+					flag = false;
 					break;
 				default:
 					break;

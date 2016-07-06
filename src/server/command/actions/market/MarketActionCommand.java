@@ -2,6 +2,8 @@ package server.command.actions.market;
 
 import server.command.actions.market.exceptions.MarketActionCommandException;
 import server.command.actions.market.exceptions.codes.MarketActionCommandExceptionCode;
+import server.command.basic.actions.exceptions.MainActionCommandException;
+import server.command.basic.actions.exceptions.codes.MainActionCommandExceptionCode;
 import server.managers.match.MatchRepository;
 import commons.data.UserData;
 import model.basics.Gamer;
@@ -24,7 +26,11 @@ public class MarketActionCommand {
 	private Agent agent;
 	private int buyerIndex;
 	
-	public MarketActionCommand(UserData data) throws MarketActionCommandException{
+	public MarketActionCommand(UserData data) throws MarketActionCommandException, MainActionCommandException{
+		this.match = MatchRepository.getInstance().getMatch(data.getMatch().getMatchCode());
+		if(this.match.getGamers().get(this.match.getActualGamer()).getUsername().equals(data.getGamer().getUsername()) == false){
+			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
 		this.setMatch(data.getMatch());
 		this.buyerIndex = -1;
 		for(int i = 0; i < this.getMatch().getMarket().getAgents().size(); i++){

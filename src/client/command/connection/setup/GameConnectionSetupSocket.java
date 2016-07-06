@@ -33,6 +33,16 @@ public class GameConnectionSetupSocket {
 		return sm;
 	}
 	
+	public String clientRequestToGoOffline(){
+		ClientMessage request = new ClientMessage(this.data);
+		ServerMessage response = null;
+		
+		request.addContent(ClientMessageContentType.CLIENT_REQUEST_GO_OFFLINE, null);
+		response = this.client.sendMessage(request);
+		
+		return response.getContent().getServerMessageContentType();
+	}
+	
 	/**
 	 * Metodo che si occupa di tornare un match per il giocatore qualora esso sia disponibile
 	 * @return

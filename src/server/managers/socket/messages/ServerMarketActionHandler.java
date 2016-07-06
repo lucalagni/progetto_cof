@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import model.basics.exceptions.GamerException;
 import server.command.actions.market.MarketActionCommand;
 import server.command.actions.market.exceptions.MarketActionCommandException;
+import server.command.basic.actions.exceptions.MainActionCommandException;
 import server.managers.match.MatchRepository;
 import commons.data.UserData;
 import commons.data.exceptions.UserDataException;
@@ -49,7 +50,7 @@ public class ServerMarketActionHandler {
 			response = new ServerMessage(ud);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ITEM_BUYED, null);
 			
-		} catch (MarketActionCommandException | GamerException e) {
+		} catch (MarketActionCommandException | MainActionCommandException | GamerException e) {
 			e.printStackTrace();
 			parameters = new ArrayList<String[]>();
 			exception = new String[1];
@@ -96,7 +97,7 @@ public class ServerMarketActionHandler {
 			response = new ServerMessage(ud);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_POLITICAL_CARD_ITEM_BUYED, null);
 			
-		} catch (MarketActionCommandException | GamerException e) {
+		} catch (MarketActionCommandException | MainActionCommandException | GamerException e) {
 			e.printStackTrace();
 			parameters = new ArrayList<String[]>();
 			exception = new String[1];
@@ -143,7 +144,7 @@ public class ServerMarketActionHandler {
 			response = new ServerMessage(ud);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_PERMIT_CARD_ITEM_BUYED, null);
 			
-		} catch (MarketActionCommandException | GamerException e) {
+		} catch (MarketActionCommandException | MainActionCommandException | GamerException e) {
 			e.printStackTrace();
 			parameters = new ArrayList<String[]>();
 			exception = new String[1];

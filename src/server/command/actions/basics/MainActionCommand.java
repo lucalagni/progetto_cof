@@ -56,14 +56,17 @@ public class MainActionCommand {
 		if(data.getActionSynoptic().getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
+		
+		this.match = MatchRepository.getInstance().getMatch(data.getMatch().getMatchCode());
+		if(this.match.getGamers().get(this.match.getActualGamer()).getUsername().equals(data.getGamer().getUsername()) == false){
+			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
 		this.setActionSynoptic(data.getActionSynoptic());
-		this.setMatch(data.getMatch());
 		this.setGamer(data.getGamer());
 		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
 		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 	}
 	
-	private void setMatch(Match match){ this.match = match; }
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }

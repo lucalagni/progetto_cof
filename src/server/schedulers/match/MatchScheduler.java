@@ -8,6 +8,7 @@ import server.managers.match.MatchRepository;
 import commons.schedulers.server.ServerSchedulersConstants;
 import model.basics.Match;
 import model.basics.exceptions.PoliticalCardsDeckException;
+import model.basics.supports.GamerStatus;
 import model.basics.supports.MatchPhase;
 import model.basics.supports.MatchStatus;
 
@@ -64,22 +65,84 @@ public class MatchScheduler {
 	private class StartMatchScheduler implements Runnable {
 
 		public void run() {
-			getMatch().done();
+			
+			//getMatch().done();
+			
+			if(this.checkGamerStatus() == true) this.nextTurn();
+			this.endMatch();
+			this.resetMatchAgents();
+			
+			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
+		}
+		
+		/**
+		 * Metodo per la gestione del turno del giocatore successivo
+		 */
+		private void nextTurn(){
+			if(this.checkGamerStatus() == true){
+				if(getMatch().getGamers().get(getMatch().getActualGamer()).getStatus().equals(GamerStatus.OFFLINE)){
+					getMatch().done();
+					MatchRepository.getInstance().updateMatch(getMatch());
+					this.nextTurn();
+				}
+			}
+		}
+		
+		/**
+		 * Metodo che attua la fine del match per fine partita
+		 */
+		private void endMatch(){
+			if(getMatch().getMatchStatus().equals(MatchStatus.TERMINATED)){
+				if(getMatch().getMatchPhase().equals(MatchPhase.SETTER_PHASE)){
+					if(getMatch().getLastTurnStarted() == true){
+						MatchRepository.getInstance().updateMatch(getMatch());
+						this.stopMatchScheduler(MatchStatus.TERMINATED);
+					}
+				}
+			}
+		}
+		
+		/**
+		 * Metodo che resetta i dati agente della parita
+		 */
+		private void resetMatchAgents(){
 			if(getMatch().getMatchPhase().equals(MatchPhase.MATCH_PHASE)){
 				if(getMatch().getActualGamer() == 0){
 					for(int i = 0; i < getMatch().getMarket().getAgents().size(); i++)getMatch().getMarket().getAgents().get(i).resetAgent();
 					MatchRepository.getInstance().updateMatch(getMatch());
 				}
 			}
-			if(getMatch().getMatchStatus().equals(MatchStatus.TERMINATED)){
-				if(getMatch().getMatchPhase().equals(MatchPhase.SETTER_PHASE)){
-					if(getMatch().getLastTurnStarted() == true){
-						scheduledTask.cancel(true);
-						scheduler.shutdown();
-					}
+		}
+		
+		/**
+		 * Metodo che ferma l'esecuzione del match scheduler per fine partita
+		 */
+		private void stopMatchScheduler(MatchStatus status){
+			getMatch().changeMatchStatus(status);
+			MatchRepository.getInstance().updateMatch(getMatch());
+			scheduledTask.cancel(true);
+			scheduler.shutdown();
+		}
+		
+		/**
+		 * Metodo che verifica se nella partita ci sono ancora giocatori
+		 */
+		private boolean checkGamerStatus(){
+			boolean flag = true;
+			
+			//Verifico che ci siano ancora giocatori connessi
+			for(int i = 0; i < getMatch().getGamers().size(); i++){
+				if(getMatch().getGamers().get(i).getStatus().equals(GamerStatus.ONLINE)) {
+					flag = false ;
+					break;
 				}
 			}
-			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
+			
+			if(flag == true){
+				this.stopMatchScheduler(MatchStatus.FREEZED);
+				return false;
+			}
+			else return true;
 		}
 		
 	}

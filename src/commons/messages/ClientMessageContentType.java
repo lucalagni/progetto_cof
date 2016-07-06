@@ -13,7 +13,7 @@ import java.io.Serializable;
  * CLIENT_REQUEST_MATCH_TIME = Il client richiede se si e' passati alla modalita' match
  * CLIENT_REQUEST_MARKET_SETTER = Il client richiede se si e' passati alla modalita' di creazione del match
  * CLIENT_REQUEST_CAN_I_PLAY = Il client chiede se e' stato creato il match con cui puo' giocare...
- * 
+ * CLIENT_REQUEST_GO_OFFLINE = Il client richiede di poter uscire dalla partita;
  * ============={ messaggi azioni principali }===============
  * CLIENT_REQUEST_MOVE_KING = Il client richiede di poter spostare il re (azione principale)
  * CLIENT_REQUEST_CHANGE_NOBLE = Il client richiede di cambiare un nobile (azione principale o secondaria)
@@ -49,6 +49,7 @@ public enum ClientMessageContentType implements Serializable{
 	CLIENT_REQUEST_MARKET_SETTER(" CLIENT_REQUEST_MARKET_SETTER"),
 	CLIENT_REQUEST_ADD_ME("CLIENT_REQUEST_ADD_ME"),
 	CLIENT_REQUEST_CAN_I_PLAY("CLIENT_REQUEST_CAN_I_PLAY"),
+	CLIENT_REQUEST_GO_OFFLINE("CLIENT_REQUEST_GO_OFFLINE"),
 	
 	CLIENT_REQUEST_MOVE_KING("CLIENT_REQUEST_MOVE_KING"),
 	CLIENT_REQUEST_CHANGE_NOBLE("CLIENT_REQUEST_CHANGE_NOBLE"),

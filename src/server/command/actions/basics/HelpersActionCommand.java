@@ -6,6 +6,7 @@ import commons.data.*;
 import server.command.basic.actions.exceptions.HelpersActionCommandException;
 import server.command.basic.actions.exceptions.MainActionCommandException;
 import server.command.basic.actions.exceptions.codes.HelpersActionCommandExceptionCode;
+import server.managers.match.MatchRepository;
 import model.basics.Gamer;
 import model.basics.Match;
 import model.basics.constants.ColorConstants;
@@ -38,14 +39,17 @@ public class HelpersActionCommand {
 		if(this.actionSynoptic.getHelpersActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new HelpersActionCommandException(HelpersActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
+		this.match = MatchRepository.getInstance().getMatch(data.getMatch().getMatchCode());
+		if(this.match.getGamers().get(this.match.getActualGamer()).getUsername().equals(data.getGamer().getUsername()) == false){
+			System.out.println("\nActual Gamer: " + this.match.getGamers().get(this.match.getActualGamer()).getUsername());
+			throw new HelpersActionCommandException(HelpersActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
 		this.setActionSynoptic(data.getActionSynoptic());
 		this.setGamer(data.getGamer());
-		this.setMatch(data.getMatch());
 		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
 		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 	}
 	
-	private void setMatch(Match match){ this.match = match; }
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }

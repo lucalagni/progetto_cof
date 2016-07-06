@@ -38,6 +38,9 @@ public class ServerMessageHandler {
 		   case CLIENT_REQUEST_MATCH:
 			   response = this.clientRequestMatch(msg.getUserData());
 			   break;
+		   case CLIENT_REQUEST_GO_OFFLINE:
+			   response = clientRequestGoOffline(msg.getUserData());
+			   break;
 		   case CLIENT_REQUEST_GAMER_TURN:
 			   System.out.println("\nCLIENT username: " + msg.getUserData().getUsername() + " request gamer turn at " + System.currentTimeMillis());
 			   response = this.clientRequestGamerTurn(msg.getUserData());
@@ -122,6 +125,38 @@ public class ServerMessageHandler {
 		}
 		
 		System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " SEND response gamer turn at " + System.currentTimeMillis());
+		return response;
+	}
+	
+	private ServerMessage clientRequestGoOffline(UserData data){
+		ServerMessage response = null;
+		Match m = this.matchRepository.getMatch(data.getMatchCode());
+		
+		if(m == null){
+			response = new ServerMessage(data);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
+		}
+		else
+		{
+			boolean flag = false ;
+			for(int i = 0; i < m.getGamers().size(); i++){
+				if(m.getGamers().get(i).getUsername().equals(data.getUsername())){
+					m.getGamers().get(i).toggleOffline();
+					flag = true;
+					MatchRepository.getInstance().updateMatch(m);
+					break;
+				}
+			}
+			
+			response = new ServerMessage(data);
+			if(flag == true){
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_OFFLINE, null);
+			}
+			else{
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_NOT_IN_MATCH, null);
+			}
+		}
+		
 		return response;
 	}
 	

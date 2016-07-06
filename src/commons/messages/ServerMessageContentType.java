@@ -23,6 +23,7 @@ import java.io.Serializable;
  * SERVER_RESPONSE_NOT_MATCH_TIME = Il server comunica al client che la fase di match non è ancora ripresa
  * SERVER_RESPONSE_USERNAME_NOT_AVAILABLE = Il server comunica che lo username e' gia stato preso
  * SERVER_RESPONSE_GAMER_NOT_IN_MATCH = Il server risponde che il giocatore non fa parte del match
+ * SERVER_RESPONSE_GAMER_OFFLINE = Il server ha risposto che il giocatore è offline
  * 
  * =============={ RISPOSTE DEL SERVER ALLE AZIONI ]===================
  * 
@@ -76,6 +77,7 @@ public enum ServerMessageContentType implements Serializable{
 	SERVER_RESPONSE_NOT_MATCH_TIME("SERVER_RESPONSE_NOT_MATCH_TIME"),
 	SERVER_RESPONSE_USERNAME_NOT_AVAILABLE("SERVER_RESPONSE_USERNAME_NOT_AVAILABLE"),
 	SERVER_RESPONSE_GAMER_NOT_IN_MATCH("SERVER_RESPONSE_GAMER_NOT_IN_MATCH"),
+	SERVER_RESPONSE_GAMER_OFFLINE("SERVER_RESPONSE_GAMER_OFFLINE"),
 	
 	SERVER_RESPONSE_KING_MOVED("SEREVR_RESPONSE_KING_MOVED"),
 	SERVER_RESPONSE_SHOP_PLACED("SERVER_RESPONSE_SHOP_PLACED"),

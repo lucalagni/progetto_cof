@@ -5,6 +5,7 @@ import commons.data.ActionSynoptic;
 import commons.data.UserData;
 import server.command.basic.actions.exceptions.SpecialActionCommandException;
 import server.command.basic.actions.exceptions.codes.SpecialActionCommandExceptionCode;
+import server.managers.match.MatchRepository;
 import model.basics.Bonus;
 import model.basics.Gamer;
 import model.basics.Match;
@@ -34,7 +35,9 @@ public class SpecialActionCommand {
 	private int virtualCoins ;
 	
 	public SpecialActionCommand(UserData data){
-		this.setMatch(data.getMatch());
+		this.match = MatchRepository.getInstance().getMatch(data.getMatch().getMatchCode());
+		if(this.match.getGamers().get(this.match.getActualGamer()).getUsername().equals(data.getGamer().getUsername()) == false){
+			new SpecialActionCommandException(SpecialActionCommandExceptionCode.CANNOT_PERFORM_THIS_ACTION.getExceptionCode());}
 		this.setGamer(data.getGamer());
 		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
@@ -42,7 +45,6 @@ public class SpecialActionCommand {
 	}
 	
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
-	private void setMatch(Match match){ this.match = match; }
 	private void setActionSynoptic(ActionSynoptic actionSynoptic){ this.actionSynoptic = actionSynoptic; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
