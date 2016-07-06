@@ -18,6 +18,7 @@ import model.basics.constants.CoinsPoolConstants;
 import model.basics.constants.ColorConstants;
 import model.basics.constants.CouncilConstants;
 import model.basics.constants.GameMapConstants;
+import model.basics.constants.GamerConstants;
 import model.basics.constants.HelpersPoolConstants;
 import model.basics.constants.KingConstants;
 import model.basics.constants.PermitCardsDeckConstants;
@@ -122,13 +123,13 @@ public class MainActionCommand {
 				break;
 			}
 		}
-		if(flag == false)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_SHOP_ALREADY_PLACED_IN_THAT_VILLAGE.getExceptionCode());
+		if(flag == true)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_SHOP_ALREADY_PLACED_IN_THAT_VILLAGE.getExceptionCode());
 		
 		//Verifico che l'utente abbia ancora empori a disposizione
 		this.checkNumberOfShops();
 		
 		//Verifico se l'utente e' il primo 
-		if(position.getFirstGamer() != null){
+		if(position.getFirstGamer().equals(GamerConstants.NULL_GAMER) == false){
 			//Nel caso non lo sia, pago un aiutante
 			if(this.gamer.getHelpers() < HelpersPoolConstants.HELPERS_FOR_SHOP){
 				if(this.virtualHelpers < HelpersPoolConstants.HELPERS_FOR_SHOP) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
@@ -140,7 +141,11 @@ public class MainActionCommand {
 		}
 		
 		//Piazzo l'emporio
-		position.addShop(this.gamer);
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			if(this.match.getBoard().getGameMap().getVillages()[i].equals(position)){
+				this.match.getBoard().getGameMap().getVillages()[i].addShop(this.gamer.getUsername());
+			}
+		}
 		this.gamer.subShop();
 		
 		//Gestisco i derivanti bonus
