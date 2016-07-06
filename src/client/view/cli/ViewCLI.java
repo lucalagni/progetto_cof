@@ -1,6 +1,5 @@
 package client.view.cli;
 
-import client.view.cli.basic.CliMainMenu;
 import client.view.cli.setup.CliConsoleType;
 import client.view.cli.setup.CliGameModeSetup;
 import client.view.cli.setup.CliRequestCanIPlay;
@@ -41,7 +40,7 @@ public class ViewCLI {
 			}while(wait == CliRequestCanIPlay.MATCH_NOT_AVAILABLE_YET);
 			
 			if(wait == CliRequestCanIPlay.MATCH){
-				CliClearConsole.getInstance().clearConsole(false);
+				CliClearConsole.clearConsole(false);
 				do{
 					wait = new CliGamerTurn().show();
 					

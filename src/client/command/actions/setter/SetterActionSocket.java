@@ -1,10 +1,9 @@
 package client.command.actions.setter;
 
-import java.util.ArrayList;
-
 import client.Client;
 import client.controller.ControllerRepository;
 import commons.data.UserData;
+import commons.data.exceptions.UserDataException;
 import commons.messages.ClientMessage;
 import commons.messages.ClientMessageContentType;
 import commons.messages.ServerMessage;
@@ -12,7 +11,7 @@ import commons.messages.ServerMessage;
 /**
  * Classe che si occupa dello scambio di messaggi finalizzazto alla fase di setting del
  * merket
- * @author lucal
+ * @author Luca Lagni
  *
  */
 public class SetterActionSocket {
@@ -28,33 +27,24 @@ public class SetterActionSocket {
 	private void setClient(Client client){ this.client = client; }
 	
 	/**
-	 * Metodo che crea l'agente del market
-	 * @param permitCardsIndex
-	 * @param politicalCardsIndex
-	 * @param helpersQuantity
+	 * Metodo per l'invio delle modifiche al agent in modalità socket
+	 * @param data
 	 * @return
 	 */
-	public ServerMessage createAgent(ArrayList<Integer> permitCardsIndex, ArrayList<Integer> politicalCardsIndex,int helpersQuantity){
-		ClientMessage request = new ClientMessage(this.data);
+	public String sendAgent(UserData data){
+		ClientMessage message = new ClientMessage(data);
 		ServerMessage response = null;
-		ArrayList<String[]> parameters = new ArrayList<String[]>();
-		String[] permit = new String[permitCardsIndex.size()];
-		String[] political = new String[politicalCardsIndex.size()];
-		String[] helpers = new String[1];
 		
-		for(int i = 0; i < permit.length; i++) permit[i] = "" + permitCardsIndex.get(i);
-		for(int i = 0; i < political.length; i++) political[i] = "" + politicalCardsIndex.get(i);
-		helpers[0] = "" + helpersQuantity;
+		message.addContent(ClientMessageContentType.CLIENT_REQUEST_SET_AGENT, null);
+		response = this.client.sendMessage(message);
 		
-		parameters.add(permit);
-		parameters.add(political);
-		parameters.add(helpers);
+		try {
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
+			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
+		} catch (UserDataException e) { e.printStackTrace(); }
 		
-		request.addContent(ClientMessageContentType.CLIENT_REQUEST_CREATE_AGENT, parameters);
-		
-		response = this.client.sendMessage(request);
-		
-		return response;
+		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		return response.getContent().getServerMessageContentType();
 	}
 	
 	public UserData getUserData(){ return this.data; }

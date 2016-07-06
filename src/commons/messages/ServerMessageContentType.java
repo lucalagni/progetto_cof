@@ -23,6 +23,7 @@ import java.io.Serializable;
  * SERVER_RESPONSE_NOT_MATCH_TIME = Il server comunica al client che la fase di match non è ancora ripresa
  * SERVER_RESPONSE_USERNAME_NOT_AVAILABLE = Il server comunica che lo username e' gia stato preso
  * SERVER_RESPONSE_GAMER_NOT_IN_MATCH = Il server risponde che il giocatore non fa parte del match
+ * SERVER_RESPONSE_GAMER_OFFLINE = Il server ha risposto che il giocatore è offline
  * 
  * =============={ RISPOSTE DEL SERVER ALLE AZIONI ]===================
  * 
@@ -45,11 +46,16 @@ import java.io.Serializable;
  * 
  * ================{ RISPOSTE DEL SERVER AL SETTER }=================
  * 
- * SERVER_RESPONSE_AGENT_CREATED = il server risponde che l'agente e' stato settato
+ * SERVER_RESPONSE_AGENT_SETTED = il server risponde che l'agente e' stato settato
+ * SERVER_RESPONSE_AGENT_SET_FAILURE = Il server segnala problemi nella fase di settaggio del market
  * 
  * ================{ RISPOSTE DEL SERVER AL MARKET }=================
- * 
-
+ *SERVER_RESPONSE_HELPERS_ITEM_BUYED = il server risponde al client che il lotto di aiutanti è stato acquistato
+ *SERVER_RESPONSE_HELPERS_ITEM_TRANSACTION_FAILURE = il server risponde che non è stato possibile comprare il lotto di aiutanti
+ *SERVER_RESPONSE_PERMIT_CARD_ITEM_BUYED = Il server risponde al client che la carta permesso è stata acquistata
+ *SERVER_RESPONSE_PERMIT_CARD_ITEM_TRANSACTION_FAILURE = il server risponde che non è stato possibile comprare la carta permesso
+ *SERVER_RESPONSE_POLITICAL_CARD_ITEM_BUYED = il server risponde al client che la carta politica è stata acquistata
+ *SERVER_RESPONSE_POLITICAL_CARD_ITEM_TRANSACTION_FAILURE =  il server risponde che non è stato possibile comprare la carta politica
  */
 
 public enum ServerMessageContentType implements Serializable{
@@ -71,6 +77,7 @@ public enum ServerMessageContentType implements Serializable{
 	SERVER_RESPONSE_NOT_MATCH_TIME("SERVER_RESPONSE_NOT_MATCH_TIME"),
 	SERVER_RESPONSE_USERNAME_NOT_AVAILABLE("SERVER_RESPONSE_USERNAME_NOT_AVAILABLE"),
 	SERVER_RESPONSE_GAMER_NOT_IN_MATCH("SERVER_RESPONSE_GAMER_NOT_IN_MATCH"),
+	SERVER_RESPONSE_GAMER_OFFLINE("SERVER_RESPONSE_GAMER_OFFLINE"),
 	
 	SERVER_RESPONSE_KING_MOVED("SEREVR_RESPONSE_KING_MOVED"),
 	SERVER_RESPONSE_SHOP_PLACED("SERVER_RESPONSE_SHOP_PLACED"),
@@ -86,7 +93,17 @@ public enum ServerMessageContentType implements Serializable{
 	SERVER_RESPONSE_PERMIT_BONUS_REUSED("SSERVER_RESPONSE_PERMIT_BONUS_REUSED"),
 	SERVER_RESPONSE_SINGLE_VILLAGE_BONUS_ACQUIRED("SERVER_RESPONSE_SINGLE_VILLAGE_BONUS_ACQUIRED"),
 	SERVER_RESPONSE_DOUBLE_VILLAGE_BONUS_ACQUIRED("SERVER_RESPONSE_DOUBLE_VILLAGE_BONUS_ACQUIRED"),
-	SERVER_RESPONSE_SPECIAL_ACTION_FAILURE("SERVER_RESPONSE_SPECIAL_ACTION_FAILURE");
+	SERVER_RESPONSE_SPECIAL_ACTION_FAILURE("SERVER_RESPONSE_SPECIAL_ACTION_FAILURE"),
+	
+	SERVER_RESPONSE_AGENT_SETTED("SERVER_RESPONSE_AGENT_SETTED"),
+	SERVER_RESPONSE_AGENT_SET_FAILURE("SERVER_RESPONSE_AGENT_SET_FAILURE"),
+	
+	SERVER_RESPONSE_HELPERS_ITEM_BUYED("SERVER_RESPONSE_HELPERS_ITEM_BUYED"),
+	SERVER_RESPONSE_HELPERS_ITEM_TRANSACTION_FAILURE("SERVER_RESPONSE_HELPERS_ITEM_TRANSACTION_FAILURE"),
+	SERVER_RESPONSE_PERMIT_CARD_ITEM_BUYED("SERVER_RESPONSE_PERMIT_CARD_ITEM_BUYED"),
+	SERVER_RESPONSE_PERMIT_CARD_ITEM_TRANSACTION_FAILURE("SERVER_RESPONSE_PERMIT_CARD_ITEM_TRANSACTION_FAILURE"),
+	SERVER_RESPONSE_POLITICAL_CARD_ITEM_BUYED("SERVER_RESPONSE_POLITICAL_CARD_ITEM_BUYED"),
+	SERVER_RESPONSE_POLITICAL_CARD_ITEM_TRANSACTION_FAILURE("SERVER_RESPONSE_POLITICAL_CARD_ITEM_TRANSACTION_FAILURE");
 	
 	private String serverMessageContentType;
 	ServerMessageContentType(String serverMessageContentType){this.setServerMessageContentType(serverMessageContentType);}

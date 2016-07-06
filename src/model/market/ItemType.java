@@ -9,7 +9,7 @@ import java.io.Serializable;
  * POLITICAL_CARD_ITEM = indica un lotto di carte politiche
  * PERMIT_CARD_ITEM = indica un lotto di carte permesso
  * 
- * @author Luca Lagni
+ * @author Luca Lagni, Maria Antonietta Palermo
  *
  */
 

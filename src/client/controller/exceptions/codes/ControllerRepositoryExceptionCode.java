@@ -13,7 +13,7 @@ public enum ControllerRepositoryExceptionCode {
 	CLIENT_CONTROLLER_UNDEFINED_YET(" CLIENT_CONTROLLER_UNDEFINED_YET"),
 	GAME_DATA_CONTROLLER_UNDEFINED_YET("GAME_DATA_CONTROLLER_UNDEFINED_YET");
 	private String exceptionCode ;
-	ControllerRepositoryExceptionCode(String exceptionCode){}
+	ControllerRepositoryExceptionCode(String exceptionCode){ this.setExceptionCode(exceptionCode);}
 	private void setExceptionCode(String exceptionCode){ this.exceptionCode = exceptionCode; }
 	public String getExceptionCode(){ return this.exceptionCode; }
 }

@@ -3,62 +3,60 @@ package model.market;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import model.basics.Gamer;
-
 /**
  * Classe wrapper che rappresenta il giocatore come agente del mercato (venditore o compratore)
- * @author Luca Lagni
+ * @author Luca Lagni, Maria Antonietta Palermo
  *
  */
 public class Agent implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Gamer gamer;
+	private String username;
+	private Boolean editable;
 	private ArrayList<HelpersItem> helpersStock;
 	private ArrayList<PoliticalCardItem> politicalCardStock;
 	private ArrayList<PermitCardItem> permitCardStock;
 	
-	public Agent(Gamer gamer){
-		this.setGamer(gamer);
+	public Agent(String username){
+		this.setUsername(username);
 		this.helpersStock = new ArrayList<HelpersItem>();
 		this.politicalCardStock = new ArrayList<PoliticalCardItem>();
 		this.permitCardStock = new ArrayList<PermitCardItem>();
+		this.setEditable(false);
 	}
 	
-	private void setGamer(Gamer gamer){ this.gamer = gamer; }
+	private void setUsername(String username){ this.username = username; }
 	
 	public void addHelpersItem(HelpersItem helpersItem){ this.helpersStock.add(helpersItem); }
 	public void addPoliticalCardItem(PoliticalCardItem politicalCardItem){ this.politicalCardStock.add(politicalCardItem); }
 	public void addPermitCardItem(PermitCardItem permitCardItem){ this.permitCardStock.add(permitCardItem); }
+	public void setEditable(boolean editable){ this.editable = new Boolean(editable); }
+	
+	public void resetAgent(){
+		this.helpersStock = new ArrayList<HelpersItem>();
+		this.permitCardStock = new ArrayList<PermitCardItem>();
+		this.politicalCardStock = new ArrayList<PoliticalCardItem>();
+	}
 
 	public HelpersItem subHelpersItem(int position){
 		//gestire il fatto che la posizione ecceda quella dello stock
-		HelpersItem hi = this.helpersStock.get(position);
-		this.helpersStock.remove(position);
-		
-		return hi;
+		return this.helpersStock.remove(position);
 	}
 	
 	public PoliticalCardItem subPoliticalCard(int position){
 		//gestire il fatto che la posizione non sia valida
-		PoliticalCardItem pci = this.politicalCardStock.get(position);
-		this.politicalCardStock.remove(position);
-		
-		return pci;
+		return this.politicalCardStock.remove(position);
 	}
 	
 	public PermitCardItem subPermitCardItem(int position){
 		//gestire il fatto che la posizione non sia valida
-		PermitCardItem pci = this.permitCardStock.get(position);
-		this.permitCardStock.remove(position);
-		
-		return pci;
+		return this.permitCardStock.remove(position);
 	}
 	
-	public Gamer getGamer(){ return this.gamer; }
-	public String getUsername(){ return this.gamer.getUsername(); }
+	public String getUsername(){ return this.username; }
 	public ArrayList<HelpersItem> getHelpersStock(){ return this.helpersStock; }
 	public ArrayList<PoliticalCardItem> getPoliticalCardStock(){ return this.politicalCardStock; }
 	public ArrayList<PermitCardItem> getPermitCardStock(){ return this.permitCardStock; }
+	public boolean getEditable(){ return this.editable.booleanValue(); }
 	
 	@Override
 	public String toString(){

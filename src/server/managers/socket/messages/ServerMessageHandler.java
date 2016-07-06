@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import model.basics.Gamer;
 import model.basics.Match;
+import model.basics.PoliticalCard;
 import model.basics.constants.MatchConstants;
+import model.basics.exceptions.PoliticalCardsDeckException;
+import model.basics.supports.MatchPhase;
 import server.managers.match.MatchManager;
 import server.managers.match.MatchRepository;
 import commons.data.ActionSynoptic;
@@ -34,6 +37,9 @@ public class ServerMessageHandler {
 			   break;
 		   case CLIENT_REQUEST_MATCH:
 			   response = this.clientRequestMatch(msg.getUserData());
+			   break;
+		   case CLIENT_REQUEST_GO_OFFLINE:
+			   response = clientRequestGoOffline(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_GAMER_TURN:
 			   System.out.println("\nCLIENT username: " + msg.getUserData().getUsername() + " request gamer turn at " + System.currentTimeMillis());
@@ -96,6 +102,22 @@ public class ServerMessageHandler {
 			   ServerMatchActionHandler smah11 = new ServerMatchActionHandler();
 			   response = smah11.clientRequestReusePermitCardBonus(msg);
 			   break; 
+		   case CLIENT_REQUEST_SET_AGENT:
+			   ServerSetterActionHandler ssah = new ServerSetterActionHandler();
+			   response = ssah.updateAgent(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_HELPERS_ITEM:
+			   ServerMarketActionHandler skah1 = new ServerMarketActionHandler();
+			   response = skah1.clientRequestBuyHelpersItem(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_POLITICAL_CARD_ITEM:
+			   ServerMarketActionHandler skah2 = new ServerMarketActionHandler();
+			   response = skah2.clientRequestBuyPoliticalCardItem(msg);
+			   break;
+		   case CLIENT_REQUEST_BUY_PERMIT_CARD_ITEM:
+			   ServerMarketActionHandler skah3 = new ServerMarketActionHandler();
+			   response = skah3.clientRequestBuyPermitCardItem(msg);
+			   break;
 		   
 		   default:
 			   response = this.invalidMessageFromClient(msg.getUserData());
@@ -103,6 +125,38 @@ public class ServerMessageHandler {
 		}
 		
 		System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " SEND response gamer turn at " + System.currentTimeMillis());
+		return response;
+	}
+	
+	private ServerMessage clientRequestGoOffline(UserData data){
+		ServerMessage response = null;
+		Match m = this.matchRepository.getMatch(data.getMatchCode());
+		
+		if(m == null){
+			response = new ServerMessage(data);
+			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
+		}
+		else
+		{
+			boolean flag = false ;
+			for(int i = 0; i < m.getGamers().size(); i++){
+				if(m.getGamers().get(i).getUsername().equals(data.getUsername())){
+					m.getGamers().get(i).toggleOffline();
+					flag = true;
+					MatchRepository.getInstance().updateMatch(m);
+					break;
+				}
+			}
+			
+			response = new ServerMessage(data);
+			if(flag == true){
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_OFFLINE, null);
+			}
+			else{
+				response.addContent(ServerMessageContentType.SERVER_RESPONSE_GAMER_NOT_IN_MATCH, null);
+			}
+		}
+		
 		return response;
 	}
 	
@@ -226,22 +280,42 @@ public class ServerMessageHandler {
 	 * @param matchCode
 	 * @return
 	 */
-	private ServerMessage clientRequestGamerTurn(UserData data){
+	private synchronized ServerMessage clientRequestGamerTurn(UserData data){
 		ServerMessage response = null;
 		Match m = null;
+		Gamer g = null;
+		PoliticalCard pc = null;
 		String[] params = new String[1];
 		ArrayList<String[]> parameters = new ArrayList<String[]>();
 		
 		
 		m = this.matchRepository.getMatch(data.getMatchCode());
-		response = new ServerMessage(data);
+		for(int i = 0; i < m.getGamers().size(); i++){
+			if(m.getGamers().get(i).getUsername().equals(data.getUsername())){
+				g = m.getGamers().get(i);
+				break;
+			}
+		}
+		try {
+			if(m.getMatchPhase().equals(MatchPhase.MATCH_PHASE)){
+				if(g.getUsername().equals(m.getGamers().get(m.getActualGamer()).getUsername())){
+					pc = m.getBoard().getPoliticalCardsDeck().pickupCard();
+					g.addPoliticalCard(pc);
+					m.updateGamer(g);
+				}
+			}
+			
+		} catch (PoliticalCardsDeckException e1) { e1.printStackTrace(); }
+		this.matchRepository.updateMatch(m);
+		
 		if(m == null){
+			response = new ServerMessage(data);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
 		}
 		else {
 			try {
 				data.updateMatch(m);
-				data.updateGamer(data.getGamer());
+				data.updateGamer(g);
 				response = new ServerMessage(data);
 			} catch (UserDataException e) {
 				e.printStackTrace();

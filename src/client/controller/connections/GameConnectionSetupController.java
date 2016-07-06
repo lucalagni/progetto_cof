@@ -32,6 +32,20 @@ public class GameConnectionSetupController {
 	}
 	
 	/**
+	 * Metodo per la richiesta di uscita dal gioco
+	 * @return
+	 */
+	public String clientRequestToGoOffline(){
+		String response = null;
+		
+		try{
+			response = this.gcsp.clientRequestToGoOffline();
+		}catch(Exception e){ e.printStackTrace(); }
+		
+		return response ;
+	}
+	
+	/**
 	 * Metodo che serve al giocatore per sapere se è nelle condizioni di poter 
 	 * giocare oppure no
 	 * @return

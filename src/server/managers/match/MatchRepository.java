@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import server.schedulers.match.MatchScheduler;
 import model.basics.Gamer;
@@ -23,13 +24,28 @@ public class MatchRepository {
 	}
 	
 	public synchronized Match getMatch(String matchCode){
+		Iterator<Entry<String, MatchScheduler>> it = this.scheduledMatches.entrySet().iterator();
+		
+		while(it.hasNext()){
+			Map.Entry<String, MatchScheduler> entry = it.next();
+			if(entry.getKey().equals(matchCode)) return entry.getValue().getMatch();
+		}
+		return null;
+	}
+	
+	public void updateMatch(Match m){
 		Iterator<Map.Entry<String, Match>> it = this.matches.entrySet().iterator();
+		Iterator<Map.Entry<String, MatchScheduler>> it2 = this.scheduledMatches.entrySet().iterator();
 		
 		while(it.hasNext()){
 			Map.Entry<String, Match> entry = it.next();
-			if(entry.getKey().equals(matchCode)) return entry.getValue();
+			if(entry.getKey().equals(m.getMatchCode())) entry.setValue(m);
 		}
-		return null;
+		
+		while(it2.hasNext()){
+			Map.Entry<String, MatchScheduler> entry = it2.next();
+			if(entry.getKey().equals(m.getMatchCode())) entry.getValue().setMatch(m);
+		}
 	}
 	
 	public synchronized void addAloneGamer(String gamer){

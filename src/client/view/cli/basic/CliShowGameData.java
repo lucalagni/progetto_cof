@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 import model.basics.Village;
 import client.controller.ControllerRepository;
+import client.controller.connections.GameConnectionSetupController;
 import client.controller.data.GameDataController;
-import client.view.cli.utils.CliClearConsole;
 
 /**
  * Classe per la visuazlizzazione in modalità CLI dei dati comuni di gioco
@@ -14,15 +14,41 @@ import client.view.cli.utils.CliClearConsole;
  *
  */
 public class CliShowGameData {
+	private GameConnectionSetupController connectionController;
 	private GameDataController dataController;
 	private Scanner input;
 	private boolean indipendent ;
 	
-	public CliShowGameData(boolean indipendent){
+	public CliShowGameData(boolean indipendent,Scanner input){
+		ControllerRepository.getInstance().setGameConnectionSetupController();
+		this.connectionController = ControllerRepository.getInstance().getGameConnectionSetupController();
 		this.dataController = ControllerRepository.getInstance().getGameDataController();
-		this.input = new Scanner(System.in);
-		//CliClearConsole.clearConsole(false);
+		this.input = input;
 		this.indipendent = indipendent;
+	}
+	
+	public void goOffline(){
+		String text = "\n----------{ Go Offline }----------\n\n ";
+		System.out.println(text);
+		System.out.println("\nAre you sure to go offline? (0=yes, !0 = no): ");
+		int scelta = 0;
+		
+		try{
+			scelta = this.input.nextInt();
+		}catch(Exception ex){
+			System.out.println("\nInvalid input");
+			this.showContinue();
+		}
+		
+		if(scelta == 0){
+			this.connectionController.clientRequestToGoOffline();
+			System.out.println("\nGamer offline");
+		}
+		else {
+			System.out.println("\nYou are already online");
+		}
+		
+		this.showContinue();
 	}
 	
 	/**
@@ -128,7 +154,7 @@ public class CliShowGameData {
 	 */
 	public void showUsedPermitCards(){
 		System.out.print("\n----------{ Gamer Used Permit Cards }----------\n\n");
-		for(int i = 0; i < this.dataController.getUserData().getGamer().getUnusedPermitCards().size(); i++){
+		for(int i = 0; i < this.dataController.getUserData().getGamer().getUsedPermitCards().size(); i++){
 			System.out.print("\n" + i + "] " + this.dataController.getUserData().getGamer().getUsedPermitCards().get(i).toString());
 		}
 		
@@ -351,7 +377,7 @@ public class CliShowGameData {
 		}
 		
 		if((regionNumber < 0) || (regionNumber >= len)) System.out.print("\n[Region not found]");
-		else System.out.print("\n" + this.dataController.getUserData().getMatch().getBoard().getRegions()[regionNumber].toString());
+		else System.out.print("\n" + this.dataController.getUserData().getMatch().getBoard().getRegions()[regionNumber].getCouncil().toString());
 		
 		this.showContinue();
 	}

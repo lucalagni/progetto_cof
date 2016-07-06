@@ -1,13 +1,11 @@
 package client.view.cli.basic;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
-
+import model.basics.supports.MatchPhase;
+import client.view.cli.market.CliMarketPerformAction;
+import client.view.cli.setter.CliSetterPerformAction;
 import client.view.cli.utils.CliClearConsole;
-
 
 /**
  * Classe che mostra il sinottico principale per le azioni di gioco in modalità CLI
@@ -18,16 +16,21 @@ import client.view.cli.utils.CliClearConsole;
 public class CliMainMenu extends Thread{
 	private String text ;
 	private boolean gamerTurn;
-	private Scanner input;
-	private BufferedReader bufferedInput;
+	private MatchPhase phase ;
 	
-	public CliMainMenu(boolean gamerTurn){ 
-		this.input = new Scanner(System.in);
-		this.bufferedInput = new BufferedReader(new InputStreamReader(System.in));
+	public CliMainMenu(boolean gamerTurn,MatchPhase phase){ 
 		this.setGamerTurn(gamerTurn);
+		this.setMatchPhase(phase);
 	}
 	
-	private void setGamerTurn(boolean gamerTurn){ this.gamerTurn = gamerTurn; }
+	public void setMatchPhase(MatchPhase phase){
+		this.phase = phase ;
+		this.text = null;
+	}
+	
+	public MatchPhase getMatchPhase(){ return this.phase; }
+	
+	public void setGamerTurn(boolean gamerTurn){ this.gamerTurn = gamerTurn; }
 	public boolean getGamerTurn(){ return this.gamerTurn ; }
 	
 	private void setBasicText(){
@@ -76,52 +79,90 @@ public class CliMainMenu extends Thread{
 		this.text += "\n\n=========={ Action Menu }==========\n";
 		
 		this.text += "\n\n-----{ Main Actions }-----\n";
-		this.text += "\n26)Build shop";
-		this.text += "\n27)Move King";
+		this.text += "\n26)Build shop ";
+		this.text += "\n27)Move King ";
 		this.text += "\n28)Buy Permit Card";
 		this.text += "\n29)Change noble";
 		
 		this.text += "\n\n-----{ Helpers Actions }-----\n";
 		this.text += "\n30)Buy helper";
 		this.text += "\n31)Change noble";
-		this.text += "\n32)Double action";
+		this.text += "\n32)Double action ";
 		this.text += "\n33)New Main Action";
 		
 		this.text += "\n\n-----{ Special Actions }------\n";
-		this.text += "\n34)Acquire permit card";
-		this.text += "\n35)Reuse permit card bonus";
-		this.text += "\n36)Acquire single village bonus";
-		this.text += "\n37)Acquire double village bonus";
+		this.text += "\n34)Acquire permit card (untested)";
+		this.text += "\n35)Reuse permit card bonus (untested)";
+		this.text += "\n36)Acquire single village bonus (untested)";
+		this.text += "\n37)Acquire double village bonus (untested)";
 	}
 	
 	private void setOptionText(){
 		this.text +=  "\n\n------{ Options }------\n";
-		this.text += "\n0)Exit";
+		this.text += "\n0)Go offline";
 		this.text += "\n\nChoice> ";
 	}
+	
+	private void setSetterBasicText(){
+		this.text += "\n\n=========={ Setter Menu }==========\n";
+	}
+	
+	private void setSetterActionText(){
+		if(this.gamerTurn == false) return ;
+		
+		this.text += "\n\n----------{ Choose Item to Sell }----------\n";
+		this.text += "\n38)Reset Agent (Deselect all his items)";
+		this.text += "\n39)Permit Card";
+		this.text += "\n40)Political Card";
+		this.text += "\n41)Helpers";
+		this.text += "\n42)Send Agent";
+	}
+	
+	private void setMarketBasicText(){
+		this.text += "\n\n=========={ Market Menu }==========\n";
+		this.text += "\n43) Show your items";
+		this.text += "\n----------{ Show Items From }----------\n";
+		this.text += "\n44)Show Market";
+		this.text += "\n45)Show Specific Agent";
+	}
+	
+	private void setMarketActionText(){
+		if(this.gamerTurn == false) return;
+		this.text += "\n----------{ Buy Item }----------\n";
+		this.text += "\n46)Helpers item";
+		this.text += "\n47)Political Card Item";
+		this.text += "\n48)Permit Card Item";
+		
+	}
+	
 	
 	public int show(){
 		int choice = 0;
 		boolean flag = false ;
-		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		
 		do
 		{
 			this.text = new String();
-			//CliClearConsole.clearConsole(false);
+			CliClearConsole.clearConsole(false);
 			this.setBasicText();
-			if(this.gamerTurn == true) this.setActionText();
+			
+			if(this.phase.equals(MatchPhase.SETTER_PHASE))this.setSetterBasicText();
+			if(this.phase.equals(MatchPhase.MARKET_PHASE))this.setMarketBasicText();
+			if(this.gamerTurn == true){
+				if(this.phase.equals(MatchPhase.MATCH_PHASE))this.setActionText();
+				if(this.phase.equals(MatchPhase.SETTER_PHASE))this.setSetterActionText();
+				if(this.phase.equals(MatchPhase.MARKET_PHASE))this.setMarketActionText();
+			}
+			
 			this.setOptionText();
 			
 			System.out.println(this.text);
 			
 			try {
-				choice = Integer.parseInt(in.nextLine());
+				choice = in.nextInt();
 				
-				//choice = Integer.parseInt(this.bufferedInput.readLine());
 			}catch(Exception ex){
-				ex.printStackTrace();
 				System.out.println("\nInvalid input data, retry");
 				flag = false ;
 				continue;
@@ -129,79 +170,79 @@ public class CliMainMenu extends Thread{
 			
 			switch(choice){
 				case 1:
-					new CliShowGameData(true).showConnections();
+					new CliShowGameData(true,in).showConnections();
 					break;
 				case 2:
-					new CliShowGameData(true).showVillage();
+					new CliShowGameData(true,in).showVillage();
 					break;
 				case 3:
-					new CliShowGameData(true).showRegionCouncil();
+					new CliShowGameData(true,in).showRegionCouncil();
 					break;
 				case 4:
-					new CliShowGameData(true).showKingCouncil();
+					new CliShowGameData(true,in).showKingCouncil();
 					break;
 				case 5:
-					new CliShowGameData(true).showUnhiddenPermitCards();
+					new CliShowGameData(true,in).showUnhiddenPermitCards();
 					break;
 				case 6:
-					new CliShowGameData(true).showNobiltyPath();
+					new CliShowGameData(true,in).showNobiltyPath();
 					break;
 				case 7:
-					new CliShowGameData(true).showHelpersPool();
+					new CliShowGameData(true,in).showHelpersPool();
 					break;
 				case 8:
-					new CliShowGameData(true).showCouncilPool();
+					new CliShowGameData(true,in).showCouncilPool();
 					break;
 				case 9:
-					new CliShowGameData(true).showUsername();
+					new CliShowGameData(true,in).showUsername();
 					break;
 				case 10:
-					new CliShowGameData(true).showUnusedPermitCards();
+					new CliShowGameData(true,in).showUnusedPermitCards();
 					break;
 				case 11:
-					new CliShowGameData(true).showUsedPermitCards();
+					new CliShowGameData(true,in).showUsedPermitCards();
 					break;
 				case 12:
-					new CliShowGameData(true).showPoliticalCards();
+					new CliShowGameData(true,in).showPoliticalCards();
 					break;
 				case 13:
-					new CliShowGameData(true).showCoins();
+					new CliShowGameData(true,in).showCoins();
 					break;
 				case 14:
-					new CliShowGameData(true).showHelpers();
+					new CliShowGameData(true,in).showHelpers();
 					break;
 				case 15:
-					new CliShowGameData(true).showPoints();
+					new CliShowGameData(true,in).showPoints();
 					break;
 				case 16:
-					new CliShowGameData(true).showShifts();
+					new CliShowGameData(true,in).showShifts();
 					break;
 				case 17:
-					new CliShowGameData(true).showAllGamerData();
+					new CliShowGameData(true,in).showAllGamerData();
 					break;
 				case 18:
-					new CliShowGameData(true).showMatchCode();
+					new CliShowGameData(true,in).showMatchCode();
 					break;
 				case 19:
-					new CliShowGameData(true).showMatchTitle();
+					new CliShowGameData(true,in).showMatchTitle();
 					break;
 				case 20:
-					new CliShowGameData(true).showMatchData();
+					new CliShowGameData(true,in).showMatchData();
 					break;
 				case 21:
-					new CliShowGameData(true).showMatchStatus();
+					new CliShowGameData(true,in).showMatchStatus();
 					break;
 				case 22:
-					new CliShowGameData(true).showMatchActualGamer();
+					new CliShowGameData(true,in).showMatchActualGamer();
 					break;
 				case 23:
-					new CliShowGameData(true).showMatchNextGamer();
+					new CliShowGameData(true,in).showMatchNextGamer();
 					break;
 				case 24:
-					new CliShowGameData(true).showPositions();
+					new CliShowGameData(true,in).showPositions();
 					break;
 				case 25:
-					new CliShowGameData(true).showActionSynoptic();
+					new CliShowGameData(true,in).showActionSynoptic();
 					break;
 				case 26:
 					if(this.gamerTurn == false) continue;
@@ -209,33 +250,114 @@ public class CliMainMenu extends Thread{
 					break;
 				case 27:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().moveKing();
 					break;
 				case 28:
-					//if(this.gamerTurn == false) continue;
- 				new CliPerformAction().buyPermitCard();
+					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().buyPermitCard();
 					break;
 				case 29:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().changeNoble(true);
 					break;
 				case 30:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().buyHelper();
 					break;
 				case 31:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().changeNoble(false);
 					break;
 				case 32:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().doubleAction();
 					break;
 				case 33:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().buyNewMainAction();
 					break;
 				case 34:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().acquirePermitCard();
 					break;
 				case 35:
 					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().reusePermitCardBonus();
+					break;
+				case 36:
+					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().acquireSingleVillageBonus();
+					break;
+				case 37:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.MATCH_PHASE) == false)continue;
+					new CliPerformAction().acquireDoubleVillageBonus();
+					break;
+				case 38:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.SETTER_PHASE) == false)continue;
+					new CliSetterPerformAction().resetAgent();
+					break;
+				case 39:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.SETTER_PHASE) == false)continue;
+					new CliSetterPerformAction().addPermitCardItem();
+					break;
+				case 40:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.SETTER_PHASE) == false)continue;
+					new CliSetterPerformAction().addPoliticalCardItem();
+					break;
+				case 41:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.SETTER_PHASE) == false)continue;
+					new CliSetterPerformAction().addHelpersItem();
+					break;
+				case 42:
+					if(this.gamerTurn == false)continue;
+					if(this.phase.equals(MatchPhase.SETTER_PHASE) == false)continue;
+					new CliSetterPerformAction().sendAgent();
+					break;
+				case 43:
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showYourItems();
+					break;
+				case 44:
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showMarket();
+					break;
+				case 45:
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().showSpecificAgent();
+					break;
+				case 46:
+					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyHelpersItem();
+					break;
+				case 47:
+					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyPoliticalCardItem();
+					break;
+				case 48:
+					if(this.gamerTurn == false) continue;
+					if(this.phase.equals(MatchPhase.MARKET_PHASE) == false)continue;
+					new CliMarketPerformAction().buyPermitCardItem();
 					break;
 				case 0:
+					new CliShowGameData(true,in).goOffline();
+					flag = false;
 					break;
 				default:
 					break;

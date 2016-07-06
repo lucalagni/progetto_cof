@@ -64,7 +64,6 @@ public class ActionFacade {
 	 * @throws MainActionCommandException 
 	 */
 	public void changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) throws ActionFacadeException, MainActionCommandException{
-		
 		if(this.mode == GameMode.SOCKET){
 			new ActionEncoderSocket().changeNoble(king, regionNumber, noble, mainAction);
 		}
@@ -195,12 +194,12 @@ public class ActionFacade {
 	 * @param permitCardIndex
 	 * @throws ActionFacadeException
 	 */
-	public void reusePermitCardBonus(int permitCardIndex) throws ActionFacadeException{
+	public void reusePermitCardBonus(int permitCardIndex,boolean usedPermitCard) throws ActionFacadeException{
 		if(this.data.getActionSynoptic() == null) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_CANNOT_PLAY_NOW.getExceptionCode());
 		if(this.data.getActionSynoptic().getReusePermitCardBonusNumber() <= 0) throw new ActionFacadeException(ActionFacadeExceptionCode.GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE.getExceptionCode());
 		
 		if(this.mode == GameMode.SOCKET){
-			new ActionEncoderSocket().reusePermitCardBonus(permitCardIndex);
+			new ActionEncoderSocket().reusePermitCardBonus(permitCardIndex, usedPermitCard);
 		}
 	} 
 	

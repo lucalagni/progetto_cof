@@ -179,10 +179,10 @@ public class ActionController {
 	 * @param permitCardIndex
 	 * @throws ActionFacadeException
 	 */
-	public String reusePermitCardBonus(int permitCardIndex){
+	public String reusePermitCardBonus(int permitCardIndex,boolean usedPermitCard){
 		try {
 			ActionFacade af = new ActionFacade();
-			af.reusePermitCardBonus(permitCardIndex);
+			af.reusePermitCardBonus(permitCardIndex, usedPermitCard);
 			return OK_MESSAGE;
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();

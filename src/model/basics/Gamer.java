@@ -15,7 +15,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
+/**
+ * Classe che contiene tutti i dati di interesse del giocatore
+ * 
+ * @author Luca Lagni
+ *
+ */
 public class Gamer implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String username;
@@ -105,9 +110,10 @@ public class Gamer implements Serializable{
 	}
 	
 	public PermitCard subPermitCard(PermitCard permitCard) throws GamerException{
-		this.swapPermitCardInSet(permitCard, this.unusedPermitCards, this.unusedPermitCards);
-		
-		return permitCard;
+		for(int i = 0; i < this.unusedPermitCards.size(); i++){
+			if(this.unusedPermitCards.get(i).equals(permitCard)) return this.unusedPermitCards.remove(i);
+		}
+		return null;
 	}
 	
 	public void usePermitCard(PermitCard permitCard) throws GamerException{
@@ -128,7 +134,7 @@ public class Gamer implements Serializable{
 	
 	public PoliticalCard subPoliticalCard(PoliticalCard pc)  {
 		for(int i = 0; i < this.politicalCards.size(); i++){
-			if(this.politicalCards.get(i) == pc) return this.politicalCards.remove(i);
+			if(this.politicalCards.get(i).equals(pc)) return this.politicalCards.remove(i);
 		}
 		return null;
 	}
@@ -141,11 +147,13 @@ public class Gamer implements Serializable{
 	
 	
 	public void addCoins(int coins) throws GamerException{
-		if((this.getCoins() + coins) > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER) {
+		int cns = this.coins.intValue();
+		cns += coins ;
+		if(cns > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER) {
 			this.setCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
 			throw new GamerException(GamerExceptionCode.TOO_MANY_COINS.getExceptionCode());
 		}
-		else this.setCoins(this.getCoins() + coins);
+		else this.setCoins(cns);
 	} 
 	
 	public void subCoins(int coins) throws GamerException{
@@ -168,6 +176,7 @@ public class Gamer implements Serializable{
 			throw new GamerException(GamerExceptionCode.TOO_FEAW_HELPERS.getExceptionCode());
 		}
 		else this.setHelpers(this.getHelpers() - helpers);
+		System.out.println("[Gamer: ] helpers: " + helpers);
 		return helepers;
 	}
 	
@@ -192,9 +201,6 @@ public class Gamer implements Serializable{
 	@Override
 	public String toString()
 	{
-		
-		Iterator<PoliticalCard> itpc = this.getPoliticalCards().iterator();
-		Iterator<PermitCard> itec = this.getUnusedPermitCards().iterator();
 		String gString = new String("\ngamer\n");
 		
 		gString += "username: " + this.getUsername() + "\n";
@@ -207,12 +213,11 @@ public class Gamer implements Serializable{
 		gString += "statis: " + this.getStatus().getGamerStatus() + "\n";
 		gString += "match: " + this.getMatch().toString() + "\n";
 		gString += "political cards:\n";
-		while(itpc.hasNext()) gString += itpc.next() + "\n";
+		for(PoliticalCard pc : this.getPoliticalCards()) gString += pc.toString() + "\n";
 		gString += "unhused permit cards:\n";
-		while(itec.hasNext()) gString += itpc.next() + "\n";
-		itec = this.getUsedPermitCards().iterator();
+		for(PermitCard pc : this.getUnusedPermitCards()) gString += pc.toString() + "\n";
 		gString += "used permit cards:\n";
-		while(itec.hasNext()) gString += itpc.next() + "\n";
+		for(PermitCard pc : this.getUsedPermitCards()) gString += pc.toString() + "\n";
 		
 		return gString;
 	}

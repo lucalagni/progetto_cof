@@ -8,8 +8,4 @@ public final class CouncilConstants {
 	public static final int NOBLES_NUMBER = 4;
 	public static final int REWARD_COINS = 4;
 	
-	@Override
-	public String toString(){
-		return new String();
-	}
 }

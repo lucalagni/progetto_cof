@@ -43,6 +43,23 @@ public class GameConnectionSetupFacade {
 		return message;
 		
 	}
+	/**
+	 * Metodo per la richiesta di andare offline da parte dell'utente
+	 * @return
+	 */
+	public String clientRequestToGoOffline(){
+		String response = new String("[ClientRequestGoOffline] No response");
+		
+		switch(this.mode){
+			case SOCKET:
+					response = new GameConnectionSetupSocket().clientRequestToGoOffline();
+				break;
+			default:
+				break;
+		}
+		
+		return response ;
+	}
 	
 	/**
 	 * Metodo che, una volta che il giocatore sa di essere statio aggiunto alla coda di attesa

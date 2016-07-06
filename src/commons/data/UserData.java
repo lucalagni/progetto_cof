@@ -38,7 +38,6 @@ public class UserData implements Serializable {
 		this.setMatchUpdated(false);
 		this.setGamerUpdated(false);
 		this.setActionSynopticUpdated(false);
-		
 	}
 	
 	private void setUsername(String username){ this.username = username; }
@@ -48,7 +47,7 @@ public class UserData implements Serializable {
 	private void setActionSynoptic(ActionSynoptic synoptic){ this.actionSynoptic = synoptic; }
 	private void setMatchUpdated(boolean matchUpdated){ this.matchUpdated = new Boolean(matchUpdated); }
 	private void setGamerUpdated(boolean gamerUpdated){ this.gamerUpdated = new Boolean(gamerUpdated); }
-	private void setActionSynopticUpdated(boolean synopticUpdated){ this.synopticUpdated = new Boolean(synopticUpdated); }
+	private void setActionSynopticUpdated(boolean synopticUpdated){ this.synopticUpdated = new Boolean(synopticUpdated); } 
 	
 	/**
 	 * Metodo che setta i parametri inerenti al match del giocatore

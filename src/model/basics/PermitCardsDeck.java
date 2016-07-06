@@ -52,8 +52,9 @@ public class PermitCardsDeck implements Serializable {
 	public void doubleAction() throws PermitCardsDeckException{
 		this.checkCardsAvailability();
 		this.shuffleCards();
-		for(int i = 0; i < this.availableCardsSet.size(); i++){
+		for(int i = 0; i < this.unhiddenCards.length; i++){
 			this.unhiddenCards[i] = this.availableCardsSet.get(i);
+			this.availableCardsSet.remove(i);
 		}
 	}
 	

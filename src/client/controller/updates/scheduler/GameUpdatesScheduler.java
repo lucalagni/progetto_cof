@@ -1,9 +1,11 @@
 package client.controller.updates.scheduler;
 
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
+import model.basics.supports.MatchPhase;
 import commons.schedulers.client.ClientSchedulersConstants;
 import client.controller.ControllerRepository;
 import client.controller.data.GameDataController;
@@ -72,32 +74,30 @@ public class GameUpdatesScheduler extends Thread{
 	
 	private class StartRequestGamerTurn implements Runnable  {
 		private Thread t1 ;
+		private CliMainMenu cmm;
 		
 		StartRequestGamerTurn(){ 
 			this.t1 = null;
+			this.cmm = new CliMainMenu(false,MatchPhase.MATCH_PHASE);
+			this.t1 = new Thread(this.cmm);
+			t1.start();
 		}
 		
 		public void run() {
 			 controller.getGamerTurn();
+			 MatchPhase phase = dataController.getUserData().getMatch().getMatchPhase();
 			 int gamerTurn = dataController.getUserData().getMatch().getActualGamer();
+			 
 			 if(myGamerID == gamerTurn){
 				 setItsMyTurnToPlay(true);
-				 
-				 if(this.t1 != null)this.t1.interrupt(); 
-				 this.t1 = new Thread(new CliMainMenu(true)); 
-				 this.t1.start();
-				 
-				 System.out.println("\n========== SONO IL GIOCATORE DI TURNO ==========\n");
-				 
+				 this.cmm.setGamerTurn(true);
+				 this.cmm.setMatchPhase(phase);
 			 }
 			 else{
+				 dataController.getUserData().getActionSynoptic().setupActionSynoptic();
 				 setItsMyTurnToPlay(false);
-				 
-				 if(this.t1 != null) this.t1.interrupt();
-				 this.t1 = new Thread(new CliMainMenu(false)); 
-				 this.t1.start();
-				 
-				 System.out.println("\n========== NON SONO IL GIOCATORE DI TURNO ==========\n");
+				 this.cmm.setGamerTurn(false);
+				 this.cmm.setMatchPhase(phase);
 			 }
 		}
 		

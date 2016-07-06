@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import commons.data.*;
 import server.command.basic.actions.exceptions.MainActionCommandException;
 import server.command.basic.actions.exceptions.codes.MainActionCommandExceptionCode;
+import server.managers.match.MatchRepository;
 import model.basics.Bonus;
 import model.basics.GameMap;
 import model.basics.Gamer;
@@ -18,6 +19,7 @@ import model.basics.constants.CoinsPoolConstants;
 import model.basics.constants.ColorConstants;
 import model.basics.constants.CouncilConstants;
 import model.basics.constants.GameMapConstants;
+import model.basics.constants.GamerConstants;
 import model.basics.constants.HelpersPoolConstants;
 import model.basics.constants.KingConstants;
 import model.basics.constants.PermitCardsDeckConstants;
@@ -35,7 +37,7 @@ import model.basics.exceptions.PoliticalCardsDeckException;
 import model.basics.exceptions.VillageException;
 
 /**
- * Classe che implementa i  metodi per l'esecuzione delle azionin pricipali eseguibili dal giocatore interessato
+ * Classe che implementa i  metodi per l'esecuzione delle azioni pricipali eseguibili dal giocatore interessato
  * La classe non è serializzata in quanto eseguita unicamente dal server
  * @author Luca Lagni
  *
@@ -54,14 +56,17 @@ public class MainActionCommand {
 		if(data.getActionSynoptic().getMainActionNumber() <= ActionSynopticConstants.CANNOT_DO_THIS_ACTION_NUMBER){
 			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
 		}
+		
+		this.match = MatchRepository.getInstance().getMatch(data.getMatch().getMatchCode());
+		if(this.match.getGamers().get(this.match.getActualGamer()).getUsername().equals(data.getGamer().getUsername()) == false){
+			throw new MainActionCommandException(MainActionCommandExceptionCode.CANNOT_DO_THIS_ACTION.getExceptionCode());
+		}
 		this.setActionSynoptic(data.getActionSynoptic());
-		this.setMatch(data.getMatch());
 		this.setGamer(data.getGamer());
 		this.setVirtualHelpers(data.getActionSynoptic().getVirtualHelpers());
 		this.setVirtualCoins(data.getActionSynoptic().getVirtualCoins());
 	}
 	
-	private void setMatch(Match match){ this.match = match; }
 	private void setGamer(Gamer gamer){ this.gamer = gamer; }
 	private void setVirtualHelpers(int virtualHelpers){ this.virtualHelpers = virtualHelpers; }
 	private void setVirtualCoins(int virtualCoins){ this.virtualCoins = virtualCoins; }
@@ -86,7 +91,7 @@ public class MainActionCommand {
 		int index = 0;
 		Village position = null;
 		
-		
+		System.out.println("\n=============================={ Place shop}==========================\n\n");
 		//Verifico che l'utente abbia la carta
 		if(this.gamer.getUnusedPermitCards().size() < permitCardPosition)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_DOES_NOT_HAS_THAT_PERMIT_CARD.getExceptionCode());
 		PermitCard card = this.gamer.getUnusedPermitCards().get(permitCardPosition);
@@ -122,13 +127,14 @@ public class MainActionCommand {
 				break;
 			}
 		}
-		if(flag == false)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_SHOP_ALREADY_PLACED_IN_THAT_VILLAGE.getExceptionCode());
-		
+		if(flag == true)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_SHOP_ALREADY_PLACED_IN_THAT_VILLAGE.getExceptionCode());
+		System.out.println("\n[Place Shop] l'utente non ha un villaggio");
 		//Verifico che l'utente abbia ancora empori a disposizione
 		this.checkNumberOfShops();
 		
 		//Verifico se l'utente e' il primo 
-		if(position.getFirstGamer() != null){
+		if(position.getFirstGamer().equals(GamerConstants.NULL_GAMER) == false){
+			System.out.println("\n[Place Shop] l'utente non è il primo villaggio");
 			//Nel caso non lo sia, pago un aiutante
 			if(this.gamer.getHelpers() < HelpersPoolConstants.HELPERS_FOR_SHOP){
 				if(this.virtualHelpers < HelpersPoolConstants.HELPERS_FOR_SHOP) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
@@ -137,23 +143,32 @@ public class MainActionCommand {
 			}
 			this.gamer.subHelpers(HelpersPoolConstants.HELPERS_FOR_SHOP);
 			this.match.getBoard().getHelpersPool().addHelpers(HelpersPoolConstants.HELPERS_FOR_SHOP);
+			System.out.println("\n[Place Shop] gli tolgo gli aiutanti");
 		}
+		else System.out.println("\n[Place Shop] l'utente è il primo");
 		
 		//Piazzo l'emporio
-		position.addShop(this.gamer);
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			if(this.match.getBoard().getGameMap().getVillages()[i].equals(position)){
+				this.match.getBoard().getGameMap().getVillages()[i].addShop(this.gamer.getUsername());
+				System.out.println("\n[Place Shop] Ho piazzato l'emporio in: " + this.match.getBoard().getGameMap().getVillages()[i].getName());
+				break;
+			}
+		}
 		this.gamer.subShop();
-		
+		System.out.println("\n[Place Shop] riduco il numero di negozi dell'utente");
 		//Gestisco i derivanti bonus
 		this.manageBonusChain(position);
-		
+		System.out.println("\n[Place Shop] Ho gestito il bonus");
 		//Tolgo la carta dalle carte permesso inutilizzate e la metto insieme alle carte permesso usate
 		this.gamer.usePermitCard(card);
-		
+		System.out.println("\n[Place Shop] Ho tolto la carta permesso al giocatore");
 		//Verifico se la partita deve finire
 		this.checkNumberOfShops();
 		
 		//Riduco il numero di azioni principali eseguibili dal giocatore
 		this.actionSynoptic.useMainAction();
+		System.out.println("\n[Place Shop] Ho ridotto il suo numero di azioni");
 		
 	}
 	
@@ -176,48 +191,71 @@ public class MainActionCommand {
 		boolean flag = false ;
 		int position = 0;
 		
+		System.out.println("\n=============================={ Manage Bonus Chain }===============================\n\n");
 		//Cerco la posizione del villaggio nell'array
 		position = this.match.getBoard().getGameMap().getVillagePosition(v);
+		System.out.println("\n[ManageBonusChain] Ho tolto la carta permesso al giocatore");
 		
 		//prendo il bonus del villaggio
+		System.out.println("\n[ManageBonusChain] vado a gestire il bonus di v " + v.getBonus().toString());
 		this.manageBonus(v.getBonus());
 		connected.add(position);
+		System.out.println("\n[ManageBonusChain] Segno il villaggio" + position + " come gia visitato ");
 		
 		//Verifico la connessione del villaggio con quelli a lui direttamente connessi
 		for(int i = 0; i < connections[position].length; i++){
+			System.out.println("\n[ManageBonusChain] ciclo agi connessione per vedere se sono attaccato a più villaggi");
 			if(connections[position][i] == GameMapConstants.CONNECTED){
+				System.out.println("\n[ManageBonusChain] il villaggio: " + v.getName() + " è connesso con " + villages[i].getName());
 				for(String s: villages[i].getShops()){
 					if(s.equals(this.gamer.getUsername())){
+						System.out.println("\n[Manage Bonus Chain] l'utente è connesso anche con questo villaggio, ne gestisco il bonus ");
 						connected.add(i);
+						System.out.println("\n[ManageBonusChain] indico il villaggio " + villages[i].getName() + " come già visitato");
 						this.manageBonus(villages[i].getBonus());
 						break;
 					}
 				}
 			}
 		}
-		
+		System.out.println("\n[ManageBonusChain] Verifico le connessioni a livelli superiori");
 		//Verifico le connessioni a livelli superiori
 		for(int i = 0; i < connections.length; i++){
 			for(int j = 0; j < connections[i].length; j++){
 				if(connections[i][j] == GameMapConstants.CONNECTED){
+					System.out.println("\n[ManageBonusChain] il villaggio " + villages[i].getName() + " è connesso con " + villages[j].getName());
 					flag = false;
 					//Controllo che il villaggio non sia già stato visitato in altri cicli
 					for(Integer index : connected){
 						if(index == j){
+							System.out.println("\n[ManageBonusChain] il villaggio  " + villages[j].getName() + " è gia stato visitato già visitato");
 							flag = true ;
 							break;
 						}
-					}
+					
 					
 					//c'è una connessione e il negozio non è ancora stato visitato
 					if(flag == false){
-						for(Integer index : connected){
-							if(connections[index][j] == GameMapConstants.CONNECTED){
-								connected.add(j);
-								this.manageBonus(villages[j].getBonus());
-								break;
-							}
+						System.out.println("\n[ManageBonusChain] verifico se il  villaggio  " + villages[j].getName() + " è connesso ");
+						for(int k = 0; k < villages[j].getShops().length; k++)
+						{
+							if(villages[j].getShops()[k].equals(this.gamer.getUsername()))
+							{
+								System.out.println("\nIl giocatore ha un villaggio in " + villages[j].getName());
+								for(Integer index2 : connected)
+								{
+									if(connections[index2][j] == GameMapConstants.CONNECTED){
+										System.out.println("\n[ManageBonusChain] il villaggio  " + villages[j].getName() + " non è gia stato visitato già visitato");
+										connected.add(j);
+										this.manageBonus(villages[j].getBonus());
+										break;
+								}
+						    }
+						 }
+							
 						}
+					}
+					flag = false;
 					}
 				}
 			}
@@ -243,13 +281,16 @@ public class MainActionCommand {
 	 * @throws NobiltyPathException
 	 */
 	private void manageBonus(Bonus bonus) throws GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
+		System.out.println("\n======================================{Manage Bonus }===============================\n\n");
 		//aggiungo le monete del bonus al giocatore
 		this.gamer.addCoins(bonus.getCoins());
+		System.out.println("\n[ManageBonus] aggiungo monete al giocatore " + bonus.toString());
 		/*
 		 * Aggiungo aiutanti al giocatore e, qualora non ve ne siano a sufficienza, incremento il numero 
 		 * di aiutanti virtuali
 		 */
 		if(bonus.getHelpers() > 0){
+			System.out.println("\n[ManageBonus] verifico la disponibilità di aiutanti " + bonus.getHelpers());
 			if(this.match.getBoard().getHelpersPool().getActualGamerHelpers() < bonus.getHelpers()){
 				this.virtualHelpers += (bonus.getHelpers() - this.match.getBoard().getHelpersPool().getActualTotal());
 				this.gamer.addHelpers(this.match.getBoard().getHelpersPool().getActualGamerHelpers());
@@ -264,7 +305,7 @@ public class MainActionCommand {
 		
 		//aggiungo punti al giocatore qualora il bonus li contempli
 		this.gamer.addPoints(bonus.getPoints());
-		
+		System.out.println("\n[ManageBonus] aggiungo punti al giocatore " + bonus.getPoints());
 		/*
 		 * Gestisco l'acquisizione di carte politiche da parte del giocatore,
 		 * qualora non ve ne siano a sufficienza metto il giocatore in coda
@@ -275,6 +316,7 @@ public class MainActionCommand {
 			}
 			else {
 				for(int i = 0; i < bonus.getPoliticalCards(); i++) this.gamer.addPoliticalCard(this.match.getBoard().getPoliticalCardsDeck().pickupCard());
+				System.out.println("\n[ManageBonus] Ho aggiunto carte politiche al giocatore " + bonus.getPoliticalCards());
 			}
 		}
 		
@@ -282,6 +324,7 @@ public class MainActionCommand {
 		for(int i = 0;i < bonus.getShifts(); i++){
 			if((i + this.gamer.getShifts()) < this.match.getBoard().getNobiltyPath().getBonus().length){
 				if(this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()) != null){
+					System.out.println("\n[ManageBonus] gestisco i bonus shift al giocatore " + bonus.getShifts() + " " + this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()).toString());
 					this.manageBonus(this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()));
 				}
 			}
@@ -326,9 +369,11 @@ public class MainActionCommand {
 	 * @throws HelpersPoolException
 	 * @throws PoliticalCardsDeckException
 	 * @throws NobiltyPathException
+	 * 
+	 * Funzionante
 	 */
 	public void pickupPermitCard(int regionNumber,int permitCardNumber,int politicalCardsPosition[]) throws MainActionCommandException, PermitCardsDeckException, GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
-		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 1)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
+		if((regionNumber > RegionConstants.NUMBER_OF_REGIONS)||(regionNumber < 0)) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_REGION_NUMBER.getExceptionCode());
 		if((permitCardNumber < 0) || (permitCardNumber > (PermitCardsDeckConstants.UNHIDDEN_CARDS_FOR_REGION - 1))) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_PERMIT_CARD_NUMBER.getExceptionCode());
 		
 		//Verifico la quantità di carte passatami
@@ -471,32 +516,31 @@ public class MainActionCommand {
 			}
 		}
 		
-		
 		//Verifico la consistenza tra le carte politiche e i consiglieri del re
-				boolean positions[] = new boolean[politicalCardsPosition.length];
-				for(int i = 0; i < positions.length; i++) positions[i] = false;
+		boolean positions[] = new boolean[politicalCardsPosition.length];
+		for(int i = 0; i < positions.length; i++) positions[i] = false;
+		
+		for(Color c : this.match.getBoard().getKing().getCouncil().getNobles()){
+			for(int i = 0; i < politicalCardsPosition.length; i++){
+				if(positions[i] == true) continue;
 				
-				for(Color c : this.match.getBoard().getKing().getCouncil().getNobles()){
-					for(int i = 0; i < politicalCardsPosition.length; i++){
-						if(positions[i] == true) continue;
-						
-						if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]))){
-							positions[i] = true;
-							continue;
-						}
-						
-						if(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getJolly() == true ){
-							positions[i] = true;
-							coins += PermitCardsDeckConstants.JOLLY_CARDS_COINS;
-							continue;
-						}
-						
-						if(positions[i] == true) break;
-					}
+				if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getColor())){
+					positions[i] = true;
+					continue;
 				}
 				
-				for(int i = 0; i < positions.length; i++) if(positions[i] == false)throw new MainActionCommandException(MainActionCommandExceptionCode.INCONCISTENCE_BEETWEEN_POLITICAL_CARDS_AND_NOBLES.getExceptionCode());
+				if(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getJolly() == true ){
+					positions[i] = true;
+					coins += PermitCardsDeckConstants.JOLLY_CARDS_COINS;
+					continue;
+				}
 				
+				if(positions[i] == true) break;
+			}
+		}
+		
+		for(int i = 0; i < positions.length; i++) if(positions[i] == false)throw new MainActionCommandException(MainActionCommandExceptionCode.INCONCISTENCE_BEETWEEN_POLITICAL_CARDS_AND_NOBLES.getExceptionCode());
+	
 				//Calcolo l'eventuale costo aggiuntivo per comprare la carta 
 				switch(positions.length){
 					case 1:
@@ -515,11 +559,29 @@ public class MainActionCommand {
 						throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_POLITICAL_CARDS_NUMBER.getExceptionCode());
 				}
 				
+				if(villagePath.length == 1){
+					if(villagePath[0] == this.getMatch().getBoard().getKing().getPosition().charAt(0))coins += 0;
+					else coins += KingConstants.COINS_FOR_MOVEMENT;
+				}
+				else{
+					coins += KingConstants.COINS_FOR_MOVEMENT * villagePath.length;
+					for(int i = 0; i < villagePath.length; i++){
+						if(villagePath[i] == this.getMatch().getBoard().getKing().getPosition().charAt(0)){
+							coins -= KingConstants.COINS_FOR_MOVEMENT;
+							break;
+						}
+					}
+				}
+				
 				//Verifico la disponibilita' di monete
 				if(this.virtualCoins < coins) if((this.gamer.getCoins() - (coins - this.virtualCoins)) < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_HAS_TOO_FEAW_COINS.getExceptionCode());
 				
 				//Verifico la disponibilita' di aiutanti
 				if(v.getShops()[0] != VillageConstants.NULL_GAMER) if(this.virtualHelpers < 1) if(this.gamer.getHelpers() < 1) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
+				
+				System.out.println("gamer coins: " + this.gamer.getCoins());
+				System.out.println("coins:" + coins);
+				System.out.println("virtual coins: " + virtualCoins );
 				
 				//verifico la disponibilità di monete del giocatore
 				if(this.virtualCoins < coins){
@@ -547,17 +609,35 @@ public class MainActionCommand {
 				}
 				
 				//aggiungo l'emporio
-				v.addShop(this.gamer);
+				//Piazzo l'emporio
+				for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+					if(this.match.getBoard().getGameMap().getVillages()[i].equals(v)){
+						this.match.getBoard().getGameMap().getVillages()[i].addShop(this.gamer.getUsername());
+					}
+				}
 				this.gamer.subShop();
+				
+				//Tolgo le carte usate dal giocatore
+				PoliticalCard pc = null;
+				PoliticalCard pc2[] = new PoliticalCard[politicalCardsPosition.length];
+				for(int i = 0; i < pc2.length; i++){
+					pc2[i] = this.gamer.getPoliticalCards().get(politicalCardsPosition[i]);
+				}
+				for(int i = 0; i < politicalCardsPosition.length; i++){
+					pc = this.gamer.subPoliticalCard(pc2[i]);
+					this.match.getBoard().getPoliticalCardsDeck().addCard(pc);
+				}
 				
 				//Sposto il re
 				this.match.getBoard().getKing().moveKing(v.getName());
 				
 				//Gestisco i derivanti bonus
-				this.manageBonusChain(v);
+				//this.manageBonusChain(v);
 				
 				//riduco il numero di azioni principali del giocatore
 				this.actionSynoptic.useMainAction();
+				
+				MatchRepository.getInstance().updateMatch(match);
 	}
 	
 	/**
@@ -580,6 +660,20 @@ public class MainActionCommand {
 		for(Color c: ColorConstants.POLITICAL_COLORS) if(c.equals(noble)) flag = true;
 		if(flag == false) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_NOBLE_COLOR.getExceptionCode());
 		
+		System.out.println("Gamer coins: "+ this.gamer.getCoins());
+		System.out.println("\nVirtual Coins: " + this.getVirtualCoins());
+		System.out.println("\nReward: " + CouncilConstants.REWARD_COINS);
+		System.out.println("\nMax number of coins: " + CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
+		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
+		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
+				this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;
+				this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
+		}
+		else{
+
+			this.gamer.addCoins( CouncilConstants.REWARD_COINS);
+		}
+		
 		//determino dove cambiare il nobile
 		if(isKing == true) old = this.match.getBoard().getKing().getCouncil().slideNoble(noble);
 		else old = this.match.getBoard().getRegions()[regionNumber].getCouncil().slideNoble(noble);
@@ -600,13 +694,6 @@ public class MainActionCommand {
 		if(old.equals(ColorConstants.POLITICAL_COLORS[3])) this.match.getBoard().getNoblesPool().addMagentaNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[4])) this.match.getBoard().getNoblesPool().addOrangeNoble();
 		if(old.equals(ColorConstants.POLITICAL_COLORS[5])) this.match.getBoard().getNoblesPool().addWhiteNoble();
-		
-		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
-		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
-			this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;
-			this.gamer.addCoins(CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER-this.gamer.getCoins());
-		}
-		else this.gamer.addCoins(this.gamer.getCoins() + CouncilConstants.REWARD_COINS);
 		
 		//Riduco il numero di azioni principali del giocatore
 		this.actionSynoptic.useMainAction();
