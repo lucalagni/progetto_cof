@@ -7,14 +7,10 @@ package server.dao.basics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonBuilderFactory;
 import model.basics.PoliticalCard;
 import model.basics.PoliticalCardsDeck;
 import model.basics.builders.PoliticalCardsDeckBuilder;
 import model.basics.builders.exceptions.BuilderException;
-import model.basics.supports.QuequedGamer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import server.dao.basics.fields.DAOFields;
@@ -25,7 +21,6 @@ import server.dao.basics.fields.DAOFields;
  * @author Antonietta
  */
 public class PoliticalCardsDeckDAO {
-    @SuppressWarnings("unchecked")
 	public  PoliticalCardsDeck readData(JSONObject jsonRoot) throws BuilderException{
                 JSONObject jsonCardDeck = (JSONObject)jsonRoot.get(DAOFields.POLITICAL_CARDS_DECK);
                     JSONArray jArray = (JSONArray)jsonCardDeck.get(DAOFields.AVAILABLE_CARDS_LIST);
@@ -56,11 +51,6 @@ public class PoliticalCardsDeckDAO {
                 }
                 
                 jObj.put(DAOFields.AVAILABLE_CARDS_LIST, jArray);
-
-//                JSONObject root = new JSONObject();
-//			
-//			root.put(DAOFields.POLITICAL_CARDS_DECK, jObj);
-//			return root;
                         
                return jObj;
 

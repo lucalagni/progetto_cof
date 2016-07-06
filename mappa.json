@@ -1,0 +1,1937 @@
+{
+	"board": {
+		"nobles_pool": {
+			"pink_Nobles_Left": 24,
+			"white_Nobles_Left": 24,
+			"cyan_Nobles_Left": 24,
+			"magentaNoblesLeft": 24,
+			"black_Nobles_Left": 24,
+			"orangeNoblesLeft": 24
+		},
+		"nobilty_path": {
+			"bonus": [{
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 2,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 2,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": true,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": true
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 1,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 1,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 3,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": true,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 5,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": true,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": true,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 0,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 8,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 2,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 3,
+					"new_main_action": false
+				}
+			}]
+		},
+		"regions": [{
+			"region": {
+				"number": 0,
+				"permit_cards_deck": {
+					"available_Cards_Set": [{
+						"permit_card": {
+							"villages": ["Arkon", "Burgen", "Castrum"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Dorful"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 7,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Burgen", "Castrum"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 3,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 3,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Arkon", "Burgen"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 3,
+								"political_cards": 1,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Esti"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 2,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": true
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Castrum"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 3,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Burgen"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 3,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 3,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Esti", "Castrum", "Dorful"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 1,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Arkon"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 3,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 4,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Castrum", "Dorful"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 3,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Arkon", "Esti", "Burgen"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 3,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Arkon", "Esti"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 2,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Castrum"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": true
+							}
+						}
+					}],
+					"unhiddenCards": [{
+						"permit_card": {
+							"villages": ["Arkon", "Esti", "Dorful"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 2,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Esti", "Dorful"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 3,
+								"new_main_action": false
+							}
+						}
+					}]
+				},
+				"villages": ["Arkon", "Burgen", "Castrum", "Dorful", "Esti"],
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 5,
+					"new_main_action": false
+				},
+				"council": {
+					"nobles": [-16777216, -16711681, -20561, -65281]
+				}
+			}
+		}, {
+			"region": {
+				"number": 1,
+				"permit_cards_deck": {
+					"available_Cards_Set": [{
+						"permit_card": {
+							"villages": ["Hellar", "Indur", "Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 1,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Hellar", "Indur"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 5,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Juvelar"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 2,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Framek", "Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 5,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Hellar"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Juvelar", "Framek", "Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 2,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 1,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Juvelar", "Indur", "Framek"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Hellar", "Framek", "Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 0,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Juvelar", "Framek"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Indur"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 2,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Hellar", "Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Framek"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 4,
+								"political_cards": 2,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Hellar", "Juvelar", "Indur"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 2,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}],
+					"unhiddenCards": [{
+						"permit_card": {
+							"villages": ["Juvelar", "Indur"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 2,
+								"shifts": 2,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Graden"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 2,
+								"new_main_action": false
+							}
+						}
+					}]
+				},
+				"villages": ["Framek", "Graden", "Hellar", "Indur", "Juvelar"],
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 5,
+					"new_main_action": false
+				},
+				"council": {
+					"nobles": [-16711681, -16777216, -20561, -65281]
+				}
+			}
+		}, {
+			"region": {
+				"number": 2,
+				"permit_cards_deck": {
+					"available_Cards_Set": [{
+						"permit_card": {
+							"villages": ["Merkatim", "Lyram"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 3,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 3,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Osium", "Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 2,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 4,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 4,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Naris", "Merkatim", "Osium"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 1,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Lyram", "Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 1,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Merkatim", "Lyram", "Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Osium"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 3,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 3,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Naris", "Merkatim"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": true
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Osium", "Lyram", "Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 1,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Naris", "Osium", "Kultos"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 1,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 1,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 1,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Naris"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 7,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Naris", "Merkatim", "Lyram"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 3,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Merkatim"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 0,
+								"shifts": 1,
+								"acquire_double_village_bonus": false,
+								"points": 5,
+								"new_main_action": false
+							}
+						}
+					}],
+					"unhiddenCards": [{
+						"permit_card": {
+							"villages": ["Naris", "Osium"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 2,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 0,
+								"political_cards": 2,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 2,
+								"new_main_action": false
+							}
+						}
+					}, {
+						"permit_card": {
+							"villages": ["Lyram"],
+							"bonus": {
+								"acquire_permit_card": false,
+								"helpers": 0,
+								"reuse_permit_bonus": false,
+								"acquire_single_village_bonus": false,
+								"coins": 1,
+								"political_cards": 0,
+								"shifts": 0,
+								"acquire_double_village_bonus": false,
+								"points": 0,
+								"new_main_action": false
+							}
+						}
+					}]
+				},
+				"villages": ["Kultos", "Lyram", "Merkatim", "Naris", "Osium"],
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 5,
+					"new_main_action": false
+				},
+				"council": {
+					"nobles": [-16777216, -16711681, -20561, -65281]
+				}
+			}
+		}],
+		"king": {
+			"council": {
+				"nobles": [-1, -65281, -20561, -16777216]
+			},
+			"bonus": [{
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 25,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 18,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 12,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 7,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 3,
+					"new_main_action": false
+				}
+			}],
+			"position": "Juvelar"
+		},
+		"helpers_pool": {
+			"actual_Total": 2147483646,
+			"actual_gamer_helpers": 1
+		},
+		"game_map": {
+			"villages": [{
+				"village": {
+					"color": -16776961,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 3,
+						"new_main_action": false
+					},
+					"name": "Arkon",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -256,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 1,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Burgen",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -8355712,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 1,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Castrum",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -8355712,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Dorful",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -14336,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 1,
+						"new_main_action": false
+					},
+					"name": "Esti",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -256,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Framek",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -8355712,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 3,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Graden",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -256,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 1,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Hellar",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -14336,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 1,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Indur",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -65281,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Juvelar",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -256,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 1,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 1,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Kultos",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -8355712,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 2,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 2,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Lyram",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -16776961,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 2,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 0,
+						"new_main_action": false
+					},
+					"name": "Merkatim",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -14336,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 2,
+						"new_main_action": false
+					},
+					"name": "Naris",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}, {
+				"village": {
+					"color": -16776961,
+					"bonus": {
+						"acquire_permit_card": false,
+						"helpers": 0,
+						"reuse_permit_bonus": false,
+						"acquire_single_village_bonus": false,
+						"coins": 0,
+						"political_cards": 0,
+						"shifts": 0,
+						"acquire_double_village_bonus": false,
+						"points": 3,
+						"new_main_action": false
+					},
+					"name": "Osium",
+					"shops": ["NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER", "NULL_GAMER"]
+				}
+			}],
+			"bonus": [{
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 5,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 8,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 12,
+					"new_main_action": false
+				}
+			}, {
+				"bonus": {
+					"acquire_permit_card": false,
+					"helpers": 0,
+					"reuse_permit_bonus": false,
+					"acquire_single_village_bonus": false,
+					"coins": 0,
+					"political_cards": 0,
+					"shifts": 0,
+					"acquire_double_village_bonus": false,
+					"points": 20,
+					"new_main_action": false
+				}
+			}],
+			"connections": [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, -1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, -1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, -1]
+		},
+		"political_cards_deck": {
+			"available_cards_list": [{
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16711936,
+					"jolly": true
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16777216,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -16711681,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -20561,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -65281,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -14336,
+					"jolly": false
+				}
+			}, {
+				"political_card": {
+					"color": -1,
+					"jolly": false
+				}
+			}]
+		}
+	}
+}

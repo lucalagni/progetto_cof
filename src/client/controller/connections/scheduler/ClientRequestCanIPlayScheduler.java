@@ -8,7 +8,6 @@ import commons.messages.ServerMessageContentType;
 import commons.schedulers.client.ClientSchedulersConstants;
 import client.controller.ControllerRepository;
 import client.controller.connections.GameConnectionSetupController;
-import main.ProvaLanciatoreGrafica;
 
 /**
  * Classe che implementa lo scheduler per la richiesta dello stato di gioc del giocatore
@@ -105,8 +104,6 @@ public class ClientRequestCanIPlayScheduler extends Thread{
 		@Override
 		public void run() {	
 			String result = controller.clientRequestCanIPlay();
-                        
-                        new ProvaLanciatoreGrafica().lancia();
 			
 			if(result.equals(ServerMessageContentType.SERVER_RESPONSE_TOO_FEAW_GAMERS_TO_PLAY.getServerMessageContentType())){
 				System.out.println("[ClientRequestCanIPlayScheduler] SERVER_RESPONSE_TOO_FEAW_GAMERS_TO_PLAY ");

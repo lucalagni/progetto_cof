@@ -1,0 +1,72 @@
+
+king
+council: 
+Council 
+colors: 
+ WHITE 
+ MAGENTA 
+ PINK 
+ BLACK 
+
+position: Juvelar
+bonus: 
+available : false
+coins : 0
+helpers : 0
+political cards : 0
+points : 25
+shifts : 0
+new main action  : false
+reuse permit card bonus : false
+acquire permit card : false
+acquire single village bonus (no shift)	: false
+acquire double village bonus (no shift)	: false
+
+available : false
+coins : 0
+helpers : 0
+political cards : 0
+points : 18
+shifts : 0
+new main action  : false
+reuse permit card bonus : false
+acquire permit card : false
+acquire single village bonus (no shift)	: false
+acquire double village bonus (no shift)	: false
+
+available : false
+coins : 0
+helpers : 0
+political cards : 0
+points : 12
+shifts : 0
+new main action  : false
+reuse permit card bonus : false
+acquire permit card : false
+acquire single village bonus (no shift)	: false
+acquire double village bonus (no shift)	: false
+
+available : false
+coins : 0
+helpers : 0
+political cards : 0
+points : 7
+shifts : 0
+new main action  : false
+reuse permit card bonus : false
+acquire permit card : false
+acquire single village bonus (no shift)	: false
+acquire double village bonus (no shift)	: false
+
+available : false
+coins : 0
+helpers : 0
+political cards : 0
+points : 3
+shifts : 0
+new main action  : false
+reuse permit card bonus : false
+acquire permit card : false
+acquire single village bonus (no shift)	: false
+acquire double village bonus (no shift)	: false
+
