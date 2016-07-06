@@ -152,6 +152,15 @@ public class ActionSynoptic implements Serializable{
 	}
 	
 	/**
+	 * Metodo che consente di far tornare il sinottico delle azioni nella condizione di 
+	 * inizio turno
+	 */
+	public void setupActionSynoptic(){
+		this.setMainActionNumber(ActionSynopticConstants.INITIAL_MAIN_ACTIONS);
+		this.setHelpersActionNumber(ActionSynopticConstants.INITIAL_HELPERS_ACTIONS);
+	}
+	
+	/**
 	 * metodo che restituisce lo username a cui è associato un certo sinottico
 	 * @return
 	 */

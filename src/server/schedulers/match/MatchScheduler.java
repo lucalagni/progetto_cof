@@ -9,6 +9,7 @@ import commons.schedulers.server.ServerSchedulersConstants;
 import model.basics.Match;
 import model.basics.exceptions.PoliticalCardsDeckException;
 import model.basics.supports.MatchPhase;
+import model.basics.supports.MatchStatus;
 
 /**
  * Classe che si occupa di gestire i turni dei match
@@ -70,10 +71,15 @@ public class MatchScheduler {
 					MatchRepository.getInstance().updateMatch(getMatch());
 				}
 			}
-			/*try {
-				getMatch().getGamers().get(getMatch().getActualGamer()).addPoliticalCard(getMatch().getBoard().getPoliticalCardsDeck().pickupCard());
-			} catch (PoliticalCardsDeckException e) { e.printStackTrace();}
-			*/System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
+			if(getMatch().getMatchStatus().equals(MatchStatus.TERMINATED)){
+				if(getMatch().getMatchPhase().equals(MatchPhase.SETTER_PHASE)){
+					if(getMatch().getLastTurnStarted() == true){
+						scheduledTask.cancel(true);
+						scheduler.shutdown();
+					}
+				}
+			}
+			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 		}
 		
 	}

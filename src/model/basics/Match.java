@@ -129,6 +129,8 @@ public class Match implements Serializable{
 		}
 	}
 	
+	public void defineLastTurn(){ this.setLastTurn(true); }
+	
 	public String getTitle(){ return this.title; }
 	public Date getDate(){ return this.date; }
 	public Board getBoard(){ return this.board; }

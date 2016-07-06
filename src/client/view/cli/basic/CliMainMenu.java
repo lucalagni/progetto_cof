@@ -79,8 +79,8 @@ public class CliMainMenu extends Thread{
 		this.text += "\n\n=========={ Action Menu }==========\n";
 		
 		this.text += "\n\n-----{ Main Actions }-----\n";
-		this.text += "\n26)Build shop (untested)";
-		this.text += "\n27)Move King (untested)";
+		this.text += "\n26)Build shop ";
+		this.text += "\n27)Move King ";
 		this.text += "\n28)Buy Permit Card";
 		this.text += "\n29)Change noble";
 		

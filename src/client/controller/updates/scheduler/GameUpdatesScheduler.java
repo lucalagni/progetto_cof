@@ -94,6 +94,7 @@ public class GameUpdatesScheduler extends Thread{
 				 this.cmm.setMatchPhase(phase);
 			 }
 			 else{
+				 dataController.getUserData().getActionSynoptic().setupActionSynoptic();
 				 setItsMyTurnToPlay(false);
 				 this.cmm.setGamerTurn(false);
 				 this.cmm.setMatchPhase(phase);
