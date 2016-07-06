@@ -19,6 +19,7 @@ public class ActionEncoderSocket {
 	private Client client;
 	
 	public ActionEncoderSocket(){
+		ControllerRepository.getInstance().setGameDataController(ControllerRepository.getInstance().getGameDataController().getUserData());
 		this.user = ControllerRepository.getInstance().getGameDataController().getUserData();
 		this.client = ControllerRepository.getInstance().getClientController().getClient();
 	}
