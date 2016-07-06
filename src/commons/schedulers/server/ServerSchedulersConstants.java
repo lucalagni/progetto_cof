@@ -28,9 +28,9 @@ public final class ServerSchedulersConstants {
 //		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_PERIOD = 5; //Periodo che ha l'utente a disposizione per fare la mossa
 //		public static final long     SERVER_SCHEDULER_MATCH_SCHEDULER_TIMEOUT = 120; //Perido che ha l'utente a disposizione prima di essere messo fuori uso
 //		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_AWAIT = 400;
-		public static final TimeUnit SERVER_SCHEDULER_MATCH_SCHEDULER_TIME_UNIT = TimeUnit.MINUTES;
-		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_DELAY = 3; //Ritado prima dell'avvio dello scheduler (tempo del primo giocatore per fare la mossa)
-		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_PERIOD = 3; //Periodo che ha l'utente a disposizione per fare la mossa
+		public static final TimeUnit SERVER_SCHEDULER_MATCH_SCHEDULER_TIME_UNIT = TimeUnit.SECONDS;
+		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_DELAY = 30; //Ritado prima dell'avvio dello scheduler (tempo del primo giocatore per fare la mossa)
+		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_PERIOD = 30; //Periodo che ha l'utente a disposizione per fare la mossa
 		public static final long     SERVER_SCHEDULER_MATCH_SCHEDULER_TIMEOUT = 120; //Perido che ha l'utente a disposizione prima di essere messo fuori uso
 		public static final long	 SERVER_SCHEDULER_MATCH_SCHEDULER_AWAIT = 400;
 		

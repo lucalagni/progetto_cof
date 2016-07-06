@@ -357,7 +357,7 @@ public class CliMainMenu extends Thread{
 					break;
 				case 0:
 					new CliShowGameData(true,in).goOffline();
-					flag = false;
+					flag = true;
 					break;
 				default:
 					break;

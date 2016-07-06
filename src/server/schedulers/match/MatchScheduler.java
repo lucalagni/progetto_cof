@@ -65,33 +65,26 @@ public class MatchScheduler {
 	private class StartMatchScheduler implements Runnable {
 
 		public void run() {
+			boolean flag = true;
+			int gamers = getMatch().getGamers().size();
 			
-			//getMatch().done();
-			
-			if(this.checkGamerStatus() == true) this.nextTurn();
-			this.endMatch();
-			this.resetMatchAgents();
-			
-			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
-		}
-		
-		/**
-		 * Metodo per la gestione del turno del giocatore successivo
-		 */
-		private void nextTurn(){
-			if(this.checkGamerStatus() == true){
+			do{
+				getMatch().done();
 				if(getMatch().getGamers().get(getMatch().getActualGamer()).getStatus().equals(GamerStatus.OFFLINE)){
-					getMatch().done();
+					flag = true;
+				}
+				else flag = false ;
+				gamers--;
+				
+			}while(flag == true);
+			
+			if(getMatch().getMatchPhase().equals(MatchPhase.MATCH_PHASE)){
+				if(getMatch().getActualGamer() == 0){
+					for(int i = 0; i < getMatch().getMarket().getAgents().size(); i++)getMatch().getMarket().getAgents().get(i).resetAgent();
 					MatchRepository.getInstance().updateMatch(getMatch());
-					this.nextTurn();
 				}
 			}
-		}
-		
-		/**
-		 * Metodo che attua la fine del match per fine partita
-		 */
-		private void endMatch(){
+			
 			if(getMatch().getMatchStatus().equals(MatchStatus.TERMINATED)){
 				if(getMatch().getMatchPhase().equals(MatchPhase.SETTER_PHASE)){
 					if(getMatch().getLastTurnStarted() == true){
@@ -100,18 +93,25 @@ public class MatchScheduler {
 					}
 				}
 			}
+			
+			//if(this.checkGamerStatus() == true) this.nextTurn();
+			//this.endMatch();
+			//this.resetMatchAgents();
+			
+			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
+		}
+		
+		/**
+		 * Metodo che attua la fine del match per fine partita
+		 */
+		private void endMatch(){
+			
 		}
 		
 		/**
 		 * Metodo che resetta i dati agente della parita
 		 */
 		private void resetMatchAgents(){
-			if(getMatch().getMatchPhase().equals(MatchPhase.MATCH_PHASE)){
-				if(getMatch().getActualGamer() == 0){
-					for(int i = 0; i < getMatch().getMarket().getAgents().size(); i++)getMatch().getMarket().getAgents().get(i).resetAgent();
-					MatchRepository.getInstance().updateMatch(getMatch());
-				}
-			}
 		}
 		
 		/**

@@ -30,9 +30,9 @@ public final class ClientSchedulersConstants {
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 5;
 	public static final long 	 CLIENT_SCHEDULER_GAMER_TURN_TIMEOUT = 120;
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_AWAIT = 4000;*/
-	public static final TimeUnit CLIENT_SCHEDULER_GAMER_TURN_TIME_UNIT = TimeUnit.MINUTES;
+	public static final TimeUnit CLIENT_SCHEDULER_GAMER_TURN_TIME_UNIT = TimeUnit.SECONDS;
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_DELAY = 0;
-	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 3;
+	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_PERIOD = 30;
 	public static final long 	 CLIENT_SCHEDULER_GAMER_TURN_TIMEOUT = 102;
 	public static final long	 CLIENT_SCHEDULER_GAMER_TURN_AWAIT = 4000;
 }
