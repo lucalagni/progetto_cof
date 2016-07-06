@@ -24,11 +24,20 @@ public class CouncilDAO {
 	
 	@SuppressWarnings("unchecked")
 	public Council readData(JSONObject jsonDataRoot){
-		JSONArray jArray = (JSONArray) jsonDataRoot.get(DAOFields.COUNCIL);
-		Iterator<Color> it = jArray.iterator();
+                JSONObject json = (JSONObject) jsonDataRoot.get(DAOFields.COUNCIL);
+		JSONArray jArray = (JSONArray) json.get(DAOFields.NOBLES);
 		Color[] nobles = new Color[CouncilConstants.NOBLES_NUMBER];
-		for(int i = 0; i < CouncilConstants.NOBLES_NUMBER; i++) nobles[i] = it.next();
-       
+                 Iterator<String> it = jArray.iterator();
+
+
+            while(it.hasNext()){
+                for (int i = 0; i < nobles.length; i++){
+                int rgb = Integer.parseInt(String.valueOf(it.next()));
+                Color c = new Color(rgb);
+                nobles[i] = c;       
+                }          
+            }
+
 		return new CouncilBuilder().setNobles(nobles).build();
 	}
 	
@@ -37,8 +46,8 @@ public class CouncilDAO {
 		JSONObject root = new JSONObject();
 		JSONArray jArray = new JSONArray();
 		
-		for(Color c: council.getNobles()) jArray.add(c);
-		root.put(DAOFields.COUNCIL, jArray);
+		for(Color c: council.getNobles()) jArray.add(c.getRGB());
+		root.put(DAOFields.NOBLES, jArray);
                 return root;
 	}   
 }

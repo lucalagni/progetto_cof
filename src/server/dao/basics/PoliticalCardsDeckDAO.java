@@ -35,42 +35,34 @@ public class PoliticalCardsDeckDAO {
                 for (int i = 0; i < jArray.size(); i++) {
                 
                     JSONObject jsonCard =(JSONObject) jArray.get(i);
-                    
-                     availableCardsList.add(new PoliticalCardDAO().readData(jsonCard)); 
+                    availableCardsList.add(new PoliticalCardDAO().readData(jsonCard)); 
                 }
                 
-//		while(it.hasNext()){
-//              
-//                    availableCardsList.add(e);
-//                }
                 return new PoliticalCardsDeckBuilder().setAvailableCards(availableCardsList)
                                                       .build();	
 	}
         
         @SuppressWarnings("unchecked")
-	public JSONObject writeData(PoliticalCardsDeck politicalCardDeck,boolean indipendent){
+	public JSONObject writeData(PoliticalCardsDeck politicalCardsDeck,boolean indipendent){
                 JSONObject jObj = new JSONObject();
 		JSONArray jArray = new JSONArray();
-		Iterator<PoliticalCard> it = politicalCardDeck.getAvailableCardsList().iterator();
+		Iterator<PoliticalCard> it = politicalCardsDeck.getAvailableCardsList().iterator();
 
                
                 
 
-                //PoliticalCardDAO encoder = new PoliticalCardDAO();
                 while(it.hasNext()){
-                   // jArray.add(encoder.writeData(it.next(),true));
                     jArray.add(new PoliticalCardDAO().writeData(it.next(), true));
-                
                 }
                 
                 jObj.put(DAOFields.AVAILABLE_CARDS_LIST, jArray);
 
-                JSONObject root = new JSONObject();
-			
-			root.put(DAOFields.POLITICAL_CARDS_DECK, jObj);
-			return root;
+//                JSONObject root = new JSONObject();
+//			
+//			root.put(DAOFields.POLITICAL_CARDS_DECK, jObj);
+//			return root;
                         
-              //  return jObj;
+               return jObj;
 
 	}
     

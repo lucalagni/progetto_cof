@@ -9,8 +9,8 @@ import model.market.Market;
 
 public class ClientLogic {
 	
-	private static ClientLogic instance;
-	private final ObjectProperty<Match> match; //new 23.06
+    private static ClientLogic instance;
+    private final ObjectProperty<Match> match; //new 23.06
 	//private Match match;
     private Board be;
     private String username;

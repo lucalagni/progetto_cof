@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package server.dao.basics.test;
 
 import examples.example1.MatchExample;
 import java.io.BufferedReader;
@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import model.basics.GameMap;
 import model.basics.Match;
-import model.basics.PoliticalCardsDeck;
 import model.basics.builders.exceptions.BuilderException;
 import model.basics.exceptions.GameMapException;
 import model.basics.exceptions.MatchException;
@@ -21,25 +21,24 @@ import model.basics.exceptions.PoliticalCardsDeckException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import server.dao.basics.PoliticalCardsDeckDAO;
+import server.dao.basics.GameMapDAO;
 
 /**
  *
  * @author Antonietta
  */
-public class TestPoliticalCardDeckJSON {
+public class TestGameMapDAO {
     
-    
-     public static void main(String[] args) throws BuilderException, MatchException, GameMapException, PoliticalCardsDeckException {
+     public static void main(String[] args) throws BuilderException, MatchException, GameMapException, PoliticalCardsDeckException, IOException {
         Match m;
         m = new MatchExample().getMatch();
 
-        PoliticalCardsDeckDAO pcEncoder = new PoliticalCardsDeckDAO();
+       GameMapDAO pcEncoder = new GameMapDAO();
         
-        PoliticalCardsDeck pc = m.getBoard().getPoliticalCardsDeck();
-        
-        
-        JSONObject json = pcEncoder.writeData(pc, true);
+       GameMap gm = m.getBoard().getGameMap();
+            
+
+        JSONObject json = pcEncoder.writeData(gm);
    
         
         // Scrittura nel file
@@ -55,29 +54,17 @@ public class TestPoliticalCardDeckJSON {
             JSONParser parser = new JSONParser();
             JSONObject jsonRead = (JSONObject) parser.parse(jsonSTR);
             
-            PoliticalCardsDeck pcR = pcEncoder.readData(jsonRead);
+           GameMap gm2 = pcEncoder.readData(jsonRead);
             
-            
-            if(pc.getAvailableCardsList().get(0).equals(pcR.getAvailableCardsList().get(0))){
-                System.out.println("uguali");
-            }
-            else System.out.println("diversi");
-           
-            System.out.println(" "  +  pc.getAvailableCardsList().get(0));
-            System.out.println("fine");
-            
-
-            
+            System.out.println(" ");
         } 
-        catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        } 
+   
         catch (ParseException ex) {
             ex.printStackTrace(System.out);
         }
         
     }
     
+    
+    
 }
-
-

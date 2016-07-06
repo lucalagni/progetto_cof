@@ -1402,7 +1402,7 @@
             </Accordion>
          </children>
       </Pane>
-      <Pane layoutX="-1.0" layoutY="2.0">
+      <Pane fx:id="pane" layoutX="-1.0" layoutY="2.0">
          <children>
             <ImageView fx:id="map" fitHeight="645.0" fitWidth="760.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -1421,7 +1421,7 @@
                   <Font name="Berry Rotunda Regular" size="9.0" />
                </font>
             </Button>
-            <Circle fx:id="button" fill="DODGERBLUE" layoutX="31.0" layoutY="31.0" onMouseEntered="#click2" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="button" fill="DODGERBLUE" layoutX="38.0" layoutY="27.0" onMouseEntered="#click2" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Button fx:id="arkonBonus" layoutX="66.0" layoutY="55.0" mnemonicParsing="false" onAction="#showBonusVillage" prefHeight="32.0" prefWidth="32.0">
                <effect>
                   <ImageInput x="-3.0" y="-3.0">
@@ -1884,9 +1884,9 @@
                   <Image url="@image/balconcino.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="shopA" fitHeight="32.0" fitWidth="28.0" layoutX="118.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopA" fitHeight="32.0" fitWidth="28.0" layoutX="124.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="shopB" fitHeight="32.0" fitWidth="28.0" layoutX="115.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="shopC" fitHeight="32.0" fitWidth="28.0" layoutX="238.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="shopC" fitHeight="32.0" fitWidth="28.0" layoutX="238.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="shopD" fitHeight="32.0" fitWidth="28.0" layoutX="232.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="shopE" fitHeight="32.0" fitWidth="28.0" layoutX="161.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="bonusRegion2" fitHeight="32.0" fitWidth="48.0" layoutX="652.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">

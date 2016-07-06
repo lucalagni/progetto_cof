@@ -38,9 +38,11 @@ public class DAOFields {
 	public static final String COINS_POOL = "coins_pool";
 	public static final String ACTUAL_GAMER_COINS = "actual_gamer_coins";
 	
-	//Helprs pool fields
+	//Helpers pool fields
 	public static final String HELPERS_POOL = "helpers_pool";
 	public static final String ACTUAL_GAMER_HELPERS = "actual_gamer_helpers";
+        public static final String ACTUAL_TOTAL = "actual_Total";
+        
 	
 	//council fields
 	public static final String COUNCIL = "council";
@@ -55,14 +57,53 @@ public class DAOFields {
 	public static final String VILLAGE = "village";
 	public static final String NAME = "name";
 	public static final String SHOPS = "shops";
-	public static final String CONNECTIONS = "connections";
-	public static final String NULL_CONNECTION = "null_connection";
+
         
         //politicalCardDeck 
         
         public static final String POLITICAL_CARDS_DECK = "political_cards_deck";
         public static final String AVAILABLE_CARDS_LIST = "available_cards_list";
-        public static final String QUEQUE = "queque";
-        public static final String QUEQUED_GAMER = "quequedGamer";
+        
+        //permitCardDeck 
+        
+        public static final String PERMIT_CARDS_DECK = "permit_cards_deck";
+        public static final String UNHIDDENCARDS = "unhiddenCards";
+        public static final String AVAILABLE_CARDS_SET = "available_Cards_Set";
+        
+        
+        
+        //king 
+         public static final String POSITION = "position";
+         public static final String KING = "king";
+        
+        
+        //region
+         public static final String REGION = "region";
+         public static final String NUMBER = "number";
+        
+        //noblesPool
+        public static final String NOBLES_POOL = "nobles_pool"; 
+        public static final String BLACK_NOBLES_LEFT = "black_Nobles_Left";
+        public static final String WHITE_NOBLES_LEFT = "white_Nobles_Left";
+        public static final String CYAN_NOBLES_LEFT = "cyan_Nobles_Left";
+        public static final String PYNK_NOBLES_LEFT = "pink_Nobles_Left";
+        public static final String MAGENTA_NOBLES_LEFT = "magentaNoblesLeft";
+        public static final String ORANGE_NOBLES_LEFT = "orangeNoblesLeft";
+        
+        //nobiltyPath
+        
+        public static final String NOBILTY_PATH = "nobilty_path";
+        
+        //GameMap
+        public static final String GAME_MAP = "game_map";
+        public static final String CONNECTIONS = "connections";
+        public static final String COLOR_BONUS= "color_bonus";
+        
+        //board
+         public static final String BOARD = "board";
+          public static final String REGIONS = "regions";
+	
+        
+        
         
 }
