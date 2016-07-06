@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import commons.data.*;
 import server.command.basic.actions.exceptions.MainActionCommandException;
 import server.command.basic.actions.exceptions.codes.MainActionCommandExceptionCode;
+import server.managers.match.MatchRepository;
 import model.basics.Bonus;
 import model.basics.GameMap;
 import model.basics.Gamer;
@@ -478,32 +479,31 @@ public class MainActionCommand {
 			}
 		}
 		
-		
 		//Verifico la consistenza tra le carte politiche e i consiglieri del re
-				boolean positions[] = new boolean[politicalCardsPosition.length];
-				for(int i = 0; i < positions.length; i++) positions[i] = false;
+		boolean positions[] = new boolean[politicalCardsPosition.length];
+		for(int i = 0; i < positions.length; i++) positions[i] = false;
+		
+		for(Color c : this.match.getBoard().getKing().getCouncil().getNobles()){
+			for(int i = 0; i < politicalCardsPosition.length; i++){
+				if(positions[i] == true) continue;
 				
-				for(Color c : this.match.getBoard().getKing().getCouncil().getNobles()){
-					for(int i = 0; i < politicalCardsPosition.length; i++){
-						if(positions[i] == true) continue;
-						
-						if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]))){
-							positions[i] = true;
-							continue;
-						}
-						
-						if(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getJolly() == true ){
-							positions[i] = true;
-							coins += PermitCardsDeckConstants.JOLLY_CARDS_COINS;
-							continue;
-						}
-						
-						if(positions[i] == true) break;
-					}
+				if(c.equals(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getColor())){
+					positions[i] = true;
+					continue;
 				}
 				
-				for(int i = 0; i < positions.length; i++) if(positions[i] == false)throw new MainActionCommandException(MainActionCommandExceptionCode.INCONCISTENCE_BEETWEEN_POLITICAL_CARDS_AND_NOBLES.getExceptionCode());
+				if(this.gamer.getPoliticalCards().get(politicalCardsPosition[i]).getJolly() == true ){
+					positions[i] = true;
+					coins += PermitCardsDeckConstants.JOLLY_CARDS_COINS;
+					continue;
+				}
 				
+				if(positions[i] == true) break;
+			}
+		}
+		
+		for(int i = 0; i < positions.length; i++) if(positions[i] == false)throw new MainActionCommandException(MainActionCommandExceptionCode.INCONCISTENCE_BEETWEEN_POLITICAL_CARDS_AND_NOBLES.getExceptionCode());
+	
 				//Calcolo l'eventuale costo aggiuntivo per comprare la carta 
 				switch(positions.length){
 					case 1:
@@ -522,11 +522,29 @@ public class MainActionCommand {
 						throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_POLITICAL_CARDS_NUMBER.getExceptionCode());
 				}
 				
+				if(villagePath.length == 1){
+					if(villagePath[0] == this.getMatch().getBoard().getKing().getPosition().charAt(0))coins += 0;
+					else coins += KingConstants.COINS_FOR_MOVEMENT;
+				}
+				else{
+					coins += KingConstants.COINS_FOR_MOVEMENT * villagePath.length;
+					for(int i = 0; i < villagePath.length; i++){
+						if(villagePath[i] == this.getMatch().getBoard().getKing().getPosition().charAt(0)){
+							coins -= KingConstants.COINS_FOR_MOVEMENT;
+							break;
+						}
+					}
+				}
+				
 				//Verifico la disponibilita' di monete
 				if(this.virtualCoins < coins) if((this.gamer.getCoins() - (coins - this.virtualCoins)) < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_HAS_TOO_FEAW_COINS.getExceptionCode());
 				
 				//Verifico la disponibilita' di aiutanti
 				if(v.getShops()[0] != VillageConstants.NULL_GAMER) if(this.virtualHelpers < 1) if(this.gamer.getHelpers() < 1) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
+				
+				System.out.println("gamer coins: " + this.gamer.getCoins());
+				System.out.println("coins:" + coins);
+				System.out.println("virtual coins: " + virtualCoins );
 				
 				//verifico la disponibilità di monete del giocatore
 				if(this.virtualCoins < coins){
@@ -537,6 +555,10 @@ public class MainActionCommand {
 					}
 				}
 				else this.virtualCoins = this.virtualCoins - coins;
+				
+				System.out.println("gamer coins: " + this.gamer.getCoins());
+				System.out.println("coins:" + coins);
+				System.out.println("virtual coins: " + virtualCoins );
 				
 				//Se non e' il primo giocatore verifico la disponibilita' di aiutanti
 				if(v.getShops()[0] != VillageConstants.NULL_GAMER){
@@ -554,17 +576,35 @@ public class MainActionCommand {
 				}
 				
 				//aggiungo l'emporio
-				v.addShop(this.gamer);
+				//Piazzo l'emporio
+				for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+					if(this.match.getBoard().getGameMap().getVillages()[i].equals(v)){
+						this.match.getBoard().getGameMap().getVillages()[i].addShop(this.gamer.getUsername());
+					}
+				}
 				this.gamer.subShop();
+				
+				//Tolgo le carte usate dal giocatore
+				PoliticalCard pc = null;
+				PoliticalCard pc2[] = new PoliticalCard[politicalCardsPosition.length];
+				for(int i = 0; i < pc2.length; i++){
+					pc2[i] = this.gamer.getPoliticalCards().get(politicalCardsPosition[i]);
+				}
+				for(int i = 0; i < politicalCardsPosition.length; i++){
+					pc = this.gamer.subPoliticalCard(pc2[i]);
+					this.match.getBoard().getPoliticalCardsDeck().addCard(pc);
+				}
 				
 				//Sposto il re
 				this.match.getBoard().getKing().moveKing(v.getName());
 				
 				//Gestisco i derivanti bonus
-				this.manageBonusChain(v);
+				//this.manageBonusChain(v);
 				
 				//riduco il numero di azioni principali del giocatore
 				this.actionSynoptic.useMainAction();
+				
+				MatchRepository.getInstance().updateMatch(match);
 	}
 	
 	/**

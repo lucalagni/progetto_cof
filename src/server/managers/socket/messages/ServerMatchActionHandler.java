@@ -698,8 +698,8 @@ public class ServerMatchActionHandler {
 		ArrayList<String[]> parameters = null;
 		String[] exception ;
 		
-		if(this.isActualGamer(msg.getUserData()) == false) ;//return this.serverResponseGamerCannotPlay(msg);
-		else {
+		//if(this.isActualGamer(msg.getUserData()) == false) ;//return this.serverResponseGamerCannotPlay(msg);
+		
 			try {
 				MainActionCommand mac = new MainActionCommand(msg.getUserData());
 				char[] path = new char[msg.getParameters().get(0).length];
@@ -742,8 +742,6 @@ public class ServerMatchActionHandler {
 				response = new ServerMessage(msg.getUserData());
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 			}
-			
-		}
 		
 		return response;
 	}
