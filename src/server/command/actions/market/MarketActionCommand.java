@@ -2,6 +2,7 @@ package server.command.actions.market;
 
 import server.command.actions.market.exceptions.MarketActionCommandException;
 import server.command.actions.market.exceptions.codes.MarketActionCommandExceptionCode;
+import server.managers.match.MatchRepository;
 import commons.data.UserData;
 import model.basics.Gamer;
 import model.basics.Match;
@@ -96,6 +97,8 @@ public class MarketActionCommand {
 		this.match.getMarket().getAgents().set(sellerIndex, seller);
 		this.match.getMarket().getAgents().set(buyerIndex, agent);
 		
+		MatchRepository.getInstance().updateMatch(this.match);
+		
 	}
 	
 	/**
@@ -152,6 +155,7 @@ public class MarketActionCommand {
 		this.match.getMarket().getAgents().set(sellerIndex, seller);
 		this.match.getMarket().getAgents().set(buyerIndex, agent);
 		
+		MatchRepository.getInstance().updateMatch(this.match);
 	}
 	
 	/**
@@ -214,6 +218,7 @@ public class MarketActionCommand {
 		this.match.getMarket().getAgents().set(sellerIndex, seller);
 		this.match.getMarket().getAgents().set(buyerIndex, agent);
 		
+		MatchRepository.getInstance().updateMatch(this.match);
 	}
 	
 	public Gamer getGamer(){ return match.getGamers().get(buyerIndex); }

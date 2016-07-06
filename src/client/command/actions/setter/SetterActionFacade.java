@@ -38,6 +38,7 @@ public class SetterActionFacade {
 	private void setAgent(UserData data){
 		String username = data.getUsername();
 		
+		System.out.println("size: " +data.getMatch().toString());
 		for(int i = 0; i < data.getMatch().getMarket().getAgents().size(); i++){
 			if(data.getMatch().getMarket().getAgents().get(i).getUsername().equals(username)) {
 				this.agent = data.getMatch().getMarket().getAgents().get(i);
@@ -130,6 +131,7 @@ public class SetterActionFacade {
 		
 		hi = new HelpersItem(helpers,price);
 		this.agent.addHelpersItem(hi);
+		System.out.println(this.agent.getHelpersStock().get(0).toString());
 	}
 	
 	/**

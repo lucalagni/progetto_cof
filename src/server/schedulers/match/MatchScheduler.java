@@ -62,10 +62,10 @@ public class MatchScheduler {
 
 		public void run() {
 			getMatch().done();
-			try {
+			/*try {
 				getMatch().getGamers().get(getMatch().getActualGamer()).addPoliticalCard(getMatch().getBoard().getPoliticalCardsDeck().pickupCard());
 			} catch (PoliticalCardsDeckException e) { e.printStackTrace();}
-			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
+			*/System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
 		}
 		
 	}

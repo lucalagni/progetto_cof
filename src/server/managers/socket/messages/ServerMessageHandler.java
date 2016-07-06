@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import model.basics.Gamer;
 import model.basics.Match;
+import model.basics.PoliticalCard;
 import model.basics.constants.MatchConstants;
+import model.basics.exceptions.PoliticalCardsDeckException;
+import model.basics.supports.MatchPhase;
 import server.managers.match.MatchManager;
 import server.managers.match.MatchRepository;
 import commons.data.ActionSynoptic;
@@ -242,22 +245,42 @@ public class ServerMessageHandler {
 	 * @param matchCode
 	 * @return
 	 */
-	private ServerMessage clientRequestGamerTurn(UserData data){
+	private synchronized ServerMessage clientRequestGamerTurn(UserData data){
 		ServerMessage response = null;
 		Match m = null;
+		Gamer g = null;
+		PoliticalCard pc = null;
 		String[] params = new String[1];
 		ArrayList<String[]> parameters = new ArrayList<String[]>();
 		
 		
 		m = this.matchRepository.getMatch(data.getMatchCode());
-		response = new ServerMessage(data);
+		for(int i = 0; i < m.getGamers().size(); i++){
+			if(m.getGamers().get(i).getUsername().equals(data.getUsername())){
+				g = m.getGamers().get(i);
+				break;
+			}
+		}
+		try {
+			if(m.getMatchPhase().equals(MatchPhase.MATCH_PHASE)){
+				if(g.getUsername().equals(m.getGamers().get(m.getActualGamer()).getUsername())){
+					pc = m.getBoard().getPoliticalCardsDeck().pickupCard();
+					g.addPoliticalCard(pc);
+					m.updateGamer(g);
+				}
+			}
+			
+		} catch (PoliticalCardsDeckException e1) { e1.printStackTrace(); }
+		this.matchRepository.updateMatch(m);
+		
 		if(m == null){
+			response = new ServerMessage(data);
 			response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH_NOT_FOUND, null);
 		}
 		else {
 			try {
 				data.updateMatch(m);
-				data.updateGamer(data.getGamer());
+				data.updateGamer(g);
 				response = new ServerMessage(data);
 			} catch (UserDataException e) {
 				e.printStackTrace();

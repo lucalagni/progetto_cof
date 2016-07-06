@@ -57,12 +57,16 @@ public class Match implements Serializable{
 	private void setActualGamer(int actualGamer){ this.actualGamer = new Integer(actualGamer); }
 	private void setNextGamer(int nextGamer){ this.nextGamer = new Integer(nextGamer); }
 	private void setMarket(Market market){ 
-		for(int i = 0; i < this.gamers.size(); i++){
+		this.market = market;
+		for(int i = 0; i < this.getGamers().size(); i++){
 			try {
-				market.updateAgent(new Agent(this.gamers.get(i).getUsername()));
-			} catch (MarketException e) { e.printStackTrace(); }
+				this.market.updateAgent(new Agent(this.gamers.get(i).getUsername()));
+			} catch (MarketException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-		this.market = market; 
 	}
 	private void setLastTurn(boolean lastTurn){ this.lastTurn = new Boolean(lastTurn); }
 	private void setLastTurnStarted(boolean lastTurnStarted){ this.lastTurnStarted = new Boolean(lastTurnStarted); }
@@ -133,10 +137,7 @@ public class Match implements Serializable{
 	public String getMatchCode(){ return this.matchCode; }
 	public int getActualGamer(){ return this.actualGamer.intValue() ; }
 	public int getNextGamer(){ return this.nextGamer.intValue(); }
-	public Market getMarket(){ 
-		if((this.getMatchPhase()) != MatchPhase.MARKET_PHASE) return null;
-		return this.market; 
-	}
+	public Market getMarket(){  return this.market; }
 	public boolean getLastTurn(){ return this.lastTurn.booleanValue(); }
 	public boolean getLastTurnStarted(){ return this.lastTurnStarted.booleanValue(); }
 	public MatchPhase getMatchPhase(){ return this.matchPhase; }

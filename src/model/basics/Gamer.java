@@ -176,6 +176,7 @@ public class Gamer implements Serializable{
 			throw new GamerException(GamerExceptionCode.TOO_FEAW_HELPERS.getExceptionCode());
 		}
 		else this.setHelpers(this.getHelpers() - helpers);
+		System.out.println("[Gamer: ] helpers: " + helpers);
 		return helepers;
 	}
 	
@@ -200,9 +201,6 @@ public class Gamer implements Serializable{
 	@Override
 	public String toString()
 	{
-		
-		Iterator<PoliticalCard> itpc = this.getPoliticalCards().iterator();
-		Iterator<PermitCard> itec = this.getUnusedPermitCards().iterator();
 		String gString = new String("\ngamer\n");
 		
 		gString += "username: " + this.getUsername() + "\n";
@@ -215,12 +213,11 @@ public class Gamer implements Serializable{
 		gString += "statis: " + this.getStatus().getGamerStatus() + "\n";
 		gString += "match: " + this.getMatch().toString() + "\n";
 		gString += "political cards:\n";
-		while(itpc.hasNext()) gString += itpc.next() + "\n";
+		for(PoliticalCard pc : this.getPoliticalCards()) gString += pc.toString() + "\n";
 		gString += "unhused permit cards:\n";
-		while(itec.hasNext()) gString += itpc.next() + "\n";
-		itec = this.getUsedPermitCards().iterator();
+		for(PermitCard pc : this.getUnusedPermitCards()) gString += pc.toString() + "\n";
 		gString += "used permit cards:\n";
-		while(itec.hasNext()) gString += itpc.next() + "\n";
+		for(PermitCard pc : this.getUsedPermitCards()) gString += pc.toString() + "\n";
 		
 		return gString;
 	}

@@ -51,6 +51,7 @@ public class CliSetterPerformAction {
 				System.out.println("\nInsert a price: ");
 				try{
 					price = Integer.parseInt(this.input.nextLine());
+					System.out.println("Price: " + price);
 					this.actionController.addPermitCardItem(i, price);
 				}catch(Exception ex){
 					System.out.println("\nInvalid input data");
@@ -120,7 +121,9 @@ public class CliSetterPerformAction {
 		try{
 			price = Integer.parseInt(this.input.nextLine());
 			this.actionController.addHelpersItem(quantity, price);
+			System.out.println("done: ");
 		}catch(Exception ex){
+			ex.printStackTrace();
 			System.out.println("\nInvalid input data");
 		}
 		

@@ -127,7 +127,7 @@ public class CliShowGameData {
 	 */
 	public void showUsedPermitCards(){
 		System.out.print("\n----------{ Gamer Used Permit Cards }----------\n\n");
-		for(int i = 0; i < this.dataController.getUserData().getGamer().getUnusedPermitCards().size(); i++){
+		for(int i = 0; i < this.dataController.getUserData().getGamer().getUsedPermitCards().size(); i++){
 			System.out.print("\n" + i + "] " + this.dataController.getUserData().getGamer().getUsedPermitCards().get(i).toString());
 		}
 		
