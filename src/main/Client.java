@@ -38,7 +38,7 @@ public class Client extends Application {
 
         initRootLayout();
         showPlayGame();
-        
+        System.out.println("Sono nella grafica");
     }
 
     /**
@@ -446,9 +446,9 @@ public class Client extends Application {
         return primaryStage;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         launch(args);
-    }
+    }*/
 
 }
 	

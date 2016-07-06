@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import client.view.cli.ViewCLI;
 import commons.data.ViewMode;
+import main.Client;
+import main.ProvaLanciatoreGrafica;
 
 /**
  * Classe che avvia il il tipo di interfaccia per l'interazione con l'utente
@@ -49,6 +51,7 @@ public class View {
 					System.out.println("\nGUI View Mode selected");
 					this.GUIMode();
 					flag = true;
+                                        new ProvaLanciatoreGrafica().lancia();
 					break;
 				case 0:
 					System.out.println("\nExited");

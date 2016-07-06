@@ -34,8 +34,8 @@ public class PermitCardDAO {
 		while(it.hasNext()) villages.add(it.next());
 		
 		return new PermitCardBuilder().setBonus(new BonusDAO().readData(jsonCard))
-									  .setVillages(villages)
-									  .build();
+                                                                      .setVillages(villages)
+                                                                      .build();
 		
 	}
 	
@@ -48,7 +48,6 @@ public class PermitCardDAO {
 		while(it.hasNext()) jArray.add(it.next());
           
 		jObj.put(DAOFields.VILLAGES, jArray);
-		
 		jObj.put(DAOFields.BONUS, new BonusDAO().writeData(permitCard.getBonus(), false));
 		
 		if(indipendent == true){
