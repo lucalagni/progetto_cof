@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import commons.data.UserData;
 import commons.data.exceptions.UserDataException;
 import commons.messages.*;
+import client.command.actions.basics.exceptions.codes.ActionFacadeExceptionCode;
 import client.controller.ControllerRepository;
 import client.Client;
 
@@ -48,11 +49,13 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
 		
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -88,10 +91,21 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		
+		if(mainAction == true){
+			if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE)){
+				return ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+			}
+		}
+		else
+		{
+			if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE)){
+				return ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+			}
+		}
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -123,11 +137,14 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
-		return response.getContent().getServerMessageContentType();
+			
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+			
+			return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -153,11 +170,14 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
-		return response.getContent().getServerMessageContentType();
+			
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_MAIN_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+			
+			return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -183,11 +203,14 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
-		return response.getContent().getServerMessageContentType();
+			
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+			
+			return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -205,11 +228,14 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
 		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
 		}
-		
-		return response.getContent().getServerMessageContentType();
+			
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+			
+			return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -231,12 +257,13 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
-		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (UserDataException e) { return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode()); }
+			
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_HELPERS_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
-		return response.getContent().getServerMessageContentType();
+			
+			return response.getContent().getServerMessageContentType();
 	}
 	
 	/**
@@ -262,11 +289,12 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
-		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (UserDataException e) { return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode()); }
+		
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -291,11 +319,12 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
-		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (UserDataException e) { return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode()); }
+		
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -321,11 +350,12 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
-		} catch (UserDataException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (UserDataException e) { return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode()); }
+		
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	
@@ -351,10 +381,12 @@ public class ActionEncoderSocket {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateActionSynoptic(response.getUserData().getActionSynoptic());
-		} catch (UserDataException e) {
-			e.printStackTrace();
+		} catch (UserDataException e) { return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode()); }
+		
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_SPECIAL_ACTION_FAILURE + " : "+response.getParameters().get(0)[0];
 		}
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		
 		return response.getContent().getServerMessageContentType();
 	}
 }

@@ -124,7 +124,7 @@ public class CliMarketPerformAction {
 			return;
 		}
 		
-		this.marketController.buyHelpersItem(seller, item);
+		System.out.println(this.marketController.buyHelpersItem(seller, item));
 		
 		this.showContinue();
 	}
@@ -177,7 +177,7 @@ public class CliMarketPerformAction {
 			return;
 		}
 		
-		this.marketController.buyPoliticalCardItem(seller, item);
+		System.out.println(this.marketController.buyPoliticalCardItem(seller, item));
 		
 		this.showContinue();
 	}
@@ -230,7 +230,7 @@ public class CliMarketPerformAction {
 			return;
 		}
 		
-		this.marketController.buyPermitCardItem(seller, item);
+		System.out.println(this.marketController.buyPermitCardItem(seller, item));
 		
 		this.showContinue();
 	}

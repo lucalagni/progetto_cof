@@ -10,6 +10,7 @@ package client.command.actions.basics.exceptions.codes;
  * GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE = il giocatore non ha più mosse speciali di un determinato tipo
  * UNSETTED_USER_DATA = Gli UserData non sono stati settati
  * UNSETTED_GAME_MODE = La modalita' di communicazione non e' stata settata
+ * CORRUPTED_USER_DATA = I dati tornati dal server non sono corretti
  * 
  * @author Luca Lagni
  *
@@ -20,7 +21,8 @@ public enum ActionFacadeExceptionCode {
 	GAMER_HAS_NO_MORE_HELPERS_ACTIONS("GAMER_HAS_NO_MORE_HELPERS_ACTIONS"),
 	UNSETTED_GAME_MODE("UNSETTED_GAME_MODE"),
 	GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE("GAMER_HAS_NO_MORE_SPECIAL_ACTION_OF_THIS_TYPE"),
-	UNSETTED_USER_DATA("UNSETTED_USER_DATA");
+	UNSETTED_USER_DATA("UNSETTED_USER_DATA"),
+	CORRUPTED_USER_DATA("CORRUPTED_USER_DATA");
 
 	private String exceptionCode ;
 	ActionFacadeExceptionCode(String exceptionCode){ this.setExceptionCode(exceptionCode);}

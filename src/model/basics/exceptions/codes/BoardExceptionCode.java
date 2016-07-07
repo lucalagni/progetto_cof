@@ -1,8 +1,13 @@
 package model.basics.exceptions.codes;
 
+/**
+ * Enumerazione che contiene le eccezioni generabili dalla board
+ * @author lucal
+ *
+ */
 public enum BoardExceptionCode {
-	NULL_KING("BECE.NLKG"),
-	NULL_POLITICAL_CARDS_DECK("BECE.NPCD"),
+	NULL_KING("NULL_KING"),
+	NULL_POLITICAL_CARDS_DECK("NULL_POLITICAL_CARDS_DECK"),
 	NULL_REGIONS("BECE.NLRS"),
 	EMPTY_REGIONS_LIST("BECE.ERLT"),
 	NULL_COINS_POOL("BECE.NCPL"),

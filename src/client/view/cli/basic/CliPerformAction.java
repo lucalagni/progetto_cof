@@ -81,7 +81,7 @@ public class CliPerformAction {
 			}
 		}while(flag == true);
 		
-		this.actionController.moveKing(pathList, cards);
+		System.out.println(this.actionController.moveKing(pathList, cards));
 		this.showContinue();
 		
 	}
@@ -95,7 +95,7 @@ public class CliPerformAction {
 		System.out.println("\nSelect a village: ");
 		village = this.input.nextLine().charAt(0);
 		
-		this.actionController.acquireSingleVillageBonus(village);
+		System.out.println(this.actionController.acquireSingleVillageBonus(village));
 		this.showContinue();
 	}
 	
@@ -110,7 +110,7 @@ public class CliPerformAction {
 		System.out.println("\nSelect the second village: ");
 		village2 = this.input.nextLine().charAt(0);
 		
-		this.actionController.acquireDoubleVillageBonus(village1, village2);
+		System.out.println(this.actionController.acquireDoubleVillageBonus(village1, village2));
 		this.showContinue();
 	}
 	
@@ -148,7 +148,7 @@ public class CliPerformAction {
 			return ;
 		}
 		
-		this.actionController.reusePermitCardBonus(permitCard, used);
+		System.out.println(this.actionController.reusePermitCardBonus(permitCard, used));
 		this.showContinue();
 	}
 	
@@ -185,7 +185,7 @@ public class CliPerformAction {
 			return;
 		}
 		
-		this.actionController.acquirePermitCard(region, permitCardIndex);
+		System.out.println(this.actionController.acquirePermitCard(region, permitCardIndex));
 		this.showContinue();
 	}
 	
@@ -210,7 +210,7 @@ public class CliPerformAction {
 			return ;
 		}
 		
-		this.actionController.doubleAction(region);
+		System.out.println(this.actionController.doubleAction(region));
 		this.showContinue();
 	}
 	
@@ -246,7 +246,7 @@ public class CliPerformAction {
 			return ;
 		}
 		
-		this.actionController.placeShop(village, cardIndex);
+		System.out.println(this.actionController.placeShop(village, cardIndex));
 		this.showContinue();
 	}
 	
@@ -328,22 +328,22 @@ public class CliPerformAction {
 		}
 		
 		if(king == true){
-			if(color == 0) this.actionController.changeNoble(true, 0, Color.BLACK, mainAction);
-			if(color == 1) this.actionController.changeNoble(true, 0, Color.CYAN, mainAction);
-			if(color == 2) this.actionController.changeNoble(true, 0, Color.MAGENTA, mainAction);
-			if(color == 3) this.actionController.changeNoble(true, 0, Color.ORANGE, mainAction);
-			if(color == 4) this.actionController.changeNoble(true, 0, Color.PINK, mainAction);
-			if(color == 5) this.actionController.changeNoble(true, 0, Color.WHITE, mainAction);
+			if(color == 0) System.out.println(this.actionController.changeNoble(true, 0, Color.BLACK, mainAction));
+			if(color == 1) System.out.println(this.actionController.changeNoble(true, 0, Color.CYAN, mainAction));
+			if(color == 2) System.out.println(this.actionController.changeNoble(true, 0, Color.MAGENTA, mainAction));
+			if(color == 3) System.out.println(this.actionController.changeNoble(true, 0, Color.ORANGE, mainAction));
+			if(color == 4) System.out.println(this.actionController.changeNoble(true, 0, Color.PINK, mainAction));
+			if(color == 5) System.out.println(this.actionController.changeNoble(true, 0, Color.WHITE, mainAction));
 			
 		}
 		else
 		{
-			if(color == 0) this.actionController.changeNoble(false, region, Color.BLACK, mainAction);
-			if(color == 1) this.actionController.changeNoble(false, region, Color.CYAN, mainAction);
-			if(color == 2) this.actionController.changeNoble(false, region, Color.MAGENTA, mainAction);
-			if(color == 3) this.actionController.changeNoble(false, region, Color.ORANGE, mainAction);
-			if(color == 4) this.actionController.changeNoble(false, region, Color.PINK, mainAction);
-			if(color == 5) this.actionController.changeNoble(false, region, Color.WHITE, mainAction);
+			if(color == 0) System.out.println(this.actionController.changeNoble(false, region, Color.BLACK, mainAction));
+			if(color == 1) System.out.println(this.actionController.changeNoble(false, region, Color.CYAN, mainAction));
+			if(color == 2) System.out.println(this.actionController.changeNoble(false, region, Color.MAGENTA, mainAction));
+			if(color == 3) System.out.println(this.actionController.changeNoble(false, region, Color.ORANGE, mainAction));
+			if(color == 4) System.out.println(this.actionController.changeNoble(false, region, Color.PINK, mainAction));
+			if(color == 5) System.out.println(this.actionController.changeNoble(false, region, Color.WHITE, mainAction));
 		}
 		
 		this.showContinue();
@@ -359,11 +359,11 @@ public class CliPerformAction {
 		
 		try{
 			buyAction = Boolean.parseBoolean(this.input.nextLine());
-		}catch(Exception ex){
-			System.out.println("\nInvalid input data");
-		}
+		}catch(Exception ex){ System.out.println("\nInvalid input data"); }
 		
-		if(buyAction == true)this.actionController.buyNewMainAction();
+		if(buyAction == true){
+			System.out.println(this.actionController.buyNewMainAction());
+		}
 		else System.out.println("\nAction not porformed");
 		
 		this.showContinue();
@@ -383,7 +383,9 @@ public class CliPerformAction {
 			System.out.println("\nInvalid input data");
 		}
 		
-		if(buyHelper == true)this.actionController.buyHelper(false);
+		if(buyHelper == true){
+			System.out.println(this.actionController.buyHelper(false));
+		}
 		else System.out.println("\nAction not porformed");
 		
 		this.showContinue();
@@ -424,7 +426,7 @@ public class CliPerformAction {
 				pCards[i] = cards.get(i).intValue();
 			}
 			
-			this.actionController.buyPermitCard(region, index, pCards);
+			System.out.println(this.actionController.buyPermitCard(region, index, pCards));
 			
 		}
 		

@@ -1,12 +1,14 @@
 package client.command.actions.setter;
 
 import client.Client;
+import client.command.actions.basics.exceptions.codes.ActionFacadeExceptionCode;
 import client.controller.ControllerRepository;
 import commons.data.UserData;
 import commons.data.exceptions.UserDataException;
 import commons.messages.ClientMessage;
 import commons.messages.ClientMessageContentType;
 import commons.messages.ServerMessage;
+import commons.messages.ServerMessageContentType;
 
 /**
  * Classe che si occupa dello scambio di messaggi finalizzazto alla fase di setting del
@@ -41,9 +43,14 @@ public class SetterActionSocket {
 		try {
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateMatch(response.getUserData().getMatch());
 			ControllerRepository.getInstance().getGameDataController().getUserData().updateGamer(response.getUserData().getGamer());
-		} catch (UserDataException e) { e.printStackTrace(); }
+		} catch (UserDataException e) { 
+			return new String(ActionFacadeExceptionCode.CORRUPTED_USER_DATA.getExceptionCode());
+		}
 		
-		System.out.println("\nServerMessageContent: " + response.getContent().getServerMessageContentType());
+		if(response.getContent().getServerMessageContentType().equals(ServerMessageContentType.SERVER_RESPONSE_AGENT_SET_FAILURE)){
+			return ServerMessageContentType.SERVER_RESPONSE_AGENT_SET_FAILURE + " : "+response.getParameters().get(0)[0];
+		}
+		
 		return response.getContent().getServerMessageContentType();
 	}
 	

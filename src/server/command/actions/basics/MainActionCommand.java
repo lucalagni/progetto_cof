@@ -91,7 +91,6 @@ public class MainActionCommand {
 		int index = 0;
 		Village position = null;
 		
-		System.out.println("\n=============================={ Place shop}==========================\n\n");
 		//Verifico che l'utente abbia la carta
 		if(this.gamer.getUnusedPermitCards().size() < permitCardPosition)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_DOES_NOT_HAS_THAT_PERMIT_CARD.getExceptionCode());
 		PermitCard card = this.gamer.getUnusedPermitCards().get(permitCardPosition);
@@ -128,13 +127,11 @@ public class MainActionCommand {
 			}
 		}
 		if(flag == true)throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_SHOP_ALREADY_PLACED_IN_THAT_VILLAGE.getExceptionCode());
-		System.out.println("\n[Place Shop] l'utente non ha un villaggio");
 		//Verifico che l'utente abbia ancora empori a disposizione
 		this.checkNumberOfShops();
 		
 		//Verifico se l'utente e' il primo 
 		if(position.getFirstGamer().equals(GamerConstants.NULL_GAMER) == false){
-			System.out.println("\n[Place Shop] l'utente non è il primo villaggio");
 			//Nel caso non lo sia, pago un aiutante
 			if(this.gamer.getHelpers() < HelpersPoolConstants.HELPERS_FOR_SHOP){
 				if(this.virtualHelpers < HelpersPoolConstants.HELPERS_FOR_SHOP) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
@@ -143,32 +140,25 @@ public class MainActionCommand {
 			}
 			this.gamer.subHelpers(HelpersPoolConstants.HELPERS_FOR_SHOP);
 			this.match.getBoard().getHelpersPool().addHelpers(HelpersPoolConstants.HELPERS_FOR_SHOP);
-			System.out.println("\n[Place Shop] gli tolgo gli aiutanti");
 		}
-		else System.out.println("\n[Place Shop] l'utente è il primo");
 		
 		//Piazzo l'emporio
 		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
 			if(this.match.getBoard().getGameMap().getVillages()[i].equals(position)){
 				this.match.getBoard().getGameMap().getVillages()[i].addShop(this.gamer.getUsername());
-				System.out.println("\n[Place Shop] Ho piazzato l'emporio in: " + this.match.getBoard().getGameMap().getVillages()[i].getName());
 				break;
 			}
 		}
 		this.gamer.subShop();
-		System.out.println("\n[Place Shop] riduco il numero di negozi dell'utente");
 		//Gestisco i derivanti bonus
 		this.manageBonusChain(position);
-		System.out.println("\n[Place Shop] Ho gestito il bonus");
 		//Tolgo la carta dalle carte permesso inutilizzate e la metto insieme alle carte permesso usate
 		this.gamer.usePermitCard(card);
-		System.out.println("\n[Place Shop] Ho tolto la carta permesso al giocatore");
 		//Verifico se la partita deve finire
 		this.checkNumberOfShops();
 		
 		//Riduco il numero di azioni principali eseguibili dal giocatore
 		this.actionSynoptic.useMainAction();
-		System.out.println("\n[Place Shop] Ho ridotto il suo numero di azioni");
 		
 	}
 	
@@ -191,44 +181,33 @@ public class MainActionCommand {
 		boolean flag = false ;
 		int position = 0;
 		
-		System.out.println("\n=============================={ Manage Bonus Chain }===============================\n\n");
 		//Cerco la posizione del villaggio nell'array
 		position = this.match.getBoard().getGameMap().getVillagePosition(v);
-		System.out.println("\n[ManageBonusChain] Ho tolto la carta permesso al giocatore");
 		
 		//prendo il bonus del villaggio
-		System.out.println("\n[ManageBonusChain] vado a gestire il bonus di v " + v.getBonus().toString());
 		this.manageBonus(v.getBonus());
 		connected.add(position);
-		System.out.println("\n[ManageBonusChain] Segno il villaggio" + position + " come gia visitato ");
 		
 		//Verifico la connessione del villaggio con quelli a lui direttamente connessi
 		for(int i = 0; i < connections[position].length; i++){
-			System.out.println("\n[ManageBonusChain] ciclo agi connessione per vedere se sono attaccato a più villaggi");
 			if(connections[position][i] == GameMapConstants.CONNECTED){
-				System.out.println("\n[ManageBonusChain] il villaggio: " + v.getName() + " è connesso con " + villages[i].getName());
 				for(String s: villages[i].getShops()){
 					if(s.equals(this.gamer.getUsername())){
-						System.out.println("\n[Manage Bonus Chain] l'utente è connesso anche con questo villaggio, ne gestisco il bonus ");
 						connected.add(i);
-						System.out.println("\n[ManageBonusChain] indico il villaggio " + villages[i].getName() + " come già visitato");
 						this.manageBonus(villages[i].getBonus());
 						break;
 					}
 				}
 			}
 		}
-		System.out.println("\n[ManageBonusChain] Verifico le connessioni a livelli superiori");
 		//Verifico le connessioni a livelli superiori
 		for(int i = 0; i < connections.length; i++){
 			for(int j = 0; j < connections[i].length; j++){
 				if(connections[i][j] == GameMapConstants.CONNECTED){
-					System.out.println("\n[ManageBonusChain] il villaggio " + villages[i].getName() + " è connesso con " + villages[j].getName());
 					flag = false;
 					//Controllo che il villaggio non sia già stato visitato in altri cicli
 					for(Integer index : connected){
 						if(index == j){
-							System.out.println("\n[ManageBonusChain] il villaggio  " + villages[j].getName() + " è gia stato visitato già visitato");
 							flag = true ;
 							break;
 						}
@@ -236,16 +215,13 @@ public class MainActionCommand {
 					
 					//c'è una connessione e il negozio non è ancora stato visitato
 					if(flag == false){
-						System.out.println("\n[ManageBonusChain] verifico se il  villaggio  " + villages[j].getName() + " è connesso ");
 						for(int k = 0; k < villages[j].getShops().length; k++)
 						{
 							if(villages[j].getShops()[k].equals(this.gamer.getUsername()))
 							{
-								System.out.println("\nIl giocatore ha un villaggio in " + villages[j].getName());
 								for(Integer index2 : connected)
 								{
 									if(connections[index2][j] == GameMapConstants.CONNECTED){
-										System.out.println("\n[ManageBonusChain] il villaggio  " + villages[j].getName() + " non è gia stato visitato già visitato");
 										connected.add(j);
 										this.manageBonus(villages[j].getBonus());
 										break;
@@ -281,16 +257,13 @@ public class MainActionCommand {
 	 * @throws NobiltyPathException
 	 */
 	private void manageBonus(Bonus bonus) throws GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
-		System.out.println("\n======================================{Manage Bonus }===============================\n\n");
 		//aggiungo le monete del bonus al giocatore
 		this.gamer.addCoins(bonus.getCoins());
-		System.out.println("\n[ManageBonus] aggiungo monete al giocatore " + bonus.toString());
 		/*
 		 * Aggiungo aiutanti al giocatore e, qualora non ve ne siano a sufficienza, incremento il numero 
 		 * di aiutanti virtuali
 		 */
 		if(bonus.getHelpers() > 0){
-			System.out.println("\n[ManageBonus] verifico la disponibilità di aiutanti " + bonus.getHelpers());
 			if(this.match.getBoard().getHelpersPool().getActualGamerHelpers() < bonus.getHelpers()){
 				this.virtualHelpers += (bonus.getHelpers() - this.match.getBoard().getHelpersPool().getActualTotal());
 				this.gamer.addHelpers(this.match.getBoard().getHelpersPool().getActualGamerHelpers());
@@ -305,7 +278,6 @@ public class MainActionCommand {
 		
 		//aggiungo punti al giocatore qualora il bonus li contempli
 		this.gamer.addPoints(bonus.getPoints());
-		System.out.println("\n[ManageBonus] aggiungo punti al giocatore " + bonus.getPoints());
 		/*
 		 * Gestisco l'acquisizione di carte politiche da parte del giocatore,
 		 * qualora non ve ne siano a sufficienza metto il giocatore in coda
@@ -316,7 +288,6 @@ public class MainActionCommand {
 			}
 			else {
 				for(int i = 0; i < bonus.getPoliticalCards(); i++) this.gamer.addPoliticalCard(this.match.getBoard().getPoliticalCardsDeck().pickupCard());
-				System.out.println("\n[ManageBonus] Ho aggiunto carte politiche al giocatore " + bonus.getPoliticalCards());
 			}
 		}
 		
@@ -324,7 +295,6 @@ public class MainActionCommand {
 		for(int i = 0;i < bonus.getShifts(); i++){
 			if((i + this.gamer.getShifts()) < this.match.getBoard().getNobiltyPath().getBonus().length){
 				if(this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()) != null){
-					System.out.println("\n[ManageBonus] gestisco i bonus shift al giocatore " + bonus.getShifts() + " " + this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()).toString());
 					this.manageBonus(this.match.getBoard().getNobiltyPath().getSingleBonus(i + this.gamer.getShifts()));
 				}
 			}
@@ -433,7 +403,6 @@ public class MainActionCommand {
 			}
 		}
 		else this.virtualCoins = this.virtualCoins - coins;
-		for(int i = 0; i < politicalCardsPosition.length; i++)System.out.println(politicalCardsPosition[i]);
 		//Tolgo le carte usate dal giocatore
 		PoliticalCard pc = null;
 		PoliticalCard pc2[] = new PoliticalCard[politicalCardsPosition.length];
@@ -579,10 +548,6 @@ public class MainActionCommand {
 				//Verifico la disponibilita' di aiutanti
 				if(v.getShops()[0] != VillageConstants.NULL_GAMER) if(this.virtualHelpers < 1) if(this.gamer.getHelpers() < 1) throw new MainActionCommandException(MainActionCommandExceptionCode.TOO_FEAW_HELPERS_AVAILABLES.getExceptionCode());
 				
-				System.out.println("gamer coins: " + this.gamer.getCoins());
-				System.out.println("coins:" + coins);
-				System.out.println("virtual coins: " + virtualCoins );
-				
 				//verifico la disponibilità di monete del giocatore
 				if(this.virtualCoins < coins){
 					if((this.gamer.getCoins() - (coins - this.virtualCoins)) < 0) throw new MainActionCommandException(MainActionCommandExceptionCode.GAMER_HAS_TOO_FEAW_COINS.getExceptionCode());
@@ -660,10 +625,6 @@ public class MainActionCommand {
 		for(Color c: ColorConstants.POLITICAL_COLORS) if(c.equals(noble)) flag = true;
 		if(flag == false) throw new MainActionCommandException(MainActionCommandExceptionCode.INVALID_NOBLE_COLOR.getExceptionCode());
 		
-		System.out.println("Gamer coins: "+ this.gamer.getCoins());
-		System.out.println("\nVirtual Coins: " + this.getVirtualCoins());
-		System.out.println("\nReward: " + CouncilConstants.REWARD_COINS);
-		System.out.println("\nMax number of coins: " + CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER);
 		//Gestisco la ricompensa da fornire al giocatore per il cambio del nobile
 		if(this.gamer.getCoins() + CouncilConstants.REWARD_COINS > CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER){
 				this.virtualCoins = this.gamer.getCoins() + CouncilConstants.REWARD_COINS - CoinsPoolConstants.MAX_NUMBER_OF_COINS_FOR_GAMER;

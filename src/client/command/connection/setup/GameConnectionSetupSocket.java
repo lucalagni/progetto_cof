@@ -23,14 +23,14 @@ public class GameConnectionSetupSocket {
 	}
 	
 	//Metodo che invia al server la richiesta di connessione ad un match
-	public ServerMessage clientRequireAddMe(){
+	public String clientRequireAddMe(){
 		ClientMessage cm = new ClientMessage(this.data);
 		ServerMessage sm = null;
 		
 		cm.addContent(ClientMessageContentType.CLIENT_REQUEST_ADD_ME, null);
 		sm = this.client.sendMessage(cm);
 		
-		return sm;
+		return sm.getContent().getServerMessageContentType();
 	}
 	
 	public String clientRequestToGoOffline(){

@@ -6,7 +6,7 @@ import client.command.actions.market.exceptions.MarketActionFacadeException;
 
 /**
  * Classe controller per le azioni del market
- * @author lucal
+ * @author Luca Lagni
  *
  */
 public class MarketActionController {
@@ -16,35 +16,45 @@ public class MarketActionController {
 	private MarketActionController(){
 	}
 	
+	/**
+	 * metodo di controllo per la compravendita di aiutanti
+	 * @param seller
+	 * @param helperIndex
+	 * @return
+	 */
 	public String buyHelpersItem(int seller,int helperIndex){
 		try {
 			MarketActionFacade maf = new MarketActionFacade();
-			maf.buyHelpersItem(seller, helperIndex);
-			return OK_MESSAGE ;
-		} catch (ActionFacadeException | MarketActionFacadeException e) {
-			e.printStackTrace();
-			return e.getMessage();
-		}
+			return maf.buyHelpersItem(seller, helperIndex);
+		} catch (ActionFacadeException | MarketActionFacadeException e) { return e.getMessage(); }
 	}
 	
+	/**
+	 * metodo di controllo per la compravendita di oggetti di tipo carte permesso
+	 * @param seller
+	 * @param permitCardIndex
+	 * @return
+	 */
 	public String buyPermitCardItem(int seller,int permitCardIndex){
 		try {
 			MarketActionFacade maf = new MarketActionFacade();
-			maf.buyPermitCardItem(seller, permitCardIndex);
-			return OK_MESSAGE ;
+			return maf.buyPermitCardItem(seller, permitCardIndex);
 		} catch (ActionFacadeException | MarketActionFacadeException e) {
-			e.printStackTrace();
 			return e.getMessage();
 		}
 	}
 	
+	/**
+	 * metodo di controllo per la compravendita di oggetti di tipo carte politica
+	 * @param seller
+	 * @param permitCardIndex
+	 * @return
+	 */
 	public String buyPoliticalCardItem(int seller,int politicalCardIndex){
 		try {
 			MarketActionFacade maf = new MarketActionFacade();
-			maf.buyPoliticalCardItem(seller, politicalCardIndex);
-			return OK_MESSAGE ;
+			return maf.buyPoliticalCardItem(seller, politicalCardIndex);
 		} catch (ActionFacadeException | MarketActionFacadeException e) {
-			e.printStackTrace();
 			return e.getMessage();
 		}
 	}

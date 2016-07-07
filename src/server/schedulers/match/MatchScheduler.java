@@ -90,22 +90,12 @@ public class MatchScheduler {
 					if(getMatch().getLastTurnStarted() == true){
 						MatchRepository.getInstance().updateMatch(getMatch());
 						this.stopMatchScheduler(MatchStatus.TERMINATED);
+						
 					}
 				}
 			}
 			
-			//if(this.checkGamerStatus() == true) this.nextTurn();
-			//this.endMatch();
-			//this.resetMatchAgents();
-			
 			System.out.println("\n[MatchScheduler] MATCH_CODE: " + getMatchCode() + " GAMER: " + getMatch().getActualGamer());
-		}
-		
-		/**
-		 * Metodo che attua la fine del match per fine partita
-		 */
-		private void endMatch(){
-			
 		}
 		
 		/**

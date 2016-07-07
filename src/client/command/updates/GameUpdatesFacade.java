@@ -27,6 +27,8 @@ public class GameUpdatesFacade {
 		case SOCKET:
 			gamer = new GameUpdatesSocket().getGamerTurn();
 			break;
+		case RMI:
+			gamer = new GameUpdatesRmi().getGamerTurn();
 		default:
 			break;
 		}

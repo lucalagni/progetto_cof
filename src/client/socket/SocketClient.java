@@ -43,7 +43,10 @@ public class SocketClient {
 		try {
 			this.output.writeObject(cm);
 			sm = (ServerMessage)this.input.readObject();
-		} catch (IOException | ClassNotFoundException e) { e.printStackTrace(); }
+		} catch (IOException | ClassNotFoundException e) { 
+			System.out.println("\n[SocketClient] Send Message Failure");
+			System.out.println("error: " + e.getMessage());
+		}
 		
 		return sm;
 	}
@@ -62,7 +65,10 @@ public class SocketClient {
 			this.input = new ObjectInputStream(is);
 			
 			
-		} catch (IOException e) { e.printStackTrace(); }
+		} catch (IOException e) { 
+			System.out.println("\n[SocketClient] Connection Establishment Failure");
+			System.out.println("error: " + e.getMessage());
+		}
 	}
 	
 	/**
@@ -73,7 +79,10 @@ public class SocketClient {
 			if(this.client != null) this.client.close();
 			if(this.input != null) this.input.close();
 			if(this.output != null) this.output.close();
-		}catch(Exception ex){ ex.printStackTrace(); }
+		}catch(Exception ex){ 
+			System.out.println("\n[SocketClient] Client Forced Close failure");
+			System.out.println("error: " + ex.getMessage());
+		}
 	}
 	
 	public String getServerIp(){ return this.serverIp ; }

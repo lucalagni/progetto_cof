@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import server.managers.socket.client.ClientHandlerThread;
 import server.managers.socket.messages.ServerMessageHandler;
 
+/**
+ * Classe per la gestione del server che gestisce le richieste dei
+ * client
+ * @author lucal
+ *
+ */
 public class SocketMultiserver implements Runnable {
     private int port ;
     private ServerSocket server ;
@@ -23,7 +29,7 @@ public class SocketMultiserver implements Runnable {
             this.server = new ServerSocket(port);
             
             while(true){
-            	System.out.println("[SocketMultiserver] accept ... ");
+            	System.out.println("\n[SocketMultiserver] ACCEPT NEW REQUEST ...  ");
                 Socket newClient = this.server.accept();
                 
                 ClientHandlerThread cht = new ClientHandlerThread(newClient);

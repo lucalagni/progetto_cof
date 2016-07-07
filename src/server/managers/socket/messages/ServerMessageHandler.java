@@ -32,8 +32,9 @@ public class ServerMessageHandler {
 			   response = this.clientRequestToBeAddedToAMatch(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_CAN_I_PLAY:
-			   System.out.println("\nusername: " + msg.getUserData().getUsername() + " request to play at " + System.currentTimeMillis());
+			   System.out.println("\n[CLIENT_REQUEST_CAN_I_PLAY] username: " + msg.getUserData().getUsername() + " request to play at " + System.currentTimeMillis());
 			   response = this.clientRequestCanIPlay(msg.getUserData());
+			   System.out.println("\n[SERVER_RESPONSE_TO_CAN_I_PLAY] of username: " + response.getContent() + " to request to play at " + System.currentTimeMillis());
 			   break;
 		   case CLIENT_REQUEST_MATCH:
 			   response = this.clientRequestMatch(msg.getUserData());
@@ -42,9 +43,9 @@ public class ServerMessageHandler {
 			   response = clientRequestGoOffline(msg.getUserData());
 			   break;
 		   case CLIENT_REQUEST_GAMER_TURN:
-			   System.out.println("\nCLIENT username: " + msg.getUserData().getUsername() + " request gamer turn at " + System.currentTimeMillis());
+			   System.out.println("\n[CLIENT_REQUEST_GAMER_TURN] username: " + msg.getUserData().getUsername() + " request gamer turn at " + System.currentTimeMillis());
 			   response = this.clientRequestGamerTurn(msg.getUserData());
-			   System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " response gamer turn at " + System.currentTimeMillis());
+			   System.out.println("\n[SERVER_RESPONSE_TO_GAMER_TURN] of username: " + msg.getUserData().getUsername() + " response gamer turn at " + System.currentTimeMillis());
 			   break;
 		   case CLIENT_REQUEST_ACTION_SYNOPTIC:
 			   response = this.clientRequestActionSynoptic(msg.getUserData());
@@ -124,7 +125,6 @@ public class ServerMessageHandler {
 			   break;
 		}
 		
-		System.out.println("\nSERVER username: " + msg.getUserData().getUsername() + " SEND response gamer turn at " + System.currentTimeMillis());
 		return response;
 	}
 	
@@ -280,6 +280,7 @@ public class ServerMessageHandler {
 	 * @param matchCode
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private synchronized ServerMessage clientRequestGamerTurn(UserData data){
 		ServerMessage response = null;
 		Match m = null;
@@ -419,7 +420,7 @@ public class ServerMessageHandler {
 			else {
 				try {
 					data.updateActionSynoptic(new ActionSynoptic(data.getUsername(), data.getMatchCode()));
-				} catch (UserDataException e) { e.printStackTrace(); }
+				} catch (UserDataException e) {  }
 				response = new ServerMessage(data);
 				response.addContent(ServerMessageContentType.SERVER_RESPONSE_MATCH, null);
 			}

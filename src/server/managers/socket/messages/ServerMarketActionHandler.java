@@ -14,7 +14,7 @@ import commons.messages.ServerMessage;
 import commons.messages.ServerMessageContentType;
 
 /**
- * Classe per la gestione dei messaggi di azioni afferenti al market larto server
+ * Classe per la gestione dei messaggi di azioni afferenti al market lato server
  * @author Luca Lagni
  *
  */

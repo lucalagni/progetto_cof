@@ -1,6 +1,7 @@
 package server.managers.socket.messages;
 
-import model.basics.Gamer;
+import java.util.ArrayList;
+
 import server.managers.match.MatchRepository;
 import commons.data.exceptions.UserDataException;
 import commons.messages.ClientMessage;
@@ -21,8 +22,9 @@ public class ServerSetterActionHandler {
 	 * @return
 	 */
 	public ServerMessage updateAgent(ClientMessage msg){
+		ArrayList<String[]> parameters = null;
+		String[] exception = null;
 		ServerMessage response = null;
-		Gamer g = null;
 		
 		//Aggiorno il match nel repository
 		MatchRepository.getInstance().updateMatch(msg.getUserData().getMatch());
@@ -31,8 +33,12 @@ public class ServerSetterActionHandler {
 				try {
 					msg.getUserData().updateGamer(msg.getUserData().getMatch().getGamers().get(i));
 				} catch (UserDataException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					parameters = new ArrayList<String[]>();
+					exception = new String[1];
+					exception[0] = e.getMessage();
+					parameters.add(exception);
+					response = new ServerMessage(msg.getUserData());
+					response.addContent(ServerMessageContentType.SERVER_RESPONSE_INVALID_MESSAGE, parameters);
 				}
 				break;
 			}

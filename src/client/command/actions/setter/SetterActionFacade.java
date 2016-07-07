@@ -35,6 +35,10 @@ public class SetterActionFacade {
 		this.mode = mode; 
 	}
 	
+	/**
+	 * Metodo per il settaggio dell'agent
+	 * @param data
+	 */
 	private void setAgent(UserData data){
 		String username = data.getUsername();
 		
@@ -137,7 +141,7 @@ public class SetterActionFacade {
 	/**
 	 * Metodo per l'invio dei dati dell'agente al server
 	 */
-	public void sendAgent(){
+	public String sendAgent(){
 		String username = data.getUsername();
 		
 		for(int i = 0; i < data.getMatch().getMarket().getAgents().size(); i++){
@@ -148,8 +152,13 @@ public class SetterActionFacade {
 		}
 		
 		if(this.mode == GameMode.SOCKET){
-			new SetterActionSocket().sendAgent(this.data);
+			return new SetterActionSocket().sendAgent(this.data);
 		}
+		if(this.mode == GameMode.RMI){
+			return new SetterActionRmi().sendAgent(this.data);
+		}
+		
+		return new String("INVALID_GAME_MODE");
 	}
 	
 	public UserData getData(){ return this.data; }

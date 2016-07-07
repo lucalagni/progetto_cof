@@ -52,14 +52,12 @@ public class CliSetterPerformAction {
 				try{
 					price = Integer.parseInt(this.input.nextLine());
 					System.out.println("Price: " + price);
-					this.actionController.addPermitCardItem(i, price);
+					System.out.println(this.actionController.addPermitCardItem(i, price));
 				}catch(Exception ex){
 					System.out.println("\nInvalid input data");
 					continue;
 				}
 			}
-			
-			this.showContinue();
 		}
 		
 		this.showContinue();
@@ -83,14 +81,12 @@ public class CliSetterPerformAction {
 				System.out.println("\nInsert a price: ");
 				try{
 					price = Integer.parseInt(this.input.nextLine());
-					this.actionController.addPoliticalCardItem(i, price);
+					System.out.println(this.actionController.addPoliticalCardItem(i, price));
 				}catch(Exception ex){
 					System.out.println("\nInvalid input data");
 					continue;
 				}
 			}
-			
-			this.showContinue();
 		}
 		
 		this.showContinue();
@@ -120,10 +116,8 @@ public class CliSetterPerformAction {
 		System.out.println("\nInsert a price: ");
 		try{
 			price = Integer.parseInt(this.input.nextLine());
-			this.actionController.addHelpersItem(quantity, price);
-			System.out.println("done: ");
+			System.out.println(this.actionController.addHelpersItem(quantity, price));
 		}catch(Exception ex){
-			ex.printStackTrace();
 			System.out.println("\nInvalid input data");
 		}
 		

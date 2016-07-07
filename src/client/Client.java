@@ -1,6 +1,7 @@
 package client;
 
 import commons.messages.*;
+import client.rmi.RmiClient;
 import client.socket.SocketClient;
 import commons.data.GameMode;
 
@@ -16,6 +17,7 @@ public class Client {
 	private static final String SERVER_IP = "127.0.0.1";
 	private static final int PORT = 6789;
 	private SocketClient client;
+	private RmiClient rmiClient;
 	private GameMode gameMode;
 	
 	/**
@@ -31,6 +33,7 @@ public class Client {
 				this.client = new SocketClient(SERVER_IP, PORT);
 				break;
 			case RMI:
+				this.rmiClient = new RmiClient(SERVER_IP, PORT);
 				break;
 		}
 	}
@@ -51,6 +54,8 @@ public class Client {
 	
 	private void setGameMode(GameMode gm){ this.gameMode = gm; }
 	public GameMode getGameMode(){ return this.gameMode; }
+	
+	public RmiClient getRmiClient(){ return this.rmiClient; }
 	
 	@Override
 	public String toString(){

@@ -30,7 +30,7 @@ public class CliShowGameData {
 	public void goOffline(){
 		String text = "\n----------{ Go Offline }----------\n\n ";
 		System.out.println(text);
-		System.out.println("\nAre you sure to go offline? (0=yes, !0 = no): ");
+		System.out.println("\nAre you sure to go offline? (0=yes, !0=no): ");
 		int scelta = 0;
 		
 		try{
@@ -43,6 +43,7 @@ public class CliShowGameData {
 		if(scelta == 0){
 			this.connectionController.clientRequestToGoOffline();
 			System.out.println("\nGamer offline");
+			System.exit(0);
 		}
 		else {
 			System.out.println("\nYou are already online");

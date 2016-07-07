@@ -26,6 +26,12 @@ import model.basics.exceptions.VillageException;
 import model.basics.supports.GamerStatus;
 import model.basics.supports.MatchStatus;
 
+/**
+ * Classe per la generazione dei match all'attacco degli utenti
+ * @author Luca Lagni
+ *
+ */
+
 public class MatchGenerator {
 	private static int actualCode = 1;
 	private static String actualTitle = "match_" + actualCode;
@@ -41,6 +47,13 @@ public class MatchGenerator {
 	public String getMatchCode(){ return ""+actualCode; }
 	public int getGamersNumber(){ return this.gamers.size(); }
 	
+	/**
+	 * Metodo per aggiungere un utente alla coda degli utenti in attesa di 
+	 * giocare
+	 * @param username
+	 * @return
+	 * @throws PoliticalCardsDeckException
+	 */
 	public int addGamer(String username) throws PoliticalCardsDeckException{
 		ArrayList<PoliticalCard> pc = new ArrayList<PoliticalCard>();
 		
@@ -68,9 +81,19 @@ public class MatchGenerator {
 		return this.gamers.size();
 	}
 	
+	/**
+	 * Metodo per aggiornare il codice del match disponibile
+	 */
 	private synchronized void updateActualCode(){ actualCode++;}
 	
-	
+	/**
+	 * Metodo per la creazione di un match dinamicamente
+	 * @return
+	 * @throws PoliticalCardsDeckException
+	 * @throws BuilderException
+	 * @throws GameMapException
+	 * @throws MatchException
+	 */
 	public Match createMatch() throws PoliticalCardsDeckException, BuilderException, GameMapException, MatchException{
 		
 		Match m = new MatchBuilder().setBoard(this.b)
@@ -92,6 +115,12 @@ public class MatchGenerator {
 		return m;
 	}
 	
+	/**
+	 * Metodo con i settaggi iniziali per il gioco con 2 giocatori
+	 * @param match
+	 * @throws VillageException
+	 * @throws GamerException
+	 */
 	private void twoGamersInitialSetup(Match match) throws VillageException, GamerException{
 		char[] c = new char[3];
 		String fakeGamer = GamerConstants.FAKE_GAMER;

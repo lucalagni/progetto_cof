@@ -25,7 +25,6 @@ public class CliRequestCanIPlay {
 	}
 	
 	public int show(){
-//		CliClearConsole.clearConsole(false);
 		ClientRequestCanIPlayScheduler scheduler = new ClientRequestCanIPlayScheduler();
 		Thread t = new Thread(scheduler);
 		t.start();

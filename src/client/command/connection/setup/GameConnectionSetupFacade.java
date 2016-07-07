@@ -2,8 +2,6 @@ package client.command.connection.setup;
 
 import commons.data.GameMode;
 import commons.data.exceptions.UserDataException;
-import commons.messages.ServerMessage;
-import commons.messages.ServerMessageContentType;
 import client.controller.ControllerRepository;
 
 /**
@@ -26,21 +24,18 @@ public class GameConnectionSetupFacade {
 	 * @return
 	 */
 	public String clientRequireAddMe(){
-		ServerMessage response = null;
 		String message = null;
 		
 		switch(this.mode){
 			case SOCKET:
-				response = new GameConnectionSetupSocket().clientRequireAddMe();
-				//Se mi viene restituito il matchcode allora ritorno quello, altrimenti ritorno il messaggio del server
-				if(response.getContent() == ServerMessageContentType.SERVER_RESPONSE_MATCH_CODE) message = response.getMatchCode();
-				else message = response.getContent().getServerMessageContentType();
+				message = new GameConnectionSetupSocket().clientRequireAddMe();	
 				break;
 			default:
+				message = new String("GAME_MODE_NOT_AVAILABLE");
 				break;
 		}
 		
-		return message;
+		return message ;
 		
 	}
 	/**
@@ -55,6 +50,7 @@ public class GameConnectionSetupFacade {
 					response = new GameConnectionSetupSocket().clientRequestToGoOffline();
 				break;
 			default:
+				response = new String("GAME_MODE_NOT_AVAILABLE");
 				break;
 		}
 		
@@ -75,6 +71,7 @@ public class GameConnectionSetupFacade {
 						response = new GameConnectionSetupSocket().clientRequestCanIPlay();
 						break;
 			default:
+				response = new String("GAME_MODE_NOT_AVAILABLE");
 				break;
 		}
 		
@@ -87,7 +84,7 @@ public class GameConnectionSetupFacade {
 	 * @throws UserDataException
 	 */
 	public int clientRequestGamerTurn() throws UserDataException{
-		int gamerTurn = 0;
+		int gamerTurn = -1;
 		
 		switch(this.mode){
 			case SOCKET:

@@ -27,8 +27,7 @@ public class ActionController {
 	public String moveKing(ArrayList<String> path,ArrayList<Integer> politicalCardsPosition) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.moveKing(path, politicalCardsPosition);
-			return OK_MESSAGE ;
+			return af.moveKing(path, politicalCardsPosition);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -45,8 +44,7 @@ public class ActionController {
 	public String changeNoble(boolean king,int regionNumber,Color noble, boolean mainAction) {
 			try {
 				ActionFacade af = new ActionFacade();
-				af.changeNoble(king, regionNumber, noble, mainAction);
-				return OK_MESSAGE;
+				return af.changeNoble(king, regionNumber, noble, mainAction);
 			} catch (ActionFacadeException | MainActionCommandException e) {
 				return e.getMessage().toString();
 			}
@@ -63,8 +61,7 @@ public class ActionController {
 	public String buyPermitCard(int regionNumber,int permitCardNumber,int[] politicalCardsIndex) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.buyPermitCard(regionNumber, permitCardNumber, politicalCardsIndex);
-			return OK_MESSAGE;
+			return af.buyPermitCard(regionNumber, permitCardNumber, politicalCardsIndex);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -79,8 +76,7 @@ public class ActionController {
 	public String placeShop(char village,int permitCardIndex){
 		try {
 			ActionFacade af = new ActionFacade();
-			af.placeShop(village, permitCardIndex);
-			return OK_MESSAGE;
+			return af.placeShop(village, permitCardIndex);
 		} catch (ActionFacadeException | MainActionCommandException e) { return e.toString(); }
 	} 
 	
@@ -92,8 +88,7 @@ public class ActionController {
 	public String buyHelper(boolean queque) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.buyHelper(queque);
-			return OK_MESSAGE;
+			return af.buyHelper(queque);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -106,8 +101,7 @@ public class ActionController {
 	public String buyNewMainAction() {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.buyNewMainAction();
-			return OK_MESSAGE;
+			return af.buyNewMainAction();
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -122,8 +116,7 @@ public class ActionController {
 	public String doubleAction(int regionNumber) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.doubleAction(regionNumber);
-			return OK_MESSAGE;
+			return af.doubleAction(regionNumber);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -137,8 +130,7 @@ public class ActionController {
 	public String acquirePermitCard(int regionNumber,int permitCardIndex) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.acquirePermitCard(regionNumber, permitCardIndex);
-			return OK_MESSAGE;
+			return af.acquirePermitCard(regionNumber, permitCardIndex);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -152,8 +144,7 @@ public class ActionController {
 	public String acquireSingleVillageBonus(char villageFirstLetter){
 		try {
 			ActionFacade af = new ActionFacade();
-			af.acquireSingleVillageBonus(villageFirstLetter);
-			return OK_MESSAGE;
+			return af.acquireSingleVillageBonus(villageFirstLetter);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -167,8 +158,7 @@ public class ActionController {
 	public String acquireDoubleVillageBonus(char firstVillageFirstLetter, char secondVillageFirstLetter) {
 		try {
 			ActionFacade af = new ActionFacade();
-			af.acquireDoubleVillageBonus(firstVillageFirstLetter, secondVillageFirstLetter);
-			return OK_MESSAGE;
+			return af.acquireDoubleVillageBonus(firstVillageFirstLetter, secondVillageFirstLetter);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}
@@ -182,8 +172,7 @@ public class ActionController {
 	public String reusePermitCardBonus(int permitCardIndex,boolean usedPermitCard){
 		try {
 			ActionFacade af = new ActionFacade();
-			af.reusePermitCardBonus(permitCardIndex, usedPermitCard);
-			return OK_MESSAGE;
+			return af.reusePermitCardBonus(permitCardIndex, usedPermitCard);
 		} catch (ActionFacadeException e) {
 			return e.getMessage().toString();
 		}

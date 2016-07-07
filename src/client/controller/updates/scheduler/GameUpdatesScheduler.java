@@ -89,12 +89,14 @@ public class GameUpdatesScheduler extends Thread{
 			 int gamerTurn = dataController.getUserData().getMatch().getActualGamer();
 			 
 			 if(myGamerID == gamerTurn){
+				 System.out.println("\nIT'S MY TURN TO PLAY");
 				 setItsMyTurnToPlay(true);
 				 this.cmm.setGamerTurn(true);
 				 this.cmm.setMatchPhase(phase);
 			 }
 			 else{
 				 dataController.getUserData().getActionSynoptic().setupActionSynoptic();
+				 System.out.println("\nIT'S NOT MY TURN TO PLAY");
 				 setItsMyTurnToPlay(false);
 				 this.cmm.setGamerTurn(false);
 				 this.cmm.setMatchPhase(phase);

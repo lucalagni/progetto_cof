@@ -36,13 +36,16 @@ public class ClientHandlerThread extends Thread{
         index++;
         localIndex = index;
         
-       // System.out.println("[ClientHandlerThread] "+client.getInetAddress()+":"+client.getPort());
     }
     
     public void setHandler(ServerMessageHandler handler){
     	this.handler = handler;
     }
     
+    /**
+     * Metodo che gestisce la comunicazione tra client e server mediente lo scambio di messaggi
+     * @throws IOException
+     */
     public void communication() throws IOException{
         this.input = new ObjectInputStream(this.client.getInputStream());
         this.output = new ObjectOutputStream(this.client.getOutputStream());
@@ -69,7 +72,9 @@ public class ClientHandlerThread extends Thread{
 		this.input.close();
     }
    
-    
+    /**
+     * Metodo per forzare la chiusura del socket
+     */
     public void forceClose(){
         try {
 			this.client.close();

@@ -28,12 +28,12 @@ public class ActionSynoptic implements Serializable{
 	public ActionSynoptic(String username,String matchCode){
 		this.setUsername(username);
 		this.setMatchCode(matchCode);
-		this.setMainActionNumber(10);
-		this.setHelpersActionNumber(10);
-		this.setReusePermitCardBonusNumber(10);
-		this.setAcquirePermitCardNumber(10);
-		this.setAcquireSingleVillageBonusNumber(10);
-		this.setAcquireDoubleVillageBonusNumber(10);
+		this.setMainActionNumber(ActionSynopticConstants.INITIAL_MAIN_ACTIONS);
+		this.setHelpersActionNumber(ActionSynopticConstants.INITIAL_HELPERS_ACTIONS);
+		this.setReusePermitCardBonusNumber(0);
+		this.setAcquirePermitCardNumber(0);
+		this.setAcquireSingleVillageBonusNumber(0);
+		this.setAcquireDoubleVillageBonusNumber(0);
 		this.setVirtualHelpers(0);
 		this.setVirtualCoins(0);
 		
