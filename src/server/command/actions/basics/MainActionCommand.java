@@ -162,6 +162,189 @@ public class MainActionCommand {
 		
 	}
 	
+	/**
+	 * Metodo per verificare se l'utente puo' acquisire bonus colore
+	 * @throws NobiltyPathException 
+	 * @throws PoliticalCardsDeckException 
+	 * @throws HelpersPoolException 
+	 * @throws GamerException 
+	 */
+	private void checkColorBonus() throws GamerException, HelpersPoolException, PoliticalCardsDeckException, NobiltyPathException{
+		Village[] redVillages = new Village[VillageConstants.RED_VILLAGES.length];
+		boolean redFlags[] = new boolean[VillageConstants.RED_VILLAGES.length];
+		Village[] yellowVillages = new Village[VillageConstants.YELLOW_VILLAGES.length];
+		boolean yellowFlags[] = new boolean[VillageConstants.YELLOW_VILLAGES.length];
+		Village[] blueVillages = new Village[VillageConstants.BLUE_VILLAGES.length];
+		boolean blueFlags[] = new boolean[VillageConstants.BLUE_VILLAGES.length];
+		Village[] grayVillages = new Village[VillageConstants.GRAY_VILLAGES.length];
+		boolean grayFlags[] = new boolean[VillageConstants.GRAY_VILLAGES.length];
+		
+		for(int i = 0; i < redFlags.length; i++) redFlags[i] = false ;
+		for(int i = 0; i < yellowFlags.length; i++) yellowFlags[i] = false ;
+		for(int i = 0; i < blueFlags.length; i++) blueFlags[i] = false ;
+		for(int i = 0; i < grayFlags.length; i++) grayFlags[i] = false ;
+
+		int index = 0;
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			for(int j = 0; j < VillageConstants.RED_VILLAGES.length; j++){
+				if(this.match.getBoard().getGameMap().getVillages()[i].getName().equals(VillageConstants.RED_VILLAGES[j])){
+					redVillages[index] = this.match.getBoard().getGameMap().getVillages()[i];
+					index++;
+				}
+			}
+		}
+		
+		index = 0;
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			for(int j = 0; j < VillageConstants.YELLOW_VILLAGES.length; j++){
+				if(this.match.getBoard().getGameMap().getVillages()[i].getName().equals(VillageConstants.YELLOW_VILLAGES[j])){
+					yellowVillages[index] = this.match.getBoard().getGameMap().getVillages()[i];
+					index++;
+				}
+			}
+		}
+		
+		index = 0;
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			for(int j = 0; j < VillageConstants.BLUE_VILLAGES.length; j++){
+				if(this.match.getBoard().getGameMap().getVillages()[i].getName().equals(VillageConstants.BLUE_VILLAGES[j])){
+					blueVillages[index] = this.match.getBoard().getGameMap().getVillages()[i];
+					index++;
+				}
+			}
+		}
+		
+		index = 0;
+		for(int i = 0; i < this.match.getBoard().getGameMap().getVillages().length; i++){
+			for(int j = 0; j < VillageConstants.GRAY_VILLAGES.length; j++){
+				if(this.match.getBoard().getGameMap().getVillages()[i].getName().equals(VillageConstants.GRAY_VILLAGES[j])){
+					grayVillages[index] = this.match.getBoard().getGameMap().getVillages()[i];
+					index++;
+				}
+			}
+		}
+		
+		for(int i = 0; i < grayVillages.length; i++){
+			for(int j = 0; j < grayVillages[i].getShops().length; j++){
+				if(grayVillages[i].getShops()[j].equals(this.gamer.getUsername()) == true) {
+					grayFlags[i] = true;
+					break;
+				}
+			}
+		}
+		
+		for(int i = 0; i < yellowVillages.length; i++){
+			for(int j = 0; j < yellowVillages[i].getShops().length; j++){
+				if(yellowVillages[i].getShops()[j].equals(this.gamer.getUsername()) == true) {
+					yellowFlags[i] = true;
+					break;
+				}
+			}
+		}
+		
+		for(int i = 0; i < redVillages.length; i++){
+			for(int j = 0; j < redVillages[i].getShops().length; j++){
+				if(redVillages[i].getShops()[j].equals(this.gamer.getUsername()) == true) {
+					redFlags[i] = true;
+					break;
+				}
+			}
+		}
+		
+		for(int i = 0; i < blueVillages.length; i++){
+			for(int j = 0; j < blueVillages[i].getShops().length; j++){
+				if(blueVillages[i].getShops()[j].equals(this.gamer.getUsername()) == true) {
+					blueFlags[i] = true;
+					break;
+				}
+			}
+		}
+		
+		boolean flag = true;
+		for(int i = 0; i < blueVillages.length; i++){
+			if(blueFlags[i] == false){
+				flag = false;
+				break;
+			}
+		}
+		
+		if(flag == true){
+			if(this.match.getBoard().getGameMap().getColorsBonus()[0].getAvailable() == true){
+				this.manageBonus(this.match.getBoard().getGameMap().getColorsBonus()[0]);
+				Bonus.useBonus(this.match.getBoard().getGameMap().getColorsBonus()[0]);
+				for(int i = 0; i < this.match.getBoard().getKing().getBonus().length; i++){
+					if(this.match.getBoard().getKing().getBonus()[i].getAvailable() == true){
+						this.manageBonus(this.match.getBoard().getKing().getBonus()[i]);
+						Bonus.useBonus(this.match.getBoard().getKing().getBonus()[i]);
+					}
+				}
+			}
+		}
+		
+	    flag = true;
+		for(int i = 0; i < yellowVillages.length; i++){
+			if(yellowFlags[i] == false){
+				flag = false;
+				break;
+			}
+		}
+		
+		if(flag == true){
+			if(this.match.getBoard().getGameMap().getColorsBonus()[1].getAvailable() == true){
+				this.manageBonus(this.match.getBoard().getGameMap().getColorsBonus()[1]);
+				Bonus.useBonus(this.match.getBoard().getGameMap().getColorsBonus()[1]);
+				for(int i = 0; i < this.match.getBoard().getKing().getBonus().length; i++){
+					if(this.match.getBoard().getKing().getBonus()[i].getAvailable() == true){
+						this.manageBonus(this.match.getBoard().getKing().getBonus()[i]);
+						Bonus.useBonus(this.match.getBoard().getKing().getBonus()[i]);
+					}
+				}
+			}
+		}
+		
+		flag = true;
+		for(int i = 0; i < redVillages.length; i++){
+			if(redFlags[i] == false){
+				flag = false;
+				break;
+			}
+		}
+		
+		if(flag == true){
+			if(this.match.getBoard().getGameMap().getColorsBonus()[2].getAvailable() == true){
+				this.manageBonus(this.match.getBoard().getGameMap().getColorsBonus()[2]);
+				Bonus.useBonus(this.match.getBoard().getGameMap().getColorsBonus()[2]);
+				for(int i = 0; i < this.match.getBoard().getKing().getBonus().length; i++){
+					if(this.match.getBoard().getKing().getBonus()[i].getAvailable() == true){
+						this.manageBonus(this.match.getBoard().getKing().getBonus()[i]);
+						Bonus.useBonus(this.match.getBoard().getKing().getBonus()[i]);
+					}
+				}
+			}
+		}
+		
+		flag = true;
+		for(int i = 0; i < grayVillages.length; i++){
+			if(grayFlags[i] == false){
+				flag = false;
+				break;
+			}
+		}
+		
+		if(flag == true){
+			if(this.match.getBoard().getGameMap().getColorsBonus()[2].getAvailable() == true){
+				this.manageBonus(this.match.getBoard().getGameMap().getColorsBonus()[2]);
+				Bonus.useBonus(this.match.getBoard().getGameMap().getColorsBonus()[2]);
+				for(int i = 0; i < this.match.getBoard().getKing().getBonus().length; i++){
+					if(this.match.getBoard().getKing().getBonus()[i].getAvailable() == true){
+						this.manageBonus(this.match.getBoard().getKing().getBonus()[i]);
+						Bonus.useBonus(this.match.getBoard().getKing().getBonus()[i]);
+					}
+				}
+			}
+		}
+	}
+	
 	
 	
 	/**

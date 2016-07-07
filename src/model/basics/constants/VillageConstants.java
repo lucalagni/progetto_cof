@@ -23,4 +23,9 @@ public final class VillageConstants {
 	public static final String MERKATIM = "Merkatim";
 	public static final String NARIS = "Naris";
 	public static final String OSIUM = "Osium";
+	
+	public static final String BLUE_VILLAGES[] = { ARKON, LYRAM };
+	public static final String YELLOW_VILLAGES[] = { BURGEN, FRAMEK, HELLAR, KULTOS, OSIUM};
+	public static final String GRAY_VILLAGES[] = { DORFUL, CASTRUM, GRADEN , MERKATIM};
+	public static final String RED_VILLAGES[] = { ESTI, INDUR, NARIS};
 }
